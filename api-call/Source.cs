@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Generator Version 2.4
+/// Generator Version 2.5
 ///////////////////////////////////////////////////////////////////////
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -18,7 +18,7 @@ using Natec.Workflow.Common;
 using Natec.Workflow.Extensions;
 using Oracle.ManagedDataAccess.Client;
 using System.Threading.Tasks;
-namespace Natec.Workflow
+namespace Natec.Workflow.Definition_272_59
 {
 #region [Used Types]
 #line 1 "Definition of type WorkflowParameters"
@@ -65,7 +65,7 @@ public sealed class email : ICloneable
 #line default
 #endregion
 [Description("Workflow Class")]
-public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWorkflowControl, IWorkflowState
+public sealed class WorkflowProcess : BaseWorkflowProcess, IWorkflow, IWorkflowControl, IWorkflowState
 {
     
     // 
@@ -110,18 +110,26 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 	public void Init(object workflowInitData)
 	{
 	    _checkBaseValid();
+
 	  if(workflowInitData is email)
 	        Input = workflowInitData as email;
 	    else
 	    if(workflowInitData is string)
-	        Input = JsonConvert.DeserializeObject<email>((string)workflowInitData);
+	    {
+	            Input = JsonConvert.DeserializeObject<email>((string)workflowInitData, new JsonSerializerSettings());
+	    }
+	    _tokenManager.AllTokens.First().LastResult = new WorkflowPassingNodeResultDictionary()
+	    {
+	        {Services.WorkflowNameService.__zero_point_entry__ , null }
+	    };
 /*
-	    Parameters = new WorkflowParameters();
-	    Global = new ExpandoObject();
-	    _status = WorkflowStatus.Suspended;
-	    _tokenManager = new WorkflowTokenManager(this);
-	    _tokenManager.AddToken(_transitions.FirstTransition().GenerateToken());
-	    _nodeStates = new Dictionary<string, object>();
+	    if (Input != null)
+	    {
+	        _tokenManager.AllTokens.First().LastResult = new WorkflowPassingNodeResultDictionary()
+	        {
+	            {Services.WorkflowNameService.__zero_point_entry__ , null }
+	        };
+	    }
 */
 	}
 	public void SetState(IWorkflowPersistenceState workflowState)
@@ -191,15 +199,61 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 			        Invoke = (ct, Transition, o, ctx) =>
 			        {
 			            var CT = ct;
-#line 1 "Arguments assigment block for task node 'Activity_Get_msisdns/retrive the Data by http'"
-						System.Uri Uri=new Uri($"https://anyapi.io/api/v1/email?email={Input.address}&apiKey=eopl60isvuor0um4nppvgoqj1d1tcpdko7a89sr6uak80ap1jme083");
-						Dictionary<string,string> Headers=(Dictionary<string,string>)new Dictionary<string,string>(){
-							{$"Content-Type", $"application/vnd.api+json"},
-							{$"global_unique_id", $"6a297fcb-956e-4228-8c11-017e9bacd629"},
-							};
-						System.String Login=$"";
-						System.String Password=$"";
-						System.String Encoding=$"utf-8";
+#line 1 "Argument assignment for argument 'Uri' for task node 'Activity_Get_msisdns/retrive the Data by http'"
+						System.Uri Uri=default(System.Uri);
+						try
+						{
+							Uri=new Uri($"https://anyapi.io/api/v1/email?email={Input.address}&apiKey=eopl60isvuor0um4nppvgoqj1d1tcpdko7a89sr6uak80ap1jme083");
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Uri' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Headers' for task node 'Activity_Get_msisdns/retrive the Data by http'"
+						Dictionary<string,string> Headers=default(Dictionary<string,string>);
+						try
+						{
+							Headers=(Dictionary<string,string>)JsonConvert.DeserializeObject<Dictionary<string,string>>($"{{\r\n  \"Content-Type\": \"application/vnd.api+json\",\r\n  \"global_unique_id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n}}");
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Headers' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Login' for task node 'Activity_Get_msisdns/retrive the Data by http'"
+						System.String Login=default(System.String);
+						try
+						{
+							Login=$"";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Login' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Password' for task node 'Activity_Get_msisdns/retrive the Data by http'"
+						System.String Password=default(System.String);
+						try
+						{
+							Password=$"";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Password' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Encoding' for task node 'Activity_Get_msisdns/retrive the Data by http'"
+						System.String Encoding=default(System.String);
+						try
+						{
+							Encoding=$"utf-8";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Encoding' : {e.Message}");
+						}
+#line default
 						var tracker = this.ServiceProvider.GetService<Diagnostic.IWorkflowTracker>();
 						if (tracker != null)
 						{
@@ -215,7 +269,6 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 						    tracker.FixPassingNode(this, "PassingNode.CallingAction", ctx);
 						}
 
-#line default
 #line 1 "Call action block for task node 'Activity_Get_msisdns/retrive the Data by http'"
 			        try
 			        {
@@ -237,7 +290,7 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 			    var activity = new WorkflowItemExclusiveGateway(this, "Gateway_Check_Api_Result", "to check result");
 				activity.AddTransitionCondition("Event_1wi8qel", (CT, Transition, o) =>
 				{
-				    #line 1 "Expression for transition 'Flow_0o131qa84/retry with waiting 1 sec' for gateway 'Gateway_Check_Api_Result/to check result'"
+				    #line 1 "Expression for transition 'Flow_0o131qa84/retry with waiting 1 sec' from gateway 'Gateway_Check_Api_Result/to check result' to node 'Event_1wi8qel'"
 				    return ((o.Values?.FirstOrDefault()?.Result as Models.HttpResponse).StatusCode != 200) && (Transition.Counter < 1);
 				    #line default
 				});
@@ -255,8 +308,17 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 			        Invoke = (ct, Transition, o, ctx) =>
 			        {
 			            var CT = ct;
-#line 1 "Arguments assigment block for task node 'Activity_Form_Response/create the Result'"
-						Models.HttpResponse HttpInput=WorkflowConverter.Convert<Models.HttpResponse>((o.Values?.FirstOrDefault()?.Result as Models.HttpResponse));
+#line 1 "Argument assignment for argument 'HttpInput' for task node 'Activity_Form_Response/create the Result'"
+						Models.HttpResponse HttpInput=default(Models.HttpResponse);
+						try
+						{
+							HttpInput=WorkflowConverter.Convert<Models.HttpResponse>((o.Values?.FirstOrDefault()?.Result as Models.HttpResponse));
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'HttpInput' : {e.Message}");
+						}
+#line default
 						var tracker = this.ServiceProvider.GetService<Diagnostic.IWorkflowTracker>();
 						if (tracker != null)
 						{
@@ -268,7 +330,6 @@ public sealed class WorkflowProcess_251_50 : BaseWorkflowProcess, IWorkflow, IWo
 						    tracker.FixPassingNode(this, "PassingNode.CallingAction", ctx);
 						}
 
-#line default
 #line 1 "Call action block for task node 'Activity_Form_Response/create the Result'"
 			        try
 			        {
@@ -338,7 +399,7 @@ private static bool IsNullOrEmpty(object o)
 	    Monitor.Exit(_stateLock);
 	}
     
-    public WorkflowProcess_251_50(long instanceId, IServiceProvider serviceProvider, IWorkflow parent)
+    public WorkflowProcess(long instanceId, IServiceProvider serviceProvider, IWorkflow parent)
     {
 #region [Init]
 	ServiceProvider = serviceProvider;
@@ -352,7 +413,7 @@ private static bool IsNullOrEmpty(object o)
 	_status = WorkflowStatus.Suspended;
 	_tokenManager = new WorkflowTokenManager(this);
 	_tokenManager.AddToken(_transitions.FirstTransition().GenerateToken());
-	_nodeStates = new Dictionary<string, object>();
+	_nodeStates = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
 
 #endregion
     }
@@ -520,11 +581,14 @@ private static bool IsNullOrEmpty(object o)
             }
     }
 }
- public static class WorkflowFactory_251_50
+}
+namespace Natec.Workflow
+{
+ public static class WorkflowFactory_272_59
  {
      public static IWorkflowControl CreateWorkflow(IWorkflowController controller)
      {
-         return new WorkflowProcess_251_50(controller.InstanceId, controller.ServiceProvider, null);
+         return new Natec.Workflow.Definition_272_59.WorkflowProcess(controller.InstanceId, controller.ServiceProvider, null);
      }
  }
 }

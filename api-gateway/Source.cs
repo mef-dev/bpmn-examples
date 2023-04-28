@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Generator Version 2.4
+/// Generator Version 2.5
 ///////////////////////////////////////////////////////////////////////
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -18,7 +18,7 @@ using Natec.Workflow.Common;
 using Natec.Workflow.Extensions;
 using Oracle.ManagedDataAccess.Client;
 using System.Threading.Tasks;
-namespace Natec.Workflow
+namespace Natec.Workflow.Definition_311_2
 {
 #region [Used Types]
 #line 1 "Definition of type WorkflowParameters"
@@ -35,7 +35,7 @@ public sealed class WorkflowParameters : BaseWorkflowParameters
 #line default
 #endregion
 [Description("Workflow Class")]
-public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWorkflowControl, IWorkflowState
+public sealed class WorkflowProcess : BaseWorkflowProcess, IWorkflow, IWorkflowControl, IWorkflowState
 {
     
     // 
@@ -80,18 +80,26 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 	public void Init(object workflowInitData)
 	{
 	    _checkBaseValid();
+
 	  if(workflowInitData is Models.HttpRequest)
 	        Input = workflowInitData as Models.HttpRequest;
 	    else
 	    if(workflowInitData is string)
-	        Input = JsonConvert.DeserializeObject<Models.HttpRequest>((string)workflowInitData);
+	    {
+	            Input = JsonConvert.DeserializeObject<Models.HttpRequest>((string)workflowInitData, new JsonSerializerSettings());
+	    }
+	    _tokenManager.AllTokens.First().LastResult = new WorkflowPassingNodeResultDictionary()
+	    {
+	        {Services.WorkflowNameService.__zero_point_entry__ , null }
+	    };
 /*
-	    Parameters = new WorkflowParameters();
-	    Global = new ExpandoObject();
-	    _status = WorkflowStatus.Suspended;
-	    _tokenManager = new WorkflowTokenManager(this);
-	    _tokenManager.AddToken(_transitions.FirstTransition().GenerateToken());
-	    _nodeStates = new Dictionary<string, object>();
+	    if (Input != null)
+	    {
+	        _tokenManager.AllTokens.First().LastResult = new WorkflowPassingNodeResultDictionary()
+	        {
+	            {Services.WorkflowNameService.__zero_point_entry__ , null }
+	        };
+	    }
 */
 	}
 	public void SetState(IWorkflowPersistenceState workflowState)
@@ -159,8 +167,17 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 			        Invoke = (ct, Transition, o, ctx) =>
 			        {
 			            var CT = ct;
-#line 1 "Arguments assigment block for task node 'Activity_0h5bu4y/correct Models'"
-						System.String Test=$"test";
+#line 1 "Argument assignment for argument 'Test' for task node 'Activity_0h5bu4y/correct Models'"
+						System.String Test=default(System.String);
+						try
+						{
+							Test=$"test";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Test' : {e.Message}");
+						}
+#line default
 						var tracker = this.ServiceProvider.GetService<Diagnostic.IWorkflowTracker>();
 						if (tracker != null)
 						{
@@ -172,7 +189,6 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 						    tracker.FixPassingNode(this, "PassingNode.CallingAction", ctx);
 						}
 
-#line default
 #line 1 "Call action block for task node 'Activity_0h5bu4y/correct Models'"
 			        try
 			        {
@@ -199,14 +215,83 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 			        Invoke = (ct, Transition, o, ctx) =>
 			        {
 			            var CT = ct;
-#line 1 "Arguments assigment block for task node 'Activity_05w7xhk/call REST API function'"
-						System.Uri Uri=WorkflowConverter.Convert<System.Uri>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Uri);
-						System.String Method=$"POST";
-						System.String Login=$"api_user";
-						System.String Password=$"Widecoup1";
-						Dictionary<string,string> Headers=WorkflowConverter.Convert<Dictionary<string,string>>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Headers);
-						System.String Body=WorkflowConverter.Convert<System.String>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Content);
-						System.String Encoding=$"utf-8";
+#line 1 "Argument assignment for argument 'Uri' for task node 'Activity_05w7xhk/call REST API function'"
+						System.Uri Uri=default(System.Uri);
+						try
+						{
+							Uri=WorkflowConverter.Convert<System.Uri>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Uri);
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Uri' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Method' for task node 'Activity_05w7xhk/call REST API function'"
+						System.String Method=default(System.String);
+						try
+						{
+							Method=$"POST";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Method' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Login' for task node 'Activity_05w7xhk/call REST API function'"
+						System.String Login=default(System.String);
+						try
+						{
+							Login=$"api_user";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Login' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Password' for task node 'Activity_05w7xhk/call REST API function'"
+						System.String Password=default(System.String);
+						try
+						{
+							Password=$"Widecoup1";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Password' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Headers' for task node 'Activity_05w7xhk/call REST API function'"
+						Dictionary<string,string> Headers=default(Dictionary<string,string>);
+						try
+						{
+							Headers=WorkflowConverter.Convert<Dictionary<string,string>>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Headers);
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Headers' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Body' for task node 'Activity_05w7xhk/call REST API function'"
+						System.String Body=default(System.String);
+						try
+						{
+							Body=WorkflowConverter.Convert<System.String>((o.Values?.FirstOrDefault()?.Result as Models.HttpRequest).Content);
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Body' : {e.Message}");
+						}
+#line default
+#line 1 "Argument assignment for argument 'Encoding' for task node 'Activity_05w7xhk/call REST API function'"
+						System.String Encoding=default(System.String);
+						try
+						{
+							Encoding=$"utf-8";
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Encoding' : {e.Message}");
+						}
+#line default
 						var tracker = this.ServiceProvider.GetService<Diagnostic.IWorkflowTracker>();
 						if (tracker != null)
 						{
@@ -224,7 +309,6 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 						    tracker.FixPassingNode(this, "PassingNode.CallingAction", ctx);
 						}
 
-#line default
 #line 1 "Call action block for task node 'Activity_05w7xhk/call REST API function'"
 			        try
 			        {
@@ -251,8 +335,17 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 			        Invoke = (ct, Transition, o, ctx) =>
 			        {
 			            var CT = ct;
-#line 1 "Arguments assigment block for task node 'Activity_034lr3e/form Response'"
-						Models.HttpResponse Response=WorkflowConverter.Convert<Models.HttpResponse>((o.Values?.FirstOrDefault()?.Result as Models.HttpResponse));
+#line 1 "Argument assignment for argument 'Response' for task node 'Activity_034lr3e/form Response'"
+						Models.HttpResponse Response=default(Models.HttpResponse);
+						try
+						{
+							Response=WorkflowConverter.Convert<Models.HttpResponse>((o.Values?.FirstOrDefault()?.Result as Models.HttpResponse));
+						}
+						catch(Exception e)
+						{
+							throw new WorkflowException($"Error while try to assign argument 'Response' : {e.Message}");
+						}
+#line default
 						var tracker = this.ServiceProvider.GetService<Diagnostic.IWorkflowTracker>();
 						if (tracker != null)
 						{
@@ -264,7 +357,6 @@ public sealed class WorkflowProcess_271_7 : BaseWorkflowProcess, IWorkflow, IWor
 						    tracker.FixPassingNode(this, "PassingNode.CallingAction", ctx);
 						}
 
-#line default
 #line 1 "Call action block for task node 'Activity_034lr3e/form Response'"
 			        try
 			        {
@@ -327,7 +419,7 @@ private static bool IsNullOrEmpty(object o)
 	    Monitor.Exit(_stateLock);
 	}
     
-    public WorkflowProcess_271_7(long instanceId, IServiceProvider serviceProvider, IWorkflow parent)
+    public WorkflowProcess(long instanceId, IServiceProvider serviceProvider, IWorkflow parent)
     {
 #region [Init]
 	ServiceProvider = serviceProvider;
@@ -341,7 +433,7 @@ private static bool IsNullOrEmpty(object o)
 	_status = WorkflowStatus.Suspended;
 	_tokenManager = new WorkflowTokenManager(this);
 	_tokenManager.AddToken(_transitions.FirstTransition().GenerateToken());
-	_nodeStates = new Dictionary<string, object>();
+	_nodeStates = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
 
 #endregion
     }
@@ -507,11 +599,14 @@ using (HttpClient client = new HttpClient())
             }
     }
 }
- public static class WorkflowFactory_271_7
+}
+namespace Natec.Workflow
+{
+ public static class WorkflowFactory_311_2
  {
      public static IWorkflowControl CreateWorkflow(IWorkflowController controller)
      {
-         return new WorkflowProcess_271_7(controller.InstanceId, controller.ServiceProvider, null);
+         return new Natec.Workflow.Definition_311_2.WorkflowProcess(controller.InstanceId, controller.ServiceProvider, null);
      }
  }
 }
