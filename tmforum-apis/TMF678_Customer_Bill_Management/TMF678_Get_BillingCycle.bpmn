@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">["Action","Function"]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name":"HttpConfig","definition":"{\r\n    \"$schema\":\"http://natec.tech/simpleschema\",\r\n    \"$ref\":\"#/definitions/HttpConfig\",\r\n    \"definitions\":{\r\n        \"HttpConfig\":{\r\n            \"type\":\"object\",\r\n            \"properties\":{\r\n                \"host\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"port\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"login\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"password\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"encoding\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"headers\":{\r\n                    \"type\":\"StringDictionary&lt;string, string&gt;\"\r\n                }\r\n            },\r\n            \"required\": [\"host\", \"encoding\", \"headers\"],\r\n            \"title\":\"HttpConfig\"\r\n        }\r\n    }\r\n}","isNativeDefinition":false},{"name":"OracleConfig","definition":"{\r\n    \"$schema\":\"http://natec.tech/simpleschema\",\r\n    \"$ref\":\"#/definitions/OracleConfig\",\r\n    \"definitions\":{\r\n        \"OracleConfig\":{\r\n            \"type\":\"object\",\r\n            \"properties\":{\r\n                \"userId\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"password\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"dataSource\":{\r\n                    \"type\":\"string\"\r\n                }\r\n            },\r\n            \"required\": [\"userId\", \"password\", \"dataSource\"],\r\n            \"title\":\"OracleConfig\"\r\n        }\r\n    }\r\n}","isNativeDefinition":false},{"name":"ErrorResponse","definition":"{\r\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n  \"$ref\": \"#/definitions/ErrorResponse\",\r\n  \"definitions\": {\r\n    \"ErrorResponse\": {\r\n      \"type\": \"object\",\r\n      \"additionalProperties\": true,\r\n      \"properties\": {\r\n        \"LevelMessage\": {\r\n          \"title\": \"The Error level\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"statusCode\": {\r\n          \"title\": \"The Error Status Code\",\r\n          \"type\": \"integer\"\r\n        },\r\n        \"ErrNumber\": {\r\n          \"title\": \"The Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Message\": {\r\n          \"title\": \"The Error Message\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"State\": {\r\n          \"title\": \"The Error State\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"HelpLink\": {\r\n          \"title\": \"The Help Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"errNumberReason\": {\r\n          \"title\": \"The initial Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Data\": {\r\n          \"title\": \"The Error Data\",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"LevelMessage\": {\r\n              \"title\": \"The Error level\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"statusCode\": {\r\n              \"title\": \"The Error Status Code\",\r\n              \"type\": \"integer\"\r\n            },\r\n            \"ErrNumber\": {\r\n              \"title\": \"The Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Message\": {\r\n              \"title\": \"The Error Message\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"State\": {\r\n              \"title\": \"The Error State\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"HelpLink\": {\r\n              \"title\": \"The Help Link\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"errNumberReason\": {\r\n              \"title\": \"The initial Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Data\": {\r\n              \"title\": \"The Data Schema\",\r\n              \"type\": \"object\",\r\n              \"properties\": {\r\n                \"LevelMessage\": {\r\n                  \"title\": \"The Error level\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"statusCode\": {\r\n                  \"title\": \"The Error Status Code\",\r\n                  \"type\": \"integer\"\r\n                },\r\n                \"ErrNumber\": {\r\n                  \"title\": \"The Error Number\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"Message\": {\r\n                  \"title\": \"The Error Message\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"State\": {\r\n                  \"title\": \"The Error State\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"HelpLink\": {\r\n                  \"title\": \"The Help Link\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"errNumberReason\": {\r\n                  \"title\": \"The initial Error Number\",\r\n                  \"type\": \"string\"\r\n                }\r\n              }\r\n            },\r\n            \"ResolveUrl\": {\r\n              \"title\": \"The Resolve Url Link\",\r\n              \"type\": \"string\"\r\n            }\r\n          }\r\n        },\r\n        \"ResolveUrl\": {\r\n          \"title\": \"The Resolve Url Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"extraData\": {\r\n          \"title\": \"The Error Extra Data \",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"operationDuration\": {\r\n              \"title\": \"The Operation Duration\",\r\n              \"type\": \"integer\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"title\": \"ErrorResponse\"\r\n    }\r\n  }\r\n}","isNativeDefinition":false},{"name":"SystemException","definition":"{\r\n   \"$schema\":\"http://natec.tech/simpleschema\",\r\n   \"$ref\":\"#/definitions/SystemException\",\r\n   \"definitions\":{\r\n      \"SystemException\":{\r\n         \"type\":\"object\",\r\n         \"properties\":{\r\n            \"Exception\":{\r\n               \"type\":\"types://core/System.Exception\"\r\n            },\r\n            \"info\":{\r\n               \"type\":\"string\"\r\n            }\r\n         },\r\n         \"title\":\"SystemException\"\r\n      }\r\n   }\r\n}","isNativeDefinition":false},{"name":"ServiceConfig","definition":"{\r\n\t\"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n\t\"$ref\": \"#/definitions/ServiceConfig\",\r\n\t\"definitions\": {\r\n\t\t\"ServiceConfig\": {\r\n\t\t\t\"type\": \"object\",\r\n\t\t\t\"additionalProperties\": false,\r\n\t\t\t\"properties\": {\r\n\t\t\t\t\"ConnectionString\": {\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"title\": \"ServiceConfig\"\r\n\t\t}\r\n\t}\r\n}","isNativeDefinition":false},{"name":"ExceptionExtensions","definition":"public static class ExceptionExtensions\n    {\n        internal enum ReasonCodes\n        {\n            ServiceAccessError = 0x1,\n            UnderConstruction = 0x64,\n            PreventiveStop = 0X65\n        }\n\n        class BaseSqlExceptionModel\n        {\n            public int LevelMessage { get; set; }\n            public int ErrNumber { get; set; }\n            public int ErrNumberReason { get; set; }\n            public long State { get; set; }\n            public string HelpLink { get; set; }\n            public string ResolveUrl { get; set; }\n            public int? Number { get; set; }\n            public string Message { get; set; }\n            public BaseSqlExceptionModel Data { get; set; }\n\n            public Error ToError(string statusArg = null)\n            {\n                return new Error()\n                {\n                    code = (ErrNumber &gt; 0) ? ErrNumber.ToString() : Number.GetValueOrDefault().ToString(),\n                    message = this.Message,\n                    reason = ErrNumberReason.ToString(),\n                    referenceError = ResolveUrl,\n                    status = statusArg\n                };\n            }\n        }\n\n        #region [const]\n        private const int DeadlockErrorNumber = 1205;\n        private const int LockingErrorNumber = 1222;\n        private const int UpdateConflictErrorNumber = 3960;\n        //для ретрай - функционала\n        private const int TimeoutExpiredErrorNumber = -2;\n        private const int CouldNotOpenConnectionErrorNumber = 53;\n        private const int TransportFailErrorNumber = 121;\n        //вот тут не надо ретрай\n        private const int HandledDeadlockErrorNumber = 50999;\n        private const int SQLErrorNumber = 50000;\n\n        public static IEnumerable&lt;int&gt; DeadLockFeatures\n        {\n            get\n            {\n                yield return DeadlockErrorNumber;\n                yield return LockingErrorNumber;\n                yield return UpdateConflictErrorNumber;\n                yield break;\n            }\n        }\n\n        public static IEnumerable&lt;int&gt; RetryNeededFeatures\n        {\n            get\n            {\n                yield return DeadlockErrorNumber;\n                //yield return TimeoutExpiredErrorNumber;\n                yield return CouldNotOpenConnectionErrorNumber;\n                yield return TransportFailErrorNumber;\n                yield break;\n            }\n        }\n\n        #endregion\n\n        public static Error GetError(this Exception exception, string statusCode)\n        {\n            if (exception is SqlException sqlException)\n                return sqlException.GetError();\n            else\n            if (exception is WorkflowInvokeActionException)\n            {\n                if(exception.InnerException is SqlException innerSqlException)\n                    return innerSqlException.GetError();\n                return new Error()\n                {\n                    code = exception?.InnerException?.HResult.ToString(),\n                    message = $\"{exception.Message} : {exception.InnerException?.Message}\",\n                    reason = exception?.InnerException?.GetType().Name,\n                    referenceError = null,\n                    status = statusCode\n                };\n            }\n            else\n                return new Error()\n                {\n                    code = exception.HResult.ToString(),\n                    message = exception.Message,\n                    reason = exception.GetType().Name,\n                    referenceError = null,\n                    status = statusCode\n                };\n        }\n        public static Error GetError(this SqlException sqlException)\n        {\n            BaseSqlExceptionModel errorModel = null;\n            int actualStatusCode = 500;\n\n            #region [Deadlock]\n            if (sqlException.Number == ExceptionExtensions.HandledDeadlockErrorNumber)\n            {\n                return new Error()\n                {\n                    code = sqlException.Number.ToString(), //RequestTimeout\n                    message = $\"Request timeout - retry operation should be used\",\n                    reason = \"RequestTimeout\",\n                    referenceError = null,\n                    status = \"408\"\n                };\n            }\n\n            #endregion\n\n            try\n            {\n                var sqlExceptionMessage = sqlException.Errors.Cast&lt;SqlError&gt;()\n                    .Where(se =&gt; (se.Class &gt; 0) &amp;&amp;\n                    (se.Message.Trim().StartsWith(\"{\")) &amp;&amp;\n                    (se.Message.Trim().EndsWith(\"}\"))).\n                    Select(se =&gt; se.Message).\n                    FirstOrDefault();\n                errorModel = JsonConvert.DeserializeObject&lt;BaseSqlExceptionModel&gt;(sqlExceptionMessage);\n            }\n            catch (Exception) { }\n\n            if (errorModel != null)\n            {\n                errorModel.Number = sqlException.Number;\n\n                var resultErrorModel = errorModel.ToError(\"500\");\n\n                if (errorModel.ErrNumber == ExceptionExtensions.HandledDeadlockErrorNumber)\n                {\n                    resultErrorModel.status = \"408\";\n                    resultErrorModel.reason = \"RequestTimeout\";\n                }\n                return resultErrorModel;\n            }\n\n            actualStatusCode = ResolveActualStatusCode(sqlException);\n\n            var result = new Error()\n            {\n                code = sqlException.Number.ToString(),\n                message = sqlException.Message,\n                referenceError = null,\n                status = actualStatusCode.ToString()\n            };\n            if (actualStatusCode == 500)\n            {\n                result.reason = \"Internal Server Error\";\n            }\n            else\n            if (actualStatusCode == 503)\n            {\n                result.reason = \"Service Unavailable\";\n            }\n            else\n            {\n                result.reason = \"Service Unavailable\";\n            }\n            return result;\n        }\n        private static int ResolveActualStatusCode(SqlException sqlException)\n        {\n            int actualStatusCode = 500;\n            //Ошибка 503 - TimeoutExpiredErrorNumber ИЛИ Количество ретраев исчерпано и НЕ DeadLockFeatures\n            //Ошибка 408 - DeadLockFeatures И Количество ретраев исчерпано\n            //пс. этот код в принципе будет выполняться только после исчерпания попыток\n            //если дедлок\n            if (sqlException.IsDeadLockException())\n                return 408;\n            else\n            if (sqlException.Number == TimeoutExpiredErrorNumber) // Истекло время ожидание \n                return 503;\n            else\n            if (sqlException.Number == 50101 || sqlException.Number == 50100 || sqlException.Number == 50182)\t// Значит, что произошла не фатальная ошибка.\n            {\n            }\n            else\n            if ((sqlException.Class &gt;= 12 &amp;&amp; sqlException.Class &lt;= 14) || (sqlException.Class &gt;= 18 &amp;&amp; sqlException.Class &lt;= 24))\t// Значит, что произошла ошибка, из-за которой соединение разорвано. Ощибки с классом 17 - обработаннЫе нами\n            {\n                return 503;\n            }\n            else\n            if (sqlException.Class == 11 || sqlException.Class == 15 || sqlException.Class == 16)\t// Значит, что произошла ошибка.\n            {\n                return 503;\n            }\n            else\n            if (sqlException.Number &gt;= 0 &amp;&amp; sqlException.Number &lt;= 10)\t// Значит, что произошла не фатальная ошибка.\n            {\n            }\n            else\n            if (sqlException.Number &gt;= 0 &amp;&amp; sqlException.Number &lt;= 24)\n            {\n            }\n            return actualStatusCode;\n        }\n\n        #region [IsDeadLock]\n        public static bool IsDeadLockException(this SqlException exception)\n        {\n            if (exception == null)\n                return false;\n            else\n                return DeadLockFeatures.Contains(exception.Number) ||\n                    exception.Errors.IsDeadLockException();\n        }\n\n        public static bool IsDeadLockException(this SqlError error)\n        {\n            if (error == null)\n                return false;\n            else\n                return DeadLockFeatures.Contains(error.Number);\n        }\n\n        public static bool IsDeadLockException(this SqlErrorCollection sqlErrorCollection)\n        {\n            if (sqlErrorCollection == null)\n                return false;\n            else\n                return sqlErrorCollection.Cast&lt;SqlError&gt;().Any(error =&gt; error.IsDeadLockException());\n        }\n        #endregion\n\n        #region [IsRetryNeeded]\n        public static bool IsRetryNeeded(this SqlException exception)\n        {\n            if (exception == null)\n                return false;\n            else\n                return RetryNeededFeatures.Contains(exception.Number) ||\n                    exception.Errors.IsRetryNeeded();\n        }\n\n        public static bool IsRetryNeeded(this SqlError error)\n        {\n            if (error == null)\n                return false;\n            else\n                return RetryNeededFeatures.Contains(error.Number);\n        }\n\n        public static bool IsRetryNeeded(this SqlErrorCollection sqlErrorCollection)\n        {\n            if (sqlErrorCollection == null)\n                return false;\n            else\n                return sqlErrorCollection.Cast&lt;SqlError&gt;().Any(error =&gt; error.IsRetryNeeded());\n        }\n        #endregion\n    }","isNativeDefinition":true},{"name":"Error","definition":"{\r\n\t\"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n\t\"$ref\": \"#/definitions/Error\",\r\n\t\"definitions\": {\r\n\t\t\"Error\": {\r\n\t\t\t\"type\": \"object\",\r\n\t\t\t\"additionalProperties\": false,\r\n\t\t\t\"properties\": {\r\n\t\t\t\t\"code\": {\r\n\t\t\t\t\t\"type\": \"string\",\r\n\t\t\t\t\t\"description\": \"Application relevant detail, defined in the API or a common list\"\r\n\t\t\t\t},\r\n\t\t\t\t\"reason\": {\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"message\": {\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": {\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"referenceError\":{\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"title\": \"Error\"\r\n\t\t}\r\n\t}\r\n}","isNativeDefinition":false},{"name":"RangeParameters","definition":"public sealed class RangeParameters\r\n{\r\n    private int offset;\r\n    private int limit;\r\n    private int x_total_count;\r\n\r\n    public int RangeStart { get; private set; }\r\n    public int RangeEnd { get; private set; }\r\n    //items &lt;range-start&gt;-&lt;range-end&gt;/&lt;total-count&gt;\r\n    public string Content_Range\r\n    {\r\n        get\r\n        {\r\n\r\n            return (x_total_count &gt; 0) ? $\"items {RangeStart}-{RangeEnd}/{x_total_count}\" : \"*/0\";\r\n\r\n        }\r\n    }\r\n    public int X_Page_Count\r\n    {\r\n        get\r\n        {\r\n            return (limit &gt; 0) ? (int)Math.Round((decimal)x_total_count / limit, 0, MidpointRounding.ToPositiveInfinity) : 0;\r\n        }\r\n    }\r\n    public int X_Total_Count\r\n    {\r\n        get\r\n        {\r\n            return x_total_count;\r\n        }\r\n    }\r\n    public int Limit\r\n    {\r\n        get\r\n        {\r\n            return limit;\r\n        }\r\n    }\r\n\r\n    internal RangeParameters(int offset, int limit, int x_total_count)\r\n    {\r\n        this.offset = offset;\r\n        this.limit = limit;\r\n        this.x_total_count = x_total_count;\r\n        RangeStart = (offset - 1) * limit + 1;\r\n        RangeEnd = (offset - 1) * limit + limit;\r\n        if (RangeEnd &gt; x_total_count)\r\n            RangeEnd = x_total_count;\r\n    }\r\n}","isNativeDefinition":true},{"name":"BillCycleSpecificationRef","definition":"/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class BillCycleSpecificationRef\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _name;\r\n    \r\n    private string _referredType;\r\n    \r\n    private string _type;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _href;\r\n    \r\n    private string _description;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Уникальный идентификатор спецификации цикла выставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Название спецификации цикла выставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Название связанной сущности\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@referredType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string @referredType\r\n    {\r\n        get\r\n        {\r\n            return this._referredType;\r\n        }\r\n        set\r\n        {\r\n            this._referredType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Атрибут @type представляет фактический тип класса сущности.\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Hyperlink reference\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"href\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string href\r\n    {\r\n        get\r\n        {\r\n            return this._href;\r\n        }\r\n        set\r\n        {\r\n            this._href = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// An explanatory text regarding the BillCycleSpecification\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"description\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string description\r\n    {\r\n        get\r\n        {\r\n            return this._description;\r\n        }\r\n        set\r\n        {\r\n            this._description = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"Extensible","definition":"/// &lt;summary&gt;\r\n/// Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means that the Entity described by the schema  MUST be extended with the @type\r\n/// &lt;/summary&gt;\r\npublic sealed class Extensible\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class Extensible name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"EntityRef","definition":"/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class EntityRef\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _href;\r\n    \r\n    private string _id;\r\n    \r\n    private string _name;\r\n    \r\n    private string _referredType;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class Extensible name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Hyperlink reference\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"href\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string href\r\n    {\r\n        get\r\n        {\r\n            return this._href;\r\n        }\r\n        set\r\n        {\r\n            this._href = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// unique identifier\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Name of the referred entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The actual type of the target instance when needed for disambiguation.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@referredType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @referredType\r\n    {\r\n        get\r\n        {\r\n            return this._referredType;\r\n        }\r\n        set\r\n        {\r\n            this._referredType = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"Addressable","definition":"/// &lt;summary&gt;\r\n/// Base schema for adressable entities\r\n/// &lt;/summary&gt;\r\npublic sealed class Addressable\r\n{\r\n    \r\n    private string _href;\r\n    \r\n    private string _id;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Hyperlink reference\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"href\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string href\r\n    {\r\n        get\r\n        {\r\n            return this._href;\r\n        }\r\n        set\r\n        {\r\n            this._href = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// unique identifier\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"TimePeriod","definition":"/// &lt;summary&gt;\r\n/// A period of time, either as a deadline (endDateTime only) a startDateTime only, or both\r\n/// &lt;/summary&gt;\r\npublic sealed class TimePeriod\r\n{\r\n    \r\n    private string _startDateTime;\r\n    \r\n    private string _endDateTime;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Дата начала цикла выставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"startDateTime\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string startDateTime\r\n    {\r\n        get\r\n        {\r\n            return this._startDateTime;\r\n        }\r\n        set\r\n        {\r\n            this._startDateTime = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Дата окончания цикла выставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"endDateTime\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string endDateTime\r\n    {\r\n        get\r\n        {\r\n            return this._endDateTime;\r\n        }\r\n        set\r\n        {\r\n            this._endDateTime = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"BillCycle_Request_GET","definition":"/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class BillCycle_Request_GET\r\n{\r\n    \r\n    private BillCycleSpecificationRef _billCycleSpecification;\r\n    \r\n    private string _errFormat;\r\n    \r\n    private System.Int32? _id;\r\n    \r\n    private string _accept_Language;\r\n    \r\n    private System.Int32? _offset;\r\n    \r\n    private System.Int32? _limit;\r\n    \r\n    private string _state;\r\n    \r\n    private string _runType;\r\n    \r\n    private string _sort;\r\n    \r\n    private string _sortDirection;\r\n    \r\n    private TimePeriod _validFor;\r\n    \r\n    private string _x_ms_client_request_id;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Спецификация цикла выставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"BillCycleSpecification\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public BillCycleSpecificationRef BillCycleSpecification\r\n    {\r\n        get\r\n        {\r\n            return this._billCycleSpecification;\r\n        }\r\n        set\r\n        {\r\n            this._billCycleSpecification = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Формат вывода ошибки\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"format\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromRoute()]\r\n    public string Format\r\n    {\r\n        get\r\n        {\r\n            return this._errFormat;\r\n        }\r\n        set\r\n        {\r\n            this._errFormat = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Уникальный идентификатор ProductOrder\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromRoute()]\r\n    public System.Int32? id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Указание языка для набора multi-language данных\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"Accept-Language\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromHeader()]\r\n    public string Accept_Language\r\n    {\r\n        get\r\n        {\r\n            return this._accept_Language;\r\n        }\r\n        set\r\n        {\r\n            this._accept_Language = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"offset\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public System.Int32? offset\r\n    {\r\n        get\r\n        {\r\n            return this._offset;\r\n        }\r\n        set\r\n        {\r\n            this._offset = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Кол-во записей в ответе (server paging)\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"limit\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public System.Int32? limit\r\n    {\r\n        get\r\n        {\r\n            return this._limit;\r\n        }\r\n        set\r\n        {\r\n            this._limit = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Допустимые значения для состояния жизненного цикла счета: new = 'счет готов к проверке или отправке', validated = 'счет проверен (вручную/автоматически)', send = 'счет отправлен по каналу ', onHold = 'счет не будет находиться в дальнейшей обработке, пока не будут решены открытые вопросы, связанные со счетом'\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"state\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string state\r\n    {\r\n        get\r\n        {\r\n            return this._state;\r\n        }\r\n        set\r\n        {\r\n            this._state = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Допустимые значения для runType счета. Счет выпускается в обычном цикле выставления счетов «onCycle». В противном случае счет выставляется по запросу (например, запросу клиента). Это будет обозначено «offCycle».\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"runType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string runType\r\n    {\r\n        get\r\n        {\r\n            return this._runType;\r\n        }\r\n        set\r\n        {\r\n            this._runType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Sorting selector\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"sort\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string sort\r\n    {\r\n        get\r\n        {\r\n            return this._sort;\r\n        }\r\n        set\r\n        {\r\n            this._sort = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// No description\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"SortDirection\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public string SortDirection\r\n    {\r\n        get\r\n        {\r\n            return this._sortDirection;\r\n        }\r\n        set\r\n        {\r\n            this._sortDirection = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Период виставления счетов\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"validFor\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromQuery()]\r\n    public TimePeriod validFor\r\n    {\r\n        get\r\n        {\r\n            return this._validFor;\r\n        }\r\n        set\r\n        {\r\n            this._validFor = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Уникальный идентификатор поискового запроса, используется для операции GET.\r\n    /// &lt;c&gt;p_ucp_get_BillCycle&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"x-ms-client-request-id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromHeader()]\r\n    public string x_ms_client_request_id\r\n    {\r\n        get\r\n        {\r\n            return this._x_ms_client_request_id;\r\n        }\r\n        set\r\n        {\r\n            this._x_ms_client_request_id = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"BillCycle_Response_GET","definition":"/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class BillCycle_Response_GET\r\n{\r\n    \r\n    private string _accept_Language;\r\n    \r\n    private System.Int32? _limit;\r\n    \r\n    private System.Int32? _offset;\r\n    \r\n    private string _x_ms_client_request_id;\r\n    \r\n    private System.Int32? _x_Page_Count;\r\n    \r\n    private string _link;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Указание языка для набора multi-language данных\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"Accept-Language\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string Accept_Language\r\n    {\r\n        get\r\n        {\r\n            return this._accept_Language;\r\n        }\r\n        set\r\n        {\r\n            this._accept_Language = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Кол-во записей в ответе (server paging)\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"limit\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.Int32? limit\r\n    {\r\n        get\r\n        {\r\n            return this._limit;\r\n        }\r\n        set\r\n        {\r\n            this._limit = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"offset\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.Int32? offset\r\n    {\r\n        get\r\n        {\r\n            return this._offset;\r\n        }\r\n        set\r\n        {\r\n            this._offset = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Уникальный идентификатор поискового запроса, используется для операции GET.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"x-ms-client-request-id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string x_ms_client_request_id\r\n    {\r\n        get\r\n        {\r\n            return this._x_ms_client_request_id;\r\n        }\r\n        set\r\n        {\r\n            this._x_ms_client_request_id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Количество страниц Server Paging\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"X-Page-Count\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.Int32? X_Page_Count\r\n    {\r\n        get\r\n        {\r\n            return this._x_Page_Count;\r\n        }\r\n        set\r\n        {\r\n            this._x_Page_Count = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// зарезервировано\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"Link\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string Link\r\n    {\r\n        get\r\n        {\r\n            return this._link;\r\n        }\r\n        set\r\n        {\r\n            this._link = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"BillCycle_Response_GET_OUTPUT","definition":"/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class BillCycle_Response_GET_OUTPUT\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private BillCycleSpecificationRef _billCycleSpecification;\r\n    \r\n    private string _billingDate;\r\n    \r\n    private string _billingPeriod;\r\n    \r\n    private string _description;\r\n    \r\n    private System.Int32? _id;\r\n    \r\n    private string _name;\r\n    \r\n    private string _runType;\r\n    \r\n    private string _state;\r\n    \r\n    private System.Int32? _x_Total_Count;\r\n    \r\n    private TimePeriod _validFor;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Атрибут @type представляет фактический тип класса сущности.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Спецификация цикла выставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"billCycleSpecification\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public BillCycleSpecificationRef billCycleSpecification\r\n    {\r\n        get\r\n        {\r\n            return this._billCycleSpecification;\r\n        }\r\n        set\r\n        {\r\n            this._billCycleSpecification = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Эффективная дата виставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"billingDate\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string billingDate\r\n    {\r\n        get\r\n        {\r\n            return this._billingDate;\r\n        }\r\n        set\r\n        {\r\n            this._billingDate = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Название периода виставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"billingPeriod\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string billingPeriod\r\n    {\r\n        get\r\n        {\r\n            return this._billingPeriod;\r\n        }\r\n        set\r\n        {\r\n            this._billingPeriod = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// No description\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"description\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string description\r\n    {\r\n        get\r\n        {\r\n            return this._description;\r\n        }\r\n        set\r\n        {\r\n            this._description = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Уникальный идентификатор цикла выставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.Int32? id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Порядковий номер цикла выставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Допустимые значения для runType счета. Счет выпускается в обычном цикле выставления счетов «onCycle». В противном случае счет выставляется по запросу (например, запросу клиента). Это будет обозначено «offCycle».\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"runType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string runType\r\n    {\r\n        get\r\n        {\r\n            return this._runType;\r\n        }\r\n        set\r\n        {\r\n            this._runType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Допустимые значения для состояния жизненного цикла счета: new = 'счет готов к проверке или отправке', validated = 'счет проверен (вручную/автоматически)', send = 'счет отправлен по каналу ', onHold = 'счет не будет находиться в дальнейшей обработке, пока не будут решены открытые вопросы, связанные со счетом'\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"state\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string state\r\n    {\r\n        get\r\n        {\r\n            return this._state;\r\n        }\r\n        set\r\n        {\r\n            this._state = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// общее количество совпадающих записей (server paging)\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"X-Total-Count\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.Int32? X_Total_Count\r\n    {\r\n        get\r\n        {\r\n            return this._x_Total_Count;\r\n        }\r\n        set\r\n        {\r\n            this._x_Total_Count = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Период виставления счетов\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"validFor\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public TimePeriod validFor\r\n    {\r\n        get\r\n        {\r\n            return this._validFor;\r\n        }\r\n        set\r\n        {\r\n            this._validFor = value;\r\n        }\r\n    }\r\n}\r\n","isNativeDefinition":true},{"name":"ProcedureWebOutput","definition":"public sealed class ProcedureWebOutput\r\n{\r\n    public BillCycle_Response_GET Result { get; set; }\r\n    public List&lt;BillCycle_Response_GET_OUTPUT&gt; DataSet { get; set; }\r\n    public string SerializedResult { get; set; }\r\n    public string SerializedDataSet { get; set; }\r\n    public RangeParameters Range { get; set; }\r\n    public Dictionary&lt;string, string&gt; Headers { get; set; }\r\n}","isNativeDefinition":true}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name":"HandleException","initCode":"Error HandleException (\n\t\tPassingResult prevData\n\t)                                                         \n    {\n        try\n        {\n            //investigate the Exception \n            Logger.LogInformation($\"Exception name : {prevData.Exception?.GetType()?.Name}\");\n\n            Error result = new Error(){ status = \"500\"};\n            if (prevData.Exception != null)\n            {\n                result = prevData.Exception.GetError(\"500\");\n            }\n            \n            int statusCode = 500;\n            int.TryParse(result?.status, out statusCode);\n            \n                WorkflowEnvironment.Variables[\"StatusCode\"] = 500;            \n                if (WorkflowEnvironment.Variables.TryGetValue    (\"HttpResponse\", out object httpResponseObj))\n                {\n                    Microsoft.AspNetCore.Http.HttpResponse response =     httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                    response.StatusCode = statusCode;\n                }         \n            return result;\n        }\n        catch (Exception e) \n        {\n            Logger.LogError($\"HandleException:: error {e}\");\n                if (WorkflowEnvironment.Variables.TryGetValue    (\"HttpResponse\", out object httpResponseObj))\n                {\n                    Microsoft.AspNetCore.Http.HttpResponse response =     httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                    //Parameters.x_ms_client_request_id\n                    response.StatusCode = 500;\n                }            \n            return new Error() \n            { \n                status = \"500\",\n                message = $\"Error while handle error ! {e.Message}\"\n            };\n        }\n    }","initParameters":[{"name":"Result","type":"Error","required":false,"defaultValue":null},{"name":"prevData","type":"PassingResult","required":true,"defaultValue":null}]},{"name":"form_CacheId","initCode":"string form_CacheId (\n\t)                                            \n{\n    string prefix = \"ProductOrder_GET_\";\n    if (WorkflowEnvironment.RuntimeName == \"Plugin\")\n    {\n        if (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object httpRequestObj))\n        {\n            Microsoft.AspNetCore.Http.HttpRequest request = httpRequestObj as Microsoft.AspNetCore.Http.HttpRequest;\n            prefix = $\"{request.Method}_{request.Path}_{request.QueryString.ToUriComponent()}_\";\n\n        }\n    }\n    Parameters.cacheId = prefix;\n    return prefix;\n}","initParameters":[{"name":"Result","type":"string","required":false,"defaultValue":null}]},{"name":"read_Headers_Cache","initCode":"StringDictionary read_Headers_Cache (\n\t\tstring cacheKey\n\t)                                              \n    {\n        Dictionary&lt;string,string&gt; result = null;\n        var distrCache = ServiceProvider.GetService&lt;IDistributedCache&gt;();\n        if (distrCache != null)\n        {\n            var modelStr = distrCache.GetString(cacheKey);\n            if (!string.IsNullOrEmpty(modelStr))\n            {\n                result = new JSON(modelStr).Cast&lt;Dictionary&lt;string,string&gt;&gt;();\n            }\n        }        \n        return result;\n    }","initParameters":[{"name":"Result","type":"StringDictionary","required":false,"defaultValue":null},{"name":"cacheKey","type":"string","required":false,"defaultValue":null}]},{"name":"read_Response_Cache","initCode":"string read_Response_Cache (\n\t\tstring cacheKey\n\t)                                            \n    {\n        string result = null;\n        var distrCache = ServiceProvider.GetService&lt;IDistributedCache&gt;();\n        if (distrCache != null)\n        {\n            result = distrCache.GetString(cacheKey);\n        }        \n        return result;\n    }","initParameters":[{"name":"Result","type":"string","required":false,"defaultValue":null},{"name":"cacheKey","type":"string","required":false,"defaultValue":null}]},{"name":"compose_ReadCacheResult","initCode":"ProcedureWebOutput compose_ReadCacheResult (\n\t\tDictionary prevResult\n\t)                                          \n    {\n        Logger.LogInformation($\"compose_ReadCacheResult started\");\n        ProcedureWebOutput result = new ProcedureWebOutput();\n        //result.Result = prevResult[\"Activity_Read_Output_Cache\"] as ProductOrder_Response_GET;\n        result.Headers = prevResult[\"Activity_Read_Headers_Cache\"] as Dictionary&lt;string,string&gt;;\n        result.SerializedDataSet = prevResult[\"Activity_Read_Response_Cache\"] as string;\n        result.Headers.Add(\"cacheStatus\", \"IsCompleted\");\n        return result;\n    }","initParameters":[{"name":"Result","type":"ProcedureWebOutput","required":false,"defaultValue":null},{"name":"prevResult","type":"Dictionary","required":false,"defaultValue":null}]},{"name":"form_Response","initCode":"string form_Response (\n\t\tProcedureWebOutput procResult\n\t)                                         \n    {\nif (WorkflowEnvironment.RuntimeName == \"Plugin\")\n        {\n            if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object httpResponseObj))\n            {\n                Microsoft.AspNetCore.Http.HttpResponse response = httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                foreach(var kvp in procResult.Headers)\n\t\t\t\t{\n\t\t\t\t\tresponse.Headers[kvp.Key] = kvp.Value;\n\t\t\t\t}\n                if (response.Headers.TryGetValue(\"X-Page-Count\", out var x_page_count_str))\n                {\n                        \n                        if (int.TryParse(x_page_count_str.FirstOrDefault(), out int x_page_count))\n                        {\n                            response.StatusCode = (x_page_count &gt; 1) ? 206 : 200;\n                        }\n                    \n                }\n                else\n                    response.StatusCode = 200;\n            }\n        }        \n        return procResult.SerializedDataSet;\n    }","initParameters":[{"name":"Result","type":"string","required":false,"defaultValue":null},{"name":"procResult","type":"ProcedureWebOutput","required":false,"defaultValue":null}]},{"name":"write_Headers_Cache","initCode":"string write_Headers_Cache (\n\t\tstring cacheKey,\n\t\tStringDictionary headers\n\t)                                        \n    {\n        string result = null;\n\n        var distrCache = ServiceProvider.GetService&lt;IDistributedCache&gt;();\n        if (distrCache != null)\n        {\n            string dcid = string.IsNullOrEmpty(Input.x_ms_client_request_id)?$\"{Parameters.cacheId}{cacheKey}_Headers\":$\"{Parameters.cacheId}{Input.x_ms_client_request_id}_Headers\";\n\t\t\tresult = new JSON(headers);\n            distrCache.SetString(dcid, result);\n        }        \n        \n        return result;\n    }","initParameters":[{"name":"Result","type":"string","required":false,"defaultValue":null},{"name":"cacheKey","type":"string","required":false,"defaultValue":null},{"name":"headers","type":"StringDictionary","required":false,"defaultValue":null}]},{"name":"write_Response_Cache","initCode":"string write_Response_Cache (\n\t\tstring cacheKey,\n\t\tBillCycle_Response_GET_OUTPUT[] procResult\n\t)                                      \n    {\n        string result = null;\n\n        var distrCache = ServiceProvider.GetService&lt;IDistributedCache&gt;();\n        if (distrCache != null)\n        {\n            string dcid = string.IsNullOrEmpty(Input.x_ms_client_request_id)?$\"{Parameters.cacheId}{cacheKey}_Response\":$\"{Parameters.cacheId}{Input.x_ms_client_request_id}_Response\";\n\t\t\tresult = new JSON(procResult);\n            distrCache.SetString(dcid, result);\n        }        \n        \n        return result;\n    }","initParameters":[{"name":"Result","type":"string","required":false,"defaultValue":null},{"name":"cacheKey","type":"string","required":false,"defaultValue":null},{"name":"procResult","type":"BillCycle_Response_GET_OUTPUT[]","required":false,"defaultValue":null}]},{"name":"compose_WriteCacheResult","initCode":"ProcedureWebOutput compose_WriteCacheResult (\n\t\tDictionary prevResult\n\t)                                  \n    {\n        ProcedureWebOutput result = prevResult[\"Activity_forward_result\"] as ProcedureWebOutput;\n        result.SerializedResult = prevResult[\"Activity_write_headers_cache\"] as string;\n\t\tresult.SerializedDataSet = prevResult[\"Activity_write_response_cache\"] as string;\n\t\tresult.Headers.Add(\"cacheStatus\", \"Added\");\n        return result;\n    }","initParameters":[{"name":"Result","type":"ProcedureWebOutput","required":false,"defaultValue":null},{"name":"prevResult","type":"Dictionary","required":false,"defaultValue":null}]},{"name":"forward_Result","initCode":"object forward_Result (\n\t\tobject arg\n\t)                               \n    {\n        return arg;\n    }","initParameters":[{"name":"Result","type":"object","required":false,"defaultValue":null},{"name":"arg","type":"object","required":false,"defaultValue":null}]},{"name":"correct_EmptyResult","initCode":"BillCycle_Response_GET_OUTPUT correct_EmptyResult (\n\t\tProcedureWebOutput procResult\n\t)                           \n    {\nif (WorkflowEnvironment.RuntimeName == \"Plugin\")\n        {\n            if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object httpResponseObj))\n            {\n                Microsoft.AspNetCore.Http.HttpResponse response = httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                foreach(var kvp in procResult.Headers)\n\t\t\t\t{\n\t\t\t\t\tresponse.Headers[kvp.Key] = kvp.Value;\n\t\t\t\t}\n                response.StatusCode = 204;\n            }\n        }        \n        return null;\n    }","initParameters":[{"name":"Result","type":"BillCycle_Response_GET_OUTPUT","required":false,"defaultValue":null},{"name":"procResult","type":"ProcedureWebOutput","required":false,"defaultValue":null}]},{"name":"correct_Request","initCode":"BillCycle_Request_GET correct_Request (\n\t\tBillCycle_Request_GET request\n\t)                    \n    {\n        BillCycle_Request_GET result = request;\n        if (!string.IsNullOrEmpty(result.sort) &amp;&amp; (result.sort.Length &gt; 0))\n        {\n            char direction = Input.sort.Trim().FirstOrDefault();\n            if (direction == '+')\n            {\n                result.SortDirection = \"ASC\";\n                result.sort = request.sort.Substring(1);\n            }\n            else\n            if (direction == '-')\n            {\n                result.SortDirection = \"DESC\";\n                result.sort = request.sort.Substring(1);\n            }\n            else\n                result.SortDirection = \"ASC\";\n        }\n        if(string.IsNullOrEmpty(result.x_ms_client_request_id))\n        {\n            result.x_ms_client_request_id = Guid.NewGuid().ToString();\n        }\n \n        return result;\n    }","initParameters":[{"name":"Result","type":"BillCycle_Request_GET","required":false,"defaultValue":null},{"name":"request","type":"BillCycle_Request_GET","required":false,"defaultValue":null}]},{"name":"format_Validation_Error","initCode":"Error format_Validation_Error (\n\t)     \n    {\n        if (WorkflowEnvironment.Variables.TryGetValue    (\"HttpResponse\", out object httpResponseObj))\n        {\n            Microsoft.AspNetCore.Http.HttpResponse response =     httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n            //Parameters.x_ms_client_request_id\n            response.StatusCode = 404;\n        }            \n        return new Error() \n        { \n            status = \"404\",\n            message = $\"Validation error : id ({Input.id}) must be greater than 0\",\n            reason = \"not found\"\n        };\n    }","initParameters":[{"name":"Result","type":"Error","required":false,"defaultValue":null}]},{"name":"p_ucp_get_BillCycle","initCode":"ProcedureWebOutput p_ucp_get_BillCycle (\n\t\tstring BillCycleSpecification,\n\t\tstring ErrFormat,\n\t\tInt? id,\n\t\tstring Lang,\n\t\tInt? PageNumber,\n\t\tInt? PageSize,\n\t\tstring state,\n\t\tstring runType,\n\t\tstring SortColumn,\n\t\tstring SortDirection,\n\t\tstring validFor,\n\t\tstring x_ms_client_request_id\n\t)   \n{\n var p = new DynamicParameters();\np.Add(\"BillCycleSpecification\", value: BillCycleSpecification, dbType: DbType.String, direction:ParameterDirection.Input, size:-1);\np.Add(\"ErrFormat\", value: ErrFormat, dbType: DbType.String, direction:ParameterDirection.Input, size:25);\np.Add(\"id\", value: id, dbType: DbType.Int32, direction:ParameterDirection.Input);\np.Add(\"Lang\", value: Lang, dbType: DbType.String, direction:ParameterDirection.Input, size:3);\np.Add(\"PageNumber\", value: PageNumber, dbType: DbType.Int32, direction:ParameterDirection.InputOutput);\np.Add(\"PageSize\", value: PageSize, dbType: DbType.Int32, direction:ParameterDirection.InputOutput);\np.Add(\"state\", value: state, dbType: DbType.String, direction:ParameterDirection.Input, size:-1);\np.Add(\"runType\", value: runType, dbType: DbType.String, direction:ParameterDirection.Input, size:-1);\np.Add(\"SortColumn\", value: SortColumn, dbType: DbType.String, direction:ParameterDirection.Input, size:20);\np.Add(\"SortDirection\", value: SortDirection, dbType: DbType.String, direction:ParameterDirection.Input, size:20);\np.Add(\"validFor\", value: validFor, dbType: DbType.String, direction:ParameterDirection.Input, size:-1);\np.Add(\"x_ms_client_request_id\", value: x_ms_client_request_id, dbType: DbType.String, direction:ParameterDirection.InputOutput, size:32);\n\nstring sqlConnectionString = Parameters.sqlConnectionString;\nif (this.WorkflowEnvironment.Variables.TryGetValue(\"ConfigString\", out object configStr))\n{\n     var configJson = new JSON(configStr).Cast&lt;ServiceConfig&gt;();\n     if(!string.IsNullOrEmpty(configJson?.ConnectionString))\n     {\n        sqlConnectionString = configJson.ConnectionString;\n     }\n};\n\nvar procedure = \"[dbo].[p_ucp_get_BillCycle]\";\nList&lt;BillCycle_Response_GET_OUTPUT&gt; resultDataSet = null;\nint xTotalCount = 0;\nusing (var connection = new SqlConnection(sqlConnectionString))\n{\n     var queryResult = connection.QueryMultiple(procedure, p, commandType: CommandType.StoredProcedure, commandTimeout:0);\n     resultDataSet = queryResult.Read()\n          .Select((d) =&gt; {\n            xTotalCount = d.Total;\n            var rowResult = new BillCycle_Response_GET_OUTPUT()\n             {\n                   @type = d.type,\n                   billCycleSpecification = new JSON(d.billCycleSpecification).Cast&lt;BillCycleSpecificationRef&gt;(),\n                   billingDate = d.billingDate,\n                   billingPeriod = d.billingPeriod,\n                   description = d.description,\n                   id = d.id,\n                   name = d.name,\n                   runType = d.runType,\n                   state = d.state,\n\n                   validFor = new JSON(d.validFor).Cast&lt;TimePeriod&gt;(),\n\n             };\n            return rowResult;\n              })\n     .ToList();\n}\n// fill output params\nBillCycle_Response_GET result = new BillCycle_Response_GET();\nresult.Accept_Language = p.Get&lt;System.String&gt;(\"Lang\");\nresult.limit = p.Get&lt;System.Int32?&gt;(\"PageSize\");\nresult.offset = p.Get&lt;System.Int32?&gt;(\"PageNumber\");\nresult.x_ms_client_request_id = p.Get&lt;System.String&gt;(\"x_ms_client_request_id\");\n\n     var range = new RangeParameters(result.offset.GetValueOrDefault(),\n         result.limit.GetValueOrDefault(),\n         xTotalCount);\n     var res = new ProcedureWebOutput();\n     res.Result = result;\n     res.DataSet = resultDataSet;\n     res.Range = range;\n     res.Headers = new Dictionary&lt;string, string&gt;();\n         res.Headers[\"Accept-Language\"] = result.Accept_Language;\n         result.Accept_Language = null;\n         res.Headers[\"x-ms-client-request-id\"] = result.x_ms_client_request_id;\n         result.x_ms_client_request_id = null;\n     res.Headers[\"Content-Range\"] = range.Content_Range;\n     res.Headers[\"X-Total-Count\"] = range.X_Total_Count.ToString();\n     if ((range.X_Total_Count &gt; 0) &amp;&amp; (range.Limit &gt; 0))\n         res.Headers[\"X-Page-Count\"] = range.X_Page_Count.ToString();\n     else\n         res.Headers[\"X-Page-Count\"] = \"0\";\n     Parameters.x_page_count = range.X_Page_Count;\n\nreturn res;\n}\n","initParameters":[{"name":"BillCycleSpecification","type":"string","required":false,"defaultValue":null},{"name":"ErrFormat","type":"string","required":false,"defaultValue":null},{"name":"id","type":"Int?","required":false,"defaultValue":null},{"name":"Lang","type":"string","required":false,"defaultValue":null},{"name":"PageNumber","type":"Int?","required":false,"defaultValue":null},{"name":"PageSize","type":"Int?","required":false,"defaultValue":null},{"name":"state","type":"string","required":false,"defaultValue":null},{"name":"runType","type":"string","required":false,"defaultValue":null},{"name":"SortColumn","type":"string","required":false,"defaultValue":null},{"name":"SortDirection","type":"string","required":false,"defaultValue":null},{"name":"validFor","type":"string","required":false,"defaultValue":null},{"name":"x_ms_client_request_id","type":"string","required":false,"defaultValue":null},{"name":"Result","type":"ProcedureWebOutput","required":false,"defaultValue":null}]}]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name":"RestApi","initCode":"functions://default/RestApi","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Method","type":"String","required":true,"oldName":"Method","defaultValue":"GET"},{"name":"Login","type":"String","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"String","required":false,"oldName":"Password","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":"{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"},{"name":"Body","type":"String","required":false,"oldName":"Body","defaultValue":"{}"},{"name":"Encoding","type":"String","required":false,"oldName":"Encoding","defaultValue":"utf-8"},{"name":"Result","type":"HttpResponse","required":false,"oldName":"Result","defaultValue":null}],"oldName":"RestApi"},{"name":"RestApi_Get","initCode":"functions://default/RestApi/Get","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Login","type":"String","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"String","required":false,"oldName":"Password","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":"{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"},{"name":"Encoding","type":"String","required":false,"oldName":"Encoding","defaultValue":"utf-8"},{"name":"Result","type":"HttpResponse","required":false,"oldName":"Result","defaultValue":null}],"oldName":"RestApi_Get"},{"name":"JsonPath","initCode":"functions://default//JsonPath","initParameters":[{"name":"Response","type":"HttpResponse","required":true,"oldName":"Response","defaultValue":null},{"name":"Path","type":"String","required":false,"oldName":"Path","defaultValue":"$"},{"name":"Result","type":"Json","required":false,"oldName":"Result","defaultValue":null}],"oldName":"JsonPath"},{"name":"SaveVariable","initCode":"functions://default//SaveVariable","initParameters":[{"name":"VariableName","type":"string","required":true,"oldName":"VariableName","defaultValue":"varName"},{"name":"Data","type":"object","required":true,"oldName":"Data","defaultValue":"#previous"}],"oldName":"SaveVariable"},{"name":"Wait","initCode":"functions://default//Wait","initParameters":[{"name":"millisecondsTimeout","type":"int","required":true,"oldName":"millisecondsTimeout","defaultValue":"1000"}],"oldName":"Wait"},{"name":"SQL_Oracle_Query","initCode":"functions://default//SQL/Oracle/Query","initParameters":[{"name":"userID","type":"String","required":true,"oldName":"userID","defaultValue":null},{"name":"password","type":"String","required":false,"oldName":"password","defaultValue":null},{"name":"dataSource","type":"String","required":false,"oldName":"dataSource","defaultValue":null},{"name":"query","type":"String","required":false,"oldName":"query","defaultValue":null},{"name":"Result","type":"Collection","required":false,"oldName":"Result","defaultValue":null}],"oldName":"SQL_Oracle_Query"},{"name":"SQL_Oracle_Command","initCode":"functions://default//SQL/Oracle/Command","initParameters":[{"name":"userID","type":"String","required":true,"oldName":"userID","defaultValue":null},{"name":"password","type":"String","required":false,"oldName":"password","defaultValue":null},{"name":"dataSource","type":"String","required":false,"oldName":"dataSource","defaultValue":null},{"name":"command","type":"String","required":false,"oldName":"command","defaultValue":null},{"name":"Result","type":"int","required":false,"oldName":"Result","defaultValue":null}],"oldName":"SQL_Oracle_Command"}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[{"name":"oracleConfig","type":"OracleConfig","initialValue":"{\r\n   \"userId\":\"username\",\r\n   \"password\":\"password\",\r\n   \"dataSource\":\"127.0.0.1:1521/oracledb.local\"\r\n}\r\n"},{"name":"httpConfig","type":"HttpConfig","initialValue":"{\r\n   \"host\":\"https://127.0.0.1\",\r\n   \"port\":\"6992\",\r\n   \"login\":\"username\",\r\n   \"password\":\"password\",\r\n   \"encoding\":\"utf-8\",\r\n   \"headers\":{\r\n      \"Content-Type\":\"application/vnd.api+json\",\r\n      \"Accept\":\"application/vnd.api+json\"\r\n   }\r\n}\r\n"},{"name":"sqlConnectionString","type":"string","initialValue":"Data Source=sqlserv;Initial Catalog=unibill;User ID=username;Password=password;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"},{"name":"cacheId","type":"string","initialValue":null},{"name":"cacheStatus","type":"string","initialValue":null},{"name":"x_page_count","type":"Int","initialValue":""}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"offset":1,"limit":50,"externalId":[{"@type":"externalId","externalIdentifierType":"Extentions","id":"456"}],"relatedParty":[{"@referredType":"Customers","id":7702142,"IDType":0}],"sort":"-id"}</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_1llnnqn" name="billingCycle">
+    <startEvent id="Event_1hk2ab0" name="">
+      <extensionElements>
+        <ep:elementParameter name="StartSignalRoute">{"status":"HttpRequestAttributes","method":"GET","route":"billCycle/{id:int?}"}</ep:elementParameter>
+      </extensionElements>
+      <outgoing>Flow_0xuw6mo</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1nmd8bj">
+        <targetRef>DataObjectReference_0eqkq7z</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <endEvent id="Event_0sav6wr">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":200,"body":"","exampelsVariants":[],"headers":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1upy3sj</incoming>
+      <property id="Property_1rqqtzp" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0e36m15">
+        <sourceRef>DataObjectReference_1a2hfh4</sourceRef>
+        <targetRef>Property_1rqqtzp</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="Activity_08b2rwk" name="to do">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"p_ucp_get_BillCycle","actionParam":{"BillCycleSpecification":"{new JSON(Input.BillCycleSpecification)}","ErrFormat":"{Input.Format}","id":"Input.id","Lang":"{Input.Accept_Language}","PageNumber":"Input.offset","PageSize":"Input.limit","state":"{Input.state}","runType":"{Input.runType}","SortColumn":"{Input.sort}","SortDirection":"{Input.SortDirection}","validFor":"{new JSON(Input.validFor)}","x_ms_client_request_id":"{Input.x_ms_client_request_id}"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1qv0dbu</incoming>
+      <outgoing>Flow_0ss9m19</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0xuw6mo" sourceRef="Event_1hk2ab0" targetRef="Gateway_0z9jmbb" />
+    <sequenceFlow id="Flow_0ss9m19" sourceRef="Activity_08b2rwk" targetRef="Gateway_if_data_not_exists" />
+    <dataObjectReference id="DataObjectReference_0eqkq7z" name="BillCycle_Request_GET" dataObjectRef="DataObject_0tr0hnf" />
+    <dataObject id="DataObject_0tr0hnf" />
+    <boundaryEvent id="Event_0fmf487" attachedToRef="Activity_08b2rwk">
+      <outgoing>Flow_16elrff</outgoing>
+      <errorEventDefinition id="ErrorEventDefinition_0s5o70c" />
+    </boundaryEvent>
+    <task id="Activity_1xm05d9" name="handle Exception">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"HandleException","actionParam":{"prevData":"#PreviousData"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_16elrff</incoming>
+      <incoming>Flow_0mhbm14</incoming>
+      <outgoing>Flow_0mano1i</outgoing>
+    </task>
+    <sequenceFlow id="Flow_16elrff" sourceRef="Event_0fmf487" targetRef="Activity_1xm05d9" />
+    <sequenceFlow id="Flow_0mano1i" sourceRef="Activity_1xm05d9" targetRef="Event_147oei3" />
+    <dataObjectReference id="DataObjectReference_1a2hfh4" name="string" dataObjectRef="DataObject_080emqn" />
+    <dataObject id="DataObject_080emqn" />
+    <endEvent id="Event_147oei3">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":500,"body":"","exampelsVariants":[],"headers":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0mano1i</incoming>
+      <property id="Property_0cb2r18" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_1hqmdkr">
+        <sourceRef>DataObjectReference_0v07t91</sourceRef>
+        <targetRef>Property_0cb2r18</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <dataObjectReference id="DataObjectReference_0v07t91" name="Error" dataObjectRef="DataObject_18x4q5h" />
+    <dataObject id="DataObject_18x4q5h" />
+    <sequenceFlow id="Flow_0mhbm14" name="SqlException" sourceRef="Event_0tsu5i3" targetRef="Activity_1xm05d9" />
+    <boundaryEvent id="Event_0tsu5i3" name="SqlException" attachedToRef="Activity_08b2rwk">
+      <outgoing>Flow_0mhbm14</outgoing>
+      <errorEventDefinition id="ErrorEventDefinition_1k8ctzv" />
+    </boundaryEvent>
+    <task id="Activity_form_cache_prefix" name="form cache prefix">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"form_CacheId","actionParam":{},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1t83znc</incoming>
+      <outgoing>Flow_1ql2xgc</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1ql2xgc" sourceRef="Activity_form_cache_prefix" targetRef="Gateway_check_x_ms_client_request_id" />
+    <exclusiveGateway id="Gateway_check_x_ms_client_request_id" name="check x_ms_client_request_id" default="Flow_12b96sx">
+      <incoming>Flow_1ql2xgc</incoming>
+      <outgoing>Flow_12b96sx</outgoing>
+      <outgoing>Flow_0pn079h</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_12b96sx" name="" sourceRef="Gateway_check_x_ms_client_request_id" targetRef="Activity_correct_request" />
+    <parallelGateway id="Gateway_1bc52e9">
+      <incoming>Flow_0pn079h</incoming>
+      <outgoing>Flow_0zh7pjk</outgoing>
+      <outgoing>Flow_09k2xri</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="Flow_0pn079h" sourceRef="Gateway_check_x_ms_client_request_id" targetRef="Gateway_1bc52e9">
+      <conditionExpression xsi:type="tFormalExpression">!string.IsNullOrEmpty(Input.x_ms_client_request_id)</conditionExpression>
+    </sequenceFlow>
+    <task id="Activity_Read_Headers_Cache" name="read headers cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"read_Headers_Cache","actionParam":{"cacheKey":"{Parameters.cacheId}{Input.x_ms_client_request_id}_Headers"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_09k2xri</incoming>
+      <outgoing>Flow_1bd6nkr</outgoing>
+    </task>
+    <task id="Activity_Read_Response_Cache" name="read response cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"read_Response_Cache","actionParam":{"cacheKey":"{Parameters.cacheId}{Input.x_ms_client_request_id}_Response"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0zh7pjk</incoming>
+      <outgoing>Flow_08tm4be</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0zh7pjk" sourceRef="Gateway_1bc52e9" targetRef="Activity_Read_Response_Cache" />
+    <sequenceFlow id="Flow_09k2xri" sourceRef="Gateway_1bc52e9" targetRef="Activity_Read_Headers_Cache" />
+    <sequenceFlow id="Flow_08tm4be" sourceRef="Activity_Read_Response_Cache" targetRef="Gateway_1qa3q4h" />
+    <sequenceFlow id="Flow_1bd6nkr" sourceRef="Activity_Read_Headers_Cache" targetRef="Gateway_1qa3q4h" />
+    <parallelGateway id="Gateway_1qa3q4h">
+      <incoming>Flow_08tm4be</incoming>
+      <incoming>Flow_1bd6nkr</incoming>
+      <outgoing>Flow_09ugpw4</outgoing>
+    </parallelGateway>
+    <exclusiveGateway id="Gateway_1ksyumv" default="Flow_0lvflev">
+      <incoming>Flow_09ugpw4</incoming>
+      <outgoing>Flow_0lvflev</outgoing>
+      <outgoing>Flow_17s706y</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_09ugpw4" sourceRef="Gateway_1qa3q4h" targetRef="Gateway_1ksyumv" />
+    <sequenceFlow id="Flow_0lvflev" sourceRef="Gateway_1ksyumv" targetRef="Activity_compose_cache" />
+    <sequenceFlow id="Flow_17s706y" sourceRef="Gateway_1ksyumv" targetRef="Activity_correct_request">
+      <conditionExpression xsi:type="tFormalExpression">#Previous["Activity_Read_Headers_Cache"] == null</conditionExpression>
+    </sequenceFlow>
+    <task id="Activity_Compose_Cache_W" name="compose cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"compose_WriteCacheResult","actionParam":{"prevResult":"#Previous"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1ijbpb8</incoming>
+      <outgoing>Flow_08lf6vg</outgoing>
+    </task>
+    <sequenceFlow id="Flow_08lf6vg" sourceRef="Activity_Compose_Cache_W" targetRef="Activity_form_response" />
+    <task id="Activity_write_headers_cache" name="write headers cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"write_Headers_Cache","actionParam":{"cacheKey":"{#Previous.Result.x_ms_client_request_id}","headers":"#Previous.Headers"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1qmxfo5</incoming>
+      <outgoing>Flow_0p6buw8</outgoing>
+    </task>
+    <task id="Activity_write_response_cache" name="write response cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"write_Response_Cache","actionParam":{"cacheKey":"{#Previous.Result.x_ms_client_request_id}","procResult":"#Previous.DataSet"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_08x0edp</incoming>
+      <outgoing>Flow_1va3xf4</outgoing>
+    </task>
+    <parallelGateway id="Gateway_0y2oqew">
+      <incoming>Flow_0sof9ic</incoming>
+      <outgoing>Flow_1qmxfo5</outgoing>
+      <outgoing>Flow_08x0edp</outgoing>
+      <outgoing>Flow_1x7zkgj</outgoing>
+    </parallelGateway>
+    <parallelGateway id="Gateway_0dknvrg">
+      <incoming>Flow_1va3xf4</incoming>
+      <incoming>Flow_0p6buw8</incoming>
+      <incoming>Flow_0ufhx34</incoming>
+      <outgoing>Flow_1ijbpb8</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="Flow_1qmxfo5" sourceRef="Gateway_0y2oqew" targetRef="Activity_write_headers_cache" />
+    <sequenceFlow id="Flow_08x0edp" sourceRef="Gateway_0y2oqew" targetRef="Activity_write_response_cache" />
+    <sequenceFlow id="Flow_1va3xf4" sourceRef="Activity_write_response_cache" targetRef="Gateway_0dknvrg" />
+    <sequenceFlow id="Flow_0p6buw8" sourceRef="Activity_write_headers_cache" targetRef="Gateway_0dknvrg" />
+    <sequenceFlow id="Flow_1ijbpb8" sourceRef="Gateway_0dknvrg" targetRef="Activity_Compose_Cache_W" />
+    <exclusiveGateway id="Gateway_if_data_not_exists" name="if data not exists" default="Flow_1eg93vi">
+      <incoming>Flow_0ss9m19</incoming>
+      <outgoing>Flow_0sof9ic</outgoing>
+      <outgoing>Flow_1eg93vi</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_0sof9ic" sourceRef="Gateway_if_data_not_exists" targetRef="Gateway_0y2oqew">
+      <conditionExpression xsi:type="tFormalExpression">true == #Previous.DataSet?.Any()</conditionExpression>
+    </sequenceFlow>
+    <task id="Activity_Correct_Empty_Result" name="correct empty result">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"correct_EmptyResult","actionParam":{"procResult":"#Previous"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1eg93vi</incoming>
+      <outgoing>Flow_0ij3w0k</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1eg93vi" sourceRef="Gateway_if_data_not_exists" targetRef="Activity_Correct_Empty_Result" />
+    <endEvent id="Event_0avahvs">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":204,"body":"","exampelsVariants":[],"headers":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0ij3w0k</incoming>
+      <property id="Property_14rjcmk" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_00j0eme">
+        <sourceRef>DataObjectReference_0mixl3b</sourceRef>
+        <targetRef>Property_14rjcmk</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <dataObjectReference id="DataObjectReference_0mixl3b" name="BillCycle_Response_GET_OUTPUT" dataObjectRef="DataObject_05xwmlb" />
+    <dataObject id="DataObject_05xwmlb" />
+    <sequenceFlow id="Flow_0ij3w0k" sourceRef="Activity_Correct_Empty_Result" targetRef="Event_0avahvs" />
+    <task id="Activity_forward_result" name="forward result">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"forward_Result","actionParam":{"arg":"#Previous"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1x7zkgj</incoming>
+      <outgoing>Flow_0ufhx34</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1x7zkgj" sourceRef="Gateway_0y2oqew" targetRef="Activity_forward_result" />
+    <sequenceFlow id="Flow_0ufhx34" sourceRef="Activity_forward_result" targetRef="Gateway_0dknvrg" />
+    <task id="Activity_compose_cache" name="compose cache">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"compose_ReadCacheResult","actionParam":{"prevResult":"#Previous"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0lvflev</incoming>
+      <outgoing>Flow_1jz5eke</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1jz5eke" sourceRef="Activity_compose_cache" targetRef="Activity_form_response" />
+    <task id="Activity_form_response" name="form response">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"form_Response","actionParam":{"procResult":"#Previous"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_08lf6vg</incoming>
+      <incoming>Flow_1jz5eke</incoming>
+      <outgoing>Flow_1rnh1re</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1rnh1re" sourceRef="Activity_form_response" targetRef="Gateway_1fq81xy" />
+    <exclusiveGateway id="Gateway_1fq81xy" default="Flow_1upy3sj">
+      <incoming>Flow_1rnh1re</incoming>
+      <outgoing>Flow_1upy3sj</outgoing>
+      <outgoing>Flow_1pkaxtb</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_1upy3sj" sourceRef="Gateway_1fq81xy" targetRef="Event_0sav6wr" />
+    <endEvent id="Event_0kmaos3">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":206,"body":"","exampelsVariants":[],"headers":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1pkaxtb</incoming>
+      <property id="Property_1wcejb1" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0tddoxy">
+        <sourceRef>DataObjectReference_078j0gb</sourceRef>
+        <targetRef>Property_1wcejb1</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <dataObjectReference id="DataObjectReference_078j0gb" name="string" dataObjectRef="DataObject_1j86rkx" />
+    <dataObject id="DataObject_1j86rkx" />
+    <sequenceFlow id="Flow_1pkaxtb" sourceRef="Gateway_1fq81xy" targetRef="Event_0kmaos3">
+      <conditionExpression xsi:type="tFormalExpression">Parameters.x_page_count &gt; 1</conditionExpression>
+    </sequenceFlow>
+    <task id="Activity_correct_request" name="correct request">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"correct_Request","actionParam":{"request":"Input"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_12b96sx</incoming>
+      <incoming>Flow_17s706y</incoming>
+      <outgoing>Flow_1qv0dbu</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1qv0dbu" sourceRef="Activity_correct_request" targetRef="Activity_08b2rwk" />
+    <task id="Activity_05vsuqi" name="format validation error">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"format_Validation_Error","actionParam":{},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_13rvc8u</incoming>
+      <outgoing>Flow_0ahg8go</outgoing>
+    </task>
+    <exclusiveGateway id="Gateway_0z9jmbb" default="Flow_1t83znc">
+      <incoming>Flow_0xuw6mo</incoming>
+      <outgoing>Flow_1t83znc</outgoing>
+      <outgoing>Flow_13rvc8u</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_1t83znc" sourceRef="Gateway_0z9jmbb" targetRef="Activity_form_cache_prefix" />
+    <sequenceFlow id="Flow_13rvc8u" sourceRef="Gateway_0z9jmbb" targetRef="Activity_05vsuqi">
+      <conditionExpression xsi:type="tFormalExpression">(true== Input?.id.HasValue)  &amp;&amp;  (Input?.id.Value &lt;= 0)</conditionExpression>
+    </sequenceFlow>
+    <endEvent id="Event_1fwguyp">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":404,"body":"","exampelsVariants":[],"headers":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0ahg8go</incoming>
+      <property id="Property_05skv6s" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_1lrfbdn">
+        <sourceRef>DataObjectReference_1300o5l</sourceRef>
+        <targetRef>Property_05skv6s</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <dataObjectReference id="DataObjectReference_1300o5l" name="Error" dataObjectRef="DataObject_0ixb8k0" />
+    <dataObject id="DataObject_0ixb8k0" />
+    <sequenceFlow id="Flow_0ahg8go" sourceRef="Activity_05vsuqi" targetRef="Event_1fwguyp" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1llnnqn">
+      <bpmndi:BPMNShape id="Event_1hk2ab0_di" bpmnElement="Event_1hk2ab0">
+        <omgdc:Bounds x="-78" y="22" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="411" y="-2" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sav6wr_di" bpmnElement="Event_0sav6wr">
+        <omgdc:Bounds x="1912" y="22" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08b2rwk_di" bpmnElement="Activity_08b2rwk">
+        <omgdc:Bounds x="890" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0eqkq7z_di" bpmnElement="DataObjectReference_0eqkq7z">
+        <omgdc:Bounds x="-158" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-163" y="72" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xm05d9_di" bpmnElement="Activity_1xm05d9">
+        <omgdc:Bounds x="1650" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1a2hfh4_di" bpmnElement="DataObjectReference_1a2hfh4">
+        <omgdc:Bounds x="2072" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2084" y="72" width="28" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_147oei3_di" bpmnElement="Event_147oei3">
+        <omgdc:Bounds x="1812" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0v07t91_di" bpmnElement="DataObjectReference_0v07t91">
+        <omgdc:Bounds x="1912" y="295" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1918" y="352" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1byox83_di" bpmnElement="Activity_form_cache_prefix">
+        <omgdc:Bounds x="190" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1xc7eev_di" bpmnElement="Gateway_check_x_ms_client_request_id" isMarkerVisible="true">
+        <omgdc:Bounds x="325" y="15" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="306" y="72" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0n59ozt_di" bpmnElement="Gateway_1bc52e9">
+        <omgdc:Bounds x="405" y="-155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00i29ay_di" bpmnElement="Activity_Read_Headers_Cache">
+        <omgdc:Bounds x="500" y="-260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06k8kf1_di" bpmnElement="Activity_Read_Response_Cache">
+        <omgdc:Bounds x="500" y="-100" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_127he2q_di" bpmnElement="Gateway_1qa3q4h">
+        <omgdc:Bounds x="635" y="-155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ksyumv_di" bpmnElement="Gateway_1ksyumv" isMarkerVisible="true">
+        <omgdc:Bounds x="765" y="-155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1h425xr_di" bpmnElement="Activity_Compose_Cache_W">
+        <omgdc:Bounds x="1430" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1e35yag_di" bpmnElement="Activity_write_headers_cache">
+        <omgdc:Bounds x="1210" y="-90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jd3oy9_di" bpmnElement="Activity_write_response_cache">
+        <omgdc:Bounds x="1210" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1myfty4_di" bpmnElement="Gateway_0y2oqew">
+        <omgdc:Bounds x="1115" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lwpf0u_di" bpmnElement="Gateway_0dknvrg">
+        <omgdc:Bounds x="1355" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1h78ive_di" bpmnElement="Gateway_if_data_not_exists" isMarkerVisible="true">
+        <omgdc:Bounds x="1035" y="15" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1019" y="-15" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0smbiiv_di" bpmnElement="Activity_Correct_Empty_Result">
+        <omgdc:Bounds x="1650" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0avahvs_di" bpmnElement="Event_0avahvs">
+        <omgdc:Bounds x="1812" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0mixl3b_di" bpmnElement="DataObjectReference_0mixl3b">
+        <omgdc:Bounds x="1912" y="205" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1897" y="262" width="83" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12ytvkp_di" bpmnElement="Activity_forward_result">
+        <omgdc:Bounds x="1210" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_051ui3a_di" bpmnElement="Activity_compose_cache">
+        <omgdc:Bounds x="1010" y="-170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0b0pn6v_di" bpmnElement="Activity_form_response">
+        <omgdc:Bounds x="1600" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1fq81xy_di" bpmnElement="Gateway_1fq81xy" isMarkerVisible="true">
+        <omgdc:Bounds x="1785" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kmaos3_di" bpmnElement="Event_0kmaos3">
+        <omgdc:Bounds x="1912" y="-98" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_078j0gb_di" bpmnElement="DataObjectReference_078j0gb">
+        <omgdc:Bounds x="2072" y="-105" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2077" y="-48" width="28" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tccffx_di" bpmnElement="Activity_correct_request">
+        <omgdc:Bounds x="740" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05vsuqi_di" bpmnElement="Activity_05vsuqi">
+        <omgdc:Bounds x="1650" y="380" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0z9jmbb_di" bpmnElement="Gateway_0z9jmbb" isMarkerVisible="true">
+        <omgdc:Bounds x="55" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1fwguyp_di" bpmnElement="Event_1fwguyp">
+        <omgdc:Bounds x="1812" y="402" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1300o5l_di" bpmnElement="DataObjectReference_1300o5l">
+        <omgdc:Bounds x="1912" y="395" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1917" y="452" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_045kn2k_di" bpmnElement="Event_0tsu5i3">
+        <omgdc:Bounds x="972" y="62" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1030" y="70" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13spsp0_di" bpmnElement="Event_0fmf487">
+        <omgdc:Bounds x="922" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1nmd8bj_di" bpmnElement="DataOutputAssociation_1nmd8bj">
+        <di:waypoint x="-78" y="40" />
+        <di:waypoint x="-122" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0e36m15_di" bpmnElement="DataInputAssociation_0e36m15">
+        <di:waypoint x="2072" y="40" />
+        <di:waypoint x="1948" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xuw6mo_di" bpmnElement="Flow_0xuw6mo">
+        <di:waypoint x="-42" y="40" />
+        <di:waypoint x="55" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ss9m19_di" bpmnElement="Flow_0ss9m19">
+        <di:waypoint x="990" y="40" />
+        <di:waypoint x="1035" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16elrff_di" bpmnElement="Flow_16elrff">
+        <di:waypoint x="940" y="98" />
+        <di:waypoint x="940" y="320" />
+        <di:waypoint x="1650" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mano1i_di" bpmnElement="Flow_0mano1i">
+        <di:waypoint x="1750" y="320" />
+        <di:waypoint x="1812" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1hqmdkr_di" bpmnElement="DataInputAssociation_1hqmdkr">
+        <di:waypoint x="1912" y="320" />
+        <di:waypoint x="1848" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mhbm14_di" bpmnElement="Flow_0mhbm14">
+        <di:waypoint x="990" y="98" />
+        <di:waypoint x="990" y="320" />
+        <di:waypoint x="1650" y="320" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="972" y="219" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ql2xgc_di" bpmnElement="Flow_1ql2xgc">
+        <di:waypoint x="290" y="40" />
+        <di:waypoint x="325" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12b96sx_di" bpmnElement="Flow_12b96sx">
+        <di:waypoint x="375" y="40" />
+        <di:waypoint x="740" y="40" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="539" y="22" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pn079h_di" bpmnElement="Flow_0pn079h">
+        <di:waypoint x="350" y="15" />
+        <di:waypoint x="350" y="-130" />
+        <di:waypoint x="405" y="-130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zh7pjk_di" bpmnElement="Flow_0zh7pjk">
+        <di:waypoint x="430" y="-105" />
+        <di:waypoint x="430" y="-60" />
+        <di:waypoint x="500" y="-60" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09k2xri_di" bpmnElement="Flow_09k2xri">
+        <di:waypoint x="430" y="-155" />
+        <di:waypoint x="430" y="-220" />
+        <di:waypoint x="500" y="-220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08tm4be_di" bpmnElement="Flow_08tm4be">
+        <di:waypoint x="600" y="-60" />
+        <di:waypoint x="660" y="-60" />
+        <di:waypoint x="660" y="-105" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bd6nkr_di" bpmnElement="Flow_1bd6nkr">
+        <di:waypoint x="600" y="-220" />
+        <di:waypoint x="660" y="-220" />
+        <di:waypoint x="660" y="-155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09ugpw4_di" bpmnElement="Flow_09ugpw4">
+        <di:waypoint x="685" y="-130" />
+        <di:waypoint x="765" y="-130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lvflev_di" bpmnElement="Flow_0lvflev">
+        <di:waypoint x="815" y="-130" />
+        <di:waypoint x="1010" y="-130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17s706y_di" bpmnElement="Flow_17s706y">
+        <di:waypoint x="790" y="-105" />
+        <di:waypoint x="790" y="0" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08lf6vg_di" bpmnElement="Flow_08lf6vg">
+        <di:waypoint x="1530" y="40" />
+        <di:waypoint x="1600" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qmxfo5_di" bpmnElement="Flow_1qmxfo5">
+        <di:waypoint x="1140" y="15" />
+        <di:waypoint x="1140" y="-50" />
+        <di:waypoint x="1210" y="-50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08x0edp_di" bpmnElement="Flow_08x0edp">
+        <di:waypoint x="1140" y="65" />
+        <di:waypoint x="1140" y="130" />
+        <di:waypoint x="1210" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1va3xf4_di" bpmnElement="Flow_1va3xf4">
+        <di:waypoint x="1310" y="130" />
+        <di:waypoint x="1380" y="130" />
+        <di:waypoint x="1380" y="65" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p6buw8_di" bpmnElement="Flow_0p6buw8">
+        <di:waypoint x="1310" y="-50" />
+        <di:waypoint x="1380" y="-50" />
+        <di:waypoint x="1380" y="15" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ijbpb8_di" bpmnElement="Flow_1ijbpb8">
+        <di:waypoint x="1405" y="40" />
+        <di:waypoint x="1430" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sof9ic_di" bpmnElement="Flow_0sof9ic">
+        <di:waypoint x="1085" y="40" />
+        <di:waypoint x="1115" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eg93vi_di" bpmnElement="Flow_1eg93vi">
+        <di:waypoint x="1060" y="65" />
+        <di:waypoint x="1060" y="230" />
+        <di:waypoint x="1650" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_00j0eme_di" bpmnElement="DataInputAssociation_00j0eme">
+        <di:waypoint x="1912" y="230" />
+        <di:waypoint x="1848" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ij3w0k_di" bpmnElement="Flow_0ij3w0k">
+        <di:waypoint x="1750" y="230" />
+        <di:waypoint x="1812" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1x7zkgj_di" bpmnElement="Flow_1x7zkgj">
+        <di:waypoint x="1165" y="40" />
+        <di:waypoint x="1210" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ufhx34_di" bpmnElement="Flow_0ufhx34">
+        <di:waypoint x="1310" y="40" />
+        <di:waypoint x="1355" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jz5eke_di" bpmnElement="Flow_1jz5eke">
+        <di:waypoint x="1110" y="-130" />
+        <di:waypoint x="1650" y="-130" />
+        <di:waypoint x="1650" y="0" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rnh1re_di" bpmnElement="Flow_1rnh1re">
+        <di:waypoint x="1700" y="40" />
+        <di:waypoint x="1785" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1upy3sj_di" bpmnElement="Flow_1upy3sj">
+        <di:waypoint x="1835" y="40" />
+        <di:waypoint x="1912" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0tddoxy_di" bpmnElement="DataInputAssociation_0tddoxy">
+        <di:waypoint x="2072" y="-80" />
+        <di:waypoint x="1948" y="-80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pkaxtb_di" bpmnElement="Flow_1pkaxtb">
+        <di:waypoint x="1810" y="15" />
+        <di:waypoint x="1810" y="-80" />
+        <di:waypoint x="1912" y="-80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qv0dbu_di" bpmnElement="Flow_1qv0dbu">
+        <di:waypoint x="840" y="40" />
+        <di:waypoint x="890" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t83znc_di" bpmnElement="Flow_1t83znc">
+        <di:waypoint x="105" y="40" />
+        <di:waypoint x="190" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13rvc8u_di" bpmnElement="Flow_13rvc8u">
+        <di:waypoint x="80" y="65" />
+        <di:waypoint x="80" y="420" />
+        <di:waypoint x="1650" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1lrfbdn_di" bpmnElement="DataInputAssociation_1lrfbdn">
+        <di:waypoint x="1912" y="420" />
+        <di:waypoint x="1848" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ahg8go_di" bpmnElement="Flow_0ahg8go">
+        <di:waypoint x="1750" y="420" />
+        <di:waypoint x="1812" y="420" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>

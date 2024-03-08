@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">["Action","Function"]</gp:globalParameter>
+    <gp:globalParameter name="BasicTypes">["bool","byte","sbyte","char","decimal","double","float","int","uint","nint","nuint","long","ulong","short","ushort","object","string","DateTime","dynamic","HttpResponse", "HttpRequest", "Uri","StringDictionary","Dictionary","Data store", "Json", "PassingResult","PassingData"]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name":"CorrectModels","initCode":"HttpRequest CorrectModels (\n\t\tstring Test\n\t)         \n    {\n        var httpRequestService = ServiceProvider.GetService&lt;HttpRequestService&gt;();\n        var httpRequest = httpRequestService.Request;\n        UriBuilder uriBuilder = new UriBuilder(httpRequest.Uri);\n        uriBuilder.Host = \"devserv.natec.com\";\n        uriBuilder.Port = 9000;\n        httpRequest.Uri = uriBuilder.Uri;\n        return httpRequest;\n    }","initParameters":[{"name":"Result","type":"HttpRequest"},{"name":"Test","type":"string","required":false}]},{"name":"FormResponse","initCode":"string FormResponse (\n\t\tHttpResponse Response\n\t)  \n    {\n        return Response.Content;\n    }","initParameters":[{"name":"Result","type":"string"},{"name":"Response","type":"HttpResponse","required":false}]}]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name":"RestApi","initCode":"functions://default/RestApi","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Method","type":"string","required":true,"oldName":"Method","defaultValue":"GET"},{"name":"Login","type":"string","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":{"Content-Type":"application/json;charset=utf-16","system":"204","global_unique_id":"6a297fcb-956e-4228-8c11-017e9bacd629"}},{"name":"Body","type":"string","required":false,"oldName":"Body","defaultValue":"{}"},{"name":"Result","type":"HttpResponse","oldName":"Result"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","defaultValue":"utf-8"}],"oldName":"RestApi"},{"name":"RestApi/GET","initCode":"functions://default/RestApi/GET","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":{"Content-Type":"application/json;charset=utf-16","system":"204","global_unique_id":"6a297fcb-956e-4228-8c11-017e9bacd629"}},{"name":"Login","type":"string","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","defaultValue":null},{"name":"Result","type":"HttpResponse","oldName":"Result"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","defaultValue":"utf-8"}],"oldName":"RestApi/GET"},{"name":"JsonPath","initCode":"functions://default/JsonPath","initParameters":[{"name":"Response","type":"HttpResponse","required":true,"oldName":"Response","defaultValue":null},{"name":"Path","type":"string","required":false,"oldName":"Path","defaultValue":"$"},{"name":"Result","type":"Json","oldName":"Result"}],"oldName":"JsonPath"},{"name":"SaveVariable","initCode":"functions://default/SaveVariable","initParameters":[{"name":"VariableName","type":"string","required":true,"oldName":"VariableName","defaultValue":"varName"},{"name":"Data","type":"object","required":true,"oldName":"Data","defaultValue":"#previous"}],"oldName":"SaveVariable"}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_1llnnqn" name="API Gateway">
+    <startEvent id="Event_1hk2ab0" name="">
+      <outgoing>Flow_0p9xzvl</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1oz70oz">
+        <targetRef>DataObjectReference_0cwhp27</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <endEvent id="Event_0sav6wr">
+      <incoming>Flow_0d6cqzk</incoming>
+      <property id="Property_10ntsy0" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_05bej3d">
+        <sourceRef>DataObjectReference_17frrwf</sourceRef>
+        <targetRef>Property_10ntsy0</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="Activity_0h5bu4y" name="correct Models">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"CorrectModels","actionParam":{"Test":"test"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0p9xzvl</incoming>
+      <outgoing>Flow_1hv0uey</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0p9xzvl" sourceRef="Event_1hk2ab0" targetRef="Activity_0h5bu4y" />
+    <task id="Activity_05w7xhk" name="call REST API function">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi","actionParam":{"Uri":"#Previous.Uri","Method":"POST","Login":"password","Password":"password","Headers":"#Previous.Headers","Body":"#Previous.Content","Encoding":"utf-8"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1hv0uey</incoming>
+      <outgoing>Flow_1opdmgx</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1hv0uey" sourceRef="Activity_0h5bu4y" targetRef="Activity_05w7xhk" />
+    <sequenceFlow id="Flow_1opdmgx" sourceRef="Activity_05w7xhk" targetRef="Activity_034lr3e" />
+    <task id="Activity_034lr3e" name="form Response">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"FormResponse","actionParam":{"Response":"#Previous"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1opdmgx</incoming>
+      <outgoing>Flow_0d6cqzk</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0d6cqzk" sourceRef="Activity_034lr3e" targetRef="Event_0sav6wr" />
+    <dataObjectReference id="DataObjectReference_17frrwf" name="HttpResponse" dataObjectRef="DataObject_12a5ngp" />
+    <dataObject id="DataObject_12a5ngp" />
+    <dataObjectReference id="DataObjectReference_0cwhp27" name="HttpRequest" dataObjectRef="DataObject_05sdmgb" />
+    <dataObject id="DataObject_05sdmgb" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1llnnqn">
+      <bpmndi:BPMNShape id="Event_1hk2ab0_di" bpmnElement="Event_1hk2ab0">
+        <omgdc:Bounds x="252" y="72" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="411" y="-2" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h5bu4y_di" bpmnElement="Activity_0h5bu4y">
+        <omgdc:Bounds x="340" y="50" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0cwhp27_di" bpmnElement="DataObjectReference_0cwhp27">
+        <omgdc:Bounds x="172" y="65" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="159" y="122" width="64" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05w7xhk_di" bpmnElement="Activity_05w7xhk">
+        <omgdc:Bounds x="470" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sav6wr_di" bpmnElement="Event_0sav6wr">
+        <omgdc:Bounds x="252" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_034lr3e_di" bpmnElement="Activity_034lr3e">
+        <omgdc:Bounds x="340" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_17frrwf_di" bpmnElement="DataObjectReference_17frrwf">
+        <omgdc:Bounds x="172" y="245" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="155" y="302" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0p9xzvl_di" bpmnElement="Flow_0p9xzvl">
+        <di:waypoint x="288" y="90" />
+        <di:waypoint x="340" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hv0uey_di" bpmnElement="Flow_1hv0uey">
+        <di:waypoint x="440" y="90" />
+        <di:waypoint x="520" y="90" />
+        <di:waypoint x="520" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1opdmgx_di" bpmnElement="Flow_1opdmgx">
+        <di:waypoint x="520" y="220" />
+        <di:waypoint x="520" y="270" />
+        <di:waypoint x="440" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d6cqzk_di" bpmnElement="Flow_0d6cqzk">
+        <di:waypoint x="340" y="270" />
+        <di:waypoint x="288" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_05bej3d_di" bpmnElement="DataInputAssociation_05bej3d">
+        <di:waypoint x="208" y="270" />
+        <di:waypoint x="252" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1oz70oz_di" bpmnElement="DataOutputAssociation_1oz70oz">
+        <di:waypoint x="252" y="90" />
+        <di:waypoint x="208" y="90" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>

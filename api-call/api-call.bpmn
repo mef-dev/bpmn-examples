@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">["Action","Function"]</gp:globalParameter>
+    <gp:globalParameter name="BasicTypes">["bool","byte","sbyte","char","decimal","double","float","int","uint","nint","nuint","long","ulong","short","ushort","object","string","DateTime","dynamic","HttpResponse","Uri","StringDictionary","Dictionary","Data store", "Json", "PassingResult","PassingData"]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name":"email","definition":"{\r\n   \"$schema\":\"http://json-schema.org/draft-06/schema#\",\r\n   \"$ref\":\"#/definitions/email\",\r\n   \"definitions\":{\r\n      \"email\":{\r\n         \"type\":\"object\",\r\n         \"properties\":{\r\n            \"address\":{\r\n               \"type\":\"string\"\r\n            }\r\n         },\r\n         \"additionalProperties\":false,\r\n         \"required\":[\r\n            \"address\"\r\n         ],\r\n         \"title\":\"email\"\r\n      }\r\n   }\r\n}","dataObjectRefName":"email"}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name":"FormReport","initCode":"object FormReport (\n\t\tHttpResponse HttpInput\n\t)           \n    {\n            //get Uri properties from http context example https://learn.microsoft.com/en-us/dotnet/api/system.uri\n            var httpRequestService = ServiceProvider.GetService&lt;HttpRequestService&gt;();\n            var httpRequest = httpRequestService.Request;\n            string Query = httpRequest.Uri.Query;\n            //logger using example\n            Logger.LogInformation($\"Uri properties from http context saved\");\n\n            //in case of arrival after retrays, it will also be default and you need to distinguish it - for example, by HTTP status code = 200\n            if(HttpInput.StatusCode == 200)\n            {\n                var json = new JSON(HttpInput.Content);     \n                bool valid = Convert.ToBoolean(json.JsonPath(\"$.valid\").Value);                    \n                Logger.LogInformation($\"successful Result saved, valid result: {valid}\");\n                //for simplicity, we use an anonymous type with 8 properties, and .NET will automatically assign a name to it\n                return new\n                    {\n                        Email=Input.address,\n                        Query = Query,\n                        Description = \"Success\",\n                        Valid = json.JsonPath(\"$.validators.typo.valid\").Value\n                    };\n            }\n            else\n            {\n                    //for simplicity, we use an anonymous type, and .NET will automatically assign a name to it\n                    Logger.LogInformation(\"fault Result reached\");\n                    \n                    //change HTTP response attributes to handle error outside\n                    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n                        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n                    \n                    return new\n                    {\n                        Email=Input.address,\n                        Query = Query,\n                        Description = \"Fault\"\n                    };  \n            }\n    }","initParameters":[{"name":"Result","type":"object"},{"name":"HttpInput","type":"HttpResponse","required":true}]}]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name":"RestApi","initCode":"functions://default/RestApi","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Method","type":"string","required":true,"oldName":"Method","defaultValue":"GET"},{"name":"Login","type":"string","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":{"Content-Type":"application/json;charset=utf-16","system":"204","global_unique_id":"6a297fcb-956e-4228-8c11-017e9bacd629"}},{"name":"Body","type":"string","required":false,"oldName":"Body","defaultValue":"{}"},{"name":"Result","type":"HttpResponse","oldName":"Result"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","defaultValue":"utf-8"}],"oldName":"RestApi"},{"name":"RestApi/GET","initCode":"functions://default/RestApi/GET","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","defaultValue":{"Content-Type":"application/json;charset=utf-16","system":"204","global_unique_id":"6a297fcb-956e-4228-8c11-017e9bacd629"}},{"name":"Login","type":"string","required":false,"oldName":"Login","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","defaultValue":null},{"name":"Result","type":"HttpResponse","oldName":"Result"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","defaultValue":"utf-8"}],"oldName":"RestApi/GET"},{"name":"JsonPath","initCode":"functions://default/JsonPath","initParameters":[{"name":"Response","type":"object","required":true,"oldName":"Response","defaultValue":null},{"name":"Path","type":"string","required":false,"oldName":"Path","defaultValue":"$"},{"name":"Result","type":"Json","oldName":"Result"}],"oldName":"JsonPath"},{"name":"SaveVariable","initCode":"functions://default/SaveVariable","initParameters":[{"name":"VariableName","type":"string","required":true,"oldName":"VariableName","defaultValue":"varName"},{"name":"Data","type":"object","required":true,"oldName":"Data","defaultValue":"#previous"}],"oldName":"SaveVariable"}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"address":"test@gmail.com"}</gp:globalParameter>
+    <gp:globalParameter name="ExecuteParamas">{"address":"mmanegold@libertyglobal.com"}</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_1llnnqn" name="api-call-0304-4497617031">
+    <startEvent id="Start" name="Start">
+      <outgoing>Flow_1lcy9oj</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_19ivl78">
+        <targetRef>DataObjectReference_1cl5j6j</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <endEvent id="Event_0sav6wr" name="End">
+      <incoming>Flow_0p9zoql</incoming>
+      <property id="Property_1eigcr8" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_1jy1dqx">
+        <sourceRef>DataObjectReference_1u2e8z7</sourceRef>
+        <targetRef>Property_1eigcr8</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_1lcy9oj" sourceRef="Start" targetRef="Activity_Get_msisdns" />
+    <task id="Activity_Get_msisdns" name="retrive the Data by http">
+      <documentation>the GET api call example to get data from https://anyapi.io/app/email-validation-api#docs</documentation>
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi/GET","actionParam":{"Uri":"https://anyapi.io/api/v1/email?email={Input.address}&amp;apiKey=eopl60isvuor0um4nppvgoqj1d1tcpdko7a89sr6uak80ap1jme083","Headers":{"Content-Type":"application/vnd.api+json","global_unique_id":"6a297fcb-956e-4228-8c11-017e9bacd629"},"Login":"","Password":"","Encoding":"utf-8"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1lcy9oj</incoming>
+      <incoming>Flow_0onq684</incoming>
+      <outgoing>Flow_0onq123</outgoing>
+    </task>
+    <exclusiveGateway id="Gateway_Check_Api_Result" name="to check result" default="Flow_0dz75o2">
+      <incoming>Flow_0onq123</incoming>
+      <outgoing>Flow_0o131qa84</outgoing>
+      <outgoing>Flow_0dz75o2</outgoing>
+    </exclusiveGateway>
+    <task id="Activity_Form_Response" name="create the Result">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"FormReport","actionParam":{"HttpInput":"#Previous"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0dz75o2</incoming>
+      <outgoing>Flow_0p9zoql</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0onq123" sourceRef="Activity_Get_msisdns" targetRef="Gateway_Check_Api_Result" />
+    <sequenceFlow id="Flow_0o131qa84" name="retry with waiting 1 sec" sourceRef="Gateway_Check_Api_Result" targetRef="Event_1wi8qel">
+      <conditionExpression xsi:type="tFormalExpression">(#Previous.StatusCode != 200) &amp;&amp; (Transition.Counter &lt; 1)</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_0p9zoql" sourceRef="Activity_Form_Response" targetRef="Event_0sav6wr" />
+    <dataObjectReference id="DataObjectReference_1cl5j6j" name="email" dataObjectRef="DataObject_14dtdyg" />
+    <dataObject id="DataObject_14dtdyg" />
+    <dataObjectReference id="DataObjectReference_1u2e8z7" name="object" dataObjectRef="DataObject_09kxd3n" />
+    <dataObject id="DataObject_09kxd3n" />
+    <sequenceFlow id="Flow_0dz75o2" sourceRef="Gateway_Check_Api_Result" targetRef="Activity_Form_Response" />
+    <sequenceFlow id="Flow_0onq684" sourceRef="Event_1wi8qel" targetRef="Activity_Get_msisdns" />
+    <intermediateCatchEvent id="Event_1wi8qel" name="wait(100)">
+      <incoming>Flow_0o131qa84</incoming>
+      <outgoing>Flow_0onq684</outgoing>
+      <timerEventDefinition id="TimerEventDefinition_1pauqsz">
+        <timeDuration>100</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1llnnqn">
+      <bpmndi:BPMNShape id="Event_1hk2ab0_di" bpmnElement="Start">
+        <omgdc:Bounds x="182" y="-118" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="187" y="-142" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sav6wr_di" bpmnElement="Event_0sav6wr">
+        <omgdc:Bounds x="682" y="-118" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="690" y="-142" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jnnnrl_di" bpmnElement="Activity_Get_msisdns">
+        <omgdc:Bounds x="270" y="-140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0ktyuh9_di" bpmnElement="Gateway_Check_Api_Result" isMarkerVisible="true">
+        <omgdc:Bounds x="435" y="-125" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="423" y="-67" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_032vfax_di" bpmnElement="Activity_Form_Response">
+        <omgdc:Bounds x="530" y="-140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1cl5j6j_di" bpmnElement="DataObjectReference_1cl5j6j">
+        <omgdc:Bounds x="112" y="-125" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="117" y="-68" width="28" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1u2e8z7_di" bpmnElement="DataObjectReference_1u2e8z7">
+        <omgdc:Bounds x="762" y="-125" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="768" y="-68" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1b5bpcy_di" bpmnElement="Event_1wi8qel">
+        <omgdc:Bounds x="302" y="-218" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="297" y="-237" width="46" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_19ivl78_di" bpmnElement="DataOutputAssociation_19ivl78">
+        <di:waypoint x="182" y="-100" />
+        <di:waypoint x="148" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1jy1dqx_di" bpmnElement="DataInputAssociation_1jy1dqx">
+        <di:waypoint x="762" y="-100" />
+        <di:waypoint x="718" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lcy9oj_di" bpmnElement="Flow_1lcy9oj">
+        <di:waypoint x="218" y="-100" />
+        <di:waypoint x="270" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ck788r_di" bpmnElement="Flow_0onq123">
+        <di:waypoint x="370" y="-100" />
+        <di:waypoint x="435" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jlwz0z_di" bpmnElement="Flow_0o131qa84">
+        <di:waypoint x="460" y="-125" />
+        <di:waypoint x="460" y="-200" />
+        <di:waypoint x="338" y="-200" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="367" y="-194" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p9zoql_di" bpmnElement="Flow_0p9zoql">
+        <di:waypoint x="630" y="-100" />
+        <di:waypoint x="682" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dz75o2_di" bpmnElement="Flow_0dz75o2">
+        <di:waypoint x="485" y="-100" />
+        <di:waypoint x="530" y="-100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0onq684_di" bpmnElement="Flow_0onq684">
+        <di:waypoint x="320" y="-182" />
+        <di:waypoint x="320" y="-140" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,4840 @@
+openapi: 3.0.1
+info:
+  title: Service Activation and Configuration
+  description: >-
+    Service Activation and Configuration API goal is to provide the ability to activate and
+    configure Service. This API features Monitor pattern allowing to manage service
+    configuration/activation asynchronous request (server side will provide monitor as POST/PATCH
+    response) 
+
+    ### TMF640 performs the following Operations on service resource :
+
+    - Retrieve a service or a collection of services depending on filter criteria
+
+    - Partial update of an service
+
+    - Create a service (including default values and creation rules)
+
+    - Delete a service (for administration purposes)
+
+    - Manage notification of events
+
+    ### Monitor Resource
+
+    Monitor resource is used to track and log activation and/or configuration request
+
+    ### TMF640 provides following operation on Monitor resource:
+
+    - Retrieval of a monitor or a collection of monitor
+  version: 5.0.0
+servers:
+  - url: 'http://serverRoot'
+tags:
+  - name: service
+    description: Operations for Service Resource
+  - name: monitor
+    description: Operations for Monitor Resource
+  - name: notification listener
+    description: Notifications for Resource Lifecycle and event notifications
+  - name: events subscription
+    description: Endpoints to register and terminate an Event Listener
+paths:
+  /service:
+    get:
+      tags:
+        - service
+      summary: List or find Service objects
+      description: >-
+        This operation retrieves a Service entity. Attribute selection enabled for all first level
+        attributes.
+      operationId: listService
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          $ref: '#/components/responses/200ServiceArray'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    post:
+      tags:
+        - service
+      summary: Creates a Service
+      description: This operation creates a Service entity.
+      operationId: createService
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+      requestBody:
+        $ref: '#/components/requestBodies/Service_FVO'
+      responses:
+        '201':
+          $ref: '#/components/responses/201Service'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  '/service/{id}':
+    get:
+      tags:
+        - service
+      summary: Retrieves a Service by ID
+      description: List or find Service objects
+      operationId: retrieveService
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Service_Get'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    patch:
+      tags:
+        - service
+      summary: Updates partially a Service
+      description: This operation updates partially a Service entity.
+      operationId: patchService
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        $ref: '#/components/requestBodies/Service_MVO'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Service_Patch'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    delete:
+      tags:
+        - service
+      summary: Deletes a Service
+      description: This operation deletes a Service entity.
+      operationId: deleteService
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  /listener/serviceCreateEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity ServiceCreateEvent
+      description: Example of a client listener for receiving the notification ServiceCreateEvent
+      operationId: serviceCreateEvent
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceCreateEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/serviceAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity ServiceCreateEvent
+      description: Example of a client listener for receiving the notification ServiceAttributeValueChangeEvent
+      operationId: serviceAttributeValueChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceAttributeValueChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/serviceStateChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity ServiceCreateEvent
+      description: Example of a client listener for receiving the notification ServiceStateChangeEvent
+      operationId: serviceStateChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceStateChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/serviceDeleteEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity ServiceCreateEvent
+      description: Example of a client listener for receiving the notification ServiceDeleteEvent
+      operationId: serviceDeleteEvent
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceDeleteEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /monitor:
+    get:
+      tags:
+        - monitor
+      summary: List or find Monitor objects
+      description: >-
+        This operation retrieves a Monitor entity. Attribute selection enabled for all first level
+        attributes.
+      operationId: listMonitor
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          $ref: '#/components/responses/200MonitorArray'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  '/monitor/{id}':
+    get:
+      tags:
+        - monitor
+      summary: Retrieves a Monitor by ID
+      description: List or find Monitor objects
+      operationId: retrieveMonitor
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Monitor_Get'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  /listener/monitorCreateEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity MonitorCreateEvent
+      description: Example of a client listener for receiving the notification MonitorCreateEvent
+      operationId: monitorCreateEvent
+      requestBody:
+        $ref: '#/components/requestBodies/MonitorCreateEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/monitorAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity MonitorCreateEvent
+      description: Example of a client listener for receiving the notification MonitorAttributeValueChangeEvent
+      operationId: monitorAttributeValueChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/MonitorAttributeValueChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/monitorStateChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity MonitorCreateEvent
+      description: Example of a client listener for receiving the notification MonitorStateChangeEvent
+      operationId: monitorStateChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/MonitorStateChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/monitorDeleteEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity MonitorCreateEvent
+      description: Example of a client listener for receiving the notification MonitorDeleteEvent
+      operationId: monitorDeleteEvent
+      requestBody:
+        $ref: '#/components/requestBodies/MonitorDeleteEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /hub:
+    post:
+      operationId: createHub
+      summary: Create a subscription (hub) to receive Events
+      description: Sets the communication endpoint to receive Events.
+      tags:
+        - events subscription
+      requestBody:
+        $ref: '#/components/requestBodies/Hub_FVO'
+      responses:
+        '201':
+          $ref: '#/components/responses/Hub'
+        default:
+          $ref: '#/components/responses/Error'
+  '/hub/{id}':
+    delete:
+      operationId: hubDelete
+      summary: Remove a subscription (hub) to receive Events
+      description: ''
+      tags:
+        - events subscription
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+        default:
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    Addressable:
+      type: object
+      description: Base schema for adressable entities
+      properties:
+        href:
+          type: string
+          description: Hyperlink reference
+        id:
+          type: string
+          description: unique identifier
+      required:
+        - id
+        - href
+    Addressable_FVO:
+      type: object
+      description: Base schema for adressable entities
+      properties:
+        href:
+          type: string
+          description: Hyperlink reference
+        id:
+          type: string
+          description: unique identifier
+    Addressable_MVO:
+      type: object
+      description: Base schema for adressable entities
+      properties:
+        href:
+          type: string
+          description: Hyperlink reference
+    BaseEvent:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: Base event with common attributes.
+          properties:
+            event:
+              type: object
+            eventId:
+              type: string
+              description: The identifier of the notification.
+            eventTime:
+              type: string
+              format: date-time
+              description: Time of the event occurrence.
+            eventType:
+              type: string
+              description: The type of the notification.
+            correlationId:
+              type: string
+              description: The correlation id for this event.
+            domain:
+              type: string
+              description: The domain of the event.
+            title:
+              type: string
+              description: The title of the event.
+            description:
+              type: string
+              description: An explanatory of the event.
+            priority:
+              type: string
+              description: A priority.
+            timeOcurred:
+              type: string
+              format: date-time
+              description: The time the event occured.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          BaseEvent: '#/components/schemas/BaseEvent'
+    BooleanArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: boolean
+    BooleanArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: boolean
+          required:
+            - value
+    BooleanArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: boolean
+          required:
+            - value
+    BooleanCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+    BooleanCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+          required:
+            - value
+    BooleanCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+          required:
+            - value
+    Characteristic:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Describes a given characteristic of an object or entity through a name/value pair.
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship'
+            name:
+              type: string
+              description: Name of the characteristic
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic'
+    CharacteristicRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship'
+    CharacteristicRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship_FVO'
+    CharacteristicRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship_MVO'
+    Characteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: Describes a given characteristic of an object or entity through a name/value pair.
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship_FVO'
+            name:
+              type: string
+              description: Name of the characteristic
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic_FVO'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic_FVO'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic_FVO'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic_FVO'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic_FVO'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic_FVO'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic_FVO'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic_FVO'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic_FVO'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic_FVO'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic_FVO'
+    Characteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Describes a given characteristic of an object or entity through a name/value pair.
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship_MVO'
+            name:
+              type: string
+              description: Name of the characteristic
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic_MVO'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic_MVO'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic_MVO'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic_MVO'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic_MVO'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic_MVO'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic_MVO'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic_MVO'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic_MVO'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic_MVO'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic_MVO'
+    ConstraintRef:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+        - type: object
+          description: >-
+            Constraint reference. The Constraint resource represents a policy/rule applied to an
+            entity or entity spec.
+          properties:
+            version:
+              type: string
+              description: constraint version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ConstraintRef: '#/components/schemas/ConstraintRef'
+    ConstraintRef_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+        - type: object
+          description: >-
+            Constraint reference. The Constraint resource represents a policy/rule applied to an
+            entity or entity spec.
+          properties:
+            version:
+              type: string
+              description: constraint version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ConstraintRef: '#/components/schemas/ConstraintRef_FVO'
+    ConstraintRef_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+        - type: object
+          description: >-
+            Constraint reference. The Constraint resource represents a policy/rule applied to an
+            entity or entity spec.
+          properties:
+            version:
+              type: string
+              description: constraint version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ConstraintRef: '#/components/schemas/ConstraintRef_MVO'
+    Entity:
+      type: object
+      description: Base entity schema for use in TMForum Open-APIs. Property.
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/Addressable'
+    EntityRef:
+      type: object
+      description: Entity reference schema to be use for all entityRef class.
+      properties:
+        href:
+          type: string
+          description: Hyperlink reference
+    EntityValue:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: Base entity value  schema for use in TMForum Open-APIs
+          properties:
+            id:
+              type: string
+              description: Unique identifier of a related entity.
+            href:
+              type: string
+              description: Reference of the related entity.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Entity: '#/components/schemas/EntityValue'
+    Entity_FVO:
+      type: object
+      description: Base entity schema for use in TMForum Open-APIs. Property.
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/Addressable_FVO'
+    Entity_MVO:
+      type: object
+      description: Base entity schema for use in TMForum Open-APIs. Property.
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/Addressable_MVO'
+    Event:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: event with common attributes.
+          properties:
+            href:
+              type: string
+              description: Hyperlink reference
+            id:
+              type: string
+              description: unique identifier
+            correlationId:
+              type: string
+              description: The correlation id for this event.
+            domain:
+              type: string
+              description: The domain of the event.
+            title:
+              type: string
+              description: The title of the event.
+            description:
+              type: string
+              description: An explnatory of the event.
+            priority:
+              type: string
+              description: A priority.
+            timeOccurred:
+              type: string
+              format: date-time
+              description: The time the event occurred.
+            source:
+              $ref: '#/components/schemas/EntityRef'
+            reportingSystem:
+              $ref: '#/components/schemas/EntityRef'
+            relatedParty:
+              type: array
+              items:
+                $ref: '#/components/schemas/RelatedParty'
+            analyticCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            eventId:
+              type: string
+              description: The identifier of the notification.
+            eventTime:
+              type: string
+              format: date-time
+              description: Time of the event occurrence.
+            eventType:
+              type: string
+              description: The type of the notification.
+            event:
+              description: The event linked to the involved resource object
+              type: object
+    Extensible:
+      type: object
+      description: >-
+        Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means
+        that the Entity described by the schema  MUST be extended with the @type
+      properties:
+        '@type':
+          type: string
+          description: 'When sub-classing, this defines the sub-class Extensible name'
+        '@baseType':
+          type: string
+          description: 'When sub-classing, this defines the super-class'
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+      required:
+        - '@type'
+    Extensible_FVO:
+      type: object
+      description: >-
+        Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means
+        that the Entity described by the schema  MUST be extended with the @type
+      properties:
+        '@type':
+          type: string
+          description: 'When sub-classing, this defines the sub-class Extensible name'
+        '@baseType':
+          type: string
+          description: 'When sub-classing, this defines the super-class'
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+      required:
+        - '@type'
+    Extensible_MVO:
+      type: object
+      description: >-
+        Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means
+        that the Entity described by the schema  MUST be extended with the @type
+      properties:
+        '@type':
+          type: string
+          description: 'When sub-classing, this defines the sub-class Extensible name'
+        '@baseType':
+          type: string
+          description: 'When sub-classing, this defines the super-class'
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+    Feature:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Configuration feature.
+          properties:
+            isBundle:
+              description: True if this is a feature group. Default is false.
+              type: boolean
+            featureRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/FeatureRelationship'
+            featureCharacteristic:
+              description: This is a list of Characteristics for a particular feature.
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            constraint:
+              description: This is a list of feature constraints.
+              type: array
+              items:
+                $ref: '#/components/schemas/ConstraintRef'
+            isEnabled:
+              description: True if this feature is enabled. Default is true.
+              type: boolean
+            id:
+              type: string
+              description: unique identifier
+            name:
+              description: This is the name for the feature.
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Feature: '#/components/schemas/Feature'
+    FeatureRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: Configuration feature
+          properties:
+            relationshipType:
+              description: This is the type of the feature relationship.
+              type: string
+              enum:
+                - excluded
+                - includes
+                - may include
+                - requires
+            id:
+              description: Unique identifier of the target feature.
+              type: string
+            name:
+              description: This is the name of the target feature.
+              type: string
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          FeatureRelationship: '#/components/schemas/FeatureRelationship'
+    FeatureRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity_FVO'
+        - type: object
+          description: Configuration feature
+          properties:
+            relationshipType:
+              description: This is the type of the feature relationship.
+              type: string
+              enum:
+                - excluded
+                - includes
+                - may include
+                - requires
+            id:
+              description: Unique identifier of the target feature.
+              type: string
+            name:
+              description: This is the name of the target feature.
+              type: string
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+          required:
+            - relationshipType
+            - name
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          FeatureRelationship: '#/components/schemas/FeatureRelationship_FVO'
+    FeatureRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity_MVO'
+        - type: object
+          description: Configuration feature
+          properties:
+            relationshipType:
+              description: This is the type of the feature relationship.
+              type: string
+              enum:
+                - excluded
+                - includes
+                - may include
+                - requires
+            id:
+              description: Unique identifier of the target feature.
+              type: string
+            name:
+              description: This is the name of the target feature.
+              type: string
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          FeatureRelationship: '#/components/schemas/FeatureRelationship_MVO'
+    Feature_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: Configuration feature.
+          properties:
+            isBundle:
+              description: True if this is a feature group. Default is false.
+              type: boolean
+            featureRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/FeatureRelationship_FVO'
+            featureCharacteristic:
+              description: This is a list of Characteristics for a particular feature.
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+            constraint:
+              description: This is a list of feature constraints.
+              type: array
+              items:
+                $ref: '#/components/schemas/ConstraintRef_FVO'
+            isEnabled:
+              description: True if this feature is enabled. Default is true.
+              type: boolean
+            id:
+              type: string
+              description: unique identifier
+            name:
+              description: This is the name for the feature.
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Feature: '#/components/schemas/Feature_FVO'
+    Feature_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Configuration feature.
+          properties:
+            isBundle:
+              description: True if this is a feature group. Default is false.
+              type: boolean
+            featureRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/FeatureRelationship_MVO'
+            featureCharacteristic:
+              description: This is a list of Characteristics for a particular feature.
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+            constraint:
+              description: This is a list of feature constraints.
+              type: array
+              items:
+                $ref: '#/components/schemas/ConstraintRef_MVO'
+            isEnabled:
+              description: True if this feature is enabled. Default is true.
+              type: boolean
+            id:
+              type: string
+              description: unique identifier
+            name:
+              description: This is the name for the feature.
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Feature: '#/components/schemas/Feature_MVO'
+    GeographicAddressValue:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Structured textual way of describing how to find a Property in an urban area (country
+            properties are often defined differently).
+
+            Note : Address corresponds to SID UrbanPropertyAddress
+          properties:
+            locality:
+              type: string
+              description: >-
+                An area of defined or undefined boundaries within a local authority or other
+                legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET],
+                or a suburb, a bounded locality within a city, town or shire principally of urban
+                character [ANZLICSTREET]
+            postcode:
+              type: string
+              description: >-
+                descriptor for a postal delivery area, used to speed and simplify the delivery of
+                mail (also know as zipcode)
+            stateOrProvince:
+              type: string
+              description: the State or Province that the address is in
+            streetNr:
+              type: string
+              description: >-
+                Number identifying a specific property on a public street. It may be combined with
+                streetNrLast for ranged addresses
+            streetNrLast:
+              type: string
+              description: Last number in a range of street numbers allocated to a property
+            streetNrLastSuffix:
+              type: string
+              description: Last street number suffix for a ranged address
+            streetNrSuffix:
+              type: string
+              description: the first street number suffix
+            streetSuffix:
+              type: string
+              description: A modifier denoting a relative direction
+            streetType:
+              type: string
+              description: >-
+                alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade,
+                place, tarn, way, wharf 
+            geographicSubAddress:
+              $ref: '#/components/schemas/GeographicSubAddressValue'
+            city:
+              type: string
+              description: City that the address is in
+            country:
+              type: string
+              description: Country that the address is in
+            streetName:
+              type: string
+              description: Name of the street or other street type
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddress: '#/components/schemas/GeographicAddressValue'
+    GeographicAddressValue_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: >-
+            Structured textual way of describing how to find a Property in an urban area (country
+            properties are often defined differently).
+
+            Note : Address corresponds to SID UrbanPropertyAddress
+          properties:
+            locality:
+              type: string
+              description: >-
+                An area of defined or undefined boundaries within a local authority or other
+                legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET],
+                or a suburb, a bounded locality within a city, town or shire principally of urban
+                character [ANZLICSTREET]
+            postcode:
+              type: string
+              description: >-
+                descriptor for a postal delivery area, used to speed and simplify the delivery of
+                mail (also know as zipcode)
+            stateOrProvince:
+              type: string
+              description: the State or Province that the address is in
+            streetNr:
+              type: string
+              description: >-
+                Number identifying a specific property on a public street. It may be combined with
+                streetNrLast for ranged addresses
+            streetNrLast:
+              type: string
+              description: Last number in a range of street numbers allocated to a property
+            streetNrLastSuffix:
+              type: string
+              description: Last street number suffix for a ranged address
+            streetNrSuffix:
+              type: string
+              description: the first street number suffix
+            streetSuffix:
+              type: string
+              description: A modifier denoting a relative direction
+            streetType:
+              type: string
+              description: >-
+                alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade,
+                place, tarn, way, wharf 
+            geographicSubAddress:
+              $ref: '#/components/schemas/GeographicSubAddressValue_FVO'
+            city:
+              type: string
+              description: City that the address is in
+            country:
+              type: string
+              description: Country that the address is in
+            streetName:
+              type: string
+              description: Name of the street or other street type
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddress: '#/components/schemas/GeographicAddressValue_FVO'
+    GeographicAddressValue_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Structured textual way of describing how to find a Property in an urban area (country
+            properties are often defined differently).
+
+            Note : Address corresponds to SID UrbanPropertyAddress
+          properties:
+            locality:
+              type: string
+              description: >-
+                An area of defined or undefined boundaries within a local authority or other
+                legislatively defined area, usually rural or semi rural in nature. [ANZLIC-STREET],
+                or a suburb, a bounded locality within a city, town or shire principally of urban
+                character [ANZLICSTREET]
+            postcode:
+              type: string
+              description: >-
+                descriptor for a postal delivery area, used to speed and simplify the delivery of
+                mail (also know as zipcode)
+            stateOrProvince:
+              type: string
+              description: the State or Province that the address is in
+            streetNr:
+              type: string
+              description: >-
+                Number identifying a specific property on a public street. It may be combined with
+                streetNrLast for ranged addresses
+            streetNrLast:
+              type: string
+              description: Last number in a range of street numbers allocated to a property
+            streetNrLastSuffix:
+              type: string
+              description: Last street number suffix for a ranged address
+            streetNrSuffix:
+              type: string
+              description: the first street number suffix
+            streetSuffix:
+              type: string
+              description: A modifier denoting a relative direction
+            streetType:
+              type: string
+              description: >-
+                alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade,
+                place, tarn, way, wharf 
+            geographicSubAddress:
+              $ref: '#/components/schemas/GeographicSubAddressValue_MVO'
+            city:
+              type: string
+              description: City that the address is in
+            country:
+              type: string
+              description: Country that the address is in
+            streetName:
+              type: string
+              description: Name of the street or other street type
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddress: '#/components/schemas/GeographicAddressValue_MVO'
+    GeographicLocationValue:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of
+            Point (addresses and locations), MultiPoint, LineString (streets, highways and
+            boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the
+            @type attribute to specify which of these is being specified by the geometry attribute.
+          properties:
+            bbox:
+              type: array
+              description: >-
+                A bounding box array that contains the geometry. The axes order follows the axes
+                order of the geometry
+              items:
+                type: number
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicLocation: '#/components/schemas/GeographicLocationValue'
+    GeographicLocationValue_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: >-
+            A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of
+            Point (addresses and locations), MultiPoint, LineString (streets, highways and
+            boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the
+            @type attribute to specify which of these is being specified by the geometry attribute.
+          properties:
+            bbox:
+              type: array
+              description: >-
+                A bounding box array that contains the geometry. The axes order follows the axes
+                order of the geometry
+              items:
+                type: number
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicLocation: '#/components/schemas/GeographicLocationValue_FVO'
+    GeographicLocationValue_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            A GeographicLocation is a pure-virtual super-class to the GeoJSON-aligned geometries of
+            Point (addresses and locations), MultiPoint, LineString (streets, highways and
+            boundaries), MultiLineString and Polygon (countries, provinces, tracts of land). Use the
+            @type attribute to specify which of these is being specified by the geometry attribute.
+          properties:
+            bbox:
+              type: array
+              description: >-
+                A bounding box array that contains the geometry. The axes order follows the axes
+                order of the geometry
+              items:
+                type: number
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicLocation: '#/components/schemas/GeographicLocationValue_MVO'
+    GeographicSubAddressUnit:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Representation of a SubUnit. It is used for describing subunit within a subAddress e.g.
+            BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+          properties:
+            subUnitNumber:
+              type: string
+              description: >-
+                The discriminator used for the subunit, often just a simple number but may also be a
+                range.
+            subUnitType:
+              type: string
+              description: 'The type of subunit e.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF, RACK'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddressUnit: '#/components/schemas/GeographicSubAddressUnit'
+    GeographicSubAddressUnit_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: >-
+            Representation of a SubUnit. It is used for describing subunit within a subAddress e.g.
+            BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+          properties:
+            subUnitNumber:
+              type: string
+              description: >-
+                The discriminator used for the subunit, often just a simple number but may also be a
+                range.
+            subUnitType:
+              type: string
+              description: 'The type of subunit e.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF, RACK'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddressUnit: '#/components/schemas/GeographicSubAddressUnit_FVO'
+    GeographicSubAddressUnit_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Representation of a SubUnit. It is used for describing subunit within a subAddress e.g.
+            BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+          properties:
+            subUnitNumber:
+              type: string
+              description: >-
+                The discriminator used for the subunit, often just a simple number but may also be a
+                range.
+            subUnitType:
+              type: string
+              description: 'The type of subunit e.g.BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF, RACK'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddressUnit: '#/components/schemas/GeographicSubAddressUnit_MVO'
+    GeographicSubAddressValue:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Representation of a GeographicSubAddress 
+
+            It is used for addressing within a property in an urban area (country properties are
+            often defined differently). It may refer to a building, a building cluster, or a floor
+            of a multistory building.
+          properties:
+            buildingName:
+              type: string
+              description: allows for buildings that have well-known names
+            levelNumber:
+              type: string
+              description: 'used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2'
+            levelType:
+              type: string
+              description: describes level types within a building
+            name:
+              type: string
+              description: Name of the subAddress to identify it with a meaningful identification
+            privateStreetName:
+              type: string
+              description: >-
+                private streets internal to a property (e.g. a university) may have internal names
+                that are not recorded by the land title office.
+            privateStreetNumber:
+              type: string
+              description: private streets numbers internal to a private street
+            subUnit:
+              type: array
+              description: >-
+                Representation of a SubUnit. It is used for describing subunit within a subAddress
+                e.g. BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+              items:
+                $ref: '#/components/schemas/GeographicSubAddressUnit'
+            subAddressType:
+              type: string
+              description: 'Type of subAddress : it can be a subunit or a private street'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddress: '#/components/schemas/GeographicSubAddressValue'
+    GeographicSubAddressValue_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: >-
+            Representation of a GeographicSubAddress 
+
+            It is used for addressing within a property in an urban area (country properties are
+            often defined differently). It may refer to a building, a building cluster, or a floor
+            of a multistory building.
+          properties:
+            buildingName:
+              type: string
+              description: allows for buildings that have well-known names
+            levelNumber:
+              type: string
+              description: 'used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2'
+            levelType:
+              type: string
+              description: describes level types within a building
+            name:
+              type: string
+              description: Name of the subAddress to identify it with a meaningful identification
+            privateStreetName:
+              type: string
+              description: >-
+                private streets internal to a property (e.g. a university) may have internal names
+                that are not recorded by the land title office.
+            privateStreetNumber:
+              type: string
+              description: private streets numbers internal to a private street
+            subUnit:
+              type: array
+              description: >-
+                Representation of a SubUnit. It is used for describing subunit within a subAddress
+                e.g. BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+              items:
+                $ref: '#/components/schemas/GeographicSubAddressUnit_FVO'
+            subAddressType:
+              type: string
+              description: 'Type of subAddress : it can be a subunit or a private street'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddress: '#/components/schemas/GeographicSubAddressValue_FVO'
+    GeographicSubAddressValue_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Representation of a GeographicSubAddress 
+
+            It is used for addressing within a property in an urban area (country properties are
+            often defined differently). It may refer to a building, a building cluster, or a floor
+            of a multistory building.
+          properties:
+            buildingName:
+              type: string
+              description: allows for buildings that have well-known names
+            levelNumber:
+              type: string
+              description: 'used where a level type may be repeated e.g. BASEMENT 1, BASEMENT 2'
+            levelType:
+              type: string
+              description: describes level types within a building
+            name:
+              type: string
+              description: Name of the subAddress to identify it with a meaningful identification
+            privateStreetName:
+              type: string
+              description: >-
+                private streets internal to a property (e.g. a university) may have internal names
+                that are not recorded by the land title office.
+            privateStreetNumber:
+              type: string
+              description: private streets numbers internal to a private street
+            subUnit:
+              type: array
+              description: >-
+                Representation of a SubUnit. It is used for describing subunit within a subAddress
+                e.g. BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF.
+              items:
+                $ref: '#/components/schemas/GeographicSubAddressUnit_MVO'
+            subAddressType:
+              type: string
+              description: 'Type of subAddress : it can be a subunit or a private street'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicSubAddress: '#/components/schemas/GeographicSubAddressValue_MVO'
+    HeaderItem:
+      type: object
+      description: Any mandatory item(s) typically included in a request or response
+      properties:
+        name:
+          description: 'The name of the header item, e.g. locale'
+          type: string
+        value:
+          description: 'The value of the header item, e.g. en-us'
+          type: string
+    IntegerArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: integer
+    IntegerArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: integer
+          required:
+            - value
+    IntegerArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: integer
+          required:
+            - value
+    IntegerCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+    IntegerCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+          required:
+            - value
+    IntegerCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+          required:
+            - value
+    Monitor:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: Monitoring of resources
+          properties:
+            request:
+              $ref: '#/components/schemas/Request'
+            response:
+              $ref: '#/components/schemas/Response'
+            sourceHref:
+              type: string
+              description: The monitored resource href
+            state:
+              type: string
+              description: 'The Monitor state of the resource.  InProgress, InError, Completed'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Monitor: '#/components/schemas/Monitor'
+    MonitorAttributeValueChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: MonitorAttributeValueChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/MonitorAttributeValueChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          MonitorAttributeValueChangeEvent: '#/components/schemas/MonitorAttributeValueChangeEvent'
+    MonitorAttributeValueChangeEventPayload:
+      type: object
+      description: MonitorAttributeValueChangeEventPayload generic structure
+      properties:
+        monitor:
+          $ref: '#/components/schemas/Monitor'
+    MonitorCreateEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: MonitorCreateEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/MonitorCreateEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          MonitorCreateEvent: '#/components/schemas/MonitorCreateEvent'
+    MonitorCreateEventPayload:
+      type: object
+      description: MonitorCreateEventPayload generic structure
+      properties:
+        monitor:
+          $ref: '#/components/schemas/Monitor'
+    MonitorDeleteEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: MonitorDeleteEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/MonitorDeleteEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          MonitorDeleteEvent: '#/components/schemas/MonitorDeleteEvent'
+    MonitorDeleteEventPayload:
+      type: object
+      description: MonitorDeleteEventPayload generic structure
+      properties:
+        monitor:
+          $ref: '#/components/schemas/Monitor'
+    MonitorStateChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: MonitorStateChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/MonitorStateChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          MonitorStateChangeEvent: '#/components/schemas/MonitorStateChangeEvent'
+    MonitorStateChangeEventPayload:
+      type: object
+      description: MonitorStateChangeEventPayload generic structure
+      properties:
+        monitor:
+          $ref: '#/components/schemas/Monitor'
+    Note:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Extra information about a given entity
+          properties:
+            author:
+              type: string
+              description: Author of the note
+              example:
+                - Mr. N. Bene
+            date:
+              type: string
+              format: date-time
+              description: Date of the note
+              example:
+                - '2020-11-20T08:00:00Z'
+            text:
+              type: string
+              description: Text of the note
+              example:
+                - This is important
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Note: '#/components/schemas/Note'
+    Note_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: Extra information about a given entity
+          properties:
+            author:
+              type: string
+              description: Author of the note
+              example:
+                - Mr. N. Bene
+            date:
+              type: string
+              format: date-time
+              description: Date of the note
+              example:
+                - '2020-11-20T08:00:00Z'
+            text:
+              type: string
+              description: Text of the note
+              example:
+                - This is important
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Note: '#/components/schemas/Note_FVO'
+    Note_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Extra information about a given entity
+          properties:
+            author:
+              type: string
+              description: Author of the note
+              example:
+                - Mr. N. Bene
+            date:
+              type: string
+              format: date-time
+              description: Date of the note
+              example:
+                - '2020-11-20T08:00:00Z'
+            text:
+              type: string
+              description: Text of the note
+              example:
+                - This is important
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Note: '#/components/schemas/Note_MVO'
+    NumberArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: number
+    NumberArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: number
+          required:
+            - value
+    NumberArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: number
+          required:
+            - value
+    NumberCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+    NumberCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+          required:
+            - value
+    NumberCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+          required:
+            - value
+    ObjectArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: object
+    ObjectArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: object
+          required:
+            - value
+    ObjectArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: object
+          required:
+            - value
+    ObjectCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+    ObjectCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+          required:
+            - value
+    ObjectCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+          required:
+            - value
+    OrderItemActionType:
+      enum:
+        - add
+        - modify
+        - delete
+        - noChange
+      type: string
+      description: action to be performed on the product
+    PlaceRef:
+      type: object
+      description: Place reference.
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PlaceRef: '#/components/schemas/PlaceRef'
+    PlaceRef_FVO:
+      type: object
+      description: Place reference.
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PlaceRef: '#/components/schemas/PlaceRef_FVO'
+    PlaceRef_MVO:
+      type: object
+      description: Place reference.
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PlaceRef: '#/components/schemas/PlaceRef_MVO'
+    Reference:
+      type: object
+      description: Reference schema .
+      properties:
+        id:
+          type: string
+          description: Identifier of the referred entity.
+        name:
+          type: string
+          description: Name of the referred entity.
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      required:
+        - id
+    Reference_FVO:
+      type: object
+      description: Reference schema .
+      properties:
+        id:
+          type: string
+          description: Identifier of the referred entity.
+        name:
+          type: string
+          description: Name of the referred entity.
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+      required:
+        - id
+    Reference_MVO:
+      type: object
+      description: Reference schema .
+      properties:
+        id:
+          type: string
+          description: Identifier of the referred entity.
+        name:
+          type: string
+          description: Name of the referred entity.
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+    RelatedEntityRefOrValue:
+      type: object
+      description: >-
+        A reference to an entity, where the type of the entity is not known in advance. A related
+        entity defines a entity described by reference or by value linked to a specific entity. The
+        polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and
+        not the RelatedEntityRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Entity'
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Entity: '#/components/schemas/Entity'
+          EntityRef: '#/components/schemas/EntityRef'
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef_FVO'
+    RelatedEntityRefOrValue_FVO:
+      type: object
+      description: >-
+        A reference to an entity, where the type of the entity is not known in advance. A related
+        entity defines a entity described by reference or by value linked to a specific entity. The
+        polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and
+        not the RelatedEntityRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Entity_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Entity: '#/components/schemas/Entity_FVO'
+          EntityRef: '#/components/schemas/EntityRef'
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef_FVO'
+    RelatedEntityRefOrValue_MVO:
+      type: object
+      description: >-
+        A reference to an entity, where the type of the entity is not known in advance. A related
+        entity defines a entity described by reference or by value linked to a specific entity. The
+        polymorphic attributes @type, @schemaLocation & @referredType are related to the Entity and
+        not the RelatedEntityRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Entity_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Entity: '#/components/schemas/Entity_MVO'
+          EntityRef: '#/components/schemas/EntityRef'
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef_FVO'
+    RelatedParty:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+        - type: object
+          description: Related Entity reference. A related party defines party linked to a specific entity.
+          properties:
+            role:
+              type: string
+              description: Role played by the related party
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedParty: '#/components/schemas/RelatedParty'
+    RelatedParty_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+        - type: object
+          description: Related Entity reference. A related party defines party linked to a specific entity.
+          properties:
+            role:
+              type: string
+              description: Role played by the related party
+          required:
+            - '@referredType'
+            - role
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedParty: '#/components/schemas/RelatedParty_FVO'
+    RelatedParty_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+        - type: object
+          description: Related Entity reference. A related party defines party linked to a specific entity.
+          properties:
+            role:
+              type: string
+              description: Role played by the related party
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedParty: '#/components/schemas/RelatedParty_MVO'
+    RelatedPlaceRefOrValue:
+      type: object
+      description: >-
+        Related Entity reference. A related place defines a place described by reference or by value
+        linked to a specific entity. The polymorphic attributes @type, @schemaLocation &
+        @referredType are related to the place entity and not the RelatedPlaceRefOrValue class
+        itself
+      oneOf:
+        - $ref: '#/components/schemas/PlaceRef'
+        - $ref: '#/components/schemas/GeographicAddressValue'
+        - $ref: '#/components/schemas/GeographicLocationValue'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPlaceRefOrValue: '#/components/schemas/RelatedPlaceRefOrValue'
+          PlaceRef: '#/components/schemas/PlaceRef'
+          GeographicAddress: '#/components/schemas/GeographicAddressValue'
+          GeographicLocation: '#/components/schemas/GeographicLocationValue'
+    RelatedPlaceRefOrValue_FVO:
+      type: object
+      description: >-
+        Related Entity reference. A related place defines a place described by reference or by value
+        linked to a specific entity. The polymorphic attributes @type, @schemaLocation &
+        @referredType are related to the place entity and not the RelatedPlaceRefOrValue class
+        itself
+      oneOf:
+        - $ref: '#/components/schemas/PlaceRef_FVO'
+        - $ref: '#/components/schemas/GeographicAddressValue_FVO'
+        - $ref: '#/components/schemas/GeographicLocationValue_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPlaceRefOrValue: '#/components/schemas/RelatedPlaceRefOrValue_FVO'
+          PlaceRef: '#/components/schemas/PlaceRef_FVO'
+          GeographicAddress: '#/components/schemas/GeographicAddressValue_FVO'
+          GeographicLocation: '#/components/schemas/GeographicLocationValue_FVO'
+    RelatedPlaceRefOrValue_MVO:
+      type: object
+      description: >-
+        Related Entity reference. A related place defines a place described by reference or by value
+        linked to a specific entity. The polymorphic attributes @type, @schemaLocation &
+        @referredType are related to the place entity and not the RelatedPlaceRefOrValue class
+        itself
+      oneOf:
+        - $ref: '#/components/schemas/PlaceRef_MVO'
+        - $ref: '#/components/schemas/GeographicAddressValue_MVO'
+        - $ref: '#/components/schemas/GeographicLocationValue_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPlaceRefOrValue: '#/components/schemas/RelatedPlaceRefOrValue_MVO'
+          PlaceRef: '#/components/schemas/PlaceRef_MVO'
+          GeographicAddress: '#/components/schemas/GeographicAddressValue_MVO'
+          GeographicLocation: '#/components/schemas/GeographicLocationValue_MVO'
+    RelatedServiceOrderItem:
+      type: object
+      description: >-
+        RelatedServiceOrderItem (a ServiceOrder item) .The service order item which triggered
+        service creation/change/termination.
+      properties:
+        '@referredType':
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
+        serviceOrderHref:
+          type: string
+          description: Reference of the related entity.
+        serviceOrderId:
+          type: string
+          description: Unique identifier of a related entity.
+        itemAction:
+          $ref: '#/components/schemas/OrderItemActionType'
+        itemId:
+          type: string
+          description: Identifier of the order item where the service was managed
+        role:
+          type: string
+          description: role of the service order item for this service
+    Request:
+      type: object
+      description: A response to a request
+      properties:
+        method:
+          description: 'The protocol of the request, e.g. http'
+          type: string
+        to:
+          description: 'The target of the request, e.g. a URL for an HTTP request'
+          type: string
+        body:
+          description: >-
+            The body of the request. For example for an HTTP request might contain content of a form
+            .
+          type: string
+        header:
+          type: array
+          description: >-
+            Items included in the header of the request. For example for an HTTP request might
+            contain requested locale, basic authentication.
+          items:
+            $ref: '#/components/schemas/HeaderItem'
+          title: header
+    ResourceRef:
+      type: object
+      description: 'Resource reference, for when Resource is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ResourceRef: '#/components/schemas/ResourceRef'
+    ResourceRef_FVO:
+      type: object
+      description: 'Resource reference, for when Resource is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ResourceRef: '#/components/schemas/ResourceRef_FVO'
+    ResourceRef_MVO:
+      type: object
+      description: 'Resource reference, for when Resource is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ResourceRef: '#/components/schemas/ResourceRef_MVO'
+    Response:
+      type: object
+      description: A response to a request
+      properties:
+        statusCode:
+          description: >-
+            The status of the response. For example for an HTTP response would be codes such as 200,
+            400, etc.
+          type: string
+        body:
+          description: >-
+            The body of the response. For example for an HTTP response might contain HTML for
+            rendering.
+          type: string
+        header:
+          description: >-
+            Items included in the header of the response. For example for an HTTP response might
+            contain negotiated locale.
+          type: array
+          items:
+            $ref: '#/components/schemas/HeaderItem'
+          title: header
+    Service:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature'
+            relatedEntity:
+              type: array
+              description: A list of related entities in relationship with this service
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+            state:
+              $ref: '#/components/schemas/ServiceStateType'
+            serviceSpecification:
+              $ref: '#/components/schemas/ServiceSpecificationRef'
+            serviceDate:
+              description: Date when the service was created (whatever its status).
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/Service'
+    ServiceAttributeValueChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: ServiceAttributeValueChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/ServiceAttributeValueChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceAttributeValueChangeEvent: '#/components/schemas/ServiceAttributeValueChangeEvent'
+    ServiceAttributeValueChangeEventPayload:
+      type: object
+      description: ServiceAttributeValueChangeEventPayload generic structure
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+    ServiceCreateEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: ServiceCreateEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/ServiceCreateEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceCreateEvent: '#/components/schemas/ServiceCreateEvent'
+    ServiceCreateEventPayload:
+      type: object
+      description: ServiceCreateEventPayload generic structure
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+    ServiceDeleteEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: ServiceDeleteEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/ServiceDeleteEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceDeleteEvent: '#/components/schemas/ServiceDeleteEvent'
+    ServiceDeleteEventPayload:
+      type: object
+      description: ServiceDeleteEventPayload generic structure
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+    ServiceRef:
+      type: object
+      description: 'Service reference, for when Service is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRef: '#/components/schemas/ServiceRef'
+    ServiceRefOrValue:
+      type: object
+      description: >-
+        A Service to be created defined by value or existing defined by reference. The polymorphic
+        attributes @type, @schemaLocation & @referredType are related to the Service entity and not
+        the RelatedServiceRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/ServiceValue'
+        - $ref: '#/components/schemas/ServiceRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue'
+          ServiceRef: '#/components/schemas/ServiceRef'
+    ServiceRefOrValue_FVO:
+      type: object
+      description: >-
+        A Service to be created defined by value or existing defined by reference. The polymorphic
+        attributes @type, @schemaLocation & @referredType are related to the Service entity and not
+        the RelatedServiceRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/ServiceValue_FVO'
+        - $ref: '#/components/schemas/ServiceRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue_FVO'
+          ServiceRef: '#/components/schemas/ServiceRef_FVO'
+    ServiceRefOrValue_MVO:
+      type: object
+      description: >-
+        A Service to be created defined by value or existing defined by reference. The polymorphic
+        attributes @type, @schemaLocation & @referredType are related to the Service entity and not
+        the RelatedServiceRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/ServiceValue_MVO'
+        - $ref: '#/components/schemas/ServiceRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue_MVO'
+          ServiceRef: '#/components/schemas/ServiceRef_MVO'
+    ServiceRef_FVO:
+      type: object
+      description: 'Service reference, for when Service is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRef: '#/components/schemas/ServiceRef_FVO'
+    ServiceRef_MVO:
+      type: object
+      description: 'Service reference, for when Service is used by other entities.'
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRef: '#/components/schemas/ServiceRef_MVO'
+    ServiceRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          properties:
+            serviceRelationshipCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            service:
+              $ref: '#/components/schemas/ServiceRefOrValue'
+            relationshipType:
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRelationship: '#/components/schemas/ServiceRelationship'
+    ServiceRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          properties:
+            serviceRelationshipCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+            service:
+              $ref: '#/components/schemas/ServiceRefOrValue_FVO'
+            relationshipType:
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRelationship: '#/components/schemas/ServiceRelationship_FVO'
+    ServiceRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          properties:
+            serviceRelationshipCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+            service:
+              $ref: '#/components/schemas/ServiceRefOrValue_MVO'
+            relationshipType:
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceRelationship: '#/components/schemas/ServiceRelationship_MVO'
+    ServiceSpecificationRef:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference'
+        - type: object
+          description: >-
+            Service specification reference: ServiceSpecification(s) required to realize a
+            ProductSpecification.
+          properties:
+            version:
+              type: string
+              description: Service specification version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef'
+    ServiceSpecificationRef_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_FVO'
+        - type: object
+          description: >-
+            Service specification reference: ServiceSpecification(s) required to realize a
+            ProductSpecification.
+          properties:
+            version:
+              type: string
+              description: Service specification version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef_FVO'
+    ServiceSpecificationRef_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - $ref: '#/components/schemas/EntityRef'
+        - $ref: '#/components/schemas/Reference_MVO'
+        - type: object
+          description: >-
+            Service specification reference: ServiceSpecification(s) required to realize a
+            ProductSpecification.
+          properties:
+            version:
+              type: string
+              description: Service specification version
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceSpecificationRef: '#/components/schemas/ServiceSpecificationRef_MVO'
+    ServiceStateChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: ServiceStateChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/ServiceStateChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ServiceStateChangeEvent: '#/components/schemas/ServiceStateChangeEvent'
+    ServiceStateChangeEventPayload:
+      type: object
+      description: ServiceStateChangeEventPayload generic structure
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+    ServiceStateType:
+      enum:
+        - feasibilityChecked
+        - designed
+        - reserved
+        - inactive
+        - active
+        - terminated
+      type: string
+      description: Valid values for the lifecycle state of the service
+    ServiceValue:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: Hyperlink reference
+            id:
+              type: string
+              description: unique identifier
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature'
+            relatedEntity:
+              type: array
+              description: 'A list of related  entity in relationship with this service '
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue'
+    ServiceValue_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_FVO'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: Hyperlink reference
+            id:
+              type: string
+              description: unique identifier
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note_FVO'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature_FVO'
+            relatedEntity:
+              type: array
+              description: 'A list of related  entity in relationship with this service '
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue_FVO'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship_FVO'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue_FVO'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef_FVO'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty_FVO'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue_FVO'
+    ServiceValue_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            href:
+              type: string
+              format: uri
+              description: Hyperlink reference
+            id:
+              type: string
+              description: unique identifier
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note_MVO'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature_MVO'
+            relatedEntity:
+              type: array
+              description: 'A list of related  entity in relationship with this service '
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue_MVO'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship_MVO'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue_MVO'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef_MVO'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty_MVO'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/ServiceValue_MVO'
+    Service_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity_FVO'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note_FVO'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature_FVO'
+            relatedEntity:
+              type: array
+              description: A list of related entities in relationship with this service
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue_FVO'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship_FVO'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue_FVO'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef_FVO'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty_FVO'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue_FVO'
+            state:
+              $ref: '#/components/schemas/ServiceStateType'
+            serviceSpecification:
+              $ref: '#/components/schemas/ServiceSpecificationRef_FVO'
+            serviceDate:
+              description: Date when the service was created (whatever its status).
+              type: string
+          required:
+            - state
+            - serviceSpecification
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/Service_FVO'
+    Service_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity_MVO'
+        - type: object
+          description: >-
+            Service is a base class for defining the Service hierarchy. All Services are
+            characterized as either being possibly visible and usable by a Customer or not. This
+            gives rise to the two subclasses of Service: CustomerFacingService and
+            ResourceFacingService.
+          properties:
+            description:
+              description: Free-text description of the service
+              type: string
+            isServiceEnabled:
+              type: boolean
+              description: >-
+                If FALSE and hasStarted is FALSE, this particular Service has NOT been enabled for
+                use - if FALSE and hasStarted is TRUE then the service has failed 
+            hasStarted:
+              type: boolean
+              description: 'If TRUE, this Service has already been started'
+            startMode:
+              type: string
+              description: >-
+                This attribute is an enumerated integer that indicates how the Service is started,
+                such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically
+                by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a
+                Customer of the Provider; 5: Any of the above
+            isStateful:
+              type: boolean
+              description: 'If TRUE, this Service can be changed without affecting any other services'
+            startDate:
+              type: string
+              format: date-time
+              description: Date when the service starts
+            endDate:
+              type: string
+              format: date-time
+              description: Date when the service ends
+            serviceOrderItem:
+              type: array
+              description: A list of service order items related to this service
+              items:
+                $ref: '#/components/schemas/RelatedServiceOrderItem'
+            note:
+              type: array
+              description: A list of notes made on this service
+              items:
+                $ref: '#/components/schemas/Note_MVO'
+            serviceType:
+              description: Business type of the service
+              type: string
+            isBundle:
+              description: >-
+                If true, the service is a ServiceBundle which regroup a service hierachy. If false,
+                the service is a 'atomic' service (hierachy leaf).
+              type: boolean
+            name:
+              description: Name of the service
+              type: string
+            category:
+              type: string
+              description: Is it a customer facing or resource facing service
+            feature:
+              type: array
+              description: 'A list of feature associated with this service '
+              items:
+                $ref: '#/components/schemas/Feature_MVO'
+            relatedEntity:
+              type: array
+              description: A list of related entities in relationship with this service
+              items:
+                $ref: '#/components/schemas/RelatedEntityRefOrValue_MVO'
+            serviceCharacteristic:
+              type: array
+              description: >-
+                A list of characteristics that characterize this service (ServiceCharacteristic
+                [*]) 
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+            serviceRelationship:
+              type: array
+              description: >-
+                A list of service relationships (ServiceRelationship [*]). Describes links with
+                other service(s) in the inventory.
+              items:
+                $ref: '#/components/schemas/ServiceRelationship_MVO'
+            supportingService:
+              type: array
+              description: >-
+                A list of supporting services (SupportingService [*]). A collection of services that
+                support this service (bundling, link CFS to RFS)
+              items:
+                $ref: '#/components/schemas/ServiceRefOrValue_MVO'
+            supportingResource:
+              type: array
+              description: >-
+                A list of supporting resources (SupportingResource [*]).Note: only Service of type
+                RFS can be associated with Resources
+              items:
+                $ref: '#/components/schemas/ResourceRef_MVO'
+            relatedParty:
+              type: array
+              description: >-
+                A list of related party references (RelatedParty [*]). A related party defines party
+                or party role linked to a specific entity
+              items:
+                $ref: '#/components/schemas/RelatedParty_MVO'
+            place:
+              type: array
+              description: >-
+                A list of places (Place [*]). Used to define a place useful for the service (for
+                example a geographical place whre the service is installed)
+              items:
+                $ref: '#/components/schemas/RelatedPlaceRefOrValue_MVO'
+            state:
+              $ref: '#/components/schemas/ServiceStateType'
+            serviceSpecification:
+              $ref: '#/components/schemas/ServiceSpecificationRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Service: '#/components/schemas/Service_MVO'
+    StringArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: string
+    StringArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: string
+          required:
+            - value
+    StringArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              items:
+                type: string
+          required:
+            - value
+    StringCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+    StringCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+          required:
+            - value
+    StringCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+          required:
+            - value
+    TimePeriod:
+      type: object
+      description: 'A period of time, either as a deadline (endDateTime only) a startDateTime only, or both'
+      properties:
+        startDateTime:
+          description: 'Start of the time period, using IETC-RFC-3339 format'
+          type: string
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        endDateTime:
+          description: 'End of the time period, using IETC-RFC-3339 format'
+          type: string
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+    Error:
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Error: '#/components/schemas/Error'
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          required:
+            - code
+            - reason
+          properties:
+            code:
+              type: string
+              description: 'Application relevant detail, defined in the API or a common list.'
+            reason:
+              type: string
+              description: Explanation of the reason for the error which can be shown to a client user.
+            message:
+              type: string
+              description: >-
+                More details and corrective actions related to the error which can be shown to a
+                client user.
+            status:
+              type: string
+              description: HTTP Error code extension
+            referenceError:
+              type: string
+              description: URI of documentation describing the error.
+      description: 'Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)'
+    Hub_FVO:
+      type: object
+      description: >-
+        Sets the communication endpoint address the service instance must use to deliver
+        notification information
+      required:
+        - callback
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - properties:
+            callback:
+              type: string
+              description: The callback being registered.
+            query:
+              type: string
+              description: additional data to be passed
+    Hub:
+      type: object
+      description: >-
+        Sets the communication endpoint address the service instance must use to deliver
+        notification information
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - properties:
+            id:
+              type: string
+              description: Id of the listener
+            callback:
+              type: string
+              description: The callback being registered.
+            query:
+              type: string
+              description: additional data to be passed
+          required:
+            - callback
+    JsonPatch:
+      description: A JSONPatch document as defined by RFC 6902
+      required:
+        - op
+        - path
+      properties:
+        op:
+          type: string
+          description: The operation to be performed
+          enum:
+            - add
+            - remove
+            - replace
+            - move
+            - copy
+            - test
+        path:
+          type: string
+          description: A JSON-Pointer
+        value:
+          description: The value to be used within the operations.
+        from:
+          type: string
+          description: A string containing a JSON Pointer value.
+    JsonPatchOperations:
+      description: JSONPatch Operations document as defined by RFC 6902
+      type: array
+      items:
+        $ref: '#/components/schemas/JsonPatch'
+  parameters:
+    Id:
+      name: id
+      required: true
+      schema:
+        type: string
+      in: path
+      description: Identifier of the Service
+    Fields:
+      name: fields
+      in: query
+      description: Comma-separated properties to be provided in response
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      description: Requested index for start of resources to be provided in response
+      schema:
+        type: integer
+    Limit:
+      name: limit
+      in: query
+      description: Requested number of resources to be provided in response
+      schema:
+        type: integer
+  requestBodies:
+    Service_FVO:
+      description: The Service to be created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service_FVO'
+          examples:
+            CreateService:
+              $ref: '#/components/examples/CreateService_request'
+      required: true
+    Service_MVO:
+      description: The Service to be patched
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service_MVO'
+        application/merge-patch+json:
+          schema:
+            $ref: '#/components/schemas/Service_MVO'
+          examples:
+            Service_partialupdate_example_01:
+              $ref: '#/components/examples/Service_partialupdate_example_01_request'
+        application/json-patch+json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/JsonPatchOperations'
+          examples:
+            Service_partialupdate_example_11:
+              $ref: '#/components/examples/Service_partialupdate_example_11_request'
+        application/json-patch-query+json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/JsonPatchOperations'
+          examples:
+            Service_partialupdate_example_21:
+              $ref: '#/components/examples/Service_partialupdate_example_21_request'
+      required: true
+    ServiceCreateEvent:
+      description: Service create Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceCreateEvent'
+          examples:
+            Create:
+              $ref: '#/components/examples/Create_request'
+      required: true
+    ServiceAttributeValueChangeEvent:
+      description: Service attributeValueChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceAttributeValueChangeEvent'
+          examples:
+            AttributeValueChange:
+              $ref: '#/components/examples/AttributeValueChange_request'
+      required: true
+    ServiceStateChangeEvent:
+      description: Service stateChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceStateChangeEvent'
+          examples:
+            StateChange:
+              $ref: '#/components/examples/StateChange_request'
+      required: true
+    ServiceDeleteEvent:
+      description: Service delete Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceDeleteEvent'
+          examples:
+            Delete:
+              $ref: '#/components/examples/Delete_request'
+      required: true
+    MonitorCreateEvent:
+      description: Monitor create Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MonitorCreateEvent'
+          examples:
+            Create:
+              $ref: '#/components/examples/Create_request'
+      required: true
+    MonitorAttributeValueChangeEvent:
+      description: Monitor attributeValueChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MonitorAttributeValueChangeEvent'
+          examples:
+            AttributeValueChange:
+              $ref: '#/components/examples/AttributeValueChange_request'
+      required: true
+    MonitorStateChangeEvent:
+      description: Monitor stateChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MonitorStateChangeEvent'
+          examples:
+            StateChange:
+              $ref: '#/components/examples/StateChange_request'
+      required: true
+    MonitorDeleteEvent:
+      description: Monitor delete Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MonitorDeleteEvent'
+          examples:
+            Delete:
+              $ref: '#/components/examples/Delete_request'
+      required: true
+    Hub_FVO:
+      description: Data containing the callback endpoint to deliver the information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hub_FVO'
+      required: true
+  responses:
+    '200':
+      description: OK
+    '202':
+      description: Accepted
+    '204':
+      description: Deleted
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '405':
+      description: Method Not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '409':
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '501':
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '503':
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    200ServiceArray:
+      description: Success
+      headers:
+        X-Total-Count:
+          $ref: '#/components/headers/X-Total-Count'
+        X-Result-Count:
+          $ref: '#/components/headers/X-Result-Count'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Service'
+          examples:
+            Service_list_example:
+              $ref: '#/components/examples/Service_list_example_response'
+    200Service_Get:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+          examples:
+            Service_retrieve_example:
+              $ref: '#/components/examples/Service_retrieve_example_response'
+    200Service_Patch:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+        application/merge-patch+json:
+          schema:
+            $ref: '#/components/schemas/Service'
+          examples:
+            Service_partialupdate_example_01:
+              $ref: '#/components/examples/Service_partialupdate_example_01_response'
+        application/json-patch+json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Service'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+              - type: string
+                nullable: true
+          examples:
+            Service_partialupdate_example_11:
+              $ref: '#/components/examples/Service_partialupdate_example_11_response'
+        application/json-patch-query+json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Service'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+              - type: string
+                nullable: true
+          examples:
+            Service_partialupdate_example_21:
+              $ref: '#/components/examples/Service_partialupdate_example_21_response'
+    200Service_Put:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+    201Service:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Service'
+          examples:
+            CreateService:
+              $ref: '#/components/examples/CreateService_response'
+    200MonitorArray:
+      description: Success
+      headers:
+        X-Total-Count:
+          $ref: '#/components/headers/X-Total-Count'
+        X-Result-Count:
+          $ref: '#/components/headers/X-Result-Count'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Monitor'
+          examples:
+            Monitor_list_example:
+              $ref: '#/components/examples/Monitor_list_example_response'
+    200Monitor_Get:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Monitor'
+          examples:
+            Monitor_retrieve_example:
+              $ref: '#/components/examples/Monitor_retrieve_example_response'
+    200Monitor_Patch:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Monitor'
+        application/merge-patch+json:
+          schema:
+            $ref: '#/components/schemas/Monitor'
+        application/json-patch+json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Monitor'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/Monitor'
+              - type: string
+                nullable: true
+        application/json-patch-query+json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Monitor'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/Monitor'
+              - type: string
+                nullable: true
+    200Monitor_Put:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Monitor'
+    201Monitor:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Monitor'
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Hub:
+      description: Notified
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hub'
+  headers:
+    X-Total-Count:
+      description: Total number of items matching criteria
+      schema:
+        type: integer
+    X-Result-Count:
+      description: Actual number of items returned in the response body
+      schema:
+        type: integer
+  securitySchemes: {}
+  examples:
+    Service_list_example_response:
+      value:
+        - id: 123-456
+          href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+          category: MobileService
+          description: 'Mobile Line '
+          hasStarted: true
+          isBundle: false
+          isServiceEnabled: true
+          isStateful: true
+          serviceDate: '020-04-01T12:15:39.434Z'
+          startDate: '2020-04-03T12:15:39.434Z'
+          feature:
+            - id: '1'
+              isBundle: false
+              isEnabled: true
+              name: Voice
+              featureCharacteristic:
+                - id: '1'
+                  name: VoiceFeatureCharacteristic
+                  valueType: array
+                  value:
+                    - voiceStandard: enable
+                      voWifi: disable
+                      roaming: enable
+                      '@schemaLocation': >-
+                        .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                      '@type': VoiceFeatureCharacteristic
+                  '@type': FeatureCharacteristic
+              '@type': Feature
+            - id: '2'
+              isEnabled: false
+              name: Data
+              '@type': Feature
+              featureCharacteristic:
+                - id: '75'
+                  name: isGreen
+                  valueType: string
+                  value: enable
+            - id: '3'
+              isEnabled: true
+              name: Messaging
+              featureCharacteristic:
+                - id: '74'
+                  name: incomingSMS
+                  valueType: string
+                  value: enable
+                - id: '73'
+                  name: outgoingSMS
+                  valueType: string
+                  value: enable
+              '@type': Feature
+          relatedParty:
+            - id: '78'
+              href: ..../partyManagement/v5/organization/78
+              name: TMF Telco
+              role: Service Provider
+              '@referredType': Organization
+            - id: '12'
+              href: ..../partyManagement/v5/individual/12
+              name: Jean Pontus
+              role: user
+              '@referredType': Individual
+          serviceCharacteristic:
+            - id: '89'
+              name: MSISDN
+              valueType: string
+              value: 415-275-7439
+          serviceSpecification:
+            id: cfs45
+            href: .../serviceCatalog/v5/serviceSpecification/cfs45
+            name: c_Mobile
+            '@type': serviceSpecification
+            '@referredType': ServiceSpecification
+          state: active
+          supportingService:
+            - id: 123-457
+              href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+              hasStarted: true
+              serviceDate: '020-04-01T12:15:39.434Z'
+              startDate: '2020-04-03T12:15:39.434Z'
+              serviceSpecification:
+                id: cfs89
+                href: .../serviceCatalog/v5/serviceSpecification/cfs89
+                name: c_MobileSupport
+                '@type': serviceSpecification
+                '@referredType': ServiceSpecification
+              serviceCharacteristic:
+                - id: sd-8
+                  name: IMSI
+                  valueType: string
+                  value: '228 01 21 76510739 '
+              state: active
+              '@type': Service
+            - id: 741-853
+              href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+              '@referredType': Service
+              '@type': ServiceRef
+          '@type': Service
+      description: Here's an example of a request for retrieving services from the network.
+    Service_retrieve_example_response:
+      value:
+        id: 123-456
+        href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+        category: MobileService
+        description: 'Mobile Line '
+        hasStarted: true
+        isBundle: false
+        isServiceEnabled: true
+        isStateful: true
+        serviceDate: '020-04-01T12:15:39.434Z'
+        startDate: '2020-04-03T12:15:39.434Z'
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            href: 'http://serverlocation:port/partyManagement/v5/organization/78'
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            href: 'http://serverlocation:port/partyManagement/v5/individual/12'
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-7439
+        serviceSpecification:
+          id: cfs45
+          href: .../serviceCatalog/v5/serviceSpecification/cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: active
+        supportingService:
+          - id: 123-457
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+            hasStarted: true
+            serviceDate: '020-04-01T12:15:39.434Z'
+            startDate: '2020-04-03T12:15:39.434Z'
+            serviceSpecification:
+              id: cfs89
+              href: 'http://serverlocation:port/serviceCatalog/v5/serviceSpecification/cfs89'
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: active
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: >-
+        Here's an example of a request for retrieving a specific service from the network. The level
+        of detail returned is minimal, according to what might be held in the network.
+    Monitor_list_example_response:
+      value:
+        - id: '44555'
+          href: 'https://mycsp.com:8080/tmf-api/ServiceActivationAndConfiguration/v5/monitor/44555'
+          state: In Progress
+        - id: '78523'
+          href: 'https://mycsp.com:8080/tmf-api/ServiceActivationAndConfiguration/v5/monitor/78523'
+          state: In Progress
+        - id: '45469'
+          href: 'https://mycsp.com:8080/tmf-api/ServiceActivationAndConfiguration/v5/monitor/45469'
+          state: In Progress
+      description: Here's an example of a request for retrieving monitors for service activation.
+    Monitor_retrieve_example_response:
+      value:
+        id: '44555'
+        href: 'https://mycsp.com:8080/tmf-api/ServiceActivationAndConfiguration/v5/monitor/44555'
+        state: In Progress
+        request:
+          method: http
+          to: 'https://mycsp.com:5050/netAPIs/activate'
+          body: ACTIVATE BBAND 144445
+          header:
+            - name: locale
+              value: en-us
+        response:
+          statusCode: '344'
+          body: ACTIVATE BBAND 144445 REQUEST RECEIVED PENDING
+          header:
+            - name: locale
+              value: en-us
+        sourceHref: 'https://mycsp.com:8080/tmf-api/ServiceActivationAndConfiguration/v5/service/5351'
+        '@type': Monitor
+      description: Here's an example of a request for retrieving a specific monitor for service activation.
+    CreateService_request:
+      value:
+        category: MobileService
+        description: 'Mobile Line '
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-7439
+        serviceSpecification:
+          id: cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: active
+        supportingService:
+          - serviceSpecification:
+              id: cfs89
+              href: .../serviceCatalog/v5/serviceSpecification/cfs89
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: active
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: POST Service request example - only a subset of quote attributes are used in this example
+    CreateService_response:
+      value:
+        id: 123-456
+        href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+        category: MobileService
+        description: 'Mobile Line '
+        hasStarted: true
+        isBundle: false
+        isServiceEnabled: true
+        isStateful: true
+        serviceDate: '020-04-01T12:15:39.434Z'
+        startDate: '2020-04-03T12:15:39.434Z'
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            href: ..../partyManagement/v5/organization/78
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            href: ..../partyManagement/v5/individual/12
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-7439
+        serviceSpecification:
+          id: cfs45
+          href: .../serviceCatalog/v5/serviceSpecification/cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: active
+        supportingService:
+          - id: 123-457
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+            hasStarted: true
+            serviceDate: '020-04-01T12:15:39.434Z'
+            startDate: '2020-04-03T12:15:39.434Z'
+            serviceSpecification:
+              id: cfs89
+              href: .../serviceCatalog/v5/serviceSpecification/cfs89
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: active
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: POST Service response description.
+    Service_partialupdate_example_01_request:
+      value:
+        state: inactive
+      description: >-
+        Here's an example of a request for updating a service in the network. In this example, a new
+        state is set.
+    Service_partialupdate_example_01_response:
+      value:
+        id: 123-456
+        href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+        category: MobileService
+        description: 'Mobile Line '
+        hasStarted: true
+        isBundle: false
+        isServiceEnabled: true
+        isStateful: true
+        serviceDate: '020-04-01T12:15:39.434Z'
+        startDate: '2020-04-03T12:15:39.434Z'
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            href: ..../partyManagement/v5/organization/78
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            href: ..../partyManagement/v5/individual/12
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-7439
+        serviceSpecification:
+          id: cfs45
+          href: .../serviceCatalog/v5/serviceSpecification/cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: inactive
+        supportingService:
+          - id: 123-457
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+            hasStarted: true
+            serviceDate: '020-04-01T12:15:39.434Z'
+            startDate: '2020-04-03T12:15:39.434Z'
+            serviceSpecification:
+              id: cfs89
+              href: .../serviceCatalog/v5/serviceSpecification/cfs89
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: inactive
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: Response message
+    Service_partialupdate_example_11_request:
+      value:
+        - op: replace
+          path: /state
+          value: inactive
+      description: >-
+        Here's an example of a request for updating a service in the network. In this example, a new
+        state is set.
+    Service_partialupdate_example_11_response:
+      value:
+        id: 123-456
+        href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+        category: MobileService
+        description: 'Mobile Line '
+        hasStarted: true
+        isBundle: false
+        isServiceEnabled: true
+        isStateful: true
+        serviceDate: '020-04-01T12:15:39.434Z'
+        startDate: '2020-04-03T12:15:39.434Z'
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            href: ..../partyManagement/v5/organization/78
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            href: ..../partyManagement/v5/individual/12
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-7439
+        serviceSpecification:
+          id: cfs45
+          href: .../serviceCatalog/v5/serviceSpecification/cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: inactive
+        supportingService:
+          - id: 123-457
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+            hasStarted: true
+            serviceDate: '020-04-01T12:15:39.434Z'
+            startDate: '2020-04-03T12:15:39.434Z'
+            serviceSpecification:
+              id: cfs89
+              href: .../serviceCatalog/v5/serviceSpecification/cfs89
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: inactive
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: Response message
+    Service_partialupdate_example_21_request:
+      value:
+        - op: replace
+          path: /serviceCharacteristic/value?serviceCharacteristic.name=MSISDN
+          value: 415-275-8000
+      description: >-
+        Here's an example of a request for updating a service in the network. In this example, a
+        service characteristic is updated
+    Service_partialupdate_example_21_response:
+      value:
+        id: 123-456
+        href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-456'
+        category: MobileService
+        description: 'Mobile Line '
+        hasStarted: true
+        isBundle: false
+        isServiceEnabled: true
+        isStateful: true
+        serviceDate: '020-04-01T12:15:39.434Z'
+        startDate: '2020-04-03T12:15:39.434Z'
+        feature:
+          - id: '1'
+            isBundle: false
+            isEnabled: true
+            name: Voice
+            featureCharacteristic:
+              - id: '1'
+                name: VoiceFeatureCharacteristic
+                valueType: array
+                value:
+                  - voiceStandard: enable
+                    voWifi: disable
+                    roaming: enable
+                    '@schemaLocation': >-
+                      .../serviceSpecification/11/featureSpecification/1/VoiceFeatureCharacteristic.json
+                    '@type': VoiceFeatureCharacteristic
+                '@type': FeatureCharacteristic
+            '@type': Feature
+          - id: '2'
+            isEnabled: false
+            name: Data
+            '@type': Feature
+            featureCharacteristic:
+              - id: '75'
+                name: isGreen
+                valueType: string
+                value: enable
+          - id: '3'
+            isEnabled: true
+            name: Messaging
+            featureCharacteristic:
+              - id: '74'
+                name: incomingSMS
+                valueType: string
+                value: enable
+              - id: '73'
+                name: outgoingSMS
+                valueType: string
+                value: enable
+            '@type': Feature
+        relatedParty:
+          - id: '78'
+            href: ..../partyManagement/v5/organization/78
+            name: TMF Telco
+            role: Service Provider
+            '@referredType': Organization
+          - id: '12'
+            href: ..../partyManagement/v5/individual/12
+            name: Jean Pontus
+            role: user
+            '@referredType': Individual
+        serviceCharacteristic:
+          - id: '89'
+            name: MSISDN
+            valueType: string
+            value: 415-275-8000
+        serviceSpecification:
+          id: cfs45
+          href: .../serviceCatalog/v5/serviceSpecification/cfs45
+          name: c_Mobile
+          '@type': serviceSpecification
+          '@referredType': ServiceSpecification
+        state: active
+        supportingService:
+          - id: 123-457
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/123-457'
+            hasStarted: true
+            serviceDate: '020-04-01T12:15:39.434Z'
+            startDate: '2020-04-03T12:15:39.434Z'
+            serviceSpecification:
+              id: cfs89
+              href: .../serviceCatalog/v5/serviceSpecification/cfs89
+              name: c_MobileSupport
+              '@type': serviceSpecification
+              '@referredType': ServiceSpecification
+            serviceCharacteristic:
+              - id: sd-8
+                name: IMSI
+                valueType: string
+                value: '228 01 21 76510739 '
+            state: active
+            '@type': Service
+          - id: 741-853
+            href: 'http://serverlocation:port/serviceActivationConfiguration/v5/service/741-853'
+            '@referredType': Service
+            '@type': ServiceRef
+        '@type': Service
+      description: Response message
+    Create_request:
+      value:
+        correlationId: b382501b-c423
+        description: ServiceCreateEvent illustration
+        domain: Commercial
+        eventId: 4da6-b0f1-5a7fce3edc94
+        eventTime: '2022-08-25T12:19:28.512Z'
+        eventType: ServiceCreateEvent
+        priority: '4'
+        timeOcurred: '2022-08-25T12:19:28.180Z'
+        title: ServiceCreateEvent
+        event:
+          service:
+            id: '5351'
+            href: 'http://servername/service/5351'
+            serviceType: Cloud
+            name: vCPE serial 1355615
+            description: Instantiation of vCPE
+            state: active
+            category: CFS
+            isServiceEnabled: true
+            hasStarted: true
+            startMode: '1'
+            isStateful: true
+            startDate: '2018-01-15T12:26:11.747Z'
+            serviceSpecification:
+              id: '1212'
+              href: 'https://mycsp.com:8080/tmf-api/serviceCatalogManagement/v5/serviceSpecification/1212'
+              name: vCPE
+              version: 1.0.0
+              '@referredType': ServiceSpecification
+            feature:
+              - id: Feat1
+                isEnabled: true
+                name: ElasticBandwith
+                featureCharacteritic:
+                  - name: isCapped
+                    value: true
+                    id: 45gh-fg
+                    valueType: boolean
+            serviceCharacteristic:
+              - id: 452-gh6
+                name: vCPE
+                valueType: object
+                value:
+                  '@type': JSONSpecification
+                  '@schemaLocation': 'http://my.schemas/vCPE.schema.json'
+                  vCPE_IP: 193.218.236.21
+                  MaxTxRate: 300
+                  TransmitPower: 11 dBm
+                  maxTream: 'OFF'
+            serviceRelationship:
+              - relationshipType: DependentOn
+                ServiceRelationshipCharacteristic:
+                  - id: '126'
+                    name: CrossRef
+                    value: 44-11-h
+                    valueType: string
+                service:
+                  href: 'https://mycsp.com:8080/tmf-api/serviceInventory/v5/service/5645'
+                  id: '5645'
+                  '@type': ServiceRef
+                  '@referredType': Service
+            supportingService:
+              - href: 'https://mycsp.com:8080/tmf-api/serviceInventory/v5/service/5885'
+                id: '5885'
+                '@type': ServiceRef
+                '@referredType': Service
+            supportingResource:
+              - id: '6161'
+                href: 'https://mycsp.com:8080/tmf-api/resourceInventoryManagement/v5/resource/5351'
+                name: GenInfra
+                '@referredType': VirtualResource
+              - id: '7171'
+                href: 'https://mycsp.com:8080/tmf-api/resourceInventoryManagement/v5/resource/7171'
+                name: BNG_MUX
+                value: 01 25 65
+                '@referredType': VNF
+            relatedParty:
+              - href: 'https://mycsp.com:8080/tmf-api/partyManagement/v5/party/456'
+                id: '456'
+                name: John Doe
+                role: user
+                '@referredType': Individual
+            serviceOrderItem:
+              - serviceOrderHref: 'https://mycsp.com:8080/tmf-api/serviceOrder/v5/serviceOrder/42'
+                serviceOrderId: '42'
+                role: initiator
+                '@referredType': ServiceOrder
+                itemId: '1'
+                itemAction: add
+              - serviceOrderHref: 'https://mycsp.com:8080/tmf-api/serviceOrder/v5/serviceOrder/896'
+                serviceOrderId: '896'
+                role: activation
+                '@referredType': ServiceOrder
+                itemId: '4'
+                itemAction: change
+            place:
+              - href: >-
+                  https://mycsp.com:8080/tmf-api/geographicAddressManagement/v5/geographicAddress/2435
+                id: '2435'
+                name: Customer primary location
+                '@referredType': GeographicAddress
+                role: InstallationAddress
+            note:
+              - author: Harvey Poupon
+                date: '2018-01-15T12:26:11.748Z'
+                text: 'This service was installed automatically, no issues were noted in testing.'
+            '@type': Service
+            '@schemaLocation': 'https://mycsp.com:8080/tmf-api/schema/Service/vCPE.schema.json'
+        reportingSystem:
+          id: '427'
+          name: APP-755
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        source:
+          id: '149'
+          name: APP-78
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        '@baseType': Event
+        '@type': ServiceCreateEvent
+      description: Message example for MonitorCreateEvent event
+    AttributeValueChange_request:
+      value:
+        correlationId: 7af07271-5f0c
+        description: ServiceAttributeValueChangeEvent illustration
+        domain: Commercial
+        eventId: 4414-a94c-43a0a142a98c
+        eventTime: '2022-08-25T12:19:28.526Z'
+        eventType: ServiceAttributeValueChangeEvent
+        priority: '3'
+        timeOcurred: '2022-08-25T12:19:19.786Z'
+        title: ServiceAttributeValueChangeEvent
+        event:
+          service:
+            href: 'http://servername/service/5351'
+            id: '5351'
+            '@type': Service
+            place:
+              - href: >-
+                  https://mycsp.com:8080/tmf-api/geographicAddressManagement/v5/geographicAddress/2435
+                id: '2435'
+                name: Customer primary location
+                '@referredType': GeographicAddress
+                role: InstallationAddress
+        reportingSystem:
+          id: '427'
+          name: APP-755
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        source:
+          id: '149'
+          name: APP-78
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        '@baseType': Event
+        '@type': ServiceAttributeValueChangeEvent
+      description: Message example for MonitorAttributeValueChangeEvent event
+    StateChange_request:
+      value:
+        correlationId: 9b374459-e9b0
+        description: ServiceStateChangeEvent illustration
+        domain: Commercial
+        eventId: 40c3-a3a0-2379e9894a7d
+        eventTime: '2022-08-25T12:19:28.538Z'
+        eventType: ServiceStateChangeEvent
+        priority: '3'
+        timeOcurred: '2022-08-25T12:19:25.724Z'
+        title: ServiceStateChangeEvent
+        event:
+          service:
+            href: 'http://servername/service/5351'
+            id: '5351'
+            '@type': Service
+            state: active
+        reportingSystem:
+          id: '427'
+          name: APP-755
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        source:
+          id: '149'
+          name: APP-78
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        '@baseType': Event
+        '@type': ServiceStateChangeEvent
+      description: Message example for MonitorStateChangeEvent event with ?fields=state property only
+    Delete_request:
+      value:
+        correlationId: 36af9e61-4a51
+        description: ServiceDeleteEvent illustration
+        domain: Commercial
+        eventId: 4154-a76e-bf08c4bccb2e
+        eventTime: '2022-08-25T12:19:28.549Z'
+        eventType: ServiceDeleteEvent
+        priority: '1'
+        timeOcurred: '2022-08-25T12:19:24.023Z'
+        title: ServiceDeleteEvent
+        event:
+          service:
+            id: '5351'
+            href: 'http://servername/service/5351'
+            serviceType: Cloud
+            name: vCPE serial 1355615
+            description: Instantiation of vCPE
+            state: active
+            category: CFS
+            isServiceEnabled: true
+            hasStarted: true
+            startMode: '1'
+            isStateful: true
+            startDate: '2018-01-15T12:26:11.747Z'
+            serviceSpecification:
+              id: '1212'
+              href: 'https://mycsp.com:8080/tmf-api/serviceCatalogManagement/v5/serviceSpecification/1212'
+              name: vCPE
+              version: 1.0.0
+              '@referredType': ServiceSpecification
+            feature:
+              - id: Feat1
+                isEnabled: true
+                name: ElasticBandwith
+                featureCharacteritic:
+                  - name: isCapped
+                    value: true
+                    id: 45gh-fg
+                    valueType: boolean
+            serviceCharacteristic:
+              - id: 452-gh6
+                name: vCPE
+                valueType: object
+                value:
+                  '@type': JSONSpecification
+                  '@schemaLocation': 'http://my.schemas/vCPE.schema.json'
+                  vCPE_IP: 193.218.236.21
+                  MaxTxRate: 300
+                  TransmitPower: 11 dBm
+                  maxTream: 'OFF'
+            serviceRelationship:
+              - relationshipType: DependentOn
+                ServiceRelationshipCharacteristic:
+                  - id: '126'
+                    name: CrossRef
+                    value: 44-11-h
+                    valueType: string
+                service:
+                  href: 'https://mycsp.com:8080/tmf-api/serviceInventory/v5/service/5645'
+                  id: '5645'
+                  '@type': ServiceRef
+                  '@referredType': Service
+            supportingService:
+              - href: 'https://mycsp.com:8080/tmf-api/serviceInventory/v5/service/5885'
+                id: '5885'
+                '@type': ServiceRef
+                '@referredType': Service
+            supportingResource:
+              - id: '6161'
+                href: 'https://mycsp.com:8080/tmf-api/resourceInventoryManagement/v5/resource/5351'
+                name: GenInfra
+                '@referredType': VirtualResource
+              - id: '7171'
+                href: 'https://mycsp.com:8080/tmf-api/resourceInventoryManagement/v5/resource/7171'
+                name: BNG_MUX
+                value: 01 25 65
+                '@referredType': VNF
+            relatedParty:
+              - href: 'https://mycsp.com:8080/tmf-api/partyManagement/v5/party/456'
+                id: '456'
+                name: John Doe
+                role: user
+                '@referredType': Individual
+            serviceOrderItem:
+              - serviceOrderHref: 'https://mycsp.com:8080/tmf-api/serviceOrder/v5/serviceOrder/42'
+                serviceOrderId: '42'
+                role: initiator
+                '@referredType': ServiceOrder
+                itemId: '1'
+                itemAction: add
+              - serviceOrderHref: 'https://mycsp.com:8080/tmf-api/serviceOrder/v5/serviceOrder/896'
+                serviceOrderId: '896'
+                role: activation
+                '@referredType': ServiceOrder
+                itemId: '4'
+                itemAction: change
+            place:
+              - href: >-
+                  https://mycsp.com:8080/tmf-api/geographicAddressManagement/v5/geographicAddress/2435
+                id: '2435'
+                name: Customer primary location
+                '@referredType': GeographicAddress
+                role: InstallationAddress
+            note:
+              - author: Harvey Poupon
+                date: '2018-01-15T12:26:11.748Z'
+                text: 'This service was installed automatically, no issues were noted in testing.'
+            '@type': Service
+            '@schemaLocation': 'https://mycsp.com:8080/tmf-api/schema/Service/vCPE.schema.json'
+        reportingSystem:
+          id: '427'
+          name: APP-755
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        source:
+          id: '149'
+          name: APP-78
+          '@type': ReportingResource
+          '@referredType': LogicalResource
+        '@baseType': Event
+        '@type': ServiceDeleteEvent
+      description: Message example for MonitorDeleteEvent event
