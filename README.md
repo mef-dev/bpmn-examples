@@ -1,12 +1,12 @@
 # BPMN-based flow examples for execution within the MEF.DEV serverless platform
 
 ### Table of Contents
-1. [Account Management TMF666](#Account Management TMF666)
-2. [Product Ordering TMF622](#Product Ordering TMF622)
-3. [Service Activation and Configuration TMF640](#Service Activation and Configuration TMF640)
-4. [Service Usage Management TMF727](#Service Usage Management TMF727)
-5. [Usage Consumption Management TMF677](#Usage Consumption Management TMF677)
-6. [Customer Bill Management TMF678](#Customer Bill Management TMF678)
+1. [Account Management TMF666](#Account-Management-TMF666)
+2. [Product Ordering TMF622](#Product-Ordering-TMF622)
+3. [Service Activation and Configuration TMF640](#Service-Activation-and-Configuration-TMF640)
+4. [Service Usage Management TMF727](#Service-Usage-Management-TMF727)
+5. [Usage Consumption Management TMF677](#Usage-Consumption-Management-TMF677)
+6. [Customer Bill Management TMF678](#Customer-Bill-Management-TMF678)
 
 ## Account Management TMF666
 The "Account Management TMF666" API establishes a standardized mechanism for billing and settlement accounts administration. This ensures a seamless process within both B2C and B2B contexts. The API facilitates the creation, modification, and retrieval of account information, operating within the scope of diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount.
