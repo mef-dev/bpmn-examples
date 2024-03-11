@@ -1,0 +1,677 @@
+{
+	"info": {
+		"_postman_id": "3f47ad1e-1b59-4e25-a470-c58ff73cbed0",
+		"name": "TMF666 BillingAccount (MEF.DEV)",
+		"description": "This is Swagger workspace generated for the MEF.DEV Domain Orchestration implementation (under the TMF OpenAPI recommenadtion) and includes:\n\n- TMF666 Account Management API\n    \n\nMore details are provided by request to email: [support@mef.dev](https://mailto:support@mef.dev)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-3f47ad1e-1b59-4e25-a470-c58ff73cbed0?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "billingAccount",
+			"item": [
+				{
+					"name": "Creates a BillingAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\":\"{{account_number}}\",\n   \"IDType\":\"1\",\n   \"description\":\"This billing account ...\",\n   \"state\":\"{{active_state}}\", \n   \"accountType\":\"1001\",\n   \"ratingType\":\"2\",\n   \"RegistrCatID\":0,\n   \"note\":[\n      {\n         \"author\":\"domain+username\", \n         \"hostname\":\"127.0.0.1\", \n         \"text\":\"This is a M2M Advanced activation\", \n         \"@type\":\"Note\"\n      }\n   ],\n   \"billStructure\":{\n      \"presentationMedia\":[\n         {\n            \"id\":\"3\",\n            \"deliveryZone\":\"45\"\n         }\n      ]\n   },\n   \"paymentPlan\":[\n      {\n         \"planType\":\"1\",\n         \"paymentMethod\":{\n            \"id\":\"2\"\n         }\n      }\n   ],\n   \"relatedParty\":[\n      {\n         \"@referredType\":\"Associations\",\n         \"id\":\"{{payer_id}}\",\n         \"IDType\":1\n      }\n   ],\n   \"accountBalance\":[\n      {\n         \"amount\":{\n            \"unit\":\"UAH\"\n         },\n         \"balanceType\":\"Main\",\n         \"validFor\":{\n            \"startDateTime\":\"2024-03-01T00:00:00.000Z\"\n         }\n      }\n   ]\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/billingAccount",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"billingAccount"
+							]
+						},
+						"description": "This operation creates a BillingAccount entity."
+					},
+					"response": [
+						{
+							"name": "ERROR 503 Service Unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/billingAccount",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"billingAccount"
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Nov 2023 13:17:00 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"201\",\n    \"reason\": \"Service Unavailable\",\n    \"message\": \"Service Unavailable\",\n    \"status\": \"503\"\n}"
+						},
+						{
+							"name": "Creates a BillingAccount",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\":\"{{account_number}}\",\n   \"IDType\":\"1\",\n   \"description\":\"This billing account ...\",\n   \"state\":\"activ\", \n   \"accountType\":\"1001\",\n   \"ratingType\":\"2\",\n   \"RegistrCatID\":0,\n   \"note\":[\n      {\n         \"author\":\"domain+username\", \n         \"hostname\":\"127.0.0.1\", \n         \"text\":\"This is a M2M Advanced activation\", \n         \"@type\":\"Note\"\n      }\n   ],\n   \"billStructure\":{\n      \"presentationMedia\":[\n         {\n            \"id\":\"3\",\n            \"deliveryZone\":\"45\"\n         }\n      ]\n   },\n   \"paymentPlan\":[\n      {\n         \"planType\":\"1\",\n         \"paymentMethod\":{\n            \"id\":\"2\"\n         }\n      }\n   ],\n   \"relatedParty\":[\n      {\n         \"@referredType\":\"Associations\",\n         \"id\":\"{{payer_id}}\",\n         \"IDType\":1\n      }\n   ],\n   \"accountBalance\":[\n      {\n         \"amount\":{\n            \"unit\":\"UAH\"\n         },\n         \"balanceType\":\"Main\",\n         \"validFor\":{\n            \"startDateTime\":\"2024-03-01T00:00:00.000Z\"\n         }\n      }\n   ]\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/billingAccount",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"billingAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "20412345678903142363734"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Mar 2024 04:51:50 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 5894578,\n    \"name\": \"10000000112\",\n    \"relatedParty\": [\n        {\n            \"id\": 7702391,\n            \"@referredType\": \"Customers\",\n            \"idType\": 0\n        }\n    ],\n    \"state\": \"activ\",\n    \"idType\": 1,\n    \"paymentPlan\": [\n        {\n            \"planType\": \"1\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Updates partially a BillingAccount",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142399",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"idType\":\"1\",\r\n   \"description\":\"This billing account ...\",\r\n   \"state\":\"synced\", \r\n   \"accountType\":\"1001\",\r\n   \"ratingType\":\"2\",\r\n   \"RegistrCatID\":0,\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\", \r\n         \"hostname\":\"192.156.7.77\", \r\n         \"text\":\"This is a M2M Advanced activation\", \r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"billStructure\":{\r\n      \"presentationMedia\":[\r\n         {\r\n            \"id\":\"3\",\r\n            \"deliveryZone\":\"45\"\r\n         }\r\n      ]\r\n   },\r\n   \"paymentPlan\":[\r\n      {\r\n         \"planType\":\"1\",\r\n         \"paymentMethod\":{\r\n            \"id\":\"2\"\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"@referredType\":\"Associations\",\r\n         \"id\":\"6838\",\r\n         \"IDType\":1\r\n      }\r\n   ],\r\n   \"accountBalance\":[\r\n      {\r\n         \"amount\":{\r\n            \"unit\":\"UAH\"\r\n         },\r\n         \"balanceType\":\"Main\",\r\n         \"validFor\":{\r\n            \"startDateTime\":\"2023-11-01T00:00:00.000Z\"\r\n         }\r\n      }\r\n   ]\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/billingAccount.json/5894551",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"billingAccount.json",
+								"5894551"
+							]
+						},
+						"description": "This operation updates partially a BillingAccount entity."
+					},
+					"response": [
+						{
+							"name": "Updates a BillingAccount",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142399",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"idType\":\"1\",\r\n   \"description\":\"This billing account ...\",\r\n   \"state\":\"synced\", \r\n   \"accountType\":\"1001\",\r\n   \"ratingType\":\"2\",\r\n   \"RegistrCatID\":0,\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\", \r\n         \"hostname\":\"192.156.7.77\", \r\n         \"text\":\"This is a M2M Advanced activation\", \r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"billStructure\":{\r\n      \"presentationMedia\":[\r\n         {\r\n            \"id\":\"3\",\r\n            \"deliveryZone\":\"45\"\r\n         }\r\n      ]\r\n   },\r\n   \"paymentPlan\":[\r\n      {\r\n         \"planType\":\"1\",\r\n         \"paymentMethod\":{\r\n            \"id\":\"2\"\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"@referredType\":\"Associations\",\r\n         \"id\":\"6838\",\r\n         \"IDType\":1\r\n      }\r\n   ],\r\n   \"accountBalance\":[\r\n      {\r\n         \"amount\":{\r\n            \"unit\":\"UAH\"\r\n         },\r\n         \"balanceType\":\"Main\",\r\n         \"validFor\":{\r\n            \"startDateTime\":\"2023-11-01T00:00:00.000Z\"\r\n         }\r\n      }\r\n   ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/billingAccount.json/5894551",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"billingAccount.json",
+										"5894551"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Mar 2024 05:12:41 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 5894551,\n    \"relatedParty\": [\n        {\n            \"id\": 7702258,\n            \"@referredType\": \"Customers\",\n            \"idType\": 0\n        }\n    ],\n    \"state\": \"synced\",\n    \"idType\": 1,\n    \"paymentPlan\": [\n        {\n            \"planType\": \"1\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "List or find BillingAccount objects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/billingAccount.json?name=10000000100",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"billingAccount.json"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "10000000100"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "By Account",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/billingAccount.json?name=10000000100",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"billingAccount.json"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "10000000100"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-0/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "0"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Mar 2024 04:56:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"ratingType\": 2,\r\n  \"id\": 5894551,\r\n  \"name\": \"10000000100\",\r\n  \"accountType\": 16,\r\n  \"RegistrCatID\": 0,\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": 6838,\r\n      \"@referredType\": \"Associations\",\r\n      \"IDType\": 1\r\n    },\r\n    {\r\n      \"id\": 7702258,\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"state\": \"activ\",\r\n  \"paymentPlan\": [\r\n    {\r\n      \"planType\": \"1\",\r\n      \"paymentMethod\": {\r\n        \"id\": 2\r\n      }\r\n    }\r\n  ]\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "By RelatedParty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/billingAccount?relatedParty=[{\"id\": \"7702391\",\"@referredType\": \"Customers\",\"idType\": 0}]",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"billingAccount"
+									],
+									"query": [
+										{
+											"key": "relatedParty",
+											"value": "[{\"id\": \"7702391\",\"@referredType\": \"Customers\",\"idType\": 0}]"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-0/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "0"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Mar 2024 05:06:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"ratingType\": 2,\r\n  \"id\": 5894578,\r\n  \"name\": \"10000000112\",\r\n  \"accountType\": 16,\r\n  \"RegistrCatID\": 0,\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": 6838,\r\n      \"@referredType\": \"Associations\",\r\n      \"IDType\": 1\r\n    },\r\n    {\r\n      \"id\": 7702391,\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"state\": \"activ\",\r\n  \"paymentPlan\": [\r\n    {\r\n      \"planType\": \"1\",\r\n      \"paymentMethod\": {\r\n        \"id\": 2\r\n      }\r\n    }\r\n  ]\r\n}\r\n]\r\n"
+						}
+					]
+				}
+			],
+			"description": "Folder for billingAccount"
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{username}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "account_number",
+			"value": "10000000100",
+			"type": "string"
+		},
+		{
+			"key": "payer_id",
+			"value": "6838",
+			"type": "string"
+		},
+		{
+			"key": "active_state",
+			"value": "activ",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
