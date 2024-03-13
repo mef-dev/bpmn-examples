@@ -70,3 +70,6 @@ For a technical preview of the MEF.DEV platform and additional information, feel
 - [Docker compose repository](https://github.com/mef-dev/docker) to run the MEF.DEV platform in-house using Docker.
 - [Kubernetes cluster repository](https://github.com/mef-dev/k8s) to run the MEF.DEV platform in-house using Kubernetes.
 - For [QA & Online support](https://t.me/mef_dev_support) please feel free to join our Telegram channel. Our team operates 24/7 and would be glad to provide all the needed assistance and support.
+
+The MEF.DEV team also has a dedicated community on LinkedIn. We would be delighted to see you among dozens of IT Engineers and Software Developers.
+[Join us](https://www.linkedin.com/groups/9050042/) and let's reshape the Digital Transformation world together.
