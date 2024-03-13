@@ -7,6 +7,7 @@
 4. [Service Usage Management TMF727](#Service-Usage-Management-TMF727)
 5. [Usage Consumption Management TMF677](#Usage-Consumption-Management-TMF677)
 6. [Customer Bill Management TMF678](#Customer-Bill-Management-TMF678)
+7. [Resources & Useful Links](#Resources-&-Useful-Links).
 
 ## Account Management TMF666
 The "Account Management TMF666" API establishes a standardized mechanism for billing and settlement accounts administration. This ensures a seamless process within both B2C and B2B contexts. The API facilitates the creation, modification, and retrieval of account information, operating within the scope of diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount.
@@ -56,3 +57,6 @@ This API model accommodates the requirements for three fundamental billing types
 
 |![TMF Open APIs](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/tmforum-apis.png)|
 | :--: |
+
+## Resources & Useful Links
+[Join Technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2FU4BYdywdGkODMFYwcfR9O7vsIz%2F5iTq6R2UyD5fvKwbvJ)
