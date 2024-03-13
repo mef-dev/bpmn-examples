@@ -66,7 +66,6 @@ For a technical preview of the MEF.DEV platform and additional information, feel
 - [How to create the First Backend plugin](https://mef.dev/dev_guides/first_backend_plugin.md).
 - [How to create Complex Angular & Backend plugin](https://mef.dev/dev_guides/portal_plugin.md).
 - [UI Kit documentation](https://mef.dev/ui_kit/overview.html).
-- [Check the BPMN examples](https://github.com/mef-dev/bpmn-examples).
 - [Docker compose repository](https://github.com/mef-dev/docker) to run the MEF.DEV platform in-house using Docker.
 - [Kubernetes cluster repository](https://github.com/mef-dev/k8s) to run the MEF.DEV platform in-house using Kubernetes.
 - For [QA & Online support](https://t.me/mef_dev_support) please feel free to join our Telegram channel. Our team operates 24/7 and would be glad to provide all the needed assistance and support.
