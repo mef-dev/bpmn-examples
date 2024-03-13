@@ -7,7 +7,7 @@
 4. [Service Usage Management TMF727](#Service-Usage-Management-TMF727)
 5. [Usage Consumption Management TMF677](#Usage-Consumption-Management-TMF677)
 6. [Customer Bill Management TMF678](#Customer-Bill-Management-TMF678)
-7. [Resources & Useful Links](#Resources-&-Useful-Links).
+7. [Resources & Useful Links](#Resources-&-Useful-Links)
 
 ## Account Management TMF666
 The "Account Management TMF666" API establishes a standardized mechanism for billing and settlement accounts administration. This ensures a seamless process within both B2C and B2B contexts. The API facilitates the creation, modification, and retrieval of account information, operating within the scope of diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount.
@@ -59,4 +59,14 @@ This API model accommodates the requirements for three fundamental billing types
 | :--: |
 
 ## Resources & Useful Links
-[Join Technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2FU4BYdywdGkODMFYwcfR9O7vsIz%2F5iTq6R2UyD5fvKwbvJ)
+For a technical preview of the MEF.DEV platform and additional information, feel free to use the following links.
+- [Join the technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2FU4BYdywdGkODMFYwcfR9O7vsIz%2F5iTq6R2UyD5fvKwbvJ).
+- [The MEF.DEV platform documentation](https://mef.dev/plugin_basics/introduction.md).
+- [How to create the First Angular plugin](https://mef.dev/dev_guides/first_ui_plugin.md).
+- [How to create the First Backend plugin](https://mef.dev/dev_guides/first_backend_plugin.md).
+- [How to create Complex Angular & Backend plugin](https://mef.dev/dev_guides/portal_plugin.md).
+- [UI Kit documentation](https://mef.dev/ui_kit/overview.html).
+- [Check the BPMN examples](https://github.com/mef-dev/bpmn-examples).
+- [Docker compose repository](https://github.com/mef-dev/docker) to run the MEF.DEV platform in-house using Docker.
+- [Kubernetes cluster repository](https://github.com/mef-dev/k8s) to run the MEF.DEV platform in-house using Kubernetes.
+- For [QA & Online support](https://t.me/mef_dev_support) please feel free to join our Telegram channel. Our team operates 24/7 and would be glad to provide all the needed assistance and support.
