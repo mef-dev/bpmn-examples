@@ -1,0 +1,1016 @@
+{
+	"info": {
+		"_postman_id": "70220940-099f-4f58-9d48-11e773f3858c",
+		"name": "TMF677 Usage Consumption (MEF.DEV)",
+		"description": "This is Swagger UI environment generated for the TMF Account Management specification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-70220940-099f-4f58-9d48-11e773f3858c?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "queryUsageConsumption",
+			"item": [
+				{
+					"name": "TOP-10 for OKPO and BillCycle, sorted by Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363732",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\":\"10030771\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"queryUsageConsumption"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "uk",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Charset",
+										"value": "windows-1251",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\":\"10030771\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "15226"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=windows-1251"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-10/14"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "uk"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "0b4c1a90-095e-447c-b8de-4f8db555"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "14"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 17:06:21 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"0b4c1a90-095e-447c-b8de-4f8db555\",\n    \"searchCriteria\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"6838\",\n                \"@referredType\": \"Associations\",\n                \"idType\": 1\n            }\n        ],\n        \"billCycleNo\": \"10030771\"\n    },\n    \"usageConsumption\": [\n        {\n            \"id\": \"7702217-7702257-7892664\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892664-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892664\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234568\"\n                }\n            ],\n            \"service\": [\n                {\n                    \"@type\": \"Service\",\n                    \"serviceCharacteristic\": [\n                        {\n                            \"id\": \"scrd_ExpirationDate\",\n                            \"value\": \"2999-12-31T23:59:59.997\",\n                            \"valueType\": \"date-time\"\n                        },\n                        {\n                            \"id\": \"scrd_ICC\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_IMSI\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN1\",\n                            \"value\": \"0123\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK1\",\n                            \"value\": \"01231234\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_Code\",\n                            \"value\": \"Default\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_ID\",\n                            \"value\": \"1\",\n                            \"valueType\": \"integer\"\n                        },\n                        {\n                            \"id\": \"scrs_Code\",\n                            \"value\": \"activ\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrt_Code\",\n                            \"value\": \"UNI\",\n                            \"valueType\": \"string\"\n                        }\n                    ],\n                    \"serviceSpecification\": {\n                        \"id\": \"SIM\",\n                        \"name\": \"SIM\"\n                    },\n                    \"isOnline\": false,\n                    \"id\": \"02-20\"\n                }\n            ]\n        },\n        {\n            \"id\": \"7702217-7702257-7892673\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892673-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892673-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892673-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892673\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234590\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892675\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892675-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892675-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892675-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892675\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234593\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892676\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892676-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892676-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892676-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892676\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234591\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892677\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892677-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892677-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892677-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892677\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234600\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892678\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892678-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892678-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892678-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892678\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234601\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892666\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892666-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892666-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892666-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892666\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234569\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892679\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892679-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892679-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892679-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892679\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234602\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892680\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892680-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892680-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892680-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892680\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234603\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892681\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892681-8-0\",\n                    \"description\": \"Aggregated Bucket related to: ХВ\",\n                    \"isShared\": false,\n                    \"name\": \"ХВ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892681-7-0\",\n                    \"description\": \"Aggregated Bucket related to: СМС\",\n                    \"isShared\": false,\n                    \"name\": \"СМС\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892681-6-0\",\n                    \"description\": \"Aggregated Bucket related to: МБ\",\n                    \"isShared\": false,\n                    \"name\": \"МБ\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892681\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234604\"\n                }\n            ],\n            \"service\": []\n        }\n    ],\n    \"sortCriteria\": {\n        \"bucketRefOrValue\": [\n            {\n                \"usageType\": \"data\"\n            }\n        ]\n    },\n    \"sort\": \"-usageConsumption.bucketRefOrValue.reservedValue.amount\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TOP-10 sorted by Data for OKPO with ALL filters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363732",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\": \"10030771\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"logicalResource\":[\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0671234568\"\n         },\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0676666101\"\n         }\n      ],\n      \"product\":[\n         {\n            \"id\":\"03-6229\",\n            \"name\":\"TariffPackage\"\n         }\n      ],\n      \"service\":[\n         {\n            \"serviceSpecification\":{\n               \"id\":\"SIM\"\n            },\n            \"serviceCharacteristic\":[\n               {\n                  \"id\":\"scrd_ICC\",\n                  \"value\":\"2280121*\"\n               },\n               {\n                  \"id\":\"scrd_IMSI\",\n                  \"value\":\"2280*\"\n               },\n               {\n                  \"id\":\"scrg_Code\",\n                  \"value\":\"Default\"\n               },\n               {\n                  \"id\":\"scrs_Code\",\n                  \"value\":\"activ\"\n               }\n            ]\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"queryUsageConsumption"
+							]
+						},
+						"description": "This operation creates a ProductOrder entity."
+					},
+					"response": [
+						{
+							"name": "NO CONTENT",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6839\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"logicalResource\":[\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0676666101\"\n         },\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0676666102\"\n         }\n      ],\n      \"product\":[\n         {\n            \"id\":\"03-6195\",\n            \"name\":\"TariffPackage\"\n         }\n      ],\n      \"service\":[\n         {\n            \"serviceSpecification\":{\n               \"id\":\"SIM\"\n            },\n            \"serviceCharacteristic\":[\n               {\n                  \"id\":\"scrd_ICC\",\n                  \"value\":\"2280*\"\n               },\n               {\n                  \"id\":\"scrd_IMSI\",\n                  \"value\":\"2280*\"\n               },\n               {\n                  \"id\":\"scrg_Code\",\n                  \"value\":\"Default\"\n               },\n               {\n                  \"id\":\"scrs_Code\",\n                  \"value\":\"activ\"\n               }\n            ]\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Dec 2023 14:35:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\": \"10030771\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"logicalResource\":[\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0671234568\"\n         },\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"0676666101\"\n         }\n      ],\n      \"product\":[\n         {\n            \"id\":\"03-6229\",\n            \"name\":\"TariffPackage\"\n         }\n      ],\n      \"service\":[\n         {\n            \"serviceSpecification\":{\n               \"id\":\"SIM\"\n            },\n            \"serviceCharacteristic\":[\n               {\n                  \"id\":\"scrd_ICC\",\n                  \"value\":\"2280121*\"\n               },\n               {\n                  \"id\":\"scrd_IMSI\",\n                  \"value\":\"2280*\"\n               },\n               {\n                  \"id\":\"scrg_Code\",\n                  \"value\":\"Default\"\n               },\n               {\n                  \"id\":\"scrs_Code\",\n                  \"value\":\"activ\"\n               }\n            ]\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "2849"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "73127cca-bc23-4bb3-bafd-a3af5fb0"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 17:11:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"73127cca-bc23-4bb3-bafd-a3af5fb0\",\n    \"searchCriteria\": {\n        \"logicalResource\": [\n            {\n                \"name\": \"MSISDN\",\n                \"value\": \"0671234568\"\n            },\n            {\n                \"name\": \"MSISDN\",\n                \"value\": \"0676666101\"\n            }\n        ],\n        \"product\": [\n            {\n                \"id\": \"03-6229\",\n                \"name\": \"TariffPackage\"\n            }\n        ],\n        \"relatedParty\": [\n            {\n                \"id\": \"6838\",\n                \"@referredType\": \"Associations\",\n                \"idType\": 1\n            }\n        ],\n        \"service\": [\n            {\n                \"serviceCharacteristic\": [\n                    {\n                        \"id\": \"scrd_ICC\",\n                        \"value\": \"2280121*\"\n                    },\n                    {\n                        \"id\": \"scrd_IMSI\",\n                        \"value\": \"2280*\"\n                    },\n                    {\n                        \"id\": \"scrg_Code\",\n                        \"value\": \"Default\"\n                    },\n                    {\n                        \"id\": \"scrs_Code\",\n                        \"value\": \"activ\"\n                    }\n                ],\n                \"serviceSpecification\": {\n                    \"id\": \"SIM\"\n                }\n            }\n        ],\n        \"billCycleNo\": \"10030771\"\n    },\n    \"usageConsumption\": [\n        {\n            \"id\": \"7702217-7702257-7892664\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892664-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892664\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234568\"\n                }\n            ],\n            \"service\": [\n                {\n                    \"@type\": \"Service\",\n                    \"serviceCharacteristic\": [\n                        {\n                            \"id\": \"scrd_ExpirationDate\",\n                            \"value\": \"2999-12-31T23:59:59.997\",\n                            \"valueType\": \"date-time\"\n                        },\n                        {\n                            \"id\": \"scrd_ICC\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_IMSI\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN1\",\n                            \"value\": \"0123\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK1\",\n                            \"value\": \"01231234\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_Code\",\n                            \"value\": \"Default\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_ID\",\n                            \"value\": \"1\",\n                            \"valueType\": \"integer\"\n                        },\n                        {\n                            \"id\": \"scrs_Code\",\n                            \"value\": \"activ\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrt_Code\",\n                            \"value\": \"UNI\",\n                            \"valueType\": \"string\"\n                        }\n                    ],\n                    \"serviceSpecification\": {\n                        \"id\": \"SIM\",\n                        \"name\": \"SIM\"\n                    },\n                    \"isOnline\": true,\n                    \"id\": \"02-20\"\n                }\n            ]\n        }\n    ],\n    \"sortCriteria\": {\n        \"bucketRefOrValue\": [\n            {\n                \"usageType\": \"data\"\n            }\n        ]\n    },\n    \"sort\": \"-usageConsumption.bucketRefOrValue.reservedValue.amount\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TOP-10 by one Product for OKPO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "my_api_user2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363732",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"product\":[\n         {\n            \"id\":\"03-6229\",\n            \"name\":\"TariffPackage\"\n         }\n      ]\n   },\n   \"limit\":10\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"queryUsageConsumption"
+							]
+						},
+						"description": "This operation creates a ProductOrder entity."
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"product\":[\n         {\n            \"id\":\"03-6229\",\n            \"name\":\"TariffPackage\"\n         }\n      ]\n   },\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "15208"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-10/14"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "a9b3acfc-1058-4672-bf47-14a56db8"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "14"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 17:11:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"a9b3acfc-1058-4672-bf47-14a56db8\",\n    \"searchCriteria\": {\n        \"product\": [\n            {\n                \"id\": \"03-6229\",\n                \"name\": \"TariffPackage\"\n            }\n        ],\n        \"relatedParty\": [\n            {\n                \"id\": \"6838\",\n                \"@referredType\": \"Associations\",\n                \"idType\": 1\n            }\n        ]\n    },\n    \"usageConsumption\": [\n        {\n            \"id\": \"7702217-7702257-7892664\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892664-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892664\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234568\"\n                }\n            ],\n            \"service\": [\n                {\n                    \"@type\": \"Service\",\n                    \"serviceCharacteristic\": [\n                        {\n                            \"id\": \"scrd_ExpirationDate\",\n                            \"value\": \"2999-12-31T23:59:59.997\",\n                            \"valueType\": \"date-time\"\n                        },\n                        {\n                            \"id\": \"scrd_ICC\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_IMSI\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN1\",\n                            \"value\": \"0123\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK1\",\n                            \"value\": \"01231234\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_Code\",\n                            \"value\": \"Default\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_ID\",\n                            \"value\": \"1\",\n                            \"valueType\": \"integer\"\n                        },\n                        {\n                            \"id\": \"scrs_Code\",\n                            \"value\": \"activ\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrt_Code\",\n                            \"value\": \"UNI\",\n                            \"valueType\": \"string\"\n                        }\n                    ],\n                    \"serviceSpecification\": {\n                        \"id\": \"SIM\",\n                        \"name\": \"SIM\"\n                    },\n                    \"isOnline\": false,\n                    \"id\": \"02-20\"\n                }\n            ]\n        },\n        {\n            \"id\": \"7702217-7702257-7892673\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892673-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892673-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892673-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892673\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234590\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892675\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892675-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892675-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892675-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892675\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234593\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892676\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892676-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892676-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892676-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892676\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234591\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892677\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892677-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892677-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892677-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892677\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234600\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892678\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892678-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892678-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892678-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892678\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234601\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892679\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892679-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892679-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892679-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892679\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234602\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892680\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892680-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892680-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892680-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892680\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234603\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892681\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892681-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892681-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892681-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892681\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234604\"\n                }\n            ],\n            \"service\": []\n        },\n        {\n            \"id\": \"7702217-7702257-7892682\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892682-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892682-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892682-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892682\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"38671234606\"\n                }\n            ],\n            \"service\": []\n        }\n    ],\n    \"sortCriteria\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "TOP-10 by IMSI mask for OKPO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363732",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"service\":[\n         {\n            \"serviceSpecification\":{\n               \"id\":\"SIM\"\n            },\n            \"serviceCharacteristic\":[\n               {\n                  \"id\":\"scrd_IMSI\",\n                  \"value\":\"2280*\"\n               }\n            ]\n         }\n      ]\n   },\n   \"limit\":10\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"queryUsageConsumption"
+							]
+						},
+						"description": "This operation creates a ProductOrder entity."
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"service\":[\n         {\n            \"serviceSpecification\":{\n               \"id\":\"SIM\"\n            },\n            \"serviceCharacteristic\":[\n               {\n                  \"id\":\"scrd_IMSI\",\n                  \"value\":\"2280*\"\n               }\n            ]\n         }\n      ]\n   },\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "2460"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "216551ff-2c29-4b50-8403-33d65527"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 17:12:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"216551ff-2c29-4b50-8403-33d65527\",\n    \"searchCriteria\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"6838\",\n                \"@referredType\": \"Associations\",\n                \"idType\": 1\n            }\n        ],\n        \"service\": [\n            {\n                \"serviceCharacteristic\": [\n                    {\n                        \"id\": \"scrd_IMSI\",\n                        \"value\": \"2280*\"\n                    }\n                ],\n                \"serviceSpecification\": {\n                    \"id\": \"SIM\"\n                }\n            }\n        ]\n    },\n    \"usageConsumption\": [\n        {\n            \"id\": \"7702217-7702257-7892664\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892664-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892664\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234568\"\n                }\n            ],\n            \"service\": [\n                {\n                    \"@type\": \"Service\",\n                    \"serviceCharacteristic\": [\n                        {\n                            \"id\": \"scrd_ExpirationDate\",\n                            \"value\": \"2999-12-31T23:59:59.997\",\n                            \"valueType\": \"date-time\"\n                        },\n                        {\n                            \"id\": \"scrd_ICC\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_IMSI\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN1\",\n                            \"value\": \"0123\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK1\",\n                            \"value\": \"01231234\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_Code\",\n                            \"value\": \"Default\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_ID\",\n                            \"value\": \"1\",\n                            \"valueType\": \"integer\"\n                        },\n                        {\n                            \"id\": \"scrs_Code\",\n                            \"value\": \"activ\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrt_Code\",\n                            \"value\": \"UNI\",\n                            \"valueType\": \"string\"\n                        }\n                    ],\n                    \"serviceSpecification\": {\n                        \"id\": \"SIM\",\n                        \"name\": \"SIM\"\n                    },\n                    \"isOnline\": false,\n                    \"id\": \"02-20\"\n                }\n            ]\n        }\n    ],\n    \"sortCriteria\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "TOP-10 by MSISDN set for OKPO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "my_api_user2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363732",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"logicalResource\":[\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"380676666101\"\n         },\n          {\n            \"name\":\"MSISDN\",\n            \"value\":\"0671234568\"\n         }\n      ]\n   },\n   \"limit\":10\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"queryUsageConsumption"
+							]
+						},
+						"description": "This operation creates a ProductOrder entity."
+					},
+					"response": [
+						{
+							"name": "SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363732",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"searchCriteria\":{\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ],\n      \"logicalResource\":[\n         {\n            \"name\":\"MSISDN\",\n            \"value\":\"380676666101\"\n         },\n          {\n            \"name\":\"MSISDN\",\n            \"value\":\"0671234568\"\n         }\n      ]\n   },\n   \"limit\":10\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"queryUsageConsumption"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "2448"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "d9288c6f-f499-4e60-ad16-dd66f808"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 17:13:24 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"d9288c6f-f499-4e60-ad16-dd66f808\",\n    \"searchCriteria\": {\n        \"logicalResource\": [\n            {\n                \"name\": \"MSISDN\",\n                \"value\": \"380676666101\"\n            },\n            {\n                \"name\": \"MSISDN\",\n                \"value\": \"0671234568\"\n            }\n        ],\n        \"relatedParty\": [\n            {\n                \"id\": \"6838\",\n                \"@referredType\": \"Associations\",\n                \"idType\": 1\n            }\n        ]\n    },\n    \"usageConsumption\": [\n        {\n            \"id\": \"7702217-7702257-7892664\",\n            \"creationDate\": \"2023-11-03T10:45:05.48\",\n            \"lastUpdate\": \"2023-11-03T10:45:05.48\",\n            \"bucketRefOrValue\": [\n                {\n                    \"id\": \"7702217-6295754-7892664-6-0\",\n                    \"description\": \"Aggregated Bucket related to: MB\",\n                    \"isShared\": false,\n                    \"name\": \"MB\",\n                    \"status\": \"active\",\n                    \"usageType\": \"data\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \" B\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-8-0\",\n                    \"description\": \"Aggregated Bucket related to: VOICE\",\n                    \"isShared\": false,\n                    \"name\": \"VOICE\",\n                    \"status\": \"active\",\n                    \"usageType\": \"voice\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"sec.\"\n                    }\n                },\n                {\n                    \"id\": \"7702217-6295754-7892664-7-0\",\n                    \"description\": \"Aggregated Bucket related to: SMS\",\n                    \"isShared\": false,\n                    \"name\": \"SMS\",\n                    \"status\": \"active\",\n                    \"usageType\": \"sms\",\n                    \"bucketCounter\": [],\n                    \"bucketRelationship\": [],\n                    \"product\": [\n                        {\n                            \"id\": \"03-6229\",\n                            \"name\": \"TariffPackage\",\n                            \"value\": \"M2M Bundle 100\"\n                        }\n                    ],\n                    \"relatedParty\": [\n                        {\n                            \"id\": \"7702217\",\n                            \"@referredType\": \"Customers\",\n                            \"idType\": 0\n                        }\n                    ],\n                    \"reservedValue\": {\n                        \"amount\": 0,\n                        \"units\": \"pcs.\"\n                    }\n                }\n            ],\n            \"logicalResource\": [\n                {\n                    \"id\": \"7892664\",\n                    \"name\": \"MSISDN\",\n                    \"consumptionSummary\": [],\n                    \"value\": \"0671234568\"\n                }\n            ],\n            \"service\": [\n                {\n                    \"@type\": \"Service\",\n                    \"serviceCharacteristic\": [\n                        {\n                            \"id\": \"scrd_ExpirationDate\",\n                            \"value\": \"2999-12-31T23:59:59.997\",\n                            \"valueType\": \"date-time\"\n                        },\n                        {\n                            \"id\": \"scrd_ICC\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_IMSI\",\n                            \"value\": \"228012176510739\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN1\",\n                            \"value\": \"0123\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PIN2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK1\",\n                            \"value\": \"01231234\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrd_PUK2\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_Code\",\n                            \"value\": \"Default\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrg_ID\",\n                            \"value\": \"1\",\n                            \"valueType\": \"integer\"\n                        },\n                        {\n                            \"id\": \"scrs_Code\",\n                            \"value\": \"activ\",\n                            \"valueType\": \"string\"\n                        },\n                        {\n                            \"id\": \"scrt_Code\",\n                            \"value\": \"UNI\",\n                            \"valueType\": \"string\"\n                        }\n                    ],\n                    \"serviceSpecification\": {\n                        \"id\": \"SIM\",\n                        \"name\": \"SIM\"\n                    },\n                    \"isOnline\": true,\n                    \"id\": \"02-20\"\n                }\n            ]\n        }\n    ],\n    \"sortCriteria\": {}\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API",
+			"value": "https://team-api.wcb-tst.kyivstar.ua"
+		}
+	]
+}
