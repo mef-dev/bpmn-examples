@@ -61,11 +61,11 @@ This API model accommodates the requirements for three fundamental billing types
 ## Resources and Useful Links
 For a technical preview of the MEF.DEV platform and additional information, feel free to use the following links.
 - [Join the technical preview](https://preview.mef.dev/rflnk/wsvfcV0ECUiTog2b%2Fv2PmCJMkMdhSXKjoyJe5Ziwl6L2%2FsEhxbNHs0%2FK9YZqm%2Bxt).
-- [The MEF.DEV platform documentation](https://mef.dev/plugin_basics/introduction.md).
-- [How to create the First Angular plugin](https://mef.dev/dev_guides/first_ui_plugin.md).
-- [How to create the First Backend plugin](https://mef.dev/dev_guides/first_backend_plugin.md).
-- [How to create Complex Angular & Backend plugin](https://mef.dev/dev_guides/portal_plugin.md).
-- [UI Kit Demo and documentation](https://mef.dev/ui_kit_demo/app/home).
+- [The MEF.DEV platform documentation](https://platform.mef.dev/plugin_basics/introduction.md).
+- [How to create the First Angular plugin](https://platform.mef.dev/dev_guides/first_ui_plugin.md).
+- [How to create the First Backend plugin](https://platform.mef.dev/dev_guides/first_backend_plugin.md).
+- [How to create Complex Angular & Backend plugin](https://platform.mef.dev/dev_guides/portal_plugin.md).
+- [UI Kit Demo and documentation](https://platform.mef.dev/ui_kit_demo/app/home).
 - [Docker compose repository](https://github.com/mef-dev/docker) to run the MEF.DEV platform in-house using Docker.
 - [Kubernetes cluster repository](https://github.com/mef-dev/k8s) to run the MEF.DEV platform in-house using Kubernetes.
 - For [QA & Online support](https://t.me/mef_dev_support) please feel free to join our Telegram channel. Our team operates 24/7 and would be glad to provide all the needed assistance and support.
