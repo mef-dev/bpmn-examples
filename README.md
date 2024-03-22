@@ -60,7 +60,7 @@ This API model accommodates the requirements for three fundamental billing types
 
 ## Resources and Useful Links
 For a technical preview of the MEF.DEV platform and additional information, feel free to use the following links.
-- [Join the technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2FU4BYdywdGkODMFYwcfR9O7vsIz%2F5iTq6R2UyD5fvKwbvJ).
+- [Join the technical preview](https://preview.mef.dev/rflnk/wsvfcV0ECUiTog2b%2Fv2PmCJMkMdhSXKjoyJe5Ziwl6L2%2FsEhxbNHs0%2FK9YZqm%2Bxt).
 - [The MEF.DEV platform documentation](https://mef.dev/plugin_basics/introduction.md).
 - [How to create the First Angular plugin](https://mef.dev/dev_guides/first_ui_plugin.md).
 - [How to create the First Backend plugin](https://mef.dev/dev_guides/first_backend_plugin.md).
