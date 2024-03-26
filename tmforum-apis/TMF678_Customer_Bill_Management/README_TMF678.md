@@ -7,6 +7,6 @@ The Customer Bill Management REST API facilitates the retrieval of information f
 
 This API model accommodates the requirements for three fundamental billing types: postpaid and prepaid periodical bills, as well as bill operation by request, and bills with scheduled installment payment guidelines. Furthermore, this API allows for the identification and retrieval of details related to bill cycles. By offering standardized operations for the identification and retrieval of customer billing rates, the API ensures that communication service providers can deliver accurate and timely bills to their customers. The flexibility to accommodate different billing types further enhances the adaptability of the solution to diverse business models within the telecom industry.
 
-**You can try the TMF622 plugin as part of the platform's technical preview by following the link below.**
+**You can try the TMF678 plugin as part of the platform's technical preview by following the link below.**
 
 [TMF678 Customer Bill Management](https://preview.mef.dev/store/service/99/rflnk/wsvfcV0ECUiTog2b%2Fv2PmCJMkMdhSXKjoyJe5Ziwl6L2%2FsEhxbNHs0%2FK9YZqm%2Bxt)
