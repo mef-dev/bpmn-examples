@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF622 Product Ordering API",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Product Ordering Workflows</b><br/><br/><p><strong>Product Ordering Management</strong></p>\n<p><br></p>\n<p>The Product Ordering Management REST Application Programming Interface (API) establishes a standardized mechanism for initiating product orders with Related Parties of Billing accounts, specifically Customers. Additionally, it facilitates the tracking of the lifecycle status of product orders. A Product Order, in this context, represents a specific type of order that enables transactions between a customer and a service provider, or between a service provider and a partner, and vice versa.</p>\n<p><br></p>\n<p>This API permits the creation, modification, and retrieval of Product Order information, where Product Orders are associated with Customer parties. However, it is important to note that the administration of parties falls beyond the scope of this API.</p>\n<p><br></p>\n<p>Despite the existence of different Product Order resources in the Telecom Forum (TMF) design, such as CancelProductOrder and SubmitProductOrder, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates the Product Order due to the Online mode of order execution. All Product Orders can be accessed using the Product Order identifier or Product Order Item identifier, as well as an external identifier if applicable. It is noteworthy that the instantiation of a Product Order from scratch necessitates the creation of an Extension entity, including external identifiers for future synchronization purposes.</p>\n<p><br></p>\n<p><strong>Native Implementation within the WideCoup BSS</strong></p>\n<p><br></p>\n<p>Over recent years, the WideCoup BSS API [BSS.Entities](https://github.com/mef-dev/bss-entities) has matured into an open API platform with numerous implementations from various external system consumers. The native implementation of TMF Product Ordering management is founded on established Entities and Actions, specifically <b>`Subscribers`</b>,<b>`Agreements`</b>, <b>`Extensions`</b>, <b>`TemplateSubscriptions`</b>, and <b>`ServiceSubscriptions`</b>.</p>\n<p><br></p>\n<p><strong>Product Ordering Management Functionality</strong></p>\n<p><br></p>\n<p>From a technical standpoint, the Product Ordering Management functionality supports the <b>ProductOrder</b> and <b>cancelProductOrder</b> methods based on [BPMN Workflows](https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis/TMF622_Product_Ordering), which facilitate both the creation and update of a Product Order, along with the associated Service Orders within the Product Order lifecycle. The Product Order lifecycle is monitored by the <b>'state'</b> attribute, which is contingent on each Product Order Item's **'state'** attribute. Typical lifecycle values for a Product Order include `Acknowledged`, `Accepted`, `Completed`, and `Canceled`. Notably, when placing a Product Order with a Priority equal to `1`, the only state present due to Online execution is `Completed`. The typical lifecycle values for a Product Order Item include `Acknowledged`, `InProgress`, and `Completed`. It is essential to acknowledge that certain implementations may introduce additional states. For instance, a Product Order reaches the state `Accepted` only if the Service Order has reached the state `In progress`</p>\n<p><br></p>\n",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.0.3"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": { },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ]
+}

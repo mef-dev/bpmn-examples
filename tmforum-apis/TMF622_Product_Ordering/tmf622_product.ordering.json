@@ -1,0 +1,3678 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF622 Product Ordering API",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Product Ordering Workflows</b><br/><br/><p><strong>Product Ordering Management</strong></p>\n<p><br></p>\n<p>The Product Ordering Management REST Application Programming Interface (API) establishes a standardized mechanism for initiating product orders with Related Parties of Billing accounts, specifically Customers. Additionally, it facilitates the tracking of the lifecycle status of product orders. A Product Order, in this context, represents a specific type of order that enables transactions between a customer and a service provider, or between a service provider and a partner, and vice versa.</p>\n<p><br></p>\n<p>This API permits the creation, modification, and retrieval of Product Order information, where Product Orders are associated with Customer parties. However, it is important to note that the administration of parties falls beyond the scope of this API.</p>\n<p><br></p>\n<p>Despite the existence of different Product Order resources in the Telecom Forum (TMF) design, such as CancelProductOrder and SubmitProductOrder, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates the Product Order due to the Online mode of order execution. All Product Orders can be accessed using the Product Order identifier or Product Order Item identifier, as well as an external identifier if applicable. It is noteworthy that the instantiation of a Product Order from scratch necessitates the creation of an Extension entity, including external identifiers for future synchronization purposes.</p>\n<p><br></p>\n<p><strong>Native Implementation within the WideCoup BSS</strong></p>\n<p><br></p>\n<p>Over recent years, the WideCoup BSS API [BSS.Entities](https://github.com/mef-dev/bss-entities) has matured into an open API platform with numerous implementations from various external system consumers. The native implementation of TMF Product Ordering management is founded on established Entities and Actions, specifically <b>`Subscribers`</b>,<b>`Agreements`</b>, <b>`Extensions`</b>, <b>`TemplateSubscriptions`</b>, and <b>`ServiceSubscriptions`</b>.</p>\n<p><br></p>\n<p><strong>Product Ordering Management Functionality</strong></p>\n<p><br></p>\n<p>From a technical standpoint, the Product Ordering Management functionality supports the <b>ProductOrder</b> and <b>cancelProductOrder</b> methods based on [BPMN Workflows](https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis/TMF622_Product_Ordering), which facilitate both the creation and update of a Product Order, along with the associated Service Orders within the Product Order lifecycle. The Product Order lifecycle is monitored by the <b>'state'</b> attribute, which is contingent on each Product Order Item's **'state'** attribute. Typical lifecycle values for a Product Order include `Acknowledged`, `Accepted`, `Completed`, and `Canceled`. Notably, when placing a Product Order with a Priority equal to `1`, the only state present due to Online execution is `Completed`. The typical lifecycle values for a Product Order Item include `Acknowledged`, `InProgress`, and `Completed`. It is essential to acknowledge that certain implementations may introduce additional states. For instance, a Product Order reaches the state `Accepted` only if the Service Order has reached the state `In progress`</p>\n<p><br></p>\n",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.0.30"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/productorder": {
+      "get": {
+        "tags": [
+          "productorder"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductOrder_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOrder_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/productorder/{id}": {
+      "get": {
+        "tags": [
+          "productorder"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOrder_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "productorder"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOrder_Response_SET"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_868_63.Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_868_63.Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgreementItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "agreementName": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "agreementHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "agreementId": {
+            "type": "string",
+            "description": "Unique identifier of a related entity.",
+            "nullable": true
+          },
+          "agreementItemId": {
+            "type": "string",
+            "description": "Id of an item of a Agreement",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "AppointmentRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An explanatory text regarding the appointment made with a party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillingAccountRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "ratingType": {
+            "type": "string",
+            "description": "Indicates whether the account follows a specific payment option such as prepaid or postpaid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Тип данных значения характеристики",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Один из простых типов значения характеристики",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacteristicRelationship"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.AgreementItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "agreementName": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "agreementHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "agreementId": {
+            "type": "string",
+            "description": "Unique identifier of a related entity.",
+            "nullable": true
+          },
+          "agreementItemId": {
+            "type": "string",
+            "description": "Id of an item of a Agreement",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.AppointmentRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An explanatory text regarding the appointment made with a party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.BillingAccountRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "ratingType": {
+            "type": "string",
+            "description": "Indicates whether the account follows a specific payment option such as prepaid or postpaid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.Characteristic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Тип данных значения характеристики\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Один из простых типов значения характеристики\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.CharacteristicRelationship"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.Duration": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "description": "Time interval (number of seconds, minutes, hours, etc.)",
+            "format": "int32",
+            "nullable": true
+          },
+          "units": {
+            "type": "string",
+            "description": "Unit of time (seconds, minutes, hours, etc.)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A time interval in a given unit of time"
+      },
+      "Definition_868_63.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Definition_868_63.Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Currency (ISO4217 norm uses 3 letters to define the currency)",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "description": "A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base / value business entity used to represent money"
+      },
+      "Definition_868_63.Note": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "description": "Автор данного изменения\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "hostname": {
+            "type": "string",
+            "description": "адрес hostname для данного изменения\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "description": "Комментарий для данного изменения\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of the note",
+            "format": "date-time",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the note within its containing entity",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.OrderItemRelationship": {
+        "type": "object",
+        "properties": {
+          "referredtype": {
+            "type": "string",
+            "description": "Название связанной сущности\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "В случае “cross-ref” представляет собой уникальный идентификатор созданного Resource для отслеживания состояния и изменений\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип связаного заказа, может быть: “dependency”, если заказ требуется «не выполнять», до тех пор, пока не будет завершен другой элемент заказа, или “cross-ref”, чтобы управлять функцией сервиса\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as relies on, bundles, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.OrderPrice": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A narrative that explains in detail the semantics of this order item price.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A short descriptive name such as \"Subscription price\".",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingPriceRef"
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Could be month, week...",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Could be minutes, GB...",
+            "nullable": true
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/Definition_868_63.BillingAccountRef"
+          },
+          "priceAlteration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.PriceAlteration"
+            },
+            "description": "a strucuture used to describe a price alteration",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Definition_868_63.Price"
+          },
+          "priceType": {
+            "type": "string",
+            "description": "indicate if the price is for recurrent or no-recurrent charge",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.OrderRelationship": {
+        "type": "object",
+        "properties": {
+          "referredtype": {
+            "type": "string",
+            "description": "Название связанной сущности\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор соответствующей данному заказу Customer Facing Service для отслеживания состояния и изменений\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип зависимости заказа, а именно “cross-ref” для управления соответствующей Customer Facing Service\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as correlates, triggers, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.OrderTerm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the productOrderTerm",
+            "nullable": true
+          },
+          "duration": {
+            "$ref": "#/components/schemas/Definition_868_63.Duration"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the productOrderTerm",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.PaymentRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order."
+      },
+      "Definition_868_63.Price": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "dutyFreeAmount": {
+            "$ref": "#/components/schemas/Definition_868_63.Money"
+          },
+          "percentage": {
+            "type": "number",
+            "description": "Percentage to apply for ProdOfferPriceAlteration",
+            "format": "double",
+            "nullable": true
+          },
+          "taxIncludedAmount": {
+            "$ref": "#/components/schemas/Definition_868_63.Money"
+          },
+          "taxRate": {
+            "type": "number",
+            "description": "Tax rate",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.PriceAlteration": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "applicationDuration": {
+            "type": "integer",
+            "description": "Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)",
+            "format": "int32",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A narrative that explains in detail the semantics of this order item price alteration",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the order item price alteration",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingPriceRef"
+          },
+          "priceType": {
+            "type": "string",
+            "description": "A category that describes the price such as recurring, one time and usage.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority level for applying this alteration among all the defined alterations on the order item price",
+            "format": "int32",
+            "nullable": true
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Could be month, week...",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Could be minutes, GB...",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Definition_868_63.Price"
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductOfferingPriceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased"
+      },
+      "Definition_868_63.ProductOfferingQualificationItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "productOfferingQualificationName": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "productOfferingQualificationHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "productOfferingQualificationId": {
+            "type": "string",
+            "description": "Unique identifier of a related entity.",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Id of an item of a product offering qualification",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductOfferingQualificationRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A productOfferingQualification that has been executed previously"
+      },
+      "Definition_868_63.ProductOfferingRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information."
+      },
+      "Definition_868_63.ProductOrderItem": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductValue"
+          },
+          "action": {
+            "type": "string",
+            "description": "Действие, которое необходимо выполнить над Продуктом.\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор выполненого элемента productOrderItem, предоставляется системой order management\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Заказанное количество, если применимо\r\n`p_ucp_set_ProductOrder`",
+            "format": "int32",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние заказа в соответствии с жизненным циклом\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "productOrderItemRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.OrderItemRelationship"
+            },
+            "description": "Список элементов предназначен для отражения иерархических отношений конкретного элемента productOrder и resourceOrder, которые должны быть созданы на его основе\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "appointment": {
+            "$ref": "#/components/schemas/Definition_868_63.AppointmentRef"
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/Definition_868_63.BillingAccountRef"
+          },
+          "itemPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.OrderPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "itemTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.OrderTerm"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "itemTotalPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.OrderPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "note": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.Note"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "payment": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.PaymentRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingRef"
+          },
+          "productOfferingQualificationItem": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingQualificationItemRef"
+          },
+          "quoteItem": {
+            "$ref": "#/components/schemas/Definition_868_63.QuoteItemRef"
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductOrderItem"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "qualification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductOfferingQualificationRef"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductPrice": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Product price",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the Product price",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingPriceRef"
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Used for recurring charge to indicate period (month, week, etc..).",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Unit of Measure if price depending on it (Gb, SMS volume, etc..)",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Definition_868_63.Price"
+          },
+          "priceAlteration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.PriceAlteration"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "priceType": {
+            "type": "string",
+            "description": "indicate if the price is for recurrent or no-recurrent charge",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductRefOrValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation  @referredType are related to the product entity and not the RelatedProductRefOrValue class itself"
+      },
+      "Definition_868_63.ProductRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the related product",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as relies on, bundles, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductSpecificationRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор спецификации продукта\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название спецификации продукта\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductSpecification reference. A product Specification represents entities that are orderable from the provider of the catalog."
+      },
+      "Definition_868_63.ProductTerm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the productTerm",
+            "nullable": true
+          },
+          "duration": {
+            "$ref": "#/components/schemas/Definition_868_63.Duration"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/Definition_868_63.TimePeriod"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the productTerm",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.ProductValue": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "isBundle": {
+            "type": "boolean",
+            "description": "зарезервировано для будущего использования\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "productCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.Characteristic"
+            },
+            "description": "Конкретный параметр продукта, который относится к этому заказу\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "productSpecification": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductSpecificationRef"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "agreementItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.AgreementItemRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/Definition_868_63.BillingAccountRef"
+          },
+          "creationDate": {
+            "type": "string",
+            "description": "Date and time when the product was created",
+            "format": "date-time",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Is the description of the product. It could be copied from the description of the Product Offering.",
+            "nullable": true
+          },
+          "isCustomerVisible": {
+            "type": "boolean",
+            "description": "If true, the product is visible by the customer.",
+            "nullable": true
+          },
+          "orderDate": {
+            "type": "string",
+            "description": "Is the date when the product was ordered",
+            "format": "date-time",
+            "nullable": true
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/Definition_868_63.ProductOfferingRef"
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.RelatedOrderItem"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "product": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductRefOrValue"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductRelationship"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productSerialNumber": {
+            "type": "string",
+            "description": "Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.",
+            "nullable": true
+          },
+          "productTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductTerm"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "realizingResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ResourceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "realizingService": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ServiceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.RelatedParty"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.RelatedPlaceRefOrValue"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Is the date from which the product starts",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Possible values for the status of the product",
+            "nullable": true
+          },
+          "terminationDate": {
+            "type": "string",
+            "description": "Is the date when the product was terminated",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.QuoteItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "quoteHref": {
+            "type": "string",
+            "description": "Reference of the related quote.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "quoteId": {
+            "type": "string",
+            "description": "Unique identifier of a refered quote.",
+            "nullable": true
+          },
+          "quoteItemId": {
+            "type": "string",
+            "description": "Identifier of a quote item.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.RelatedOrderItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "orderItemAction": {
+            "type": "string",
+            "description": "action to be performed on the entity managed by the item",
+            "nullable": true
+          },
+          "orderHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the  Order",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Unique identifier of a related  Order.",
+            "nullable": true
+          },
+          "orderItemId": {
+            "type": "string",
+            "description": "Id of an item of a prduct order",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.RelatedParty": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор сущности\r\n`p_ucp_set_ProductOrder`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`p_ucp_set_ProductOrder`",
+            "format": "int32",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_868_63.RelatedPlaceRefOrValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation  @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself"
+      },
+      "Definition_868_63.ResourceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Resource reference, for when Resource is used by other entities."
+      },
+      "Definition_868_63.ServiceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Service reference, for when Service is used by other entities."
+      },
+      "Definition_868_63.TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Start of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "End of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "Duration": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "description": "Time interval (number of seconds, minutes, hours, etc.)",
+            "format": "int32",
+            "nullable": true
+          },
+          "units": {
+            "type": "string",
+            "description": "Unit of time (seconds, minutes, hours, etc.)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A time interval in a given unit of time"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Currency (ISO4217 norm uses 3 letters to define the currency)",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "description": "A signed floating point number, the meaning of the sign is according to the context of the API that uses this Data type",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base / value business entity used to represent money"
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "description": "Автор данного изменения",
+            "nullable": true
+          },
+          "hostname": {
+            "type": "string",
+            "description": "адрес hostname для данного изменения",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "description": "Комментарий для данного изменения",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of the note",
+            "format": "date-time",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the note within its containing entity",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "OrderItemRelationship": {
+        "type": "object",
+        "properties": {
+          "referredtype": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "В случае “cross-ref” представляет собой уникальный идентификатор созданной Customer Facing Service для отслеживания состояния и изменений",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип связаного заказа, может быть: “dependency”, если заказ требуется «не выполнять», до тех пор, пока не будет завершен другой элемент заказа, или “cross-ref”, чтобы управлять функцией сервиса",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as relies on, bundles, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "OrderPrice": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A narrative that explains in detail the semantics of this order item price.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A short descriptive name such as \"Subscription price\".",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/ProductOfferingPriceRef"
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Could be month, week...",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Could be minutes, GB...",
+            "nullable": true
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/BillingAccountRef"
+          },
+          "priceAlteration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceAlteration"
+            },
+            "description": "a strucuture used to describe a price alteration",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          },
+          "priceType": {
+            "type": "string",
+            "description": "indicate if the price is for recurrent or no-recurrent charge",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "OrderRelationship": {
+        "type": "object",
+        "properties": {
+          "referredtype": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор соответствующей данному заказу Customer Facing Service для отслеживания состояния и изменений",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип зависимости заказа, а именно “cross-ref” для управления соответствующей Customer Facing Service",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as correlates, triggers, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "OrderTerm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the productOrderTerm",
+            "nullable": true
+          },
+          "duration": {
+            "$ref": "#/components/schemas/Duration"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the productOrderTerm",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "PaymentRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "If an immediate payment has been done at the product order submission, the payment information are captured and stored (as a reference) in the order."
+      },
+      "Price": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "dutyFreeAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "percentage": {
+            "type": "number",
+            "description": "Percentage to apply for ProdOfferPriceAlteration",
+            "format": "double",
+            "nullable": true
+          },
+          "taxIncludedAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "taxRate": {
+            "type": "number",
+            "description": "Tax rate",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "PriceAlteration": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "applicationDuration": {
+            "type": "integer",
+            "description": "Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)",
+            "format": "int32",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A narrative that explains in detail the semantics of this order item price alteration",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the order item price alteration",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/ProductOfferingPriceRef"
+          },
+          "priceType": {
+            "type": "string",
+            "description": "A category that describes the price such as recurring, one time and usage.",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority level for applying this alteration among all the defined alterations on the order item price",
+            "format": "int32",
+            "nullable": true
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Could be month, week...",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Could be minutes, GB...",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductOfferingPriceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased"
+      },
+      "ProductOfferingQualificationItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "productOfferingQualificationName": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "productOfferingQualificationHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "productOfferingQualificationId": {
+            "type": "string",
+            "description": "Unique identifier of a related entity.",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Id of an item of a product offering qualification",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductOfferingQualificationRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A productOfferingQualification that has been executed previously"
+      },
+      "ProductOfferingRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information."
+      },
+      "ProductOrderItem": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "$ref": "#/components/schemas/ProductValue"
+          },
+          "action": {
+            "type": "string",
+            "description": "Действие, которое необходимо выполнить над Продуктом.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Порядковый номер элемента заказа в отношении конкретного продукта",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Заказанное количество, если применимо",
+            "format": "int32",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние заказа в соответствии с жизненным циклом",
+            "nullable": true
+          },
+          "productOrderItemRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemRelationship"
+            },
+            "description": "Список элементов предназначен для отражения иерархических отношений конкретного элемента productOrder и resourceOrder, которые должны быть созданы на его основе",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "appointment": {
+            "$ref": "#/components/schemas/AppointmentRef"
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/BillingAccountRef"
+          },
+          "itemPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "itemTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderTerm"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "itemTotalPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "note": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "payment": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOfferingRef"
+          },
+          "productOfferingQualificationItem": {
+            "$ref": "#/components/schemas/ProductOfferingQualificationItemRef"
+          },
+          "quoteItem": {
+            "$ref": "#/components/schemas/QuoteItemRef"
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOrderItem"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "qualification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferingQualificationRef"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductOrder_Request_GET": {
+        "type": "object",
+        "properties": {
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`ErrFormat=ErrFormat`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`Accept-Language=Lang`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`type=atype`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`IDType=IsExternalID`",
+            "format": "int32",
+            "nullable": true
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOrderItem"
+            },
+            "description": "Элементы ProductOrder содержат параметры, которые нужно выполнить с продуктом по этому заказу\r\n`productOrderItem=productOrderItem`",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`relatedParty=relatedParty`",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор ProductOrder\r\n`id=id`",
+            "format": "int64",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние заказа в соответствии с жизненным циклом\r\n`state=state`",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`offset=PageNumber`",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`limit=PageSize`",
+            "format": "int32",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`sort=SortColumn`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`SortDirection=SortDirection`",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`x-ms-client-request-id=x_ms_client_request_id`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductOrder_Response_GET_OUTPUT": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Используется для категоризации заказа в системе управления заказами.\r\n`category=category`",
+            "nullable": true
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOrderItem"
+            },
+            "description": "Элементы ProductOrder содержат параметры, которые нужно выполнить с продуктом по этому заказу\r\n`productOrderItem=productOrderItem`",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор ProductOrder\r\n`id=id`",
+            "format": "int64",
+            "nullable": true
+          },
+          "orderRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderRelationship"
+            },
+            "description": "Массив элементов дочернего заказа предназначен для отражения иерархических отношений услуг, которые должны быть созданы из ProductOrder на основе спецификации каталога продуктов, а именно «перекрестной ссылки» для отслеживания дочернего заказа (a Customer Facing Service).\r\n`orderRelationship=orderRelationship`",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние заказа в соответствии с жизненным циклом\r\n`state=state`",
+            "nullable": true
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)\r\n`X-Total-Count=Total`",
+            "format": "int32",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`relatedParty=relatedParty`",
+            "nullable": true
+          },
+          "requestedStartDate": {
+            "type": "string",
+            "description": "No description\r\n`requestedStartDate=requestedStartDate`",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductOrder_Response_SET": {
+        "type": "object",
+        "properties": {
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`IDType=IsExternalID`",
+            "format": "int32"
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`Accept-Language=Lang`",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "description": "Используется для категоризации заказа в системе управления заказами.\r\n`category=category`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`type=atype`",
+            "nullable": true
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.ProductOrderItem"
+            },
+            "description": "Элементы ProductOrder содержат параметры, которые нужно выполнить с продуктом по этому заказу\r\n`productOrderItem=productOrderItem`",
+            "nullable": true
+          },
+          "requestedStartDate": {
+            "type": "string",
+            "description": "Дата начала действия заказа, желаемого инициатором\r\n`requestedStartDate=requestedStartDate`",
+            "format": "date-time"
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор транзакции для идемпотентности\r\n`x-ms-client-request-id=x_ms_client_request_id`",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор ProductOrder\r\n`id=id`",
+            "format": "int32"
+          },
+          "requestedCompletionDate": {
+            "type": "string",
+            "description": "Дата вступления в силу операции (отличается от текущей для операций в прошлом)\r\n`requestedCompletionDate=requestedCompletionDate`",
+            "format": "date-time"
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние заказа в соответствии с жизненным циклом\r\n`state=state`",
+            "nullable": true
+          },
+          "orderRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_868_63.OrderRelationship"
+            },
+            "description": "Массив элементов дочернего заказа предназначен для отражения иерархических отношений услуг, которые должны быть созданы из ProductOrder на основе спецификации каталога продуктов, а именно «перекрестной ссылки» для отслеживания дочернего заказа (a Customer Facing Service).\r\n`orderRelationship=orderRelationship`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "ProductPrice": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Product price",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the Product price",
+            "nullable": true
+          },
+          "productOfferingPrice": {
+            "$ref": "#/components/schemas/ProductOfferingPriceRef"
+          },
+          "recurringChargePeriod": {
+            "type": "string",
+            "description": "Used for recurring charge to indicate period (month, week, etc..).",
+            "nullable": true
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Unit of Measure if price depending on it (Gb, SMS volume, etc..)",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          },
+          "priceAlteration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceAlteration"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "priceType": {
+            "type": "string",
+            "description": "indicate if the price is for recurrent or no-recurrent charge",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductRefOrValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation  @referredType are related to the product entity and not the RelatedProductRefOrValue class itself"
+      },
+      "ProductRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the related product",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "Relationship type as relies on, bundles, etc...",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductSpecificationRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор спецификации продукта",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название спецификации продукта",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "ProductSpecification reference. A product Specification represents entities that are orderable from the provider of the catalog."
+      },
+      "ProductTerm": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the productTerm",
+            "nullable": true
+          },
+          "duration": {
+            "$ref": "#/components/schemas/Duration"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the productTerm",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductValue": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "No description",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "isBundle": {
+            "type": "boolean",
+            "description": "зарезервировано для будущего использования",
+            "nullable": true
+          },
+          "productCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Конкретный параметр продукта, который относится к этому заказу",
+            "nullable": true
+          },
+          "productSpecification": {
+            "$ref": "#/components/schemas/ProductSpecificationRef"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "agreementItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgreementItemRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/BillingAccountRef"
+          },
+          "creationDate": {
+            "type": "string",
+            "description": "Date and time when the product was created",
+            "format": "date-time",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Is the description of the product. It could be copied from the description of the Product Offering.",
+            "nullable": true
+          },
+          "isCustomerVisible": {
+            "type": "boolean",
+            "description": "If true, the product is visible by the customer.",
+            "nullable": true
+          },
+          "orderDate": {
+            "type": "string",
+            "description": "Is the date when the product was ordered",
+            "format": "date-time",
+            "nullable": true
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOfferingRef"
+          },
+          "productOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedOrderItem"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "product": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductRefOrValue"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productPrice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductPrice"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductRelationship"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "productSerialNumber": {
+            "type": "string",
+            "description": "Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.",
+            "nullable": true
+          },
+          "productTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductTerm"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "realizingResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "realizingService": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedPlaceRefOrValue"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Is the date from which the product starts",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Possible values for the status of the product",
+            "nullable": true
+          },
+          "terminationDate": {
+            "type": "string",
+            "description": "Is the date when the product was terminated",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "QuoteItemRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "quoteHref": {
+            "type": "string",
+            "description": "Reference of the related quote.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "quoteId": {
+            "type": "string",
+            "description": "Unique identifier of a refered quote.",
+            "nullable": true
+          },
+          "quoteItemId": {
+            "type": "string",
+            "description": "Identifier of a quote item.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "RelatedOrderItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "orderItemAction": {
+            "type": "string",
+            "description": "action to be performed on the entity managed by the item",
+            "nullable": true
+          },
+          "orderHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the  Order",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Unique identifier of a related  Order.",
+            "nullable": true
+          },
+          "orderItemId": {
+            "type": "string",
+            "description": "Id of an item of a prduct order",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор сущности",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID",
+            "format": "int32",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "RelatedPlaceRefOrValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation  @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself"
+      },
+      "ResourceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Resource reference, for when Resource is used by other entities."
+      },
+      "ServiceRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Service reference, for when Service is used by other entities."
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Start of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "End of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "productorder",
+      "description": ""
+    }
+  ]
+}
