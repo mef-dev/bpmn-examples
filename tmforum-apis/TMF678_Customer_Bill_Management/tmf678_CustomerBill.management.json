@@ -1,0 +1,1243 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF678 Customer Bill Management API",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Bill Management Workflows</b><br/><br/><p><strong>Customer Bill Management</strong></p>\n<p><br></p>\n<p>The Customer Bill Management API encompasses business entities integral to Rating and Billing processes, providing operations for the identification and retrieval of details regarding applied customer billing rates for products subscribed by a customer. Typically, these products are rated at varying prices determined by product offering prices, pricing rules, and additional terms and conditions specified by the customer. The rating process involves the application of rates to product usages, while the billing process further incorporates additional charges (recurring charges, one-time charges), discounts, and taxes to products. The aggregated applied rates culminate in bills sent to customers. The bill, the ultimate outcome of the billing process, can be generated through a cycle run (usually executed in batches) or as a result of events such as a customer request or account termination (handled in real-time).</p>\n<p><br></p>\n    The Customer Bill Management REST API facilitates the retrieval of information pertaining to one or multiple customer bills (also referred to as invoices) generated for a customer. A customer bill serves as an electronic or paper document produced at the conclusion of the billing process, consolidating and displaying various items (applied customer billing rates generated during the rating and billing processes) to be charged to a customer. It represents the total amount due for all products during the billing period, encompassing critical information such as dates and bill references. The Customer Bill Management REST API model accommodates the requirements for three fundamental billing types: postpaid periodical bill, postpaid real-time bill, and prepaid real-time bill.\n<p><br></p>\n    Furthermore, this API allows for the identification and retrieval of details related to bill cycles.\n</p>\n<p><br></p>\n<p>Despite the existence of diverse Usage Consumption API resources within the Telecom Forum (TMF) design, the implementation within the WideCoup Business Support System (BSS) excludes certain activities due to the Online mode of operations execution. These excluded activities encompass:</p>\n<p>- Deletion of an existing query for usage consumption.</p>\n<p>- Notification of events, specifically QueryUsageConsumption creation or removal events.</p>\n<p><br></p>\n<p>Bills are typically generated within a regular bill cycle labeled <b>`onCycle`</b>. In cases where the bill is produced on request, such as a customer request, it is indicated as <b>`offCycle`</b>.</p>\n<p><br></p>\n<p>Typical lifecycle values for a billing cycle include:</p>\n<p>- <b>`new`</b>: Bills are prepared for validation or sending.</p>\n<p>- <b>`validated`</b>: Bills are examined through manual or automatic checks.</p>\n<p>- <b>`sent`</b>: Bills are dispatched through the designated channel.</p>\n<p>- <b>`onHold`</b>: Bills are temporarily withheld from further processing until issues associated with the bill are resolved.</p>",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/CustomerBillManagement/appliedCustomerBillingRate": {
+      "get": {
+        "tags": [
+          "CustomerBillManagement"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/appliedCustomerBillingRate_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/appliedCustomerBillingRate_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/CustomerBillManagement/appliedCustomerBillingRate/{id}": {
+      "get": {
+        "tags": [
+          "CustomerBillManagement"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/appliedCustomerBillingRate_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/CustomerBillManagement/billCycle": {
+      "get": {
+        "tags": [
+          "CustomerBillManagement"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillCycle_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_1113_26.Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillCycle_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_1113_26.Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/CustomerBillManagement/billCycle/{id}": {
+      "get": {
+        "tags": [
+          "CustomerBillManagement"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_1113_26.Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillCycle_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_1113_26.Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppliedBillingTaxRate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "taxAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "taxCategory": {
+            "type": "string",
+            "description": "Налоговый профиль",
+            "nullable": true
+          },
+          "taxRate": {
+            "description": "зарезервировано",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillCycleSpecificationRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор спецификации цикла выставления счетов\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название спецификации цикла выставления счетов\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Название связанной сущности\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An explanatory text regarding the BillCycleSpecification",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillCycle_Request_GET": {
+        "type": "object",
+        "properties": {
+          "BillCycleSpecification": {
+            "$ref": "#/components/schemas/BillCycleSpecificationRef"
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор ProductOrder\r\n`p_ucp_get_BillCycle`",
+            "format": "int32",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`p_ucp_get_BillCycle`",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`p_ucp_get_BillCycle`",
+            "format": "int32",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Допустимые значения для состояния жизненного цикла счета: new = 'счет готов к проверке или отправке', validated = 'счет проверен (вручную/автоматически)', send = 'счет отправлен по каналу ', onHold = 'счет не будет находиться в дальнейшей обработке, пока не будут решены открытые вопросы, связанные со счетом'\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "runType": {
+            "type": "string",
+            "description": "Допустимые значения для runType счета. Счет выпускается в обычном цикле выставления счетов «onCycle». В противном случае счет выставляется по запросу (например, запросу клиента). Это будет обозначено «offCycle».\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/Definition_1113_26.TimePeriod"
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillCycle_Response_GET_OUTPUT": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "billCycleSpecification": {
+            "$ref": "#/components/schemas/BillCycleSpecificationRef"
+          },
+          "billingDate": {
+            "type": "string",
+            "description": "Эффективная дата виставления счетов",
+            "nullable": true
+          },
+          "billingPeriod": {
+            "type": "string",
+            "description": "Название периода виставления счетов",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "No description",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор цикла выставления счетов",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Порядковий номер цикла выставления счетов",
+            "nullable": true
+          },
+          "runType": {
+            "type": "string",
+            "description": "Допустимые значения для runType счета. Счет выпускается в обычном цикле выставления счетов «onCycle». В противном случае счет выставляется по запросу (например, запросу клиента). Это будет обозначено «offCycle».",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Допустимые значения для состояния жизненного цикла счета: new = 'счет готов к проверке или отправке', validated = 'счет проверен (вручную/автоматически)', send = 'счет отправлен по каналу ', onHold = 'счет не будет находиться в дальнейшей обработке, пока не будут решены открытые вопросы, связанные со счетом'",
+            "nullable": true
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)",
+            "format": "int32",
+            "nullable": true
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/Definition_1113_26.TimePeriod"
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillingAccountRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор лицевого счета",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Номер лицевого счета",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "ratingType": {
+            "type": "string",
+            "description": "Indicates whether the account follows a specific payment option such as prepaid or postpaid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "$ref": "#/components/schemas/CharacteristicRelationship"
+          },
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Тип данных значения характеристики",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "CharacteristicRelationship",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "No description",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "reserved",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "CustomerBillRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор биллингового счета",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Номер биллингового счета",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Bill reference."
+      },
+      "Definition_1113_26.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Definition_1113_26.TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Дата начала цикла выставления счетов\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "Дата окончания цикла выставления счетов\r\n`p_ucp_get_BillCycle`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExternalId": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Тип идентификатора для синхронизации с внешней системой",
+            "nullable": true
+          },
+          "externalIdentifierType": {
+            "type": "string",
+            "description": "Название Resource (WideCoup BSS Entity name)",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальное значение для синхронизации значений externalIdentifierType с внешней системой",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "LogicalResourceRef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название LogicalResource, например константа MSISDN\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение LogicalResource, например значение MSISDN\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Код валюты ISO",
+            "nullable": true
+          },
+          "value": {
+            "description": "No description",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base / value business entity used to represent money"
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string",
+            "description": "Автор данного изменения",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата изменений",
+            "nullable": true
+          },
+          "hostname": {
+            "type": "string",
+            "description": "адрес hostname для данного изменения",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ProductRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор сетевого продукта (slice, рейтинговая группа и т.д.)",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название сетевого продукта (slice, рейтинговая группа и т.д.)",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A Product reference"
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Идентификатор клиента (узел дерева типа 'Customers')\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Дата начала для поиска (включительно)\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "Дата окончания для поиска (включительно)\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "appliedCustomerBillingRate_Request_GET": {
+        "type": "object",
+        "properties": {
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "int32",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "int32",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "billCycleNo": {
+            "type": "string",
+            "description": "Номер билингового цикла\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор начисления\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "int64",
+            "nullable": true
+          },
+          "logicalResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LogicalResourceRef"
+            },
+            "description": "Список ссылок на логические ресурсы потребления, например MSISDN\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "periodCoverage": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`p_ucp_get_AppliedCustomerBillingRate`",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "appliedCustomerBillingRate_Response_GET_OUTPUT": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "appliedBillingRateSubType": {
+            "type": "string",
+            "description": "Тип начисления",
+            "nullable": true
+          },
+          "appliedBillingRateType": {
+            "type": "string",
+            "description": "Тип проводки по балансу: applyBillingCharge (любой вид начислений, кроме корректировок баланса, штрафов или пени: recurringCharge, oneTimeCharge, UsageCharge), applyBillingCredit (любой вид коректировок: компенсация или ошибка начислений) или applyPenaltyCharge (штрафы, такие как пеня за просрочку платежа, возврат платежа и прочие сборы).",
+            "nullable": true
+          },
+          "appliedTax": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppliedBillingTaxRate"
+            },
+            "description": "Применяемая ставка налога к начислениям, рассчитывается в процессе формирования начислений.",
+            "nullable": true
+          },
+          "bill": {
+            "$ref": "#/components/schemas/CustomerBillRef"
+          },
+          "billingAccount": {
+            "$ref": "#/components/schemas/BillingAccountRef"
+          },
+          "billCycleNo": {
+            "type": "string",
+            "description": "Номер билингового цикла",
+            "nullable": true
+          },
+          "characteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Характеристика начисления",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата Начисления, фактически отображения на балансе",
+            "format": "date-time",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание Начисления",
+            "nullable": true
+          },
+          "externalId": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExternalId"
+            },
+            "description": "Структура для синхронизации данных",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор начисления",
+            "format": "int64",
+            "nullable": true
+          },
+          "isBilled": {
+            "type": "boolean",
+            "description": "Указывает, была ли эта примененная тарифная ставка представлена в счете или нет. Если isBilled = true, следует ожидать данные по счету, если false, тогда следует дождаться завершения биллингового цикла",
+            "nullable": true
+          },
+          "logicalResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LogicalResourceRef"
+            },
+            "description": "Список ссылок на логические ресурсы потребления, например MSISDN",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Понятное название начисления на основе значений продуктового каталога",
+            "nullable": true
+          },
+          "note": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "description": "Структура для протоколирования изменений",
+            "nullable": true
+          },
+          "periodCoverage": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductRef"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Состояние начисления в соответствии с жизненным циклом",
+            "nullable": true
+          },
+          "taxExcludedAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "taxIncludedAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "CustomerBillManagement",
+      "description": ""
+    }
+  ]
+}
