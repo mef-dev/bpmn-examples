@@ -1,0 +1,938 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF666 Account Management API",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Accounts Management Workflows</b><br/><br/><p><strong>Account management</strong></p>\n<p><br></p>\n<p>The Account REST Application Programming Interface (API) establishes a standardized mechanism for the administration of billing and settlement accounts, as well as financial accounting (account receivable), within the realms of Business-to-Business (B2B) or Business-to-Business-to-Consumer (B2B2C) contexts. This API facilitates the creation, modification, and retrieval of account information, operating within the scope of both Business-to-Consumer relationships (e.g., the establishment of mass market customer billing accounts) and Business-to-Business relationships (e.g., the establishment of billing accounts for Interconnect partners or B2B customers). It is imperative to note that while accounts pertain to customer parties, the administration of parties falls outside the purview of this particular API.</p>\n<p><br></p>\n<p>In adherence to the Telecom Forum (TMF) design, diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount exist. However, the implementation incorporated within the WideCoup Business Support System (BSS) exclusively encompasses the BillingAccount entity. Access to all accounts can be facilitated utilizing either the Account internal identifier or the Customer ID in cases involving external identifiers. It is important to highlight that, in the event of creating a BillingAccount from inception, the utilization of Customer entity creation is anticipated, accompanied by external identifiers for future synchronization purposes.</p>\n<p><br></p>\n<p><strong>Native Implementation within the WideCoup BSS</strong></p>\n<p><br></p>\n<p>Over recent years, the WideCoup BSS API [BSS.Entities](https://github.com/mef-dev/bss-entities) has matured into an open API platform with multiple implementations by diverse external system consumers. The native implementation of TMF Account management relies on time-tested Entities and Actions, specifically <b>`Accounts`</b>, <b>`Customers\\Activate`</b>, and <b>`Customers\\Deactivate`</b>.</p>\n<p><br></p>\n<p><strong>Account Management Functionality</strong></p>\n<p><br></p>\n<p>From a technical perspective, the Account Management functionality supports the <i>BillingAccount</i> method, which serves to both create and update an Account, along with the associated Customer records, throughout the Account lifecycle. The 'state' attribute monitors the Billing Account lifecycle, encompassing typical values such as <b>`Creating`</b>, <b>`Active`</b>, <b>`Temporarily closed`</b>, <b>`Closed`</b>, <b>`Migrated`</b>, or <b>`Synced`</b>. It is pertinent to recognize that certain implementations may extend the list of states to accommodate specific requirements.</p>",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.0.33"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/billingaccount": {
+      "get": {
+        "tags": [
+          "billingaccount"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingAccount_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingAccount_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/billingaccount/{id}": {
+      "get": {
+        "tags": [
+          "billingaccount"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingAccount_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "billingaccount"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingAccount_Response_SET"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_850_50.Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_850_50.Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BillingAccount_Request_GET": {
+        "type": "object",
+        "properties": {
+          "ratingType": {
+            "type": "integer",
+            "description": "Идентификатор категории Лицевого счета\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор лицевого счета\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Номер лицевого счета\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "accountType": {
+            "type": "integer",
+            "description": "Идентификатор типа лицевого счета (multi-language)\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Код статуса сущности Customers\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "RegistrCatID": {
+            "type": "integer",
+            "description": "Идентификатор категории регистрации\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentPlan": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentPlan"
+            },
+            "description": "Тип плана оплаты\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillingAccount_Response_GET": {
+        "type": "object",
+        "properties": {
+          "Link": {
+            "type": "string",
+            "description": "зарезервировано",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)",
+            "format": "int32",
+            "nullable": true
+          },
+          "Content_Range": {
+            "type": "string",
+            "description": "Заголовок HTTP указывает место в полном теле сообщения ответа, которому  принадлежит сообщение частичного сообщения ответа.",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.",
+            "nullable": true
+          },
+          "X_Page_Count": {
+            "type": "integer",
+            "description": "Количество страниц Server Paging",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "BillingAccount_Response_SET": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор лицевого счета\r\n`id=Acnt_ID`",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Номер лицевого счета\r\n`name=Acnt_Number`",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_850_50.RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`relatedParty=relatedParty`",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Код статуса сущности Customers\r\n`state=state`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`Accept-Language=Lang`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`type=atype`",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`x-ms-client-request-id=x_ms_client_request_id`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`IDType=idType`",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentPlan": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_850_50.PaymentPlan"
+            },
+            "description": "Тип плана оплаты",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_850_50.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Definition_850_50.Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Код Валюты для баланса счета",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "description": "A positive floating point number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base / value business entity used to represent money"
+      },
+      "Definition_850_50.PaymentMethodRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор типа платежа лицевого счета\r\n`id=Aptp_ID`",
+            "format": "int32",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the payment mean",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the payment mean",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class entity name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct debit)."
+      },
+      "Definition_850_50.PaymentPlan": {
+        "type": "object",
+        "properties": {
+          "numberOfPayments": {
+            "type": "integer",
+            "description": "Number of payments used to spread the global payment",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentFrequency": {
+            "type": "string",
+            "description": "Frequency of the payments, such as monthly and bimonthly",
+            "nullable": true
+          },
+          "planType": {
+            "type": "string",
+            "description": "Класс лицевого счета\r\n`planType=Accl_ID`",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority of the payment plan",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the payment plan (effective, ineffective)",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/Definition_850_50.PaymentMethodRef"
+          },
+          "totalAmount": {
+            "$ref": "#/components/schemas/Definition_850_50.Money"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/Definition_850_50.TimePeriod"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Defines a plan for payment (when a party wants to spread his payments)"
+      },
+      "Definition_850_50.RelatedParty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор клиента (узел дерева типа 'Customers')",
+            "format": "int32",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related party defines party or party role linked to a specific entity."
+      },
+      "Definition_850_50.TimePeriod": {
+        "type": "object",
+        "properties": {
+          "endDateTime": {
+            "type": "string",
+            "description": "Дата завершения освобождения от налога, включительно",
+            "nullable": true
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "дата активации баланса",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Код Валюты для баланса счета",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "description": "A positive floating point number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A base / value business entity used to represent money"
+      },
+      "PaymentMethodRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор типа платежа лицевого счета\r\n`p_ucp_get_BillingAccount`",
+            "format": "int32",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the payment mean",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the payment mean",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class entity name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct debit)."
+      },
+      "PaymentPlan": {
+        "type": "object",
+        "properties": {
+          "numberOfPayments": {
+            "type": "integer",
+            "description": "Number of payments used to spread the global payment",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentFrequency": {
+            "type": "string",
+            "description": "Frequency of the payments, such as monthly and bimonthly",
+            "nullable": true
+          },
+          "planType": {
+            "type": "string",
+            "description": "Класс лицевого счета\r\n`p_ucp_get_BillingAccount`",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority of the payment plan",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the payment plan (effective, ineffective)",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodRef"
+          },
+          "totalAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Defines a plan for payment (when a party wants to spread his payments)"
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор клиента (узел дерева типа 'Customers')",
+            "format": "int32",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related party defines party or party role linked to a specific entity."
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "endDateTime": {
+            "type": "string",
+            "description": "Дата завершения освобождения от налога, включительно",
+            "nullable": true
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "дата активации баланса",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "billingaccount",
+      "description": ""
+    }
+  ]
+}
