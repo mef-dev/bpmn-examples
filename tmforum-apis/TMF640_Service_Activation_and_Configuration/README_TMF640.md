@@ -4,3 +4,7 @@ The "Service Activation and Configuration TMF640" API embodies the essence of se
 This comprehensive API covers a spectrum of activities necessary to support the business/customer layer in delivering ordered services. From creating new services to modifying inflight service creation and overall lifecycle management, the API ensures a holistic approach to service activation and configuration.
 
 Activities such as monitoring long-running service creation processes, creating inactive services, modifying inflight service creation, and canceling inflight service creation are not required for minimal implementation This strategic decision aligns with the need for a seamless and rapid execution model, contributing to the efficiency of the service activation and configuration processes.
+
+**You can try the TMF622 plugin as part of the platform's technical preview by following the link below.**
+
+[TMF640 Service Activation and Configuration](https://preview.mef.dev/store/service/101/rflnk/wsvfcV0ECUiTog2b%2Fv2PmCJMkMdhSXKjoyJe5Ziwl6L2%2FsEhxbNHs0%2FK9YZqm%2Bxt)
