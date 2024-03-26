@@ -8,3 +8,7 @@ Furthermore, the ServiceUsageSpecification entity within the BSS Template establ
 Similar to ServiceUsage, it is comprised of characteristics that define all attributes known for a specific type of usage. Specifically, the optional for implementation activities are the creation of a ServiceUsage, partial update of a ServiceUsage or a collection of ServiceUsage, creation of a ServiceUsageSpecification, and partial update of a ServiceUsageSpecification or a collection of ServiceUsageSpecification.
 
 This optionality aligns with the online execution model, focusing on the retrieval and export functionalities while reserving specific activities for future scenarios. By navigating this delicate balance, MEF.DEV ensures that the Service Usage Management API remains a robust and efficient tool for managing service usage within the ever-evolving telecom landscape.
+
+**You can try the TMF727 plugin as part of the platform's technical preview by following the link below.**
+
+[TMF727 Service Usage Management](https://preview.mef.dev/store/service/102/rflnk/wsvfcV0ECUiTog2b%2Fv2PmCJMkMdhSXKjoyJe5Ziwl6L2%2FsEhxbNHs0%2FK9YZqm%2Bxt)
