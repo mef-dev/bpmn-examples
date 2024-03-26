@@ -1,0 +1,1070 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF677 Usage Consumption",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Usage Consumption Workflows</b><br/><br/><p><strong>Usage Consumption Management</strong></p>\n<p><br></p>\n<p>The Usage Consumption Management, inclusive of the QueryUsageConsumption method, encompasses the assessment of consumption levels associated with products, services, or resources pertaining to one or more parties. This method facilitates the retrieval of information concerning remaining, global, or utilized bucket values, including instances of exceptional consumption commonly referred to as out-of-bucket consumption.</p>\n<p><br></p>\n<p>The Usage Consumption Application Programming REST Interface (API) provides the following operations:\n- A listing of existing usage consumption queries based on filter criteria.\n- Retrieval of an existing usage consumption query by its identifier.\n- Creation of a new query for usage consumption</p>\n<p><br></p>\n<p>Despite the existence of diverse Usage Consumption API resources within the Telecom Forum (TMF) design, the implementation within the WideCoup Business Support System (BSS) excludes certain activities due to the Online mode of operations execution. These excluded activities encompass:\n- Deletion of an existing query for usage consumption.\n- Notification of events, specifically QueryUsageConsumption creation or removal events.</p>\n<p><br></p>\n<p><strong>Service Activation and Configuration Management Functionality</strong></p>\n<p><br></p>\n<p>From a technical standpoint, the Service Activation and Configuration Management functionality supports the *QueryUsageConsumption* methods based on [BPMN Workflows](https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis/TMF677_Usage_Consumption_Management), encompassing all requests within the query lifecycle includind server paging, filtering and sorting of existing usage consumption.</p>",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.0.27"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/queryusageconsumption/{id}": {
+      "get": {
+        "tags": [
+          "queryusageconsumption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/queryUsageConsumption_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/queryUsageConsumption_Response_SET"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/queryUsageConsumption_Response_SET"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/queryUsageConsumption_Response_SET"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BucketRefOrValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор Накопителя",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "A resource URI pointing to the resource in the OB that stores the detailed information for the bucket",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание назначения Накопителя",
+            "nullable": true
+          },
+          "isShared": {
+            "type": "boolean",
+            "description": "True, если сегмент используется несколькими устройствами или пользователями.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Понятное название для идентификации Накопителя",
+            "nullable": true
+          },
+          "remainingValueName": {
+            "type": "string",
+            "description": "Remaining amount in a formatted string for the bucket given in the balance unit (for example 1.9 Gb). This formatted string could be used for display needs for example",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Статус накопителя - active або expired",
+            "nullable": true
+          },
+          "usageType": {
+            "type": "string",
+            "description": "Cортировка по типу баланса Накопителя, например, данные, голос и т.д.",
+            "nullable": true
+          },
+          "bucketCounter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsumptionSummary"
+            },
+            "description": "Список счетчиков потребления (Consumption Summary[*]).",
+            "nullable": true
+          },
+          "bucketRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BucketRelationship"
+            },
+            "description": "Связанный накопитель, если он является частью другого",
+            "nullable": true
+          },
+          "logicalResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageConsumptionLogicalResourceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "partyAccount": {
+            "$ref": "#/components/schemas/PartyAccountRef"
+          },
+          "product": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageConsumptionProductRef"
+            },
+            "description": "Список ссылок на продукты потребления (Тарифный план, Тарифный пакет, и т.д.)",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "remainingValue": {
+            "$ref": "#/components/schemas/Quantity"
+          },
+          "reserveBalance": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReserveBalanceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "reservedValue": {
+            "$ref": "#/components/schemas/Quantity"
+          },
+          "service": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceRef"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A bucket (called UsageVolumProduct in the SID Model) represents and tracks a quantity of usage (remaining or consumed). It could be either a quantity or an amount in a currency. It can represent a fixed number of SMS,MMS, call minutes, quantity of data and so on"
+      },
+      "BucketRelationship": {
+        "type": "object",
+        "properties": {
+          "relationshipType": {
+            "type": "string",
+            "description": "Признак [isAggregated], если накопитель является частью другого",
+            "nullable": true
+          },
+          "bucketRefOrValue": {
+            "$ref": "#/components/schemas/BucketRefOrValue"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Linked bucket to the one instantiate, such as [isAggregated] if the bucket is a part of other or [aggregator] is the bucket holds others"
+      },
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Тип данных значения характеристики",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ConsumptionSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор счетчика",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "counterType": {
+            "type": "string",
+            "description": "Тип счетчика потребления. Отличает потребленное значение накопителя (counterType=used) от значения потребления из накопителя (counterType=outOfBucket)",
+            "nullable": true
+          },
+          "level": {
+            "type": "string",
+            "description": "Уровень счетчика. Счетчик может быть глобальным, детализированим обычного приоритета, высоко-приоритетным, безоплатным для поддержки периода grace-activation и т.д..",
+            "nullable": true
+          },
+          "valueName": {
+            "type": "string",
+            "description": "reserved",
+            "nullable": true
+          },
+          "consumptionPeriod": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "user": {
+            "$ref": "#/components/schemas/RelatedParty"
+          },
+          "value": {
+            "$ref": "#/components/schemas/Quantity"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "product": {
+            "$ref": "#/components/schemas/UsageConsumptionProductRef"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The consumption counters (called ConsumptionSummary in the SID model) detail for example the different kind of consumption done on the bucket."
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartyAccountRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор лицевого счета",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the party account",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the party account",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the party account",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "The condition of the account, such as due, paid, in arrears.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "PartyAccount reference. A party account is an arrangement that a party has with an enterprise that provides products to the party."
+      },
+      "Quantity": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "Числовое значение",
+            "nullable": true
+          },
+          "units": {
+            "type": "string",
+            "description": "Единица измерения",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An amount in a given unit"
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор клиента (узел дерева типа 'Customers')",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Имя сущности для которой выполняется операция",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related party defines party or party role linked to a specific entity."
+      },
+      "ReserveBalanceRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The ReserveBalance resource allows adjustments to be made to the original BalanceTopup eg increment the amount, alter the recharge periodicity"
+      },
+      "ServiceRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Service reference, for when Service is used by other entities"
+      },
+      "ServiceReforValue": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Resource Facing Services (ServiceCharacteristic [*])",
+            "nullable": true
+          },
+          "serviceSpecification": {
+            "$ref": "#/components/schemas/ServiceSpecification"
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Resource Facing Service",
+            "nullable": true
+          },
+          "isOnline": {
+            "type": "boolean",
+            "description": "признак активного состояния номера в сети. Поддерживается только для голоса и передачи данных на основе имеющейся активной резервации ECUR/SCUR сценария.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор услуги Resource Facing Service",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ServiceSpecification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор спецификации",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название спецификации",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "endDateTime": {
+            "type": "string",
+            "description": "Дата начала накопителя в текущем периоде. Фиксируется фактическим началом потребления",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "Датой окончания накопителя в текущем периоде. Для предоплаченного накопителя это дата запроса, для оплаты по факту это планируемая дата следующего начисления (effective date)",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "UsageConsumption": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор UsageConsumption.",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "creationDate": {
+            "type": "string",
+            "description": "Дата и время создания запроса",
+            "format": "date-time",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Free short text describing the usage consumption content",
+            "nullable": true
+          },
+          "lastUpdate": {
+            "type": "string",
+            "description": "Дата и время последнего изменения",
+            "format": "date-time",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Usage consumption name",
+            "nullable": true
+          },
+          "bucketRefOrValue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BucketRefOrValue"
+            },
+            "description": "Параметры сортировки значений накопителей.",
+            "nullable": true
+          },
+          "logicalResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageConsumptionLogicalResourceRef"
+            },
+            "description": "Список ссылок на логические ресурсы потребления, например MSISDN",
+            "nullable": true
+          },
+          "partyAccount": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartyAccountRef"
+            },
+            "description": "Ссылка на лицевой счет, с которого списывается потребление накопителя.",
+            "nullable": true
+          },
+          "product": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageConsumptionProductRef"
+            },
+            "description": "Список ссылок на продукты потребления (UsageConsumptionProductRef [*])",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для поиска",
+            "nullable": true
+          },
+          "service": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceReforValue"
+            },
+            "description": "Список поддерживающих услуг Resource Facing Services (SupportingService [*]), используется для связи CFS с RFS",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Possible values for the state of a task",
+            "nullable": true
+          },
+          "validPeriod": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "billCycleNo": {
+            "type": "string",
+            "description": "Номер билингового цикла",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An usage consumption enables to know at a given point the balances and the consumption counters related to various buckets (SMS, Voice, Data for example). It could be calculated for a device identified by a public key (msisdn number for a mobile device for example or PSTN or VOIP number for a fix device), for a subscribed offer or option or for an user."
+      },
+      "UsageConsumptionLogicalResourceRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор LogicalResource.",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название LogicalResource, например константа MSISDN",
+            "nullable": true
+          },
+          "consumptionSummary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsumptionSummary"
+            },
+            "description": "Список итоговых данных о потреблении, а именно счетчиков, ссылающихся на LogicalResource, например MSISDN. Счетчики потребления детализируют разные виды потребления, выполненные LogicalResource.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение LogicalResource, например значение MSISDN",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "reference to the LogicalResource eg MSISDN"
+      },
+      "UsageConsumptionProductRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор продукта",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название спецификации продукта",
+            "nullable": true
+          },
+          "consumptionSummary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsumptionSummary"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "productCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Набор параметров продукта, связанный с Накопителем",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Название продукта в каталоге",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "queryUsageConsumption_Request_GET": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`offset=PageNumber`",
+            "format": "int32",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`sort=SortColumn`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`SortDirection=SortDirection`",
+            "nullable": true
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`ErrFormat=ErrFormat`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`Accept-Language=Lang`",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`limit=PageSize`",
+            "format": "int32",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`x-ms-client-request-id=x_ms_client_request_id`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`id=id`",
+            "nullable": true
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)\r\n`X-Total-Count=Total`",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "queryUsageConsumption_Response_SET": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`id=id`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`Accept-Language=Lang`",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`offset=PageNumber`",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`limit=PageSize`",
+            "format": "int32",
+            "nullable": true
+          },
+          "searchCriteria": {
+            "$ref": "#/components/schemas/UsageConsumption"
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`x-ms-client-request-id=x_ms_client_request_id`",
+            "nullable": true
+          },
+          "usageConsumption": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageConsumption"
+            },
+            "description": "Отчет текущего потребления (Usage Consumption [*]). Список счетчиков с текущими значениями потребления.\r\n`usageConsumption=usageConsumption`",
+            "nullable": true
+          },
+          "Content_Range": {
+            "type": "string",
+            "description": "Заголовок HTTP указывает место в полном теле сообщения ответа, которому  принадлежит сообщение частичного сообщения ответа.",
+            "nullable": true
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)\r\n`X-Total-Count=Total`",
+            "format": "int32",
+            "nullable": true
+          },
+          "X_Page_Count": {
+            "type": "integer",
+            "description": "Количество страниц Server Paging",
+            "format": "int32",
+            "nullable": true
+          },
+          "sortCriteria": {
+            "$ref": "#/components/schemas/UsageConsumption"
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`sort=SortColumn`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`SortDirection=SortDirection`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "queryusageconsumption",
+      "description": ""
+    }
+  ]
+}
