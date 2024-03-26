@@ -1,0 +1,1797 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF640 Service Management API",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>24 March 2024</b><br/><br/><b>BPMN-based Service Management Workflows</b><br/><br/>",
+    "termsOfService": "https://preview.mef.dev/terms",
+    "contact": {
+      "name": "NATEC",
+      "url": "https://preview.mef.dev/store/tenant/2",
+      "email": "pipeline@mef.dev"
+    },
+    "version": "1.0.0.29"
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/service/{id}": {
+      "put": {
+        "tags": [
+          "service"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service_MVO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service_Response_SET"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "404": {
+            "description": "The request URL is incorrect"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "service"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_887_67.Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "404": {
+            "description": "The request URL is incorrect"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    },
+    "/service": {
+      "get": {
+        "tags": [
+          "service"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service_Request_GET"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Definition_887_67.Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service_Response_GET_OUTPUT"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification"
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect"
+          },
+          "403": {
+            "description": "You do not have access to requested resource"
+          },
+          "404": {
+            "description": "The request URL is incorrect"
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method"
+          },
+          "408": {
+            "description": "You need to repeat the request immediately"
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while"
+          },
+          "501": {
+            "description": "You try to call unsupported resource"
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Тип данных значения характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacteristicRelationship"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "CharacteristicRelationship_MVO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Characteristic_MVO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Data type of the value of the characteristic",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacteristicRelationship_MVO"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the characteristic",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ConstraintRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "description": "constraint version",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.Characteristic": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Унікальний ідентифікатор характеристики",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение характеристики",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Тип данных значения характеристики",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.CharacteristicRelationship"
+            },
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.ConstraintRef": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "description": "constraint version",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Definition_887_67.Feature": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор подключенной функции для отслеживания состояния",
+            "nullable": true
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Состояние функции сервиса",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название Customer Facing Service для отслеживания состояния и изменений",
+            "nullable": true
+          },
+          "featureCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.Characteristic"
+            },
+            "description": "Список характеристик для конкретной функции (конфигурация услуг в Тарифном пакете)",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "isBundle": {
+            "type": "boolean",
+            "description": "True if this is a feature group. Default is false.",
+            "nullable": true
+          },
+          "featureRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.FeatureRelationship"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "constraint": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.ConstraintRef"
+            },
+            "description": "This is a list of feature constraints.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.FeatureRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "This is the type of the feature relationship.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the target feature.",
+            "nullable": true
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/Definition_887_67.TimePeriod"
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.RelatedParty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор сущности",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID",
+            "format": "int32",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.ServiceReforValue": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Resource Facing Services (ServiceCharacteristic [*])",
+            "nullable": true
+          },
+          "serviceSpecification": {
+            "$ref": "#/components/schemas/Definition_887_67.ServiceSpecification"
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Resource Facing Service",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.ServiceSpecification": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор характеристики",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Definition_887_67.TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Start of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "End of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Feature": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор подключенной функции для отслеживания состояния\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Состояние функции сервиса\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название Customer Facing Service для отслеживания состояния и изменений\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "featureCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Список характеристик для конкретной функции (конфигурация услуг в Тарифном пакете)\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "isBundle": {
+            "type": "boolean",
+            "description": "True if this is a feature group. Default is false.",
+            "nullable": true
+          },
+          "featureRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureRelationship"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "constraint": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConstraintRef"
+            },
+            "description": "This is a list of feature constraints.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "FeatureRelationship": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "This is the type of the feature relationship.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the target feature.",
+            "nullable": true
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "description": "Автор данного изменения\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "hostname": {
+            "type": "string",
+            "description": "адрес hostname для данного изменения\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "description": "Комментарий для данного изменения\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of the note",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "RelatedEntityRefOrValue_MVO": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A reference to an entity, where the type of the entity is not known in advance. A related entity defines a entity described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation  @referredType are related to the Entity and not the RelatedEntityRefOrValue class itself"
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор сущности\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "IDType": {
+            "type": "integer",
+            "description": "Признак передачи внешнего значения ID\r\n`p_ucp_set_ServiceOrder`",
+            "format": "int32",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "Название сущности доступной как связанная сторона\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "Role played by the related party",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "RelatedPlaceRefOrValue_MVO": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation  @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself"
+      },
+      "RelatedServiceOrderItem": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          },
+          "serviceOrderHref": {
+            "type": "string",
+            "description": "Reference of the related entity.",
+            "nullable": true
+          },
+          "serviceOrderId": {
+            "type": "string",
+            "description": "Unique identifier of a related entity.",
+            "nullable": true
+          },
+          "itemAction": {
+            "type": "string",
+            "description": "action to be performed on the product",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Identifier of the order item where the service was managed",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "role of the service order item for this service",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "RelatedServiceOrderItem (a ServiceOrder item) .The service order item which triggered service creation/change/termination."
+      },
+      "ResourceRef_MVO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the referred entity.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referred entity.",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Resource reference, for when Resource is used by other entities."
+      },
+      "ServiceRefOrValue_MVO": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "A Service to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation  @referredType are related to the Service entity and not the RelatedServiceRefOrValue class itself"
+      },
+      "ServiceReforValue": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Resource Facing Services (ServiceCharacteristic [*])\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceSpecification": {
+            "$ref": "#/components/schemas/ServiceSpecification"
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Resource Facing Service\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ServiceRelationship_MVO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "serviceRelationshipCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic_MVO"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "service": {
+            "$ref": "#/components/schemas/ServiceRefOrValue_MVO"
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "ServiceSpecification": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Кодовое название характеристики\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Service_MVO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Атрибут @type представляет фактический тип класса сущности.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Комментарий для данного изменения\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "feature": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feature"
+            },
+            "description": "Список функций, связанных с этой услугой\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "hasStarted": {
+            "type": "boolean",
+            "description": "Состояние активации сервиса\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "isServiceEnabled": {
+            "type": "boolean",
+            "description": "Теущее состояние сервиса\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Customer Facing Service (ServiceCharacteristic [*])\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceDate": {
+            "type": "string",
+            "description": "Дата создания услуги (независимо от ее статуса)\r\n`p_ucp_set_ServiceOrder`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Дата активации сервиса\r\n`p_ucp_set_ServiceOrder`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "supportingService": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceReforValue"
+            },
+            "description": "Список поддерживающих услуг Resource Facing Services (SupportingService [*]), используется для связи CFS с RFS\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Customer Facing Service\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "description": "уникальный код категории Customer Facing Service (код сети сервиса)\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "note": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "description": "Структура для протоколирования изменений\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор услуги Customer Facing Service для отслеживания состояния и изменений\r\n`p_ucp_set_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceSpecification": {
+            "$ref": "#/components/schemas/ServiceSpecification"
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "startMode": {
+            "type": "string",
+            "description": "This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above",
+            "nullable": true
+          },
+          "isStateful": {
+            "type": "boolean",
+            "description": "If TRUE, this Service can be changed without affecting any other services",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Date when the service ends",
+            "format": "date-time",
+            "nullable": true
+          },
+          "serviceOrderItem": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedServiceOrderItem"
+            },
+            "description": "A list of service order items related to this service",
+            "nullable": true
+          },
+          "serviceType": {
+            "type": "string",
+            "description": "Business type of the service",
+            "nullable": true
+          },
+          "isBundle": {
+            "type": "boolean",
+            "description": "If true, the service is a ServiceBundle which regroup a service hierachy. If false, the service is a 'atomic' service (hierachy leaf).",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the service",
+            "nullable": true
+          },
+          "relatedEntity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedEntityRefOrValue_MVO"
+            },
+            "description": "A list of related entities in relationship with this service",
+            "nullable": true
+          },
+          "serviceRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceRelationship_MVO"
+            },
+            "description": "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory.",
+            "nullable": true
+          },
+          "supportingResource": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceRef_MVO"
+            },
+            "description": "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources",
+            "nullable": true
+          },
+          "place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedPlaceRefOrValue_MVO"
+            },
+            "description": "A list of places (Place [*]). Used to define a place useful for the service (for example a geographical place whre the service is installed)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Service_Request_GET": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Используется для категоризации заказа в системе управления заказами.\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "Format": {
+            "type": "string",
+            "description": "Формат вывода ошибки\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "feature": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.Feature"
+            },
+            "description": "Список функций, связанных с этой услугой\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "hasStarted": {
+            "type": "boolean",
+            "description": "Состояние активации сервиса\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор услуги Customer Facing Service для отслеживания состояния и изменений\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "isServiceEnabled": {
+            "type": "boolean",
+            "description": "Теущее состояние сервиса\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Необходимый index для начала записей, которые будут переданы в ответе (server paging)\r\n`p_ucp_get_ServiceOrder`",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Кол-во записей в ответе (server paging)\r\n`p_ucp_get_ServiceOrder`",
+            "format": "int32",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "string",
+            "description": "Список характеристик, характеризующих Customer Facing Service (ServiceCharacteristic [*])\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "serviceDate": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_get_ServiceOrder`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "description": "Sorting selector\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "SortDirection": {
+            "type": "string",
+            "description": "No description\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Дата активации сервиса\r\n`p_ucp_get_ServiceOrder`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Код статуса сущности Customers\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.\r\n`p_ucp_get_ServiceOrder`",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Service_Response_GET_OUTPUT": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "No description",
+            "nullable": true
+          },
+          "feature": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.Feature"
+            },
+            "description": "Список функций, связанных с этой услугой",
+            "nullable": true
+          },
+          "hasStarted": {
+            "type": "boolean",
+            "description": "No description",
+            "nullable": true
+          },
+          "isServiceEnabled": {
+            "type": "boolean",
+            "description": "No description",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "serviceDate": {
+            "type": "string",
+            "description": "No description",
+            "nullable": true
+          },
+          "X_Total_Count": {
+            "type": "integer",
+            "description": "общее количество совпадающих записей (server paging)",
+            "format": "int32",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор услуги Customer Facing Service для отслеживания состояния и изменений",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "description": "уникальный код категории Customer Facing Service (код сети сервиса)",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Customer Facing Service (ServiceCharacteristic [*])",
+            "nullable": true
+          },
+          "serviceSpecification": {
+            "$ref": "#/components/schemas/Definition_887_67.ServiceSpecification"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Дата активации сервиса",
+            "format": "date-time",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Customer Facing Service",
+            "nullable": true
+          },
+          "supportingService": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Definition_887_67.ServiceReforValue"
+            },
+            "description": "Список поддерживающих услуг Resource Facing Services (SupportingService [*]), используется для связи CFS с RFS",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "Service_Response_SET": {
+        "type": "object",
+        "properties": {
+          "Accept_Language": {
+            "type": "string",
+            "description": "Указание языка для набора multi-language данных",
+            "nullable": true
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            },
+            "description": "Связанная сторона для этой операции",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "Уникальный идентификатор поискового запроса, используется для операции GET.",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "description": "уникальный код категории Customer Facing Service (код сети сервиса)",
+            "nullable": true
+          },
+          "feature": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feature"
+            },
+            "description": "Список функций, связанных с этой услугой",
+            "nullable": true
+          },
+          "hasStarted": {
+            "type": "boolean",
+            "description": "Состояние активации сервиса",
+            "nullable": true
+          },
+          "isServiceEnabled": {
+            "type": "boolean",
+            "description": "Теущее состояние сервиса",
+            "nullable": true
+          },
+          "serviceCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "Список характеристик, характеризующих Customer Facing Service (ServiceCharacteristic [*])",
+            "nullable": true
+          },
+          "serviceDate": {
+            "type": "string",
+            "description": "Дата создания услуги (независимо от ее статуса)",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Дата активации сервиса",
+            "format": "date-time",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Текущий статус услуги Customer Facing Service",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор услуги Customer Facing Service для отслеживания состояния и изменений",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "<empty description>"
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "Start of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "End of the time period, using IETC-RFC-3339 format",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "service",
+      "description": ""
+    }
+  ]
+}
