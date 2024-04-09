@@ -303,10 +303,10 @@
 			]
 		},
 		{
-			"name": "List or find appliedCustomerBillingRate objects",
+			"name": "appliedCustomerBillingRate",
 			"item": [
 				{
-					"name": "by Customer and period",
+					"name": "List or find appliedCustomerBillingRate objects",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
