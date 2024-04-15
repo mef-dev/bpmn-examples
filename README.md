@@ -1,4 +1,4 @@
-# BPMN-based flow examples for execution within the MEF.DEV serverless platform
+# BPMN-based flow examples for execution within the MEF.DEV Enterprise Integration platform
 
 ### Table of Contents
 1. [Account Management TMF666](#Account-Management-TMF666)
