@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "86e27ee0-191d-4f6e-ae4c-1b2aacb9def4",
+		"name": "TMF724 Incident Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-86e27ee0-191d-4f6e-ae4c-1b2aacb9def4?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "diagnoseIncident",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"uuid": "4ae0a16c-7762-4643-aad2-90d5de0f3ffc"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YnBtbjpXaWRlY291cDE=",
+						"uuid": "87f4ad21-8362-4cf2-b7f3-33030d66b412"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "6e88c0ec-1e0a-498d-b19d-18b3223e984c"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": null,\r\n  \"errorLog\": null,\r\n  \"incident\": {\r\n    \"id\": \"null\",\r\n    \"category\": \"software fault\",\r\n    \"incidentDetail\": \"router ping is not successfull\",\r\n    \"incidentResolutionSuggestion\": null,\r\n    \"rootCause\": null,\r\n    \"name\": \"Incident router\",\r\n    \"@type\": \"Incident\"\r\n  },\r\n  \"state\": null,\r\n  \"@type\": \"DiagnoseIncident\",\r\n  \"Value\":\"\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mef",
+						"dev"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tmf",
+						"Incident",
+						"diagnoseIncident"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SUCCESS created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YnBtbjpXaWRlY291cDE="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"errorLog\": null,\r\n  \"incident\": {\r\n    \"id\": \"null\",\r\n    \"category\": \"software fault\",\r\n    \"incidentDetail\": \"router ping is not successfull\",\r\n    \"incidentResolutionSuggestion\": null,\r\n    \"rootCause\": null,\r\n    \"name\": \"Incident router\",\r\n    \"@type\": \"Incident\"\r\n  },\r\n  \"state\": null,\r\n  \"@type\": \"DiagnoseIncident\",\r\n  \"Value\":\"\"\r\n}"
+						},
+						"url": {
+							"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
+							"protocol": "https",
+							"host": [
+								"api",
+								"mef",
+								"dev"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"Incident",
+								"diagnoseIncident"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 16 May 2024 15:11:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Authorization,Pragma,Cache-control,Content-type"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "img-src https: data:; upgrade-insecure-requests"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1234\",\n    \"incident\": {\n        \"id\": \"2345\",\n        \"name\": \"Incident router\",\n        \"@type\": \"IncidentRef\"\n    },\n    \"state\": \"acknowledged\",\n    \"@type\": \"DiagnoseIncident\"\n}"
+				}
+			]
+		}
+	]
+}
