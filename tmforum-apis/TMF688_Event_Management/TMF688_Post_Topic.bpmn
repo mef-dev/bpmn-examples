@@ -1,0 +1,675 @@
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">[
+  "Action",
+  "Function"
+]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[
+  {
+    "name": "HttpConfig",
+    "definition": "{\r\n    \"$schema\":\"http://natec.tech/simpleschema\",\r\n    \"$ref\":\"#/definitions/HttpConfig\",\r\n    \"definitions\":{\r\n        \"HttpConfig\":{\r\n            \"type\":\"object\",\r\n            \"properties\":{\r\n                \"host\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"port\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"login\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"password\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"encoding\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"headers\":{\r\n                    \"type\":\"StringDictionary&lt;string, string&gt;\"\r\n                }\r\n            },\r\n            \"required\": [\"host\", \"encoding\", \"headers\"],\r\n            \"title\":\"HttpConfig\"\r\n        }\r\n    }\r\n}",
+    "isNativeDefinition": false
+  },
+  {
+    "name": "ErrorResponse",
+    "definition": "{\r\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n  \"$ref\": \"#/definitions/ErrorResponse\",\r\n  \"definitions\": {\r\n    \"ErrorResponse\": {\r\n      \"type\": \"object\",\r\n      \"additionalProperties\": true,\r\n      \"properties\": {\r\n        \"LevelMessage\": {\r\n          \"title\": \"The Error level\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"statusCode\": {\r\n          \"title\": \"The Error Status Code\",\r\n          \"type\": \"integer\"\r\n        },\r\n        \"ErrNumber\": {\r\n          \"title\": \"The Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Message\": {\r\n          \"title\": \"The Error Message\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"State\": {\r\n          \"title\": \"The Error State\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"HelpLink\": {\r\n          \"title\": \"The Help Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"errNumberReason\": {\r\n          \"title\": \"The initial Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Data\": {\r\n          \"title\": \"The Error Data\",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"LevelMessage\": {\r\n              \"title\": \"The Error level\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"statusCode\": {\r\n              \"title\": \"The Error Status Code\",\r\n              \"type\": \"integer\"\r\n            },\r\n            \"ErrNumber\": {\r\n              \"title\": \"The Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Message\": {\r\n              \"title\": \"The Error Message\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"State\": {\r\n              \"title\": \"The Error State\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"HelpLink\": {\r\n              \"title\": \"The Help Link\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"errNumberReason\": {\r\n              \"title\": \"The initial Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Data\": {\r\n              \"title\": \"The Data Schema\",\r\n              \"type\": \"object\",\r\n              \"properties\": {\r\n                \"LevelMessage\": {\r\n                  \"title\": \"The Error level\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"statusCode\": {\r\n                  \"title\": \"The Error Status Code\",\r\n                  \"type\": \"integer\"\r\n                },\r\n                \"ErrNumber\": {\r\n                  \"title\": \"The Error Number\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"Message\": {\r\n                  \"title\": \"The Error Message\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"State\": {\r\n                  \"title\": \"The Error State\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"HelpLink\": {\r\n                  \"title\": \"The Help Link\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"errNumberReason\": {\r\n                  \"title\": \"The initial Error Number\",\r\n                  \"type\": \"string\"\r\n                }\r\n              }\r\n            },\r\n            \"ResolveUrl\": {\r\n              \"title\": \"The Resolve Url Link\",\r\n              \"type\": \"string\"\r\n            }\r\n          }\r\n        },\r\n        \"ResolveUrl\": {\r\n          \"title\": \"The Resolve Url Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"extraData\": {\r\n          \"title\": \"The Error Extra Data \",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"operationDuration\": {\r\n              \"title\": \"The Operation Duration\",\r\n              \"type\": \"integer\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"title\": \"ErrorResponse\"\r\n    }\r\n  }\r\n}",
+    "isNativeDefinition": false
+  },
+  {
+    "name": "SystemException",
+    "definition": "{\r\n   \"$schema\":\"http://natec.tech/simpleschema\",\r\n   \"$ref\":\"#/definitions/SystemException\",\r\n   \"definitions\":{\r\n      \"SystemException\":{\r\n         \"type\":\"object\",\r\n         \"properties\":{\r\n            \"Exception\":{\r\n               \"type\":\"types://core/System.Exception\"\r\n            },\r\n            \"info\":{\r\n               \"type\":\"string\"\r\n            }\r\n         },\r\n         \"title\":\"SystemException\"\r\n      }\r\n   }\r\n}",
+    "isNativeDefinition": false
+  },
+  {
+    "name": "ExceptionExtensions",
+    "definition": "public static class ExceptionExtensions\r\n    {\r\n        internal enum ReasonCodes\r\n        {\r\n            ServiceAccessError = 0x1,\r\n            UnderConstruction = 0x64,\r\n            PreventiveStop = 0X65\r\n        }\r\n\r\n        class BaseSqlExceptionModel\r\n        {\r\n            public int LevelMessage { get; set; }\r\n            public int ErrNumber { get; set; }\r\n            public int ErrNumberReason { get; set; }\r\n            public long State { get; set; }\r\n            public string HelpLink { get; set; }\r\n            public string ResolveUrl { get; set; }\r\n            public int? Number { get; set; }\r\n            public string Message { get; set; }\r\n            public BaseSqlExceptionModel Data { get; set; }\r\n\r\n            public Error ToError(string statusArg = null)\r\n            {\r\n                return new Error()\r\n                {\r\n                    code = (ErrNumber &gt; 0) ? ErrNumber.ToString() : Number.GetValueOrDefault().ToString(),\r\n                    message = this.Message,\r\n                    reason = ErrNumberReason.ToString(),\r\n                    referenceError = ResolveUrl,\r\n                    status = statusArg\r\n                };\r\n            }\r\n        }\r\n\r\n        #region [const]\r\n        private const int DeadlockErrorNumber = 1205;\r\n        private const int LockingErrorNumber = 1222;\r\n        private const int UpdateConflictErrorNumber = 3960;\r\n        //для ретрай - функционала\r\n        private const int TimeoutExpiredErrorNumber = -2;\r\n        private const int CouldNotOpenConnectionErrorNumber = 53;\r\n        private const int TransportFailErrorNumber = 121;\r\n        //вот тут не надо ретрай\r\n        private const int HandledDeadlockErrorNumber = 50999;\r\n        private const int SQLErrorNumber = 50000;\r\n\r\n        public static IEnumerable&lt;int&gt; DeadLockFeatures\r\n        {\r\n            get\r\n            {\r\n                yield return DeadlockErrorNumber;\r\n                yield return LockingErrorNumber;\r\n                yield return UpdateConflictErrorNumber;\r\n                yield break;\r\n            }\r\n        }\r\n\r\n        public static IEnumerable&lt;int&gt; RetryNeededFeatures\r\n        {\r\n            get\r\n            {\r\n                yield return DeadlockErrorNumber;\r\n                //yield return TimeoutExpiredErrorNumber;\r\n                yield return CouldNotOpenConnectionErrorNumber;\r\n                yield return TransportFailErrorNumber;\r\n                yield break;\r\n            }\r\n        }\r\n\r\n        #endregion\r\n\r\n        public static Error GetError(this Exception exception, string statusCode)\r\n        {\r\n            if (exception is SqlException sqlException)\r\n                return sqlException.GetError();\r\n            else\r\n            if (exception is WorkflowInvokeActionException)\r\n            {\r\n                if(exception.InnerException is SqlException innerSqlException)\r\n                    return innerSqlException.GetError();\r\n                return new Error()\r\n                {\r\n                    code = exception?.InnerException?.HResult.ToString(),\r\n                    message = $\"{exception.Message} : {exception.InnerException?.Message}\",\r\n                    reason = exception?.InnerException?.GetType().Name,\r\n                    referenceError = null,\r\n                    status = statusCode\r\n                };\r\n            }\r\n            else\r\n                return new Error()\r\n                {\r\n                    code = exception.HResult.ToString(),\r\n                    message = exception.Message,\r\n                    reason = exception.GetType().Name,\r\n                    referenceError = null,\r\n                    status = statusCode\r\n                };\r\n        }\r\n        public static Error GetError(this SqlException sqlException)\r\n        {\r\n            BaseSqlExceptionModel errorModel = null;\r\n            int actualStatusCode = 500;\r\n\r\n            #region [Deadlock]\r\n            if (sqlException.Number == ExceptionExtensions.HandledDeadlockErrorNumber)\r\n            {\r\n                return new Error()\r\n                {\r\n                    code = sqlException.Number.ToString(), //RequestTimeout\r\n                    message = $\"Request timeout - retry operation should be used\",\r\n                    reason = \"RequestTimeout\",\r\n                    referenceError = null,\r\n                    status = \"408\"\r\n                };\r\n            }\r\n\r\n            #endregion\r\n\r\n            try\r\n            {\r\n                var sqlExceptionMessage = sqlException.Errors.Cast&lt;SqlError&gt;()\r\n                    .Where(se =&gt; (se.Class &gt; 0) &amp;&amp;\r\n                    (se.Message.Trim().StartsWith(\"{\")) &amp;&amp;\r\n                    (se.Message.Trim().EndsWith(\"}\"))).\r\n                    Select(se =&gt; se.Message).\r\n                    FirstOrDefault();\r\n                errorModel = JsonConvert.DeserializeObject&lt;BaseSqlExceptionModel&gt;(sqlExceptionMessage);\r\n            }\r\n            catch (Exception) { }\r\n\r\n            if (errorModel != null)\r\n            {\r\n                errorModel.Number = sqlException.Number;\r\n\r\n                var resultErrorModel = errorModel.ToError(\"500\");\r\n\r\n                if (errorModel.ErrNumber == ExceptionExtensions.HandledDeadlockErrorNumber)\r\n                {\r\n                    resultErrorModel.status = \"408\";\r\n                    resultErrorModel.reason = \"RequestTimeout\";\r\n                }\r\n                return resultErrorModel;\r\n            }\r\n\r\n            actualStatusCode = ResolveActualStatusCode(sqlException);\r\n\r\n            var result = new Error()\r\n            {\r\n                code = sqlException.Number.ToString(),\r\n                message = sqlException.Message,\r\n                referenceError = null,\r\n                status = actualStatusCode.ToString()\r\n            };\r\n            if (actualStatusCode == 500)\r\n            {\r\n                result.reason = \"Internal Server Error\";\r\n            }\r\n            else\r\n            if (actualStatusCode == 503)\r\n            {\r\n                result.reason = \"Service Unavailable\";\r\n            }\r\n            else\r\n            {\r\n                result.reason = \"Service Unavailable\";\r\n            }\r\n            return result;\r\n        }\r\n        private static int ResolveActualStatusCode(SqlException sqlException)\r\n        {\r\n            int actualStatusCode = 500;\r\n            //Ошибка 503 - TimeoutExpiredErrorNumber ИЛИ Количество ретраев исчерпано и НЕ DeadLockFeatures\r\n            //Ошибка 408 - DeadLockFeatures И Количество ретраев исчерпано\r\n            //пс. этот код в принципе будет выполняться только после исчерпания попыток\r\n            //если дедлок\r\n            if (sqlException.IsDeadLockException())\r\n                return 408;\r\n            else\r\n            if (sqlException.Number == TimeoutExpiredErrorNumber) // Истекло время ожидание \r\n                return 503;\r\n            else\r\n            if (sqlException.Number == 50101 || sqlException.Number == 50100 || sqlException.Number == 50182)\t// Значит, что произошла не фатальная ошибка.\r\n            {\r\n            }\r\n            else\r\n            if ((sqlException.Class &gt;= 12 &amp;&amp; sqlException.Class &lt;= 14) || (sqlException.Class &gt;= 18 &amp;&amp; sqlException.Class &lt;= 24))\t// Значит, что произошла ошибка, из-за которой соединение разорвано. Ощибки с классом 17 - обработаннЫе нами\r\n            {\r\n                return 503;\r\n            }\r\n            else\r\n            if (sqlException.Class == 11 || sqlException.Class == 15 || sqlException.Class == 16)\t// Значит, что произошла ошибка.\r\n            {\r\n                return 503;\r\n            }\r\n            else\r\n            if (sqlException.Number &gt;= 0 &amp;&amp; sqlException.Number &lt;= 10)\t// Значит, что произошла не фатальная ошибка.\r\n            {\r\n            }\r\n            else\r\n            if (sqlException.Number &gt;= 0 &amp;&amp; sqlException.Number &lt;= 24)\r\n            {\r\n            }\r\n            return actualStatusCode;\r\n        }\r\n\r\n        #region [IsDeadLock]\r\n        public static bool IsDeadLockException(this SqlException exception)\r\n        {\r\n            if (exception == null)\r\n                return false;\r\n            else\r\n                return DeadLockFeatures.Contains(exception.Number) ||\r\n                    exception.Errors.IsDeadLockException();\r\n        }\r\n\r\n        public static bool IsDeadLockException(this SqlError error)\r\n        {\r\n            if (error == null)\r\n                return false;\r\n            else\r\n                return DeadLockFeatures.Contains(error.Number);\r\n        }\r\n\r\n        public static bool IsDeadLockException(this SqlErrorCollection sqlErrorCollection)\r\n        {\r\n            if (sqlErrorCollection == null)\r\n                return false;\r\n            else\r\n                return sqlErrorCollection.Cast&lt;SqlError&gt;().Any(error =&gt; error.IsDeadLockException());\r\n        }\r\n        #endregion\r\n\r\n        #region [IsRetryNeeded]\r\n        public static bool IsRetryNeeded(this SqlException exception)\r\n        {\r\n            if (exception == null)\r\n                return false;\r\n            else\r\n                return RetryNeededFeatures.Contains(exception.Number) ||\r\n                    exception.Errors.IsRetryNeeded();\r\n        }\r\n\r\n        public static bool IsRetryNeeded(this SqlError error)\r\n        {\r\n            if (error == null)\r\n                return false;\r\n            else\r\n                return RetryNeededFeatures.Contains(error.Number);\r\n        }\r\n\r\n        public static bool IsRetryNeeded(this SqlErrorCollection sqlErrorCollection)\r\n        {\r\n            if (sqlErrorCollection == null)\r\n                return false;\r\n            else\r\n                return sqlErrorCollection.Cast&lt;SqlError&gt;().Any(error =&gt; error.IsRetryNeeded());\r\n        }\r\n        #endregion\r\n    }",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "ServiceConfig",
+    "definition": "{\r\n\t\"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n\t\"$ref\": \"#/definitions/ServiceConfig\",\r\n\t\"definitions\": {\r\n\t\t\"ServiceConfig\": {\r\n\t\t\t\"type\": \"object\",\r\n\t\t\t\"additionalProperties\": false,\r\n\t\t\t\"properties\": {\r\n\t\t\t\t\"ConnectionString\": {\r\n\t\t\t\t\t\"type\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"title\": \"ServiceConfig\"\r\n\t\t}\r\n\t}\r\n}",
+    "isNativeDefinition": false
+  },
+  {
+    "name": "Error",
+    "definition": "{\n\t\"$schema\": \"http://json-schema.org/draft-06/schema#\",\n\t\"$ref\": \"#/definitions/Error\",\n\t\"definitions\": {\n\t\t\"Error\": {\n\t\t\t\"type\": \"object\",\n\t\t\t\"additionalProperties\": false,\n\t\t\t\"properties\": {\n\t\t\t\t\"code\": {\n\t\t\t\t\t\"type\": \"string\",\n\t\t\t\t\t\"description\": \"Application relevant detail, defined in the API or a common list\"\n\t\t\t\t},\n\t\t\t\t\"reason\": {\n\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t},\n\t\t\t\t\"message\": {\n\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t},\n\t\t\t\t\"status\": {\n\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t},\n\t\t\t\t\"referenceError\": {\n\t\t\t\t\t\"type\": \"string\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"title\": \"Error\"\n\t\t}\n\t}\n}",
+    "isNativeDefinition": false
+  },
+  {
+    "name": "ThresholdRef",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class ThresholdRef\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private string _id;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Unique threshold identifier. LOV: Percent, Absolute, RoamingRatingGroups\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "CrossedThresholdInformation",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class CrossedThresholdInformation\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private string _observedValue;\r\n    \r\n    private ThresholdRef _threshold;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Indicates the value of the indicator which crossed the threshold.. LOV: Integer or Decimal value in string format\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"observedValue\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string observedValue\r\n    {\r\n        get\r\n        {\r\n            return this._observedValue;\r\n        }\r\n        set\r\n        {\r\n            this._observedValue = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The threshold reference.. LOV: An object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"threshold\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public ThresholdRef threshold\r\n    {\r\n        get\r\n        {\r\n            return this._threshold;\r\n        }\r\n        set\r\n        {\r\n            this._threshold = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Alarm",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class Alarm\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private CrossedThresholdInformation _crossedThresholdInformation;\r\n    \r\n    private string _name;\r\n    \r\n    private Characteristic[] _analyticCharacteristic;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Identifies the details of the threshold that has been crossed. LOV: An object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"crossedThresholdInformation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public CrossedThresholdInformation crossedThresholdInformation\r\n    {\r\n        get\r\n        {\r\n            return this._crossedThresholdInformation;\r\n        }\r\n        set\r\n        {\r\n            this._crossedThresholdInformation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The name of the rule that repeats the value of the threshold identifier. LOV: Percent, Absolute, RoamingRatingGroups\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Custom analytic сharacteristic sets for event notification matching. LOV: A List of object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"analyticCharacteristic\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public Characteristic[] analyticCharacteristic\r\n    {\r\n        get\r\n        {\r\n            return this._analyticCharacteristic;\r\n        }\r\n        set\r\n        {\r\n            this._analyticCharacteristic = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "AckAlarms",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class AckAlarms\r\n{\r\n    \r\n    private string _type;\r\n    \r\n    private Alarm[] _ackedAlarm;\r\n    \r\n    private string _ackUserFrom;\r\n    \r\n    private string _ackUserId;\r\n    \r\n    private Alarm[] _alarmPattern;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The requested alarms due to threshold crossed. LOV: A List of object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"ackedAlarm\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public Alarm[] ackedAlarm\r\n    {\r\n        get\r\n        {\r\n            return this._ackedAlarm;\r\n        }\r\n        set\r\n        {\r\n            this._ackedAlarm = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Request source\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"ackUserFrom\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string ackUserFrom\r\n    {\r\n        get\r\n        {\r\n            return this._ackUserFrom;\r\n        }\r\n        set\r\n        {\r\n            this._ackUserFrom = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Name of the acknowledging user\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"ackUserId\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string ackUserId\r\n    {\r\n        get\r\n        {\r\n            return this._ackUserId;\r\n        }\r\n        set\r\n        {\r\n            this._ackUserId = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Alarm patterns to match target alarms. An alarm will match if all of the attributes in any of the patterns compare equal to those attributes of the alarm.. LOV: A List of object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"alarmPattern\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public Alarm[] alarmPattern\r\n    {\r\n        get\r\n        {\r\n            return this._alarmPattern;\r\n        }\r\n        set\r\n        {\r\n            this._alarmPattern = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Event",
+    "definition": "/// &lt;summary&gt;\r\n/// event with common attributes.\r\n/// &lt;/summary&gt;\r\npublic sealed class Event\r\n{\r\n    \r\n    private string _correlationId;\r\n    \r\n    private string _description;\r\n    \r\n    private string _domain;\r\n    \r\n    private string _eventId;\r\n    \r\n    private System.DateTime? _eventTime;\r\n    \r\n    private string _eventType;\r\n    \r\n    private string _priority;\r\n    \r\n    private System.DateTime? _timeOcurred;\r\n    \r\n    private string _title;\r\n    \r\n    private Characteristic[] _analyticCharacteristic;\r\n    \r\n    private string _event;\r\n    \r\n    private RelatedParty[] _relatedParty;\r\n    \r\n    private EntityRef _reportingSystem;\r\n    \r\n    private EntityRef _source;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    private AckAlarms _ackAlarms;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The correlation id for this event.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"correlationId\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string correlationId\r\n    {\r\n        get\r\n        {\r\n            return this._correlationId;\r\n        }\r\n        set\r\n        {\r\n            this._correlationId = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// An explnatory of the event.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"description\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string description\r\n    {\r\n        get\r\n        {\r\n            return this._description;\r\n        }\r\n        set\r\n        {\r\n            this._description = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The domain of the event.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"domain\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string domain\r\n    {\r\n        get\r\n        {\r\n            return this._domain;\r\n        }\r\n        set\r\n        {\r\n            this._domain = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The identifier of the notification.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"eventId\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string eventId\r\n    {\r\n        get\r\n        {\r\n            return this._eventId;\r\n        }\r\n        set\r\n        {\r\n            this._eventId = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Time of the event occurrence.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"eventTime\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.DateTime? eventTime\r\n    {\r\n        get\r\n        {\r\n            return this._eventTime;\r\n        }\r\n        set\r\n        {\r\n            this._eventTime = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The type of the notification.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"eventType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string eventType\r\n    {\r\n        get\r\n        {\r\n            return this._eventType;\r\n        }\r\n        set\r\n        {\r\n            this._eventType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A priority.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"priority\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string priority\r\n    {\r\n        get\r\n        {\r\n            return this._priority;\r\n        }\r\n        set\r\n        {\r\n            this._priority = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The time the event occured.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"timeOcurred\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public System.DateTime? timeOcurred\r\n    {\r\n        get\r\n        {\r\n            return this._timeOcurred;\r\n        }\r\n        set\r\n        {\r\n            this._timeOcurred = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The title of the event.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"title\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string title\r\n    {\r\n        get\r\n        {\r\n            return this._title;\r\n        }\r\n        set\r\n        {\r\n            this._title = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// \r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"analyticCharacteristic\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public Characteristic[] analyticCharacteristic\r\n    {\r\n        get\r\n        {\r\n            return this._analyticCharacteristic;\r\n        }\r\n        set\r\n        {\r\n            this._analyticCharacteristic = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Characteristics value. LOV: Value, provided by BSS template\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"event\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @event\r\n    {\r\n        get\r\n        {\r\n            return this._event;\r\n        }\r\n        set\r\n        {\r\n            this._event = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// \r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"relatedParty\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public RelatedParty[] relatedParty\r\n    {\r\n        get\r\n        {\r\n            return this._relatedParty;\r\n        }\r\n        set\r\n        {\r\n            this._relatedParty = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Entity reference schema to be use for all entityRef class.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"reportingSystem\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public EntityRef reportingSystem\r\n    {\r\n        get\r\n        {\r\n            return this._reportingSystem;\r\n        }\r\n        set\r\n        {\r\n            this._reportingSystem = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Entity reference schema to be use for all entityRef class.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"source\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public EntityRef source\r\n    {\r\n        get\r\n        {\r\n            return this._source;\r\n        }\r\n        set\r\n        {\r\n            this._source = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class entity name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Object for the acknowledge alarms operation. LOV: An object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"AckAlarms\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public AckAlarms AckAlarms\r\n    {\r\n        get\r\n        {\r\n            return this._ackAlarms;\r\n        }\r\n        set\r\n        {\r\n            this._ackAlarms = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Characteristic",
+    "definition": "/// &lt;summary&gt;\r\n/// Describes a given characteristic of an object or entity through a name/value pair.\r\n/// &lt;/summary&gt;\r\npublic sealed class Characteristic\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _name;\r\n    \r\n    private string _valueType;\r\n    \r\n    private CharacteristicRelationship[] _characteristicRelationship;\r\n    \r\n    private string _value;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Characteristic code value. LOV: Value, provided by BSS template\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Characteristics name\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Data type of the value of the characteristic. LOV: Integer, date-time, string, number\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"valueType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string valueType\r\n    {\r\n        get\r\n        {\r\n            return this._valueType;\r\n        }\r\n        set\r\n        {\r\n            this._valueType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// \r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"characteristicRelationship\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public CharacteristicRelationship[] characteristicRelationship\r\n    {\r\n        get\r\n        {\r\n            return this._characteristicRelationship;\r\n        }\r\n        set\r\n        {\r\n            this._characteristicRelationship = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Characteristics value. LOV: Value, provided by BSS template\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"value\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string value\r\n    {\r\n        get\r\n        {\r\n            return this._value;\r\n        }\r\n        set\r\n        {\r\n            this._value = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The @type attribute represents the actual class type of an entity. LOV: Characteristic\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "CharacteristicRelationship",
+    "definition": "/// &lt;summary&gt;\r\n/// Another Characteristic that is related to the current Characteristic;\r\n/// &lt;/summary&gt;\r\npublic sealed class CharacteristicRelationship\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _relationshipType;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Unique identifier of the characteristic\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The type of relationship\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"relationshipType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string relationshipType\r\n    {\r\n        get\r\n        {\r\n            return this._relationshipType;\r\n        }\r\n        set\r\n        {\r\n            this._relationshipType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class entity name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Any",
+    "definition": "/// &lt;summary&gt;\r\n/// A Characteristics value. LOV: Value, provided by BSS template\r\n/// &lt;/summary&gt;\r\npublic sealed class Any\r\n{\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "RelatedParty",
+    "definition": "/// &lt;summary&gt;\r\n/// Related Entity reference. A related party defines party or party role linked to a specific entity.\r\n/// &lt;/summary&gt;\r\npublic sealed class RelatedParty\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _href;\r\n    \r\n    private string _name;\r\n    \r\n    private string _role;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    private string _referredType;\r\n    \r\n    private string _iDType;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Customer identifier (tree node type 'Customers')\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Reference of the related entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"href\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string href\r\n    {\r\n        get\r\n        {\r\n            return this._href;\r\n        }\r\n        set\r\n        {\r\n            this._href = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Name of the related entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Role played by the related party\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"role\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string role\r\n    {\r\n        get\r\n        {\r\n            return this._role;\r\n        }\r\n        set\r\n        {\r\n            this._role = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class entity name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The name of the entity for which the operation is performed. LOV: Customers\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@referredType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @referredType\r\n    {\r\n        get\r\n        {\r\n            return this._referredType;\r\n        }\r\n        set\r\n        {\r\n            this._referredType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Sign of passing an external ID value. LOV: 1 - external ID, 0 - internal ID\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"IDType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string IDType\r\n    {\r\n        get\r\n        {\r\n            return this._iDType;\r\n        }\r\n        set\r\n        {\r\n            this._iDType = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "EntityRef",
+    "definition": "/// &lt;summary&gt;\r\n/// Entity reference schema to be use for all entityRef class.\r\n/// &lt;/summary&gt;\r\npublic sealed class EntityRef\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _href;\r\n    \r\n    private string _name;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    private string _referredType;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Unique identifier of a related entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Reference of the related entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"href\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string href\r\n    {\r\n        get\r\n        {\r\n            return this._href;\r\n        }\r\n        set\r\n        {\r\n            this._href = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Name of the related entity.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class entity name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The actual type of the target instance when needed for disambiguation.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@referredType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @referredType\r\n    {\r\n        get\r\n        {\r\n            return this._referredType;\r\n        }\r\n        set\r\n        {\r\n            this._referredType = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "SearchCriteria",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class SearchCriteria\r\n{\r\n    \r\n    private string _eventType;\r\n    \r\n    private RelatedParty[] _relatedParty;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// The unique type name of the notification.. LOV: Value, provided by BSS template\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"eventType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string eventType\r\n    {\r\n        get\r\n        {\r\n            return this._eventType;\r\n        }\r\n        set\r\n        {\r\n            this._eventType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A Related Party for this operation. LOV: A List of object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"relatedParty\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public RelatedParty[] relatedParty\r\n    {\r\n        get\r\n        {\r\n            return this._relatedParty;\r\n        }\r\n        set\r\n        {\r\n            this._relatedParty = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Topic_Create",
+    "definition": "/// &lt;summary&gt;\r\n/// Is a event channel provided by the Event Streaming API\n///Skipped properties: id,href\r\n/// &lt;/summary&gt;\r\npublic sealed class Topic_Create\r\n{\r\n    \r\n    private string _contentQuery;\r\n    \r\n    private string _headerQuery;\r\n    \r\n    private string _name;\r\n    \r\n    private string _baseType;\r\n    \r\n    private string _schemaLocation;\r\n    \r\n    private string _type;\r\n    \r\n    private string _format;\r\n    \r\n    private string _id;\r\n    \r\n    private string _accept_Language;\r\n    \r\n    private string _x_ms_client_request_id;\r\n    \r\n    private Event _event;\r\n    \r\n    private SearchCriteria _header;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// is the filter that will be applied on the content of the Event.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"contentQuery\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string contentQuery\r\n    {\r\n        get\r\n        {\r\n            return this._contentQuery;\r\n        }\r\n        set\r\n        {\r\n            this._contentQuery = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// is the filter that will be applied on the Event header properties.\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"headerQuery\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string headerQuery\r\n    {\r\n        get\r\n        {\r\n            return this._headerQuery;\r\n        }\r\n        set\r\n        {\r\n            this._headerQuery = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A name of event channel provided by the Event Streaming API\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"name\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string name\r\n    {\r\n        get\r\n        {\r\n            return this._name;\r\n        }\r\n        set\r\n        {\r\n            this._name = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the super-class\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@baseType\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @baseType\r\n    {\r\n        get\r\n        {\r\n            return this._baseType;\r\n        }\r\n        set\r\n        {\r\n            this._baseType = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A URI to a JSON-Schema file that defines additional attributes and relationships\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@schemaLocation\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @schemaLocation\r\n    {\r\n        get\r\n        {\r\n            return this._schemaLocation;\r\n        }\r\n        set\r\n        {\r\n            this._schemaLocation = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// When sub-classing, this defines the sub-class entity name\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"@type\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string @type\r\n    {\r\n        get\r\n        {\r\n            return this._type;\r\n        }\r\n        set\r\n        {\r\n            this._type = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Error output format. LOV: supported value is json\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"format\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromRoute()]\r\n    public string format\r\n    {\r\n        get\r\n        {\r\n            return this._format;\r\n        }\r\n        set\r\n        {\r\n            this._format = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// An unique identifier of event channel provided by the Event Streaming API\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"Accept-Language\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromHeader()]\r\n    public string Accept_Language\r\n    {\r\n        get\r\n        {\r\n            return this._accept_Language;\r\n        }\r\n        set\r\n        {\r\n            this._accept_Language = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"x-ms-client-request-id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    [FromHeader()]\r\n    public string x_ms_client_request_id\r\n    {\r\n        get\r\n        {\r\n            return this._x_ms_client_request_id;\r\n        }\r\n        set\r\n        {\r\n            this._x_ms_client_request_id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// An event with common attributes. LOV: An object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"event\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public Event @event\r\n    {\r\n        get\r\n        {\r\n            return this._event;\r\n        }\r\n        set\r\n        {\r\n            this._event = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// is the filter object that will be applied on the Event header properties. LOV: An object\r\n    /// &lt;c&gt;p_ucp_set_EventTopic&lt;/c&gt;\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"header\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public SearchCriteria header\r\n    {\r\n        get\r\n        {\r\n            return this._header;\r\n        }\r\n        set\r\n        {\r\n            this._header = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  },
+  {
+    "name": "Topic_Response_SET",
+    "definition": "/// &lt;summary&gt;\r\n/// &amp;lt;empty description&amp;gt;\r\n/// &lt;/summary&gt;\r\npublic sealed class Topic_Response_SET\r\n{\r\n    \r\n    private string _id;\r\n    \r\n    private string _accept_Language;\r\n    \r\n    private string _x_ms_client_request_id;\r\n    \r\n    private SearchCriteria _header;\r\n    \r\n    /// &lt;summary&gt;\r\n    /// An unique identifier of event channel provided by the Event Streaming API\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string id\r\n    {\r\n        get\r\n        {\r\n            return this._id;\r\n        }\r\n        set\r\n        {\r\n            this._id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"Accept-Language\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string Accept_Language\r\n    {\r\n        get\r\n        {\r\n            return this._accept_Language;\r\n        }\r\n        set\r\n        {\r\n            this._accept_Language = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// A unique identifier for the HTTP request.. LOV: generally a GUID value\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"x-ms-client-request-id\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public string x_ms_client_request_id\r\n    {\r\n        get\r\n        {\r\n            return this._x_ms_client_request_id;\r\n        }\r\n        set\r\n        {\r\n            this._x_ms_client_request_id = value;\r\n        }\r\n    }\r\n    \r\n    /// &lt;summary&gt;\r\n    /// is the filter object that will be applied on the Event header properties. LOV: An object\r\n    /// &lt;/summary&gt;\r\n    // \r\n    [Newtonsoft.Json.JsonPropertyAttribute(PropertyName=\"header\", NullValueHandling=Newtonsoft.Json.NullValueHandling.Ignore)]\r\n    public SearchCriteria header\r\n    {\r\n        get\r\n        {\r\n            return this._header;\r\n        }\r\n        set\r\n        {\r\n            this._header = value;\r\n        }\r\n    }\r\n}\r\n",
+    "isNativeDefinition": true
+  }
+]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[
+  {
+    "name": "HandleException",
+    "initCode": "Error HandleException (\n\t\tPassingResult prevData\n\t)                    \n    {\n                try\n        {\n            //investigate the Exception \n            Logger.LogInformation($\"Exception name : {prevData.Exception?.GetType()?.Name}\");\n\n            Error result = new Error(){ status = \"500\"};\n            if (prevData.Exception != null)\n            {\n                result = prevData.Exception.GetError(\"500\");\n            }\n            \n            int statusCode = 500;\n            int.TryParse(result?.status, out statusCode);\n            \n                WorkflowEnvironment.Variables[\"StatusCode\"] = 500;            \n                if (WorkflowEnvironment.Variables.TryGetValue    (\"HttpResponse\", out object httpResponseObj))\n                {\n                    Microsoft.AspNetCore.Http.HttpResponse response =     httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                    response.StatusCode = statusCode;\n                }         \n            return result;\n        }\n        catch (Exception e) \n        {\n            Logger.LogError($\"HandleException:: error {e}\");\n                if (WorkflowEnvironment.Variables.TryGetValue    (\"HttpResponse\", out object httpResponseObj))\n                {\n                    Microsoft.AspNetCore.Http.HttpResponse response =     httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n                    //Parameters.x_ms_client_request_id\n                    response.StatusCode = 500;\n                }            \n            return new Error() \n            { \n                status = \"500\",\n                message = $\"Error while handle error ! {e.Message}\"\n            };\n        }\n    }",
+    "initParameters": [
+      {
+        "name": "Result",
+        "type": "Error",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "prevData",
+        "type": "PassingResult",
+        "required": true,
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "proceedSessionParameters",
+    "initCode": "Json proceedSessionParameters (\n\t)         \n    {\n            string v_author = null;\n            string v_hostname = null;\n            //Note[] notes = null;\n            \n            if(WorkflowEnvironment.RuntimeName == \"Plugin\")\n            {\n                if (WorkflowEnvironment.Variables.TryGetValue(\"ApiContext\", out object apiContextObj))\n                {\n                    IApiContext apiContext = apiContextObj as IApiContext;\n                    v_author = apiContext.DataBag.UserName;\n                    v_hostname = apiContext.DataBag.From;\n                }\n\n                if (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object httpRequestObj))\n                {\n                    Microsoft.AspNetCore.Http.HttpRequest req = httpRequestObj as Microsoft.AspNetCore.Http.HttpRequest;\n                    if (req.Headers.TryGetValue(\"x_ms_client_request_id\",     out var reqIdValues))\n                    {\n                        Parameters.x_ms_client_request_id = reqIdValues.FirstOrDefault();\n                    }\n                }\n                /*\n\t\t\t\tvar note = Input.note?.Select(n =&gt; new Note()\n\t\t\t\t{\n\t\t\t\t\tauthor = n.author,\n\t\t\t\t\thostname = n.hostname,\n\t\t\t\t\ttext = n.text\n\t\t\t\t})?.FirstOrDefault() ?? new Note();\n\t\t\t\t\n\t\t\t\tnote.author = v_author;\n\t\t\t\tnote.hostname = v_hostname;\n\t\t\t\t\n                notes = new Note[1]{note};\n                */\n            }\n            else\n            {\n                //Parameters.x_ms_client_request_id = Input.x_ms_client_request_id;\n                //notes = Input.note;                \n            }\n            \n            if (this.WorkflowEnvironment.Variables.TryGetValue(\"ConfigString\", out object configStr))\n            {\n                var configJson = new JSON(configStr).Cast&lt;ServiceConfig&gt;();\n                if(!string.IsNullOrEmpty(configJson?.ConnectionString))\n                {\n                    Parameters.sqlConnectionString = configJson.ConnectionString;\n                }\n            };\n            //return new JSON(notes);       \n            return null;\n    }",
+    "initParameters": [
+      {
+        "name": "Result",
+        "type": "Json",
+        "required": false,
+        "defaultValue": null
+      }
+    ]
+  },
+  {
+    "name": "p_ucp_set_EventTopic",
+    "initCode": "Topic_Response_SET p_ucp_set_EventTopic (\n\t\tstring name,\n\t\tstring ErrFormat,\n\t\tstring id,\n\t\tstring Lang,\n\t\tstring x_ms_client_request_id,\n\t\tstring @event,\n\t\tstring header\n\t)  \n{\n var p = new DynamicParameters();\np.Add(\"name\", value: name, dbType: DbType.String, direction:ParameterDirection.Input, size:200);\np.Add(\"ErrFormat\", value: ErrFormat, dbType: DbType.String, direction:ParameterDirection.Input, size:25);\np.Add(\"id\", value: id, dbType: DbType.String, direction:ParameterDirection.InputOutput, size:32);\np.Add(\"Lang\", value: Lang, dbType: DbType.String, direction:ParameterDirection.InputOutput, size:3);\np.Add(\"x_ms_client_request_id\", value: x_ms_client_request_id, dbType: DbType.String, direction:ParameterDirection.InputOutput, size:32);\np.Add(\"event\", value: @event, dbType: DbType.String, direction:ParameterDirection.Input, size:-1);\np.Add(\"header\", value: header, dbType: DbType.String, direction:ParameterDirection.InputOutput, size:-1);\n\nstring sqlConnectionString = Parameters.sqlConnectionString;\nif (this.WorkflowEnvironment.Variables.TryGetValue(\"ConfigString\", out object configStr))\n{\n     var configJson = new JSON(configStr).Cast&lt;ServiceConfig&gt;();\n     if(!string.IsNullOrEmpty(configJson?.ConnectionString))\n     {\n        sqlConnectionString = configJson.ConnectionString;\n     }\n};\n\nvar procedure = \"[dbo].[p_ucp_set_EventTopic]\";\nusing (var connection = new SqlConnection(sqlConnectionString))\n{\n                connection.Execute(procedure, p, commandType: CommandType.StoredProcedure, commandTimeout:0);\n}\n// fill output params\nTopic_Response_SET result = new Topic_Response_SET();\nresult.id = p.Get&lt;System.String&gt;(\"id\");\nresult.Accept_Language = p.Get&lt;System.String&gt;(\"Lang\");\nresult.x_ms_client_request_id = p.Get&lt;System.String&gt;(\"x_ms_client_request_id\");\nresult.header = string.IsNullOrEmpty(p.Get&lt;string&gt;(\"header\"))?new SearchCriteria():new JSON(p.Get&lt;string&gt;(\"header\")).Cast&lt;SearchCriteria&gt;();\n\n     if (WorkflowEnvironment.RuntimeName == \"Plugin\")\n     {\n         if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object httpResponseObj))\n         {\n             Microsoft.AspNetCore.Http.HttpResponse response = httpResponseObj as Microsoft.AspNetCore.Http.HttpResponse;\n         response.Headers[\"Accept-Language\"] = result.Accept_Language;\n         result.Accept_Language = null;\n         response.Headers[\"x-ms-client-request-id\"] = result.x_ms_client_request_id;\n         result.x_ms_client_request_id = null;\n        }\n     }\n\nreturn result;\n}\n",
+    "initParameters": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "ErrFormat",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "Lang",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "x_ms_client_request_id",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "@event",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "header",
+        "type": "string",
+        "required": false,
+        "defaultValue": null
+      },
+      {
+        "name": "Result",
+        "type": "Topic_Response_SET",
+        "required": false,
+        "defaultValue": null
+      }
+    ]
+  }
+]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[
+  {
+    "name": "RestApi",
+    "initCode": "functions://default/RestApi",
+    "initParameters": [
+      {
+        "name": "Uri",
+        "type": "Uri",
+        "required": true,
+        "oldName": "Uri",
+        "oldType": "Uri",
+        "defaultValue": "http://servername:port/resource"
+      },
+      {
+        "name": "Method",
+        "type": "string",
+        "required": true,
+        "oldName": "Method",
+        "oldType": "string",
+        "defaultValue": "GET"
+      },
+      {
+        "name": "Login",
+        "type": "string",
+        "required": false,
+        "oldName": "Login",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Password",
+        "type": "string",
+        "required": false,
+        "oldName": "Password",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Headers",
+        "type": "StringDictionary",
+        "required": false,
+        "oldName": "Headers",
+        "oldType": "StringDictionary",
+        "defaultValue": "{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"
+      },
+      {
+        "name": "Body",
+        "type": "string",
+        "required": false,
+        "oldName": "Body",
+        "oldType": "string",
+        "defaultValue": "{}"
+      },
+      {
+        "name": "Encoding",
+        "type": "string",
+        "required": false,
+        "oldName": "Encoding",
+        "oldType": "string",
+        "defaultValue": "utf-8"
+      },
+      {
+        "name": "Result",
+        "type": "HttpResponse",
+        "required": false,
+        "oldName": "Result",
+        "oldType": "HttpResponse",
+        "defaultValue": null
+      }
+    ],
+    "oldName": "RestApi"
+  },
+  {
+    "name": "RestApi_Get",
+    "initCode": "functions://default/RestApi/Get",
+    "initParameters": [
+      {
+        "name": "Uri",
+        "type": "Uri",
+        "required": true,
+        "oldName": "Uri",
+        "oldType": "Uri",
+        "defaultValue": "http://servername:port/resource"
+      },
+      {
+        "name": "Login",
+        "type": "string",
+        "required": false,
+        "oldName": "Login",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Password",
+        "type": "string",
+        "required": false,
+        "oldName": "Password",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Headers",
+        "type": "StringDictionary",
+        "required": false,
+        "oldName": "Headers",
+        "oldType": "StringDictionary",
+        "defaultValue": "{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"
+      },
+      {
+        "name": "Encoding",
+        "type": "string",
+        "required": false,
+        "oldName": "Encoding",
+        "oldType": "string",
+        "defaultValue": "utf-8"
+      },
+      {
+        "name": "Result",
+        "type": "HttpResponse",
+        "required": false,
+        "oldName": "Result",
+        "oldType": "HttpResponse",
+        "defaultValue": null
+      }
+    ],
+    "oldName": "RestApi_Get"
+  },
+  {
+    "name": "JsonPath",
+    "initCode": "functions://default//JsonPath",
+    "initParameters": [
+      {
+        "name": "Response",
+        "type": "HttpResponse",
+        "required": true,
+        "oldName": "Response",
+        "oldType": "HttpResponse",
+        "defaultValue": null
+      },
+      {
+        "name": "Path",
+        "type": "string",
+        "required": false,
+        "oldName": "Path",
+        "oldType": "string",
+        "defaultValue": "$"
+      },
+      {
+        "name": "Result",
+        "type": "Json",
+        "required": false,
+        "oldName": "Result",
+        "oldType": "Json",
+        "defaultValue": null
+      }
+    ],
+    "oldName": "JsonPath"
+  },
+  {
+    "name": "SaveVariable",
+    "initCode": "functions://default//SaveVariable",
+    "initParameters": [
+      {
+        "name": "VariableName",
+        "type": "string",
+        "required": true,
+        "oldName": "VariableName",
+        "oldType": "string",
+        "defaultValue": "varName"
+      },
+      {
+        "name": "Data",
+        "type": "object",
+        "required": true,
+        "oldName": "Data",
+        "oldType": "object",
+        "defaultValue": "#previous"
+      }
+    ],
+    "oldName": "SaveVariable"
+  },
+  {
+    "name": "Wait",
+    "initCode": "functions://default//Wait",
+    "initParameters": [
+      {
+        "name": "millisecondsTimeout",
+        "type": "int",
+        "required": true,
+        "oldName": "millisecondsTimeout",
+        "oldType": "int",
+        "defaultValue": "1000"
+      }
+    ],
+    "oldName": "Wait"
+  },
+  {
+    "name": "SQL_Oracle_Query",
+    "initCode": "functions://default//SQL/Oracle/Query",
+    "initParameters": [
+      {
+        "name": "userID",
+        "type": "string",
+        "required": true,
+        "oldName": "userID",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "required": false,
+        "oldName": "password",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "dataSource",
+        "type": "string",
+        "required": false,
+        "oldName": "dataSource",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "oldName": "query",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Result",
+        "type": "Collection",
+        "required": false,
+        "oldName": "Result",
+        "oldType": "Collection",
+        "defaultValue": null
+      }
+    ],
+    "oldName": "SQL_Oracle_Query"
+  },
+  {
+    "name": "SQL_Oracle_Command",
+    "initCode": "functions://default//SQL/Oracle/Command",
+    "initParameters": [
+      {
+        "name": "userID",
+        "type": "string",
+        "required": true,
+        "oldName": "userID",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "password",
+        "type": "string",
+        "required": false,
+        "oldName": "password",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "dataSource",
+        "type": "string",
+        "required": false,
+        "oldName": "dataSource",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "command",
+        "type": "string",
+        "required": false,
+        "oldName": "command",
+        "oldType": "string",
+        "defaultValue": null
+      },
+      {
+        "name": "Result",
+        "type": "int",
+        "required": false,
+        "oldName": "Result",
+        "oldType": "int",
+        "defaultValue": null
+      }
+    ],
+    "oldName": "SQL_Oracle_Command"
+  }
+]</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[
+  {
+    "name": "httpConfig",
+    "type": "HttpConfig",
+    "initialValue": "{\r\n   \"host\":\"https://10.29.101.122\",\r\n   \"port\":\"6992\",\r\n   \"login\":\"api_user\",\r\n   \"password\":\"Widecoup1\",\r\n   \"encoding\":\"utf-8\",\r\n   \"headers\":{\r\n      \"Content-Type\":\"application/vnd.api+json\",\r\n      \"Accept\":\"application/vnd.api+json\"\r\n   }\r\n}\r\n"
+  },
+  {
+    "name": "sqlConnectionString",
+    "type": "string",
+    "initialValue": "Data Source=sqlserv;Initial Catalog=unibill;User ID=ucpteam;Password=Widecoup1;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"
+  },
+  {
+    "name": "x_ms_client_request_id",
+    "type": "string",
+    "initialValue": ""
+  }
+]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"name":"myFirstTriger","header":{"eventType":"DataUsageOverlimitEvent","relatedParty":[{"@referredType":"Customers","id":7702142,"IDType":0}]},"event":{"AckAlarms":{"@type":"AckAlarms","ackUserId":"username","ackUserFrom":"hostname","alarmPattern":[{"@type":"Alarm","name":"Counter","analyticCharacteristic":[{"id":"tp_Code","name":"tp_Code","value":"40003","valueType":"string","@type":"Characteristic"},{"@type":"Characteristic","valueType":"string","id":"scrg_Code","name":"scrg_Code","value":"default"},{"@type":"Characteristic","valueType":"string","id":"dnm_Code","name":"dnm_Code","value":"DTE_ROAM_1"}]}],"ackedAlarm":[{"@type":"Alarm","name":"Percent","crossedThresholdInformation":{"observedValue":"20","threshold":{"@type":"ThresholdRef","id":"Percent"},"@type":"CrossedThresholdInformation"}}]}}}</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_1llnnqn" name="Topic_POST">
+    <documentation>https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis</documentation>
+    <endEvent id="Event_0sav6wr">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":201,"body":"SUCCESS_CREATION","exampelsVariants":[{"title":"SUCCESS","value":"{\n   \"name\":\"myFirstTriger\",\n   \"id\":\"21212121\",\n   \"header\":{\n      \"eventType\":\"DataUsageOverlimitEvent\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":7702142,\n            \"IDType\":0\n         }\n      ]\n   }\n}"}],"headers":"{\n\"x-ms-client-request-id\":\"20412345678903142363734\",\n\"Accept-Language\":\"en\"\n}"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0ss9m19</incoming>
+      <property id="Property_1rqqtzp" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0e36m15">
+        <sourceRef>DataObjectReference_1a2hfh4</sourceRef>
+        <targetRef>Property_1rqqtzp</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="Activity_08b2rwk" name="to do">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"p_ucp_set_EventTopic","actionParam":{"name":"{Input.name}","ErrFormat":"{Input.format}","id":"{Input.id}","Lang":"{Input.Accept_Language}","x_ms_client_request_id":"{Input.x_ms_client_request_id}","header":"{new JSON(Input.header)}","@event":"{new JSON(Input.@event)}"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0e3x9qk</incoming>
+      <outgoing>Flow_0ss9m19</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0ss9m19" sourceRef="Activity_08b2rwk" targetRef="Event_0sav6wr" />
+    <dataObjectReference id="InputModel_Id" name="Topic_Create" dataObjectRef="DataObject_0tr0hnf" />
+    <dataObject id="DataObject_0tr0hnf" />
+    <boundaryEvent id="Event_0fmf487" attachedToRef="Activity_08b2rwk">
+      <outgoing>Flow_16elrff</outgoing>
+      <errorEventDefinition id="ErrorEventDefinition_0s5o70c" />
+    </boundaryEvent>
+    <task id="Activity_1xm05d9" name="handle Exception">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"HandleException","actionParam":{"prevData":"#PreviousData"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_16elrff</incoming>
+      <incoming>Flow_09z3ruw</incoming>
+      <outgoing>Flow_0mano1i</outgoing>
+    </task>
+    <sequenceFlow id="Flow_16elrff" sourceRef="Event_0fmf487" targetRef="Activity_1xm05d9" />
+    <dataObjectReference id="DataObjectReference_1a2hfh4" name="Topic_Response_SET" dataObjectRef="DataObject_080emqn" />
+    <dataObject id="DataObject_080emqn" />
+    <task id="Activity_0u7bit2" name="proceed_Session_Parameters">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"proceedSessionParameters","actionParam":{}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0xuw6mo</incoming>
+      <outgoing>Flow_0e3x9qk</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0e3x9qk" sourceRef="Activity_0u7bit2" targetRef="Activity_08b2rwk" />
+    <dataObjectReference id="DataObjectReference_0islhls" name="Error" dataObjectRef="DataObject_0unc8vx" />
+    <dataObject id="DataObject_0unc8vx" />
+    <boundaryEvent id="Event_1b3vd32" attachedToRef="Activity_0u7bit2">
+      <outgoing>Flow_09z3ruw</outgoing>
+      <errorEventDefinition id="ErrorEventDefinition_1ic9fnp" />
+    </boundaryEvent>
+    <sequenceFlow id="Flow_09z3ruw" sourceRef="Event_1b3vd32" targetRef="Activity_1xm05d9" />
+    <startEvent id="Event_1hk2ab0" name="">
+      <extensionElements>
+        <ep:elementParameter name="StartSignalRoute">{"status":"HttpRequestAttributes","method":"POST","route":"topic","summary":"Creates a topic entity. ","remarks":"It is used to create the trigger event instances, for example, create a askAlarms topic first and get an alarm Event into that topic/event resource","requestName":"Topic_Create","examples":{"SUCCESS":{"summary":"percentage triger creation with filters","description":"Set of filters is an alarmPattern with TariffPackage (tp_Code=\"40003\"), SIM Card group (scrg_Code=\"default\") and Rating Group (dnm_Code=\"DTE_ROAM_1\")","value":"{\n   \"name\":\"myFirstTriger\",\n   \"header\":{\n      \"eventType\":\"DataUsageOverlimitEvent\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":7702142,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"id\":\"tp_Code\",\n                     \"name\":\"tp_Code\",\n                     \"value\":\"40003\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"id\":\"scrg_Code\",\n                     \"name\":\"scrg_Code\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"id\":\"dnm_Code\",\n                     \"name\":\"dnm_Code\",\n                     \"value\":\"DTE_ROAM_1\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"20\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"}}}</ep:elementParameter>
+      </extensionElements>
+      <outgoing>Flow_0xuw6mo</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1nmd8bj">
+        <targetRef>InputModel_Id</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <sequenceFlow id="Flow_0xuw6mo" sourceRef="Event_1hk2ab0" targetRef="Activity_0u7bit2" />
+    <endEvent id="Event_0p2x5aa">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status":"HttpRequestAttributes","code":500,"body":"ERROR_CREATION","exampelsVariants":[{"title":"SERVICE_UNAVAILABLE","value":"{\n    \"code\": \"503\",\n    \"reason\": \"Service Unavailable\",\n    \"message\": \"Service Unavailable\",\n    \"status\": \"503\"\n}"},{"title":"ERROR","value":"{\n    \"code\": \"500\",\n    \"reason\": \"Error\",\n    \"message\": \"Error\",\n    \"status\": \"500\"\n}"}],"headers":"{\n\"x-ms-client-request-id\":\"20412345678903142363734\",\n\"Accept-Language\":\"en\"\n}"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0mano1i</incoming>
+      <property id="Property_09bt6l7" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_1pb6ts5">
+        <sourceRef>DataObjectReference_0islhls</sourceRef>
+        <targetRef>Property_09bt6l7</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_0mano1i" sourceRef="Activity_1xm05d9" targetRef="Event_0p2x5aa" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1llnnqn">
+      <bpmndi:BPMNShape id="Event_0sav6wr_di" bpmnElement="Event_0sav6wr">
+        <omgdc:Bounds x="712" y="22" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08b2rwk_di" bpmnElement="Activity_08b2rwk">
+        <omgdc:Bounds x="410" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0eqkq7z_di" bpmnElement="InputModel_Id">
+        <omgdc:Bounds x="-138" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-147" y="72" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xm05d9_di" bpmnElement="Activity_1xm05d9">
+        <omgdc:Bounds x="540" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1a2hfh4_di" bpmnElement="DataObjectReference_1a2hfh4">
+        <omgdc:Bounds x="782" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="766" y="72" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u7bit2_di" bpmnElement="Activity_0u7bit2">
+        <omgdc:Bounds x="140" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0islhls_di" bpmnElement="DataObjectReference_0islhls">
+        <omgdc:Bounds x="782" y="95" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="792" y="152" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hk2ab0_di" bpmnElement="Event_1hk2ab0">
+        <omgdc:Bounds x="-48" y="22" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="411" y="-2" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0p2x5aa_di" bpmnElement="Event_0p2x5aa">
+        <omgdc:Bounds x="712" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01dwsfk_di" bpmnElement="Event_1b3vd32">
+        <omgdc:Bounds x="172" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13spsp0_di" bpmnElement="Event_0fmf487">
+        <omgdc:Bounds x="442" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0e36m15_di" bpmnElement="DataInputAssociation_0e36m15">
+        <di:waypoint x="782" y="40" />
+        <di:waypoint x="748" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ss9m19_di" bpmnElement="Flow_0ss9m19">
+        <di:waypoint x="510" y="40" />
+        <di:waypoint x="712" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16elrff_di" bpmnElement="Flow_16elrff">
+        <di:waypoint x="460" y="98" />
+        <di:waypoint x="460" y="120" />
+        <di:waypoint x="540" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e3x9qk_di" bpmnElement="Flow_0e3x9qk">
+        <di:waypoint x="240" y="40" />
+        <di:waypoint x="410" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09z3ruw_di" bpmnElement="Flow_09z3ruw">
+        <di:waypoint x="190" y="98" />
+        <di:waypoint x="190" y="140" />
+        <di:waypoint x="540" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1nmd8bj_di" bpmnElement="DataOutputAssociation_1nmd8bj">
+        <di:waypoint x="-48" y="40" />
+        <di:waypoint x="-102" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xuw6mo_di" bpmnElement="Flow_0xuw6mo">
+        <di:waypoint x="-12" y="40" />
+        <di:waypoint x="140" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1pb6ts5_di" bpmnElement="DataInputAssociation_1pb6ts5">
+        <di:waypoint x="782" y="120" />
+        <di:waypoint x="748" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mano1i_di" bpmnElement="Flow_0mano1i">
+        <di:waypoint x="640" y="120" />
+        <di:waypoint x="712" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>

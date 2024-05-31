@@ -84,99 +84,6 @@
 					},
 					"response": [
 						{
-							"name": "SUCCESS creating",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json;charset=utf-8"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json;charset=utf-8"
-									},
-									{
-										"key": "x-ms-client-request-id",
-										"value": "20412345678903142363734",
-										"type": "text"
-									},
-									{
-										"key": "Accept-Language",
-										"value": "en",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n   \"category\":\"GSM\",\n   \"externalId\":[\n      {\n         \"@type\":\"externalId\",\n         \"externalIdentifierType\":\"Extentions\",\n         \"id\":\"456\"\n      }\n   ],\n   \"priority\":\"1\",\n   \"IDType\":0,\n   \"requestedCompletionDate\":\"2023-11-01T00:00:00.000Z\",\n   \"requestedStartDate\":\"2023-11-01T00:00:00.000Z\",\n   \"note\":[\n      {\n         \"author\":\"domain+username\",\n         \"hostname\":\"192.156.7.77\",\n         \"text\":\"This is a GSM product order\"\n      }\n   ],\n   \"productOrderItem\":[\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"CategoryID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":2\n               },\n               {\n                  \"id\":\"ClassID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"StatusID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":4\n               },\n               {\n                  \"id\":\"TypeID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"ConnectionPointID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"ExtentionNumber\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"String\",\n                  \"value\":\"38671234567\"\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"MSISDN\",\n               \"@type\":\"ProductSpecificationRef\"\n            }\n         }\n      },\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"PlanGroupID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":152\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"TariffPlan\"\n            }\n         }\n      },\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"TemplateID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":6208\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"TariffPackage\"\n            }\n         }\n      }\n   ],\n   \"relatedParty\":[\n      {\n         \"id\":\"7702703\",\n         \"@referredType\":\"Customers\"\n      }\n   ]\n}"
-								},
-								"url": {
-									"raw": "{{API}}/api/v2/tmf/productOrder",
-									"host": [
-										"{{API}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"tmf",
-										"productOrder"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Thu, 09 Nov 2023 08:58:48 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "1352"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "x_ms_client_request_id",
-									"value": "20412345678903142363734"
-								},
-								{
-									"key": "Accept-Language",
-									"value": "en"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization,Pragma,Cache-control,Content-type"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=31536000"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "img-src https: data:; upgrade-insecure-requests"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"idType\": 0,\n    \"category\": \"GSM\",\n    \"productOrderItem\": [\n        {\n            \"action\": \"add\",\n            \"id\": \"15479514\",\n            \"product\": {\n                \"isBundle\": false,\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"CategoryID\",\n                        \"value\": \"2\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ClassID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"StatusID\",\n                        \"value\": \"4\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"TypeID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ConnectionPointID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ExtentionNumber\",\n                        \"value\": \"38671234567\",\n                        \"valueType\": \"String\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"@type\": \"ProductSpecificationRef\",\n                    \"id\": \"MSISDN\"\n                }\n            },\n            \"quantity\": 0\n        },\n        {\n            \"action\": \"add\",\n            \"id\": \"2285690\",\n            \"product\": {\n                \"isBundle\": false,\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"PlanGroupID\",\n                        \"value\": \"152\",\n                        \"valueType\": \"Integer\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"id\": \"TariffPlan\"\n                }\n            },\n            \"quantity\": 0\n        },\n        {\n            \"action\": \"add\",\n            \"id\": \"6295394\",\n            \"product\": {\n                \"isBundle\": false,\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"TemplateID\",\n                        \"value\": \"6208\",\n                        \"valueType\": \"Integer\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"id\": \"TariffPackage\"\n                }\n            },\n            \"quantity\": 0\n        }\n    ],\n    \"requestedStartDate\": \"2023-11-01T00:00:00\",\n    \"id\": 2285690,\n    \"requestedCompletionDate\": \"2023-11-09T10:58:48.217\",\n    \"state\": \"Completed\",\n    \"orderRelationship\": [\n        {\n            \"id\": \"01-7702744\",\n            \"type\": \"cross-ref\"\n        }\n    ]\n}"
-						},
-						{
 							"name": "MSISDN is binded already",
 							"originalRequest": {
 								"method": "POST",
@@ -325,6 +232,82 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"code\": \"51685\",\n    \"reason\": \"50385\",\n    \"message\": \"Execution error: (The specified tarrif package template is not available under the tarrif package agreement:  Tp_InternalID=6208 Grt_ID=152)\",\n    \"referenceError\": \"\"\n}"
+						},
+						{
+							"name": "SUCCESS creating",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"category\":\"GSM\",\n   \"externalId\":[\n      {\n         \"@type\":\"externalId\",\n         \"externalIdentifierType\":\"Extentions\",\n         \"id\":\"456\"\n      }\n   ],\n   \"priority\":\"1\",\n   \"IDType\":0,\n   \"requestedCompletionDate\":\"{{getdate}}\",\n   \"requestedStartDate\":\"{{getdate}}\",\n   \"note\":[\n      {\n         \"author\":\"domain+username\",\n         \"hostname\":\"192.156.7.77\",\n         \"text\":\"This is a GSM product order\"\n      }\n   ],\n   \"productOrderItem\":[\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"CategoryID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":2\n               },\n               {\n                  \"id\":\"ClassID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"StatusID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":4\n               },\n               {\n                  \"id\":\"TypeID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"ConnectionPointID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":1\n               },\n               {\n                  \"id\":\"ExtentionNumber\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"String\",\n                  \"value\":\"{{msisdn}}\"\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"MSISDN\",\n               \"@type\":\"ProductSpecificationRef\"\n            }\n         }\n      },\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"PlanGroupID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":{{plan_internal_id}}\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"TariffPlan\"\n            }\n         }\n      },\n      {\n         \"action\":\"add\",\n         \"product\":{\n            \"productCharacteristic\":[\n               {\n                  \"id\":\"TemplateID\",\n                  \"@type\":\"Characteristic\",\n                  \"valueType\":\"Integer\",\n                  \"value\":{{package_internal_id}}\n               }\n            ],\n            \"productSpecification\":{\n               \"id\":\"TariffPackage\"\n            }\n         }\n      }\n   ],\n   \"relatedParty\":[\n      {\n         \"id\":\"{{customer_id}}\",\n         \"@referredType\":\"Customers\"\n      }\n   ]\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/productOrder",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"productOrder"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "1268"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 May 2024 02:31:05 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"idType\": 0,\n    \"category\": \"GSM\",\n    \"productOrderItem\": [\n        {\n            \"product\": {\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"CategoryID\",\n                        \"value\": \"2\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ClassID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"StatusID\",\n                        \"value\": \"4\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"TypeID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ConnectionPointID\",\n                        \"value\": \"1\",\n                        \"valueType\": \"Integer\"\n                    },\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"ExtentionNumber\",\n                        \"value\": \"671234567\",\n                        \"valueType\": \"String\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"@type\": \"ProductSpecificationRef\",\n                    \"id\": \"MSISDN\"\n                }\n            },\n            \"action\": \"add\",\n            \"id\": \"01-15479503\"\n        },\n        {\n            \"product\": {\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"PlanGroupID\",\n                        \"value\": \"152\",\n                        \"valueType\": \"Integer\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"id\": \"TariffPlan\"\n                }\n            },\n            \"action\": \"add\",\n            \"id\": \"02-2285653\"\n        },\n        {\n            \"product\": {\n                \"productCharacteristic\": [\n                    {\n                        \"@type\": \"Characteristic\",\n                        \"id\": \"TemplateID\",\n                        \"value\": \"6229\",\n                        \"valueType\": \"Integer\"\n                    }\n                ],\n                \"productSpecification\": {\n                    \"id\": \"TariffPackage\"\n                }\n            },\n            \"action\": \"add\",\n            \"id\": \"03-6295950\"\n        }\n    ],\n    \"requestedStartDate\": \"2024-05-13T00:00:00\",\n    \"id\": 2285653,\n    \"requestedCompletionDate\": \"2024-05-13T05:31:04.89\",\n    \"state\": \"Completed\",\n    \"orderRelationship\": [\n        {\n            \"id\": \"01-7702876\",\n            \"type\": \"cross-ref\"\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -947,24 +930,20 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json;charset=utf-8",
-								"type": "text"
+								"value": "application/json;charset=utf-8"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json;charset=utf-8",
-								"type": "text"
+								"value": "application/json;charset=utf-8"
 							},
 							{
 								"key": "x-ms-client-request-id",
 								"value": "20412345678903142363744",
-								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "Accept-Language",
-								"value": "en",
-								"type": "text"
+								"value": "en"
 							}
 						],
 						"body": {
@@ -972,7 +951,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/productOrder/2285544",
+							"raw": "{{API}}/api/v2/tmf/productOrder/2285653",
 							"host": [
 								"{{API}}"
 							],
@@ -981,120 +960,11 @@
 								"v2",
 								"tmf",
 								"productOrder",
-								"2285544"
+								"2285653"
 							]
 						}
 					},
 					"response": [
-						{
-							"name": "by ID",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json;charset=utf-8",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json;charset=utf-8",
-										"type": "text"
-									},
-									{
-										"key": "x-ms-client-request-id",
-										"value": "20412345678903142363744",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "Accept-Language",
-										"value": "en",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{API}}/api/v2/tmf/productOrder/2285544",
-									"host": [
-										"{{API}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"tmf",
-										"productOrder",
-										"2285544"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "Content-Range",
-									"value": "items 1-1/1"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "Accept-Language",
-									"value": "en"
-								},
-								{
-									"key": "x-ms-client-request-id",
-									"value": "eb643d25-318f-459b-ad4b-588d285c"
-								},
-								{
-									"key": "X-Total-Count",
-									"value": "1"
-								},
-								{
-									"key": "X-Page-Count",
-									"value": "1"
-								},
-								{
-									"key": "cacheStatus",
-									"value": "Added"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization,Pragma,Cache-control,Content-type"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 22 Mar 2024 07:22:24 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\r\n  \"category\": \"ByDefault\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"38671234568\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionNumber\",\r\n            \"name\": \"ExtentionNumber\",\r\n            \"value\": \"38671234568\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"StatusModifiedDate\",\r\n            \"name\": \"StatusModifiedDate\",\r\n            \"value\": \"2024-03-19T18:41:27.403\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2023-11-01T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2024-03-30T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionID\",\r\n            \"name\": \"ExtentionID\",\r\n            \"value\": \"7892668\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Category\",\r\n            \"name\": \"Category\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Class\",\r\n            \"name\": \"Class\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Status\",\r\n            \"name\": \"Status\",\r\n            \"value\": \"5\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Type\",\r\n            \"name\": \"Type\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ConnectionPoint\",\r\n            \"name\": \"ConnectionPoint\",\r\n            \"value\": \"20\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Device\",\r\n            \"name\": \"Device\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892668\"\r\n      },\r\n      \"id\": \"01-15479384\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892668\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"38671234567\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionNumber\",\r\n            \"name\": \"ExtentionNumber\",\r\n            \"value\": \"38671234567\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"StatusModifiedDate\",\r\n            \"name\": \"StatusModifiedDate\",\r\n            \"value\": \"2024-03-19T18:41:45.78\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2023-11-01T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2024-03-30T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionID\",\r\n            \"name\": \"ExtentionID\",\r\n            \"value\": \"7892667\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Category\",\r\n            \"name\": \"Category\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Class\",\r\n            \"name\": \"Class\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Status\",\r\n            \"name\": \"Status\",\r\n            \"value\": \"5\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Type\",\r\n            \"name\": \"Type\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ConnectionPoint\",\r\n            \"name\": \"ConnectionPoint\",\r\n            \"value\": \"20\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Device\",\r\n            \"name\": \"Device\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892667\"\r\n      },\r\n      \"id\": \"01-15479383\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892667\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"1545405_00780030-0062-0030-3200-320063003000\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionNumber\",\r\n            \"name\": \"ExtentionNumber\",\r\n            \"value\": \"1545405_00780030-0062-0030-3200-320063003000\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"StatusModifiedDate\",\r\n            \"name\": \"StatusModifiedDate\",\r\n            \"value\": \"2021-04-01T19:30:01.027\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2020-04-01T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2024-03-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionID\",\r\n            \"name\": \"ExtentionID\",\r\n            \"value\": \"1545405\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Category\",\r\n            \"name\": \"Category\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Class\",\r\n            \"name\": \"Class\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Status\",\r\n            \"name\": \"Status\",\r\n            \"value\": \"5\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Type\",\r\n            \"name\": \"Type\",\r\n            \"value\": \"14\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ConnectionPoint\",\r\n            \"name\": \"ConnectionPoint\",\r\n            \"value\": \"7\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Device\",\r\n            \"name\": \"Device\",\r\n            \"value\": \"16\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-1545405\"\r\n      },\r\n      \"id\": \"01-1547938\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"1545405\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Advanced\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"actpd_Name\",\r\n            \"name\": \"actpd_Name\",\r\n            \"value\": \"Corporate\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"acatd_Name\",\r\n            \"name\": \"acatd_Name\",\r\n            \"value\": \"Postpaid\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"crnd_Name\",\r\n            \"name\": \"crnd_Name\",\r\n            \"value\": \"Hryvnia\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveStart\",\r\n            \"name\": \"grt_DateActiveStart\",\r\n            \"value\": \"2023-10-23T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveEnd\",\r\n            \"name\": \"grt_DateActiveEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2023-11-01T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"PlanGroupID\",\r\n            \"name\": \"PlanGroupID\",\r\n            \"value\": \"152\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_ExternalId\",\r\n            \"name\": \"grt_ExternalId\",\r\n            \"value\": \"12000\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-152\"\r\n      },\r\n      \"id\": \"02-2285544\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"2285544\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Bundle 100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": true,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Override\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"900974\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2023-11-01T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"TemplateID\",\r\n            \"name\": \"TemplateID\",\r\n            \"value\": \"6229\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-6229\"\r\n      },\r\n      \"id\": \"03-6295756\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"6295756\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 2285544,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-7702376\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n}"
-						},
 						{
 							"name": "by MSISDN",
 							"originalRequest": {
@@ -1426,6 +1296,111 @@
 							],
 							"cookie": [],
 							"body": "[\r\n{\r\n  \"category\": \"PSTN\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"21727_00780030-0066-0035-3300-310033006200\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-21727\"\r\n      },\r\n      \"id\": \"01-21857\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"21727\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"SIP-Тест\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-45\"\r\n      },\r\n      \"id\": \"02-8211\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"8211\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Трафик ''SIP-Тест''\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-198\"\r\n      },\r\n      \"id\": \"03-148974\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"148974\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Исходящий местный (Черновцы)\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Discount\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"30174\",\r\n            \"valueType\": \"String\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-587\"\r\n      },\r\n      \"id\": \"03-148975\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"148975\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Emergency Free Numbers\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5642\"\r\n      },\r\n      \"id\": \"03-243002\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"243002\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"SIP 40\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-190\"\r\n      },\r\n      \"id\": \"03-148972\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"148972\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 8211,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-302259\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"PSTN\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"59335_00780030-0030-0030-3700-380064003900\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-59335\"\r\n      },\r\n      \"id\": \"01-59465\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"59335\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Інтернет/Зона 2\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-25\"\r\n      },\r\n      \"id\": \"02-22448\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"22448\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Абон.плата Інтернет - 4200 грн без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-4283\"\r\n      },\r\n      \"id\": \"03-118441\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"118441\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 22448,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-316465\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"PSTN\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"68619_00780030-0032-0031-3900-630066006400\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-68619\"\r\n      },\r\n      \"id\": \"01-68749\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"68619\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"68620_00780030-0037-0066-6600-350064006500\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-68620\"\r\n      },\r\n      \"id\": \"01-68750\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"68620\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Основний\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-42\"\r\n      },\r\n      \"id\": \"02-25835\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"25835\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Исходящий местный (Киев)\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Discount\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"30099\",\r\n            \"valueType\": \"String\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-361\"\r\n      },\r\n      \"id\": \"03-72198\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"72198\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Пакет  26,25 грн без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-3988\"\r\n      },\r\n      \"id\": \"03-72201\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"72201\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Emergency Free Numbers\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5642\"\r\n      },\r\n      \"id\": \"03-245940\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"245940\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Трафик \\\"Основний\\\"\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-423\"\r\n      },\r\n      \"id\": \"03-72197\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"72197\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 25835,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-319854\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"PSTN\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"77704_00780030-0033-0031-3300-370034006100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-77704\"\r\n      },\r\n      \"id\": \"01-77834\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"77704\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Основний\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-42\"\r\n      },\r\n      \"id\": \"02-29268\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"29268\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Исходящий местный (Запорожье) \",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Discount\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"30071\",\r\n            \"valueType\": \"String\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-126\"\r\n      },\r\n      \"id\": \"03-79077\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"79077\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Пакет  26,25 грн без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-3988\"\r\n      },\r\n      \"id\": \"03-79095\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"79095\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Emergency Free Numbers\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5642\"\r\n      },\r\n      \"id\": \"03-261976\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"261976\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Трафик \\\"Основний\\\"\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-423\"\r\n      },\r\n      \"id\": \"03-79079\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"79079\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 29268,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-323277\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"PSTN\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"122613_00780030-0032-0034-6400-300039003600\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-122613\"\r\n      },\r\n      \"id\": \"01-122743\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"122613\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"123677_00780030-0039-0032-6300-320061006300\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-123677\"\r\n      },\r\n      \"id\": \"01-123807\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"123677\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124531_00780030-0065-0066-3200-390036003800\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124531\"\r\n      },\r\n      \"id\": \"01-124661\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124531\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124532_00780030-0031-0066-3100-660038006100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124532\"\r\n      },\r\n      \"id\": \"01-124662\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124532\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124533_00780030-0061-0062-6400-640032003600\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124533\"\r\n      },\r\n      \"id\": \"01-124663\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124533\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124534_00780030-0039-0035-3800-390030003900\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124534\"\r\n      },\r\n      \"id\": \"01-124664\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124534\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124535_00780030-0037-0036-6100-390036003600\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124535\"\r\n      },\r\n      \"id\": \"01-124665\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124535\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124536_00780030-0066-0035-3900-320038003600\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124536\"\r\n      },\r\n      \"id\": \"01-124666\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124536\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124537_00780030-0036-0066-3700-650061006500\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124537\"\r\n      },\r\n      \"id\": \"01-124667\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124537\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"124737_00780030-0066-0036-6600-640033003100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-124737\"\r\n      },\r\n      \"id\": \"01-124867\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"124737\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"SIP-Тест\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-45\"\r\n      },\r\n      \"id\": \"02-46012\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"46012\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"TSU 3G 0,456 ГРН з ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5169\"\r\n      },\r\n      \"id\": \"03-170126\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170126\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Ukrtelecom 0,38 ГРН без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5140\"\r\n      },\r\n      \"id\": \"03-170125\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170125\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Astelit 0,38 ГРН без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5117\"\r\n      },\r\n      \"id\": \"03-170124\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170124\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Трафик ''SIP-Тест''\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-198\"\r\n      },\r\n      \"id\": \"03-170128\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170128\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Пакет АП  30 грн без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5597\"\r\n      },\r\n      \"id\": \"03-179194\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"179194\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"MTS 0,38 ГРН без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5103\"\r\n      },\r\n      \"id\": \"03-170121\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170121\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Cellular Network Kyivstar GSM 0,18 ГРН без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5203\"\r\n      },\r\n      \"id\": \"03-170127\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170127\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Emergency Free Numbers\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5642\"\r\n      },\r\n      \"id\": \"03-238640\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"238640\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"PSTN Исходящий местный (Одесса)\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Discount\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"30152\",\r\n            \"valueType\": \"String\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-561\"\r\n      },\r\n      \"id\": \"03-170129\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170129\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Intertelecom 0,38 ГРН без ПДВ\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": false,\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-5155\"\r\n      },\r\n      \"id\": \"03-170147\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"170147\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 46012,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-339704\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"FTTB\",\r\n  \"id\": 53770,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-357390\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"GSM\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"2045728_00780030-0066-0039-3100-620034003000\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-2045728\"\r\n      },\r\n      \"id\": \"01-2047839\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"2045728\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Киевстар Семья\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-66\"\r\n      },\r\n      \"id\": \"02-1394999\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"1394999\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 1394999,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-3026998\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"GSM\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"2045729_00780030-0038-0061-3600-360066003300\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-2045729\"\r\n      },\r\n      \"id\": \"01-2047840\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"2045729\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Киевстар Семья\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-66\"\r\n      },\r\n      \"id\": \"02-1395000\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"1395000\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 1395000,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-3026999\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"GSM\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"2045730_00780030-0039-0065-3300-640034006400\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-2045730\"\r\n      },\r\n      \"id\": \"01-2047841\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"2045730\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Smart+ (ММС)\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-55\"\r\n      },\r\n      \"id\": \"02-1395001\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"1395001\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 1395001,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-3027000\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n},\n{\r\n  \"category\": \"GSM\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"2045731_00780030-0065-0066-3900-660031006200\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-2045731\"\r\n      },\r\n      \"id\": \"01-2047842\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"2045731\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"Smart+ (ММС)\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-55\"\r\n      },\r\n      \"id\": \"02-1395002\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"1395002\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 1395002,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-3027001\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363744",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/productOrder/2285653",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"productOrder",
+										"2285653"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "f8bd0fd2-9a59-4752-bcf4-f90c9726"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 May 2024 02:35:23 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"category\": \"ByDefault\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"671234567\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionNumber\",\r\n            \"name\": \"ExtentionNumber\",\r\n            \"value\": \"671234567\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"StatusModifiedDate\",\r\n            \"name\": \"StatusModifiedDate\",\r\n            \"value\": \"2024-05-13T05:30:53.973\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionID\",\r\n            \"name\": \"ExtentionID\",\r\n            \"value\": \"7892778\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Category\",\r\n            \"name\": \"Category\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Class\",\r\n            \"name\": \"Class\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Status\",\r\n            \"name\": \"Status\",\r\n            \"value\": \"4\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Type\",\r\n            \"name\": \"Type\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ConnectionPoint\",\r\n            \"name\": \"ConnectionPoint\",\r\n            \"value\": \"20\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Device\",\r\n            \"name\": \"Device\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892778\"\r\n      },\r\n      \"id\": \"01-15479503\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892778\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Advanced\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"actpd_Name\",\r\n            \"name\": \"actpd_Name\",\r\n            \"value\": \"Corporate\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"acatd_Name\",\r\n            \"name\": \"acatd_Name\",\r\n            \"value\": \"Postpaid\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"crnd_Name\",\r\n            \"name\": \"crnd_Name\",\r\n            \"value\": \"Hryvnia\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveStart\",\r\n            \"name\": \"grt_DateActiveStart\",\r\n            \"value\": \"2023-10-23T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveEnd\",\r\n            \"name\": \"grt_DateActiveEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"PlanGroupID\",\r\n            \"name\": \"PlanGroupID\",\r\n            \"value\": \"152\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_ExternalId\",\r\n            \"name\": \"grt_ExternalId\",\r\n            \"value\": \"12000\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-152\"\r\n      },\r\n      \"id\": \"02-2285653\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"2285653\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Bundle 100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": true,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Override\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"900974\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"TemplateID\",\r\n            \"name\": \"TemplateID\",\r\n            \"value\": \"6229\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-6229\"\r\n      },\r\n      \"id\": \"03-6295950\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"6295950\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 2285653,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-7702876\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n}"
 						}
 					]
 				}
@@ -1463,7 +1438,7 @@
 		},
 		{
 			"key": "order_id",
-			"value": "2285544",
+			"value": "2285653",
 			"type": "string"
 		},
 		{
@@ -1483,7 +1458,7 @@
 		},
 		{
 			"key": "effective_date",
-			"value": "2024-04-01T00:00:00.000Z",
+			"value": "2024-05-01T00:00:00.000Z",
 			"type": "string"
 		},
 		{
@@ -1493,17 +1468,17 @@
 		},
 		{
 			"key": "new_msisdn",
-			"value": "38671234568",
+			"value": "671234568",
 			"type": "string"
 		},
 		{
 			"key": "getdate",
-			"value": "2024-03-30T00:00:00.000Z",
+			"value": "2024-05-13T00:00:00.000Z",
 			"type": "string"
 		},
 		{
 			"key": "msisdn",
-			"value": "38671234561",
+			"value": "671234567",
 			"type": "string"
 		},
 		{

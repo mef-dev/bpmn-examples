@@ -4,7 +4,7 @@
 		"name": "TMF724 Incident Management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16338639",
-		"_collection_link": "https://mef-dev.postman.co/workspace/fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-86e27ee0-191d-4f6e-ae4c-1b2aacb9def4?action=share&source=collection_link&creator=16338639"
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-86e27ee0-191d-4f6e-ae4c-1b2aacb9def4?action=share&source=collection_link&creator=16338639"
 	},
 	"item": [
 		{
@@ -14,31 +14,25 @@
 				"header": [
 					{
 						"key": "accept",
-						"value": "application/json",
-						"uuid": "4ae0a16c-7762-4643-aad2-90d5de0f3ffc"
+						"value": "application/json"
 					},
 					{
 						"key": "Authorization",
-						"value": "Basic YnBtbjpXaWRlY291cDE=",
-						"uuid": "87f4ad21-8362-4cf2-b7f3-33030d66b412"
+						"value": "Basic YnBtbjpXaWRlY291cDE="
 					},
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"uuid": "6e88c0ec-1e0a-498d-b19d-18b3223e984c"
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": null,\r\n  \"errorLog\": null,\r\n  \"incident\": {\r\n    \"id\": \"null\",\r\n    \"category\": \"software fault\",\r\n    \"incidentDetail\": \"router ping is not successfull\",\r\n    \"incidentResolutionSuggestion\": null,\r\n    \"rootCause\": null,\r\n    \"name\": \"Incident router\",\r\n    \"@type\": \"Incident\"\r\n  },\r\n  \"state\": null,\r\n  \"@type\": \"DiagnoseIncident\",\r\n  \"Value\":\"\"\r\n}"
+					"raw": "{\r\n  \"id\": null,\r\n  \"errorLog\": null,\r\n  \"incident\": {\r\n    \"id\": \"111\",\r\n    \"category\": \"software fault\",\r\n    \"incidentDetail\": \"router ping is not successfull\",\r\n    \"incidentResolutionSuggestion\": null,\r\n    \"rootCause\": null,\r\n    \"name\": \"Incident router\",\r\n    \"@type\": \"Incident\"\r\n  },\r\n  \"state\": null,\r\n  \"@type\": \"DiagnoseIncident\",\r\n  \"Value\":\"\"\r\n}"
 				},
 				"url": {
-					"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
-					"protocol": "https",
+					"raw": "{{API}}/api/v2/tmf/Incident/diagnoseIncident",
 					"host": [
-						"api",
-						"mef",
-						"dev"
+						"{{API}}"
 					],
 					"path": [
 						"api",
