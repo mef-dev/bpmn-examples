@@ -30,7 +30,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"conversationId\": 345,\r\n\t\"ownerId\": 456,\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"{{datetime}}\",\r\n\t\t\"updateTime\": \"{{datetime}}\",\r\n\t\t\"ackState\": \"acknowledged\",\r\n\t\t\"category\": \"{{category}}\",\r\n\t\t\"incidentDetail\": \"{{prompt}}\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": []\r\n\t},\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}"
+							"raw": "{\r\n\t\"conversationId\": \"123-345-678-9182762353\",\r\n\t\"ownerId\": \"987-6654-2625124-455\",\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 9876,\r\n\t\t\"occurTime\": \"{{datetime}}\",\r\n\t\t\"updateTime\": \"{{datetime}}\",\r\n\t\t\"ackState\": \"ACKNOWLEDGED\",\r\n\t\t\"category\": \"{{category}}\",\r\n\t\t\"incidentDetail\": \"{{prompt}}\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": []\r\n\t},\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}"
 						},
 						"url": {
 							"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
@@ -51,7 +51,7 @@
 					},
 					"response": [
 						{
-							"name": "Network diagnoseIncident created",
+							"name": "diagnoseIncident w/o listOfAlarms",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -70,7 +70,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"conversationId\": 345,\r\n\t\"ownerId\": 456,\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"updateTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"ackState\": \"acknowledged\",\r\n\t\t\"category\": \"network\",\r\n\t\t\"incidentDetail\": \"internet is not working\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": []\r\n\t},\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}"
+									"raw": "{\r\n\t\"conversationId\": \"345\",\r\n\t\"ownerId\": \"456\",\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"updateTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"ackState\": \"ACKNOWLEDGED\",\r\n\t\t\"category\": \"network\",\r\n\t\t\"incidentDetail\": \"internet is not working\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": []\r\n\t},\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}"
 								},
 								"url": {
 									"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
@@ -89,8 +89,8 @@
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
+							"status": "Created",
+							"code": 201,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -99,7 +99,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 05 Jun 2024 07:03:13 GMT"
+									"value": "Wed, 05 Jun 2024 13:23:29 GMT"
 								},
 								{
 									"key": "Content-Type",
@@ -107,7 +107,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "949"
+									"value": "1214"
 								},
 								{
 									"key": "Connection",
@@ -135,7 +135,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"85aeb790-08a6-4aa4-9516-d80cff6df7ab\",\n    \"href\": \"huawei.com/catalyst\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": null,\n        \"baseType\": null,\n        \"schemaLocation\": null,\n        \"category\": \"network\",\n        \"incidentDetail\": \"internet is not working\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"acknowledged\",\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"network\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"state\": \"DONE\",\n    \"@type\": \"DiagnoseIncident\"\n}"
+							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"183a18d1-a339-4d1e-be29-f9bacd4fee00\",\n    \"href\": \"mef.dev/catalyst\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": \"mef.dev/catalyst\",\n        \"baseType\": \"Entity\",\n        \"schemaLocation\": \"https://api.mef.dev/swagger/plugins/tmf_Incident.management_1.0.0.25.json#components/schemas/Incident\",\n        \"category\": \"network\",\n        \"incidentDetail\": \"internet is not working\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"ACKNOWLEDGED\",\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"network\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"state\": \"DONE\",\n    \"@baseType\": \"Entity\",\n    \"@schemaLocation\": \"https://api.mef.dev/swagger/plugins/tmf_Incident.management_1.0.0.25.json#components/schemas/DiagnoseIncident\",\n    \"@type\": \"DiagnoseIncident\"\n}"
 						}
 					]
 				},
@@ -155,7 +155,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"conversationId\": 345,\r\n\t\"ownerId\": 456,\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"{{datetime}}\",\r\n\t\t\"updateTime\": \"{{datetime}}\",\r\n\t\t\"ackState\": \"acknowledged\",\r\n\t\t\"category\": \"{{category}}\",\r\n\t\t\"incidentDetail\": \"{{prompt}}\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": {{listOfAlarms}}\r\n\t},\r\n\t\r\n    \"@type\": \"DiagnoseIncident\"\r\n}",
+							"raw": "{\r\n\t\"conversationId\": \"345\",\r\n\t\"ownerId\": \"456\",\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"{{datetime}}\",\r\n\t\t\"updateTime\": \"{{datetime}}\",\r\n\t\t\"ackState\": \"ACKNOWLEDGED\",\r\n\t\t\"category\": \"{{category}}\",\r\n\t\t\"incidentDetail\": \"{{prompt}}\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": [\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3758,\r\n\t\t\t\t\"id\": \"ETH_LOS\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 310,\r\n\t\t\t\t\"id\": \"MPLS_TUNNEL_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3789,\r\n\t\t\t\t\"id\": \"MPLS_PW_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3789,\r\n\t\t\t\t\"id\": \"MPLS_TUNNEL_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"state\": null,\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,94 +180,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Network: Root Cause and Suggestion provided",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Basic YnBtbjpXaWRlY291cDE="
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"conversationId\": 345,\r\n\t\"ownerId\": 456,\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"{{datetime}}\",\r\n\t\t\"updateTime\": \"{{datetime}}\",\r\n\t\t\"ackState\": \"acknowledged\",\r\n\t\t\"category\": \"network\",\r\n\t\t\"incidentDetail\": \"{{prompt}}\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": {{listOfAlarms}}\r\n\t},\r\n\t\r\n    \"@type\": \"DiagnoseIncident\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://api.mef.dev/api/v2/tmf/Incident/diagnoseIncident",
-									"protocol": "https",
-									"host": [
-										"api",
-										"mef",
-										"dev"
-									],
-									"path": [
-										"api",
-										"v2",
-										"tmf",
-										"Incident",
-										"diagnoseIncident"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 05 Jun 2024 07:08:10 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "2268"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization,Pragma,Cache-control,Content-type"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=31536000"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "img-src https: data:; upgrade-insecure-requests"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"6B29FC40-CA47-1067-B31D-00DD010662DA\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": null,\n        \"baseType\": null,\n        \"schemaLocation\": null,\n        \"category\": \"network\",\n        \"incidentDetail\": \"internet is not working\",\n        \"incidentResolutionSuggestion\": \"To solve the problem of the internet not working due to the ETH_LINK_DOWN alarm, follow these steps:\\n\\n**Cause 0:**\\n\\n1. Check on the NMS (Network Management System) whether the Ethernet ports at both ends work in the same mode.\\n2. If not, modify the configuration so that they work in the same mode. Then, check whether the alarm is cleared.\\n3. Check whether the cable or optical fiber is faulty. If so, rectify the fault and check whether\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"acknowledged\",\n        \"eventId\": [\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3758\",\n                \"id\": \"ETH_LOS\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"310\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_PW_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"network\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"rootCause\": [\n            {\n                \"ne\": null,\n                \"id\": \"ETH_LINK_DOWN\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"@type\": \"DiagnoseIncident\"\n}"
-						},
 						{
 							"name": "Network: LLM endpoint error",
 							"originalRequest": {
@@ -357,7 +269,7 @@
 							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"6B29FC40-CA47-1067-B31D-00DD010662DA\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": null,\n        \"baseType\": null,\n        \"schemaLocation\": null,\n        \"category\": \"network\",\n        \"incidentDetail\": \"internet is not working\",\n        \"incidentResolutionSuggestion\": \"LLM endpoint answer error\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"acknowledged\",\n        \"eventId\": [\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3758\",\n                \"id\": \"ETH_LOS\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"310\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_PW_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"network\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"rootCause\": [\n            {\n                \"ne\": null,\n                \"id\": \"ETH_LINK_DOWN\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"@type\": \"DiagnoseIncident\"\n}"
 						},
 						{
-							"name": "Customer: Root Cause and Suggestion not provided",
+							"name": "Network: Root Cause and Suggestion provided",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -372,7 +284,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"conversationId\": 345,\r\n\t\"ownerId\": 456,\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"updateTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"ackState\": \"acknowledged\",\r\n\t\t\"category\": \"customer\",\r\n\t\t\"incidentDetail\": \"internet is not working\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": [\r\n            {\r\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n                \"date\": \"23/05/24\",\r\n                \"ne\": \"3758\",\r\n                \"id\": \"ETH_LOS\",\r\n                \"@type\": \"alarm\"\r\n            },\r\n            {\r\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n                \"date\": \"23/05/24\",\r\n                \"ne\": \"310\",\r\n                \"id\": \"MPLS_TUNNEL_LOCV\",\r\n                \"@type\": \"alarm\"\r\n            },\r\n            {\r\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n                \"date\": \"23/05/24\",\r\n                \"ne\": \"3789\",\r\n                \"id\": \"MPLS_PW_LOCV\",\r\n                \"@type\": \"alarm\"\r\n            },\r\n            {\r\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n                \"date\": \"23/05/24\",\r\n                \"ne\": \"3789\",\r\n                \"id\": \"MPLS_TUNNEL_LOCV\",\r\n                \"@type\": \"alarm\"\r\n            }\r\n        ]\r\n\t},\r\n\t\r\n    \"@type\": \"DiagnoseIncident\"\r\n}",
+									"raw": "{\r\n\t\"conversationId\": \"345\",\r\n\t\"ownerId\": \"456\",\r\n\t\"errorLog\": null,\r\n\t\"incident\": {\r\n\t\t\"id\": 123,\r\n\t\t\"occurTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"updateTime\": \"2024-06-05T10:45:05.48\",\r\n\t\t\"ackState\": \"ACKNOWLEDGED\",\r\n\t\t\"category\": \"network\",\r\n\t\t\"incidentDetail\": \"internet is not working\",\r\n\t\t\"name\": \"Incident router\",\r\n\t\t\"@type\": \"Incident\",\r\n\t\t\"eventId\": [\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3758,\r\n\t\t\t\t\"id\": \"ETH_LOS\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 310,\r\n\t\t\t\t\"id\": \"MPLS_TUNNEL_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3789,\r\n\t\t\t\t\"id\": \"MPLS_PW_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\r\n\t\t\t\t\"date\": \"23/05/24\",\r\n\t\t\t\t\"ne\": 3789,\r\n\t\t\t\t\"id\": \"MPLS_TUNNEL_LOCV\",\r\n\t\t\t\t\"@type\": \"alarm\"\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"state\": null,\r\n\t\"@type\": \"DiagnoseIncident\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -396,8 +308,8 @@
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
+							"status": "Created",
+							"code": 201,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -406,7 +318,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 05 Jun 2024 07:16:50 GMT"
+									"value": "Wed, 05 Jun 2024 13:27:18 GMT"
 								},
 								{
 									"key": "Content-Type",
@@ -414,7 +326,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "1773"
+									"value": "2518"
 								},
 								{
 									"key": "Connection",
@@ -442,7 +354,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"0fcf2150-98b8-4089-bbe3-443143926fd9\",\n    \"href\": \"huawei.com/catalyst\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": null,\n        \"baseType\": null,\n        \"schemaLocation\": null,\n        \"category\": \"customer\",\n        \"incidentDetail\": \"internet is not working\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"acknowledged\",\n        \"eventId\": [\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3758\",\n                \"id\": \"ETH_LOS\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"310\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_PW_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"customer\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"state\": \"DONE\",\n    \"@type\": \"DiagnoseIncident\"\n}"
+							"body": "{\n    \"conversationId\": \"345\",\n    \"ownerId\": \"456\",\n    \"id\": \"6B29FC40-CA47-1067-B31D-00DD010662DA\",\n    \"href\": \"mef.dev/catalyst\",\n    \"incident\": {\n        \"id\": \"123\",\n        \"href\": \"mef.dev/catalyst\",\n        \"baseType\": \"Entity\",\n        \"schemaLocation\": \"https://api.mef.dev/swagger/plugins/tmf_Incident.management_1.0.0.25.json#components/schemas/Incident\",\n        \"category\": \"network\",\n        \"incidentDetail\": \"internet is not working\",\n        \"incidentResolutionSuggestion\": \"To solve the problem of the internet not working, follow these steps:\\n\\n1. **Restart your router**: Sometimes, a simple reboot can resolve connectivity issues. Unplug the power cord from the router, wait for 30 seconds, and plug it back in. Wait for the router to boot up again.\\n\\n2. **Check your cables**: Ensure all cables are securely connected to the correct ports on your router, modem, and device (computer, laptop, or mobile).\\n\\n3. **Check your internet\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"2024-06-05T10:45:05.48\",\n        \"updateTime\": \"2024-06-05T10:45:05.48\",\n        \"ackState\": \"ACKNOWLEDGED\",\n        \"eventId\": [\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3758\",\n                \"id\": \"ETH_LOS\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"310\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_PW_LOCV\",\n                \"@type\": \"alarm\"\n            },\n            {\n                \"description\": \"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n                \"date\": \"23/05/24\",\n                \"ne\": \"3789\",\n                \"id\": \"MPLS_TUNNEL_LOCV\",\n                \"@type\": \"alarm\"\n            }\n        ],\n        \"extensionInfo\": [\n            {\n                \"name\": \"TroubleTicket\",\n                \"valueType\": \"TroubleTicket\",\n                \"value\": {\n                    \"id\": \"3180\",\n                    \"creationDate\": \"06/05/2024 10:45:05\",\n                    \"description\": \"internet is not working\",\n                    \"externalId\": \"345\",\n                    \"name\": \"Incident router\",\n                    \"priority\": \"\",\n                    \"severity\": \"Urgent.UrgencyType\",\n                    \"ticketType\": \"network\",\n                    \"troubleTicketRelationship\": [\n                        {\n                            \"id\": \"123\",\n                            \"@referredType\": \"IncidentRef\",\n                            \"relationshipType\": \"relyOn\"\n                        }\n                    ],\n                    \"@type\": \"TroubleTicket\"\n                },\n                \"@type\": \"Characteristic\"\n            }\n        ],\n        \"@type\": \"Incident\"\n    },\n    \"@baseType\": \"Entity\",\n    \"@schemaLocation\": \"https://api.mef.dev/swagger/plugins/tmf_Incident.management_1.0.0.25.json#components/schemas/DiagnoseIncident\",\n    \"@type\": \"DiagnoseIncident\"\n}"
 						}
 					]
 				},
@@ -458,7 +370,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"conversationId\": 345,\n    \"ownerId\": 456,\n    \"incident\": {\n        \"id\": 123,\n        \"category\": \"customer\",\n        \"incidentDetail\": \"{{prompt}}\",\n        \"name\": \"Incident router\",\n        \"occurTime\": \"{{datetime}}\",\n        \"updateTime\": \"{{datetime}}\",\n        \"ackState\": \"acknowledged\",\n        \"eventId\": {{listOfAlarms}},\n        \"@type\": \"Incident\"\n    },\n    \"@type\": \"DiagnoseIncident\"\n}",
+							"raw": "{\n   \"conversationId\":\"345-999\",\n   \"ownerId\":\"121-456\",\n   \"incident\":{\n      \"id\":123,\n      \"category\":\"customer\",\n      \"incidentDetail\":\"router ping is not successfull\",\n      \"name\":\"Incident router\",\n      \"occurTime\":\"2022-03-10T00:00:00\",\n      \"updateTime\":\"string\",\n      \"ackState\":\"ACKNOWLEDGED\",\n      \"eventId\":[\n         {\n            \"description\":\"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n            \"date\":\"23/05/24\",\n            \"NE\":3758,\n            \"id\":\"ETH_LOS\",\n            \"@type\":\"alarm\"\n         },\n         {\n            \"description\":\"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n            \"date\":\"23/05/24\",\n            \"NE\":310,\n            \"id\":\"MPLS_TUNNEL_LOCV\",\n            \"@type\":\"alarm\"\n         },\n         {\n            \"description\":\"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n            \"date\":\"23/05/24\",\n            \"NE\":3789,\n            \"id\":\"MPLS_PW_LOCV\",\n            \"@type\":\"alarm\"\n         },\n         {\n            \"description\":\"Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.\",\n            \"date\":\"23/05/24\",\n            \"NE\":3789,\n            \"id\":\"MPLS_TUNNEL_LOCV\",\n            \"@type\":\"alarm\"\n         }\n      ],\n      \"@type\":\"Incident\"\n   },\n   \"@type\":\"DiagnoseIncident\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

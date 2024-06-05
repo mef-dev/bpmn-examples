@@ -1,0 +1,1326 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF724",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>05 June 2024</b><br/><br/><b>TMF API Reference : TMF - 724 Incident</b><br/><br/><p>**TMF API Reference : TMF - 724 Incident**</p><p>**Release : 22.5 - November 2022**</p><p>The Incident API provides a standardized client interface to Incident Management Systems for creating, tracking and managing Incidents as a result of an issue or problem identified by a customer or another system. \\nExamples of Incident API originators (clients) include CRM applications, network management or fault management systems, or other Incident management systems (e.g. B2B).\\n\\nThe API supports the ability to send requests to create a new Incident specifying the nature and severity of the trouble or issue as well as all necessary related information. The API also includes mechanisms to search for and update existing Incidents. Notifications are defined to provide information when a Incident has been updated, including status changes. A basic set of states of a Incident has been specified (as an example) to handle Incident lifecycle management.\\nIncident API manages Incident resource:\\n\\n&nbsp;-\\tA Incident represents a record, or an issue raised by requestor that need to be solved, used for reporting and managing the resolution of problems, incidents or request -\\tThe main Incident attributes are its name, priority, type,&nbsp;dateTime attributes (occurTime, expected resolution, resolution), state and related information (change reason and change date), related parties (originator, owner, reviser, etc.), related entities (product, product order, customer bill) and notes Incident API performs the following operations on Incident:</p><ul><li>Creation of an Diagnose Incident (with creation of an Incident)</li></ul><p><br></p><p>Other Incident API operations on Incident -&nbsp;<strong>TO BE DONE</strong></p><p>Notification of events on Incident -&nbsp;<strong>TO BE DONE</strong></p>",
+    "termsOfService": "https://app.mef.dev/terms",
+    "contact": {
+      "name": "Catalyst C24.0.636",
+      "url": "https://app.mef.dev/store/tenant/139",
+      "email": "sergiy.polovnikov@natec.tech"
+    },
+    "version": "1.0.0.26"
+  },
+  "servers": [
+    {
+      "url": "https://api.mef.dev/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/Incident/diagnoseIncident": {
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnoseIncident"
+              },
+              "examples": {
+                "create diagnoseIncident": {
+                  "summary": "create diagnoseIncident",
+                  "description": "create diagnoseIncident",
+                  "value": {
+                    "id": null,
+                    "conversationId": 345,
+                    "ownerId": 456,
+                    "errorLog": null,
+                    "incident": {
+                      "id": 123,
+                      "occurTime": "2022-03-10",
+                      "updateTime": "string",
+                      "ackState": "ACKNOWLEDGED",
+                      "category": "soft",
+                      "incidentDetail": "router ping is not successfull",
+                      "incidentResolutionSuggestion": null,
+                      "rootCause": null,
+                      "name": "Incident router",
+                      "@type": "Incident",
+                      "eventId": [ ]
+                    },
+                    "state": null,
+                    "@type": "DiagnoseIncident"
+                  }
+                },
+                "Incident Resolution Suggestion": {
+                  "summary": "Incident Resolution Suggestion",
+                  "description": "Incident Resolution Suggestion",
+                  "value": {
+                    "id": null,
+                    "conversationId": 345,
+                    "ownerId": 456,
+                    "errorLog": null,
+                    "incident": {
+                      "id": 123,
+                      "occurTime": "2022-03-10",
+                      "updateTime": "string",
+                      "ackState": "ACKNOWLEDGED",
+                      "category": "network",
+                      "incidentDetail": "router ping is not successfull",
+                      "incidentResolutionSuggestion": null,
+                      "rootCause": null,
+                      "name": "Incident router",
+                      "@type": "Incident",
+                      "eventId": [
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3758,
+                          "id": "ETH_LOS",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 310,
+                          "id": "MPLS_TUNNEL_LOCV",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3789,
+                          "id": "MPLS_PW_LOCV",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3789,
+                          "id": "MPLS_TUNNEL_LOCV",
+                          "@type": "alarm"
+                        }
+                      ]
+                    },
+                    "state": null,
+                    "@type": "DiagnoseIncident"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnoseIncident"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "conversationId": 345,
+                      "ownerId": 456,
+                      "id": "26ed5d8a-38fa-42db-8dcb-6d72f91d0b1a",
+                      "incident": {
+                        "id": 123,
+                        "href": null,
+                        "baseType": null,
+                        "schemaLocation": null,
+                        "category": "soft",
+                        "incidentDetail": "router ping is not successfull",
+                        "name": "Incident router",
+                        "occurTime": "2022-03-10T00:00:00",
+                        "updateTime": "string",
+                        "ackState": "ACKNOWLEDGED",
+                        "eventId": [ ],
+                        "extensionInfo": [
+                          {
+                            "name": "TroubleTicket",
+                            "valueType": "TroubleTicket",
+                            "value": {
+                              "id": 3180,
+                              "creationDate": "03/10/2022 00:00:00",
+                              "description": "router ping is not successfull",
+                              "externalId": 345,
+                              "name": "Incident router",
+                              "priority": "",
+                              "severity": "Urgent.UrgencyType",
+                              "ticketType": "network",
+                              "troubleTicketRelationship": [
+                                {
+                                  "id": 123,
+                                  "@referredType": "IncidentRef",
+                                  "relationshipType": "relyOn"
+                                }
+                              ],
+                              "@type": "TroubleTicket"
+                            },
+                            "@type": "Characteristic"
+                          }
+                        ],
+                        "@type": "Incident"
+                      },
+                      "@type": "DiagnoseIncident"
+                    }
+                  },
+                  "Incident Resolution Suggestion": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "conversationId": 345,
+                      "ownerId": 456,
+                      "id": "6B29FC40-CA47-1067-B31D-00DD010662DA",
+                      "incident": {
+                        "id": 123,
+                        "href": null,
+                        "baseType": null,
+                        "schemaLocation": null,
+                        "category": "network",
+                        "incidentDetail": "router ping is not successfull",
+                        "incidentResolutionSuggestion": "To solve the problem of the router ping not being successful due to the ETH_LINK_DOWN alarm, follow these steps:\n\n**Cause 0:**\n\n1. Check on the NMS whether the Ethernet ports at both ends work in the same mode.\n2. If not, modify the configuration so that they work in the same mode. Then, check whether the alarm is cleared.\n\n**If the alarm persists:**\n\n1. Check whether the cable or optical fiber is faulty. If so, rectify the",
+                        "name": "Incident router",
+                        "occurTime": "2022-03-10T00:00:00",
+                        "updateTime": "string",
+                        "ackState": "ACKNOWLEDGED",
+                        "eventId": [
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3758,
+                            "id": "ETH_LOS",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 310,
+                            "id": "MPLS_TUNNEL_LOCV",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3789,
+                            "id": "MPLS_PW_LOCV",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3789,
+                            "id": "MPLS_TUNNEL_LOCV",
+                            "@type": "alarm"
+                          }
+                        ],
+                        "extensionInfo": [
+                          {
+                            "name": "TroubleTicket",
+                            "valueType": "TroubleTicket",
+                            "value": {
+                              "id": 3180,
+                              "creationDate": "03/10/2022 00:00:00",
+                              "description": "router ping is not successfull",
+                              "externalId": 345,
+                              "name": "Incident router",
+                              "priority": "",
+                              "severity": "Urgent.UrgencyType",
+                              "ticketType": "network",
+                              "troubleTicketRelationship": [
+                                {
+                                  "id": 123,
+                                  "@referredType": "IncidentRef",
+                                  "relationshipType": "relyOn"
+                                }
+                              ],
+                              "@type": "TroubleTicket"
+                            },
+                            "@type": "Characteristic"
+                          }
+                        ],
+                        "rootCause": [
+                          {
+                            "ne": null,
+                            "id": "ETH_LINK_DOWN",
+                            "@type": "alarm"
+                          }
+                        ],
+                        "@type": "Incident"
+                      },
+                      "@type": "DiagnoseIncident"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "status": 500,
+                      "code": "{http.statusCode}",
+                      "message": "diagnoseIncident creation error: {system}",
+                      "type": "diagnoseIncident error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "status": 403,
+                      "code": "403",
+                      "message": "DiagnoseIncident model validation error",
+                      "reason": "no Incident object provided",
+                      "type": "diagnoseIncident error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The request URL is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 404,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Incident/diagnoseIncident.{format}": {
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnoseIncident"
+              },
+              "examples": {
+                "create diagnoseIncident": {
+                  "summary": "create diagnoseIncident",
+                  "description": "create diagnoseIncident",
+                  "value": {
+                    "id": null,
+                    "conversationId": 345,
+                    "ownerId": 456,
+                    "errorLog": null,
+                    "incident": {
+                      "id": 123,
+                      "occurTime": "2022-03-10",
+                      "updateTime": "string",
+                      "ackState": "ACKNOWLEDGED",
+                      "category": "soft",
+                      "incidentDetail": "router ping is not successfull",
+                      "incidentResolutionSuggestion": null,
+                      "rootCause": null,
+                      "name": "Incident router",
+                      "@type": "Incident",
+                      "eventId": [ ]
+                    },
+                    "state": null,
+                    "@type": "DiagnoseIncident"
+                  }
+                },
+                "Incident Resolution Suggestion": {
+                  "summary": "Incident Resolution Suggestion",
+                  "description": "Incident Resolution Suggestion",
+                  "value": {
+                    "id": null,
+                    "conversationId": 345,
+                    "ownerId": 456,
+                    "errorLog": null,
+                    "incident": {
+                      "id": 123,
+                      "occurTime": "2022-03-10",
+                      "updateTime": "string",
+                      "ackState": "ACKNOWLEDGED",
+                      "category": "network",
+                      "incidentDetail": "router ping is not successfull",
+                      "incidentResolutionSuggestion": null,
+                      "rootCause": null,
+                      "name": "Incident router",
+                      "@type": "Incident",
+                      "eventId": [
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3758,
+                          "id": "ETH_LOS",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 310,
+                          "id": "MPLS_TUNNEL_LOCV",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3789,
+                          "id": "MPLS_PW_LOCV",
+                          "@type": "alarm"
+                        },
+                        {
+                          "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                          "date": "23/05/24",
+                          "ne": 3789,
+                          "id": "MPLS_TUNNEL_LOCV",
+                          "@type": "alarm"
+                        }
+                      ]
+                    },
+                    "state": null,
+                    "@type": "DiagnoseIncident"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnoseIncident"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "conversationId": 345,
+                      "ownerId": 456,
+                      "id": "26ed5d8a-38fa-42db-8dcb-6d72f91d0b1a",
+                      "incident": {
+                        "id": 123,
+                        "href": null,
+                        "baseType": null,
+                        "schemaLocation": null,
+                        "category": "soft",
+                        "incidentDetail": "router ping is not successfull",
+                        "name": "Incident router",
+                        "occurTime": "2022-03-10T00:00:00",
+                        "updateTime": "string",
+                        "ackState": "ACKNOWLEDGED",
+                        "eventId": [ ],
+                        "extensionInfo": [
+                          {
+                            "name": "TroubleTicket",
+                            "valueType": "TroubleTicket",
+                            "value": {
+                              "id": 3180,
+                              "creationDate": "03/10/2022 00:00:00",
+                              "description": "router ping is not successfull",
+                              "externalId": 345,
+                              "name": "Incident router",
+                              "priority": "",
+                              "severity": "Urgent.UrgencyType",
+                              "ticketType": "network",
+                              "troubleTicketRelationship": [
+                                {
+                                  "id": 123,
+                                  "@referredType": "IncidentRef",
+                                  "relationshipType": "relyOn"
+                                }
+                              ],
+                              "@type": "TroubleTicket"
+                            },
+                            "@type": "Characteristic"
+                          }
+                        ],
+                        "@type": "Incident"
+                      },
+                      "@type": "DiagnoseIncident"
+                    }
+                  },
+                  "Incident Resolution Suggestion": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "conversationId": 345,
+                      "ownerId": 456,
+                      "id": "6B29FC40-CA47-1067-B31D-00DD010662DA",
+                      "incident": {
+                        "id": 123,
+                        "href": null,
+                        "baseType": null,
+                        "schemaLocation": null,
+                        "category": "network",
+                        "incidentDetail": "router ping is not successfull",
+                        "incidentResolutionSuggestion": "To solve the problem of the router ping not being successful due to the ETH_LINK_DOWN alarm, follow these steps:\n\n**Cause 0:**\n\n1. Check on the NMS whether the Ethernet ports at both ends work in the same mode.\n2. If not, modify the configuration so that they work in the same mode. Then, check whether the alarm is cleared.\n\n**If the alarm persists:**\n\n1. Check whether the cable or optical fiber is faulty. If so, rectify the",
+                        "name": "Incident router",
+                        "occurTime": "2022-03-10T00:00:00",
+                        "updateTime": "string",
+                        "ackState": "ACKNOWLEDGED",
+                        "eventId": [
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3758,
+                            "id": "ETH_LOS",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 310,
+                            "id": "MPLS_TUNNEL_LOCV",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3789,
+                            "id": "MPLS_PW_LOCV",
+                            "@type": "alarm"
+                          },
+                          {
+                            "description": "Loss of signal to the Ethernet port. The alarm is generated when no Ethernet signal is received on the Ethernet port.",
+                            "date": "23/05/24",
+                            "ne": 3789,
+                            "id": "MPLS_TUNNEL_LOCV",
+                            "@type": "alarm"
+                          }
+                        ],
+                        "extensionInfo": [
+                          {
+                            "name": "TroubleTicket",
+                            "valueType": "TroubleTicket",
+                            "value": {
+                              "id": 3180,
+                              "creationDate": "03/10/2022 00:00:00",
+                              "description": "router ping is not successfull",
+                              "externalId": 345,
+                              "name": "Incident router",
+                              "priority": "",
+                              "severity": "Urgent.UrgencyType",
+                              "ticketType": "network",
+                              "troubleTicketRelationship": [
+                                {
+                                  "id": 123,
+                                  "@referredType": "IncidentRef",
+                                  "relationshipType": "relyOn"
+                                }
+                              ],
+                              "@type": "TroubleTicket"
+                            },
+                            "@type": "Characteristic"
+                          }
+                        ],
+                        "rootCause": [
+                          {
+                            "ne": null,
+                            "id": "ETH_LINK_DOWN",
+                            "@type": "alarm"
+                          }
+                        ],
+                        "@type": "Incident"
+                      },
+                      "@type": "DiagnoseIncident"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "status": 500,
+                      "code": "{http.statusCode}",
+                      "message": "diagnoseIncident creation error: {system}",
+                      "type": "diagnoseIncident error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "create diagnoseIncident": {
+                    "summary": "",
+                    "description": "",
+                    "value": {
+                      "status": 403,
+                      "code": "403",
+                      "message": "DiagnoseIncident model validation error",
+                      "reason": "no Incident object provided",
+                      "type": "diagnoseIncident error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The request URL is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 404,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the characteristic",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "description": "Data type of the value of the characteristic",
+            "nullable": true
+          },
+          "characteristicRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacteristicRelationship"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "value": {
+            "description": "",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Describes a given characteristic of an object or entity through a name/value pair."
+      },
+      "CharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the characteristic",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "relationshipType": {
+            "type": "string",
+            "description": "The type of relationship",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Another Characteristic that is related to the current Characteristic."
+      },
+      "DiagnoseIncident": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Reference of the diagnose incident task",
+            "nullable": true
+          },
+          "errorLog": {
+            "type": "string",
+            "description": "Reason for failure",
+            "nullable": true
+          },
+          "incident": {
+            "$ref": "#/components/schemas/Incident"
+          },
+          "state": {
+            "type": "string",
+            "description": "Possible values for the state of a task",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": " A stage in the incident lifecycle. The purpose of diagnosis is to identify a workaround for an incident (ITIL Service Operation). \r\nDiagnosing Incidents by Incident SN"
+      },
+      "EntityRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the related entity.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target instance when needed for disambiguation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Entity reference schema to be use for all entityRef class."
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Application relevant detail, defined in the API or a common list.",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of the reason for the error which can be shown to a client user.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "More details and corrective actions related to the error which can be shown to a client user.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "HTTP Error code extension",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "description": "URI of documentation describing the error.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class.",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class entity name.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)"
+      },
+      "ExternalIdentifier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "identification of the entity within the external system.",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "externalIdentifierType": {
+            "type": "string",
+            "description": "Type of the identification, typically would be the type of the entity within the external system",
+            "nullable": true
+          },
+          "owner": {
+            "type": "string",
+            "description": "Name of the external system that owns the entity.",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An identification of an entity that is owned by or originates in a software system different from the current system, for example a ProductOrder handed off from a commerce platform into an order handling system. The structure identifies the system itself, the nature of the entity within the system (e.g. class name) and the unique ID of the entity within the system. It is anticipated that multiple external IDs can be held for a single entity, e.g. if the entity passed through multiple systems on the way to the current system. In this case the consumer is expected to sequence the IDs in the array in reverse order of provenance, i.e. most recent system first in the list."
+      },
+      "Incident": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "ackTime": {
+            "type": "string",
+            "description": "The ackTime or acknowledgeTime of the incident. An acknowledged incident is being worked on, but is not yet resolved",
+            "format": "date-time",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "description": "The category of the incident  (category is the term used by ITU)",
+            "nullable": true
+          },
+          "clearTime": {
+            "type": "string",
+            "description": "The clear time of the incident",
+            "format": "date-time",
+            "nullable": true
+          },
+          "domain": {
+            "type": "string",
+            "description": "The domain of the incident, for example RAN, PON, OTN, Cross-Domain etc",
+            "nullable": true
+          },
+          "incidentDetail": {
+            "type": "string",
+            "description": "A textual succinct description of the nature, symptoms, cause, or effect of the incident.",
+            "nullable": true
+          },
+          "incidentResolutionSuggestion": {
+            "type": "string",
+            "description": "Incident resolution suggestion or tip to resolve the incident",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the incident. A short-form string that provides succinct, important information about the incident",
+            "nullable": true
+          },
+          "occurTime": {
+            "type": "string",
+            "description": "Indicates the time (as a date + time) at which the incident occurred at its source",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "The last update time  of the incident",
+            "nullable": true
+          },
+          "ackState": {
+            "type": "string",
+            "description": "Possible values for the ack state of an Incident",
+            "nullable": true
+          },
+          "affectedEntity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EntityRef"
+            },
+            "description": "List of affected entities",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceEntity"
+            },
+            "description": "The correlation event object such as alarm, externalAlarm, performance, etc.",
+            "nullable": true
+          },
+          "extensionInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Characteristic"
+            },
+            "description": "This is used for extend the incident with attributes",
+            "nullable": true
+          },
+          "externalIdentifier": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExternalIdentifier"
+            },
+            "description": "An identification of an entity that is owned by or originates in a software system different from the current system, for example a ProductOrder handed off from a commerce platform into an order handling system. The structure identifies the system itself, the nature of the entity within the system (e.g. class name) and the unique ID of the entity within the system. It is anticipated that multiple external IDs can be held for a single entity, e.g. if the entity passed through multiple systems on the way to the current system. In this case the consumer is expected to sequence the IDs in the array in reverse order of provenance, i.e. most recent system first in the list.",
+            "nullable": true
+          },
+          "impact": {
+            "type": "string",
+            "description": "Possible values for the impact of an Incident",
+            "nullable": true
+          },
+          "priority": {
+            "type": "string",
+            "description": "Possible values for the Priority of an Incident",
+            "nullable": true
+          },
+          "rootCause": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RootCause"
+            },
+            "description": "A root cause is a fundamental or underlying reason behind why an incident occurred that identifies one or more failures. An incident many have multiple rootCauses",
+            "nullable": true
+          },
+          "rootEventId": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceEntity"
+            },
+            "description": "The root event object such as alarm, externalAlarm, performance, etc.",
+            "nullable": true
+          },
+          "sourceObject": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceEntity"
+            },
+            "description": "The objects show the incident, it may be part of Network Equipment. Fault object, which may be an NE or a port.",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "Possible values for the state of an Incident",
+            "nullable": true
+          },
+          "urgency": {
+            "type": "string",
+            "description": "Possible values for the urgency of an Incident",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An Incident is a record of an event that has altered the operational state of a entity (Resource, Service or Customers Product). An incident represents an issue that needs to be diagnosed and resolved."
+      },
+      "ResourceEntity": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "NE": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "ID created by the implementing service",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink to access the test resource",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for REST Resources"
+      },
+      "RootCause": {
+        "type": "object",
+        "properties": {
+          "NE": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "unique identifier",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "When sub-classing, this defines the sub-class Extensible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The name of RootCause, for example:Power Down"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Incident",
+      "description": ""
+    }
+  ]
+}
