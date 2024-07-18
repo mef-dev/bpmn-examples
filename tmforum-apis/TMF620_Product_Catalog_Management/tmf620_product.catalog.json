@@ -1,0 +1,1391 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "TMF620",
+    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>12 July 2024</b><br/><br/><b>Product Catalog Management</b><br/><br/>",
+    "termsOfService": "http://devserv.natec.com:9001/terms",
+    "contact": {
+      "name": "NATEC base",
+      "url": "http://devserv.natec.com:9001/store/tenant/3",
+      "email": "denys.shershnov@natec.tech"
+    },
+    "version": "1.0.0.3"
+  },
+  "servers": [
+    {
+      "url": "http://devserv.natec.com:9000/api/v2/tmf",
+      "description": "Main server"
+    }
+  ],
+  "paths": {
+    "/productCatalog/productOffering/{id}.{format}": {
+      "get": {
+        "tags": [
+          "productCatalog"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept_Language",
+            "in": "header",
+            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x_ms_client_request_id",
+            "in": "header",
+            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting selector. LOV: name\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "description": "No description\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "validFor",
+            "in": "query",
+            "description": "A covered time period. LOV: An object\r\np_ucp_get_productOffering",
+            "schema": {
+              "$ref": "#/components/schemas/TimePeriod"
+            }
+          },
+          {
+            "name": "marketSegment",
+            "in": "query",
+            "description": "Filter by market segment. LOV: A List of object\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MarketSegmentRef"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Number of records per response (server paging). LOV: integer greater than zero\r\np_ucp_get_productOffering",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "By Account": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894551,
+                        "name": "10000000100",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702258,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "By RelatedParty": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894578,
+                        "name": "10000000112",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702391,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOffering_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have access to requested resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 403,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productCatalog/productOffering/{id}": {
+      "get": {
+        "tags": [
+          "productCatalog"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept_Language",
+            "in": "header",
+            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x_ms_client_request_id",
+            "in": "header",
+            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting selector. LOV: name\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "description": "No description\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "validFor",
+            "in": "query",
+            "description": "A covered time period. LOV: An object\r\np_ucp_get_productOffering",
+            "schema": {
+              "$ref": "#/components/schemas/TimePeriod"
+            }
+          },
+          {
+            "name": "marketSegment",
+            "in": "query",
+            "description": "Filter by market segment. LOV: A List of object\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MarketSegmentRef"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Number of records per response (server paging). LOV: integer greater than zero\r\np_ucp_get_productOffering",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "By Account": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894551,
+                        "name": "10000000100",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702258,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "By RelatedParty": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894578,
+                        "name": "10000000112",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702391,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOffering_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have access to requested resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 403,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productCatalog/productOffering.{format}": {
+      "get": {
+        "tags": [
+          "productCatalog"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept_Language",
+            "in": "header",
+            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x_ms_client_request_id",
+            "in": "header",
+            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting selector. LOV: name\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "description": "No description\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "validFor",
+            "in": "query",
+            "description": "A covered time period. LOV: An object\r\np_ucp_get_productOffering",
+            "schema": {
+              "$ref": "#/components/schemas/TimePeriod"
+            }
+          },
+          {
+            "name": "marketSegment",
+            "in": "query",
+            "description": "Filter by market segment. LOV: A List of object\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MarketSegmentRef"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Number of records per response (server paging). LOV: integer greater than zero\r\np_ucp_get_productOffering",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "By Account": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894551,
+                        "name": "10000000100",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702258,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "By RelatedParty": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894578,
+                        "name": "10000000112",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702391,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOffering_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have access to requested resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 403,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productCatalog/productOffering": {
+      "get": {
+        "tags": [
+          "productCatalog"
+        ],
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept_Language",
+            "in": "header",
+            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x_ms_client_request_id",
+            "in": "header",
+            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting selector. LOV: name\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDirection",
+            "in": "query",
+            "description": "No description\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "validFor",
+            "in": "query",
+            "description": "A covered time period. LOV: An object\r\np_ucp_get_productOffering",
+            "schema": {
+              "$ref": "#/components/schemas/TimePeriod"
+            }
+          },
+          {
+            "name": "marketSegment",
+            "in": "query",
+            "description": "Filter by market segment. LOV: A List of object\r\np_ucp_get_productOffering",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MarketSegmentRef"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Number of records per response (server paging). LOV: integer greater than zero\r\np_ucp_get_productOffering",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "By Account": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894551,
+                        "name": "10000000100",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702258,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "By RelatedParty": {
+                    "summary": "",
+                    "description": "",
+                    "value": [
+                      {
+                        "ratingType": 2,
+                        "id": 5894578,
+                        "name": "10000000112",
+                        "accountType": 16,
+                        "RegistrCatID": 0,
+                        "relatedParty": [
+                          {
+                            "id": 6838,
+                            "@referredType": "Associations",
+                            "IDType": 1
+                          },
+                          {
+                            "id": 7702391,
+                            "@referredType": "Customers",
+                            "IDType": 0
+                          }
+                        ],
+                        "state": "activ",
+                        "paymentPlan": [
+                          {
+                            "planType": "1",
+                            "paymentMethod": {
+                              "id": 2
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductOffering_Response_GET"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 400,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The specified login/password pair is incorrect",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 401,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have access to requested resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 403,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The resource you are requesting doesn't support the request HTTP method",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 405,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "You need to repeat the request immediately",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 408,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 409,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": 503,
+                  "code": -2146233088,
+                  "message": "Error message",
+                  "type": "ErrorType"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceError": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MarketSegmentRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A Market Segment identifier\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A Market Segment name\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "referredType": {
+            "type": "string",
+            "description": "The actual type of the target entity when needed for disambiguation. LOV: Standards, SubscriptionTypes\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "baseType": {
+            "type": "string",
+            "description": "When sub-classing, this defines the super-class",
+            "nullable": true
+          },
+          "schemaLocation": {
+            "type": "string",
+            "description": "A URI to a JSON-Schema file that defines additional attributes and relationships",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "description": "Hyperlink reference",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth."
+      },
+      "ProductOffering_Response_GET": {
+        "type": "object",
+        "properties": {
+          "Accept_Language": {
+            "type": "string",
+            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of records per response (server paging). LOV: integer greater than zero",
+            "format": "int32",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Requested index for start of records to be provided in response requested by client (server paging). LOV: 0 - first index",
+            "format": "int32",
+            "nullable": true
+          },
+          "x_ms_client_request_id": {
+            "type": "string",
+            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value",
+            "nullable": true
+          },
+          "Content_Range": {
+            "type": "string",
+            "nullable": true
+          },
+          "Link": {
+            "type": "string",
+            "description": "Web Linking HTTP header. LOV: reserved",
+            "nullable": true
+          },
+          "X_Page_Count": {
+            "type": "integer",
+            "description": "A Page Count from Server Paging",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "TimePeriod": {
+        "type": "object",
+        "properties": {
+          "startDateTime": {
+            "type": "string",
+            "description": "A Start date\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "An End date\r\n`p_ucp_get_productOffering`",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The @type attribute represents the actual class type of an entity. LOV: An Attribute Format value of the Object",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "ApiKey",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ],
+      "ApiKeyAuth": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "productCatalog",
+      "description": ""
+    }
+  ]
+}
