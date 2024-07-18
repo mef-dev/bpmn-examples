@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "f87a1ff5-df34-464b-9278-beea3829fb0f",
+		"name": "3GPP Rf Rating (MEF.DEV)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-f87a1ff5-df34-464b-9278-beea3829fb0f?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "ECUR (Class B)",
+			"item": [
+				{
+					"name": "RatingData",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":1,\r\n   \"oneTimeEvent\":true,\r\n   \"oneTimeEventType\":\"PEC\",\r\n   \"invocationTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"beginTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"subscriptionId\":[\r\n      \"msisdn-380670000000\",\r\n      \"nai-0000@kyivstar.net\",\r\n      \"imsi-001001000000001\"\r\n   ],\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"RESERVE\",\r\n         \"requestedUnit\":{\r\n            \"serviceSpecificUnit\":5\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RatingData\\Release",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":3,\r\n   \"invocationTimeStamp\":\"2024-07-07T15:46:20.322307846Z\",\r\n   \"beginTimeStamp\":\"2024-07-07T15:46:20.322307846Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"DEBIT\",\r\n         \"consumedUnit\":{\r\n            \"serviceSpecificUnit\":3\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata/20404000000000281287/release",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata",
+								"20404000000000281287",
+								"release"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SCUR (Class B)",
+			"item": [
+				{
+					"name": "RatingData",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":1,\r\n   \"oneTimeEvent\":true,\r\n   \"oneTimeEventType\":\"PEC\",\r\n   \"invocationTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"beginTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"subscriptionId\":[\r\n      \"msisdn-380670000000\",\r\n      \"nai-0000@kyivstar.net\",\r\n      \"imsi-001001000000001\"\r\n   ],\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"RESERVE\",\r\n         \"requestedUnit\":{\r\n            \"serviceSpecificUnit\":5\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RatingData\\Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":2,\r\n   \"invocationTimeStamp\":\"2024-07-08T17:49:12.526992554Z\",\r\n   \"beginTimeStamp\":\"2024-07-08T17:49:12.526992554Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"DEBIT\",\r\n         \"consumedUnit\":{\r\n            \"serviceSpecificUnit\":3\r\n         }\r\n      },\r\n\t  {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234568\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"RESERVE\",\r\n         \"requestedUnit\":{\r\n            \"serviceSpecificUnit\":5\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata/20404000000000281287/update",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata",
+								"20404000000000281287",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RatingData\\Release",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":3,\r\n   \"invocationTimeStamp\":\"2024-07-07T15:46:20.322307846Z\",\r\n   \"beginTimeStamp\":\"2024-07-07T15:46:20.322307846Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"DEBIT\",\r\n         \"consumedUnit\":{\r\n            \"serviceSpecificUnit\":3\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata/20404000000000281287/release",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata",
+								"20404000000000281287",
+								"release"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IEC (Class B)",
+			"item": [
+				{
+					"name": "RatingData",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "uk"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "windows-1251"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							},
+							{
+								"key": "Global_unique_id",
+								"value": "a4035746-75eb-4128-a58d-22b0689da4be<"
+							},
+							{
+								"key": "System",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"invocationSequenceNumber\":1,\r\n   \"oneTimeEvent\":true,\r\n   \"oneTimeEventType\":\"IEC\",\r\n   \"invocationTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"beginTimeStamp\":\"2024-07-08T17:49:12.427432395Z\",\r\n   \"nfConsumerIdentification\":{\r\n      \"nodeFunctionality\":\"OCF\"\r\n   },\r\n   \"subscriptionId\":[\r\n      \"msisdn-380670000000\",\r\n      \"nai-0000@kyivstar.net\",\r\n      \"imsi-001001000000001\"\r\n   ],\r\n   \"serviceRating\":[\r\n      {\r\n         \"serviceContextId\":\"32274@3gpp.org\",\r\n         \"serviceId\":412001,\r\n         \"ratingGroup\":1,\r\n         \"destinationId\":[\r\n            {\r\n               \"destinationIdType\":\"DN\",\r\n               \"destinationIdData\":\"380671234567\"\r\n            }\r\n         ],\r\n         \"requestSubType\":\"RESERVE\",\r\n         \"consumedUnit\":{\r\n            \"serviceSpecificUnit\":5\r\n         }\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb.kyivstar.ua/api/v1/nrf-rating/ratingdata",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb",
+								"kyivstar",
+								"ua"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nrf-rating",
+								"ratingdata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

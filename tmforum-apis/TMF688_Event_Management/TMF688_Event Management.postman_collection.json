@@ -1,0 +1,1312 @@
+{
+	"info": {
+		"_postman_id": "e65104df-3916-4e99-b1ae-db63ba1160ef",
+		"name": "TMF688 Event Management (MEF.DEV)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-e65104df-3916-4e99-b1ae-db63ba1160ef?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "Topic",
+			"item": [
+				{
+					"name": "Creates a Topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1790906\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"80\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/topic",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							]
+						},
+						"description": "This operation creates a BillingAccount entity."
+					},
+					"response": [
+						{
+							"name": "Incorrect Event Type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\":\"myFirstTriger\",\n   \"header\":{\n      \"eventType\":\"{{eventType}}\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":{{Customer_id}},\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"{{pattern}}\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageCode\",\n                     \"value\":\"{{tp_code}}\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"{{sim_group}}\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingGroupCode\",\n                     \"value\":\"{{rating_group}}\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"{{threshold_value}}\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"{{threshold_type}}\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "210"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Apr 2024 15:29:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"50000\",\n    \"reason\": \"Internal Server Error\",\n    \"message\": \"Ошибка выполнения: Некорректное значение входящего параметра: @header.eventType\",\n    \"status\": \"500\"\n}"
+						},
+						{
+							"name": "Percent Overlimit within the Pool",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1790906\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"80\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 16 Jul 2024 14:47:09 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"21\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete the Topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/topic/21",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic",
+								"21"
+							]
+						},
+						"description": "This operation creates a BillingAccount entity."
+					},
+					"response": [
+						{
+							"name": "Duplicated operation",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic/91",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic",
+										"91"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "164"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jun 2024 07:32:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"51697\",\n    \"reason\": \"51697\",\n    \"message\": \"The specified identifier has already been deleted, so the operation is not possible\",\n    \"status\": \"500\",\n    \"referenceError\": \"\"\n}"
+						},
+						{
+							"name": "Deleted successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic/49",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic",
+										"49"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jun 2024 07:58:39 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "List or find Topic entittes",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/topic?limit=5&offset=1&header={relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}],\"eventType\": \"RatingUnion.PercentOverlimit.Event\"}",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "header",
+									"value": "{relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}],\"eventType\": \"RatingUnion.PercentOverlimit.Event\"}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Partial response by Related Party",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic?limit=5&offset=1&header={relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}],\"eventType\": \"RatingUnion.PercentOverlimit.Event\"}",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "offset",
+											"value": "1"
+										},
+										{
+											"key": "header",
+											"value": "{relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}],\"eventType\": \"RatingUnion.PercentOverlimit.Event\"}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 16 Jul 2024 15:30:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-2/2"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "218d32a8-918f-41ce-ab12-ecd05bda"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "2"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "[\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Percent\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"80.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Percent\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n  },\n  \"id\": \"14\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Percent\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"80.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Percent\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n  },\n  \"id\": \"23\",\n  \"name\": \"m2m-rating\"\n}\n]\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Find Event by Period",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/event?limit=5&offset=0&periodCoverage={\"startDateTime\":\"2021-04-30T23:59:59.997\",\"endDateTime\":\"2025-06-01T00:00:00.000\"}",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"event"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "periodCoverage",
+									"value": "{\"startDateTime\":\"2021-04-30T23:59:59.997\",\"endDateTime\":\"2025-06-01T00:00:00.000\"}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Particial Events by Period",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/event?limit=5&offset=0&periodCoverage={\"startDateTime\":\"2021-04-30T23:59:59.997\",\"endDateTime\":\"2025-06-01T00:00:00.000\"}",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"event"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "periodCoverage",
+											"value": "{\"startDateTime\":\"2021-04-30T23:59:59.997\",\"endDateTime\":\"2025-06-01T00:00:00.000\"}"
+										}
+									]
+								}
+							},
+							"status": "Partial Content",
+							"code": 206,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-5/32"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "776caca9-49ed-4777-b8aa-d114f958"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "32"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "7"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Jun 2024 12:52:14 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2025-06-01T00:00:00\",\r\n    \"startDateTime\": \"2021-04-30T23:59:59.997\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T14:49:43.017\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"402\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2025-06-01T00:00:00\",\r\n    \"startDateTime\": \"2021-04-30T23:59:59.997\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T14:53:43.26\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"403\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2025-06-01T00:00:00\",\r\n    \"startDateTime\": \"2021-04-30T23:59:59.997\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T15:13:29.567\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"404\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2025-06-01T00:00:00\",\r\n    \"startDateTime\": \"2021-04-30T23:59:59.997\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-02-15T17:08:14.14\",\r\n  \"eventType\": \"M2M.Test.Off\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-02-16T15:18:50.66\",\r\n  \"title\": \"M2M.Test.Off-6316.OwnRule\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"204\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892664\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"60\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6316\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6316\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702257\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"60\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"100.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"26\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic M2M.Test.Off-6316.OwnRule threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702257\"\r\n        },\r\n        {\r\n          \"id\": \"02-20\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"122\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2025-06-01T00:00:00\",\r\n    \"startDateTime\": \"2021-04-30T23:59:59.997\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-02-15T17:08:14.14\",\r\n  \"eventType\": \"M2M.Test.Off\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-02-16T15:28:19.25\",\r\n  \"title\": \"M2M.Test.Off-6316.OwnRule\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"204\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892664\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"60\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6316\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6316\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702257\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"60\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"100.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"26\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic M2M.Test.Off-6316.OwnRule threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702257\"\r\n        },\r\n        {\r\n          \"id\": \"02-20\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"131\"\r\n}\r\n]\r\n"
+						}
+					]
+				},
+				{
+					"name": "Find Event by Customer and type",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/event?limit=5&offset=0&periodCoverage={\"startDateTime\":\"2024-06-26T00:10:00.000\",\"endDateTime\":\"2024-06-26T23:19:00.00\"}&eventType=\"RatingUnion.PercentOverlimit.Event\"&relatedParty=[{\"id\": \"7702217\",\"@referredType\": \"Customers\",\"IDType\": 0}]",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"event"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "periodCoverage",
+									"value": "{\"startDateTime\":\"2024-06-26T00:10:00.000\",\"endDateTime\":\"2024-06-26T23:19:00.00\"}"
+								},
+								{
+									"key": "eventType",
+									"value": "\"RatingUnion.PercentOverlimit.Event\""
+								},
+								{
+									"key": "relatedParty",
+									"value": "[{\"id\": \"7702217\",\"@referredType\": \"Customers\",\"IDType\": 0}]"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/event?limit=5&offset=0&periodCoverage={\"startDateTime\":\"2024-06-26T00:10:00.000\",\"endDateTime\":\"2024-06-26T23:19:00.00\"}&eventType=\"RatingUnion.PercentOverlimit.Event\"&relatedParty=[{\"id\": \"7702217\",\"@referredType\": \"Customers\",\"IDType\": 0}]",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"event"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "periodCoverage",
+											"value": "{\"startDateTime\":\"2024-06-26T00:10:00.000\",\"endDateTime\":\"2024-06-26T23:19:00.00\"}"
+										},
+										{
+											"key": "eventType",
+											"value": "\"RatingUnion.PercentOverlimit.Event\""
+										},
+										{
+											"key": "relatedParty",
+											"value": "[{\"id\": \"7702217\",\"@referredType\": \"Customers\",\"IDType\": 0}]"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-3/3"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "c1ffa27d-262f-4531-b09c-db38e15f"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "3"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Jun 2024 13:02:52 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2024-06-26T23:19:00\",\r\n    \"startDateTime\": \"2024-06-26T00:10:00\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T14:49:43.017\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"402\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2024-06-26T23:19:00\",\r\n    \"startDateTime\": \"2024-06-26T00:10:00\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T14:53:43.26\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"403\"\r\n},\n{\r\n  \"periodCoverage\": {\r\n    \"endDateTime\": \"2024-06-26T23:19:00\",\r\n    \"startDateTime\": \"2024-06-26T00:10:00\"\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"domain\": \"ocs\",\r\n  \"eventTime\": \"2024-06-26T14:48:51.707\",\r\n  \"eventType\": \"RatingUnion.PercentOverlimit.Event\",\r\n  \"priority\": \"Normal\",\r\n  \"timeOccurred\": \"2024-06-26T15:13:29.567\",\r\n  \"title\": \"\",\r\n  \"event\": {\r\n    \"alarm\": {\r\n      \"analyticCharacteristic\": [\r\n        {\r\n          \"id\": \"DateFrom\",\r\n          \"name\": \"DateFrom\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T00:00:00\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"DateTo\",\r\n          \"name\": \"DateTo\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-07-25T23:59:59.997\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"dnm_id\",\r\n          \"name\": \"DynamicType\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"199\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"EventDate\",\r\n          \"name\": \"EventDate\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"2024-06-26T14:48:51.687\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"ext_id\",\r\n          \"name\": \"Extention_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7892672\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitTotalVolume\",\r\n          \"name\": \"LimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"LimitVolumeByUnion\",\r\n          \"name\": \"LimitVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"1048576000\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"OriginLimitTotalVolume\",\r\n          \"name\": \"OriginLimitTotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"0\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"idTariffPlan\",\r\n          \"name\": \"PackageId\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6195\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageIdLimit\",\r\n          \"name\": \"PackageIdLimit\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"PackageOverrideID\",\r\n          \"name\": \"PackageOverrideID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"6229\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"abn_id\",\r\n          \"name\": \"Subscriber_ID\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"7702390\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolume\",\r\n          \"name\": \"TotalVolume\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        },\r\n        {\r\n          \"id\": \"TotalVolumeByUnion\",\r\n          \"name\": \"TotalVolumeByUnion\",\r\n          \"valueType\": \"string\",\r\n          \"value\": \"104857600\",\r\n          \"@type\": \"Characteristic\"\r\n        }\r\n      ],\r\n      \"crossedThresholdInformation\": {\r\n        \"observedValue\": \"20.0\",\r\n        \"threshold\": {\r\n          \"@type\": \"ThresholdRef\",\r\n          \"id\": \"Percent\"\r\n        },\r\n        \"direction\": \"up\"\r\n      },\r\n      \"@type\": \"alarm\",\r\n      \"alarmType\": \"QualityOfServiceAlarm\",\r\n      \"id\": \"162\",\r\n      \"perceivedSeverity\": \"warning\",\r\n      \"probableCause\": \"Threshold crossed\",\r\n      \"serviceAffecting\": true,\r\n      \"specificProblem\": \"Topic  threshold crossed\",\r\n      \"state\": \"raised\",\r\n      \"affectedService\": [\r\n        {\r\n          \"id\": \"01-7702390\"\r\n        },\r\n        {\r\n          \"id\": \"02-55\"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  \"id\": \"404\"\r\n}\r\n]\r\n"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Hub",
+			"item": [
+				{
+					"name": "List or find Hub entittes",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363734",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/topic/24/hub?limit=5&offset=1",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic",
+								"24",
+								"hub"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic/24/hub?limit=5&offset=0",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic",
+										"24",
+										"hub"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 09:44:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-0/1"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "d2a2aeb8-e57b-43ec-9a0a-977a0441"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "0"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "[\n{\n  \"id\": \"204-52-24\",\n  \"callback\": \"http://10.49.199.96:8080/api/kafka\",\n  \"query\": \"esym_Method=ETG.Counter.Overlimit.Notification\"\n}\n]\n"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Customer_id",
+			"value": "7702142",
+			"type": "string"
+		},
+		{
+			"key": "eventType",
+			"value": "DataUsageOverlimitEvent",
+			"type": "string"
+		},
+		{
+			"key": "tp_code",
+			"value": "40003",
+			"type": "string"
+		},
+		{
+			"key": "sim_group",
+			"value": "default",
+			"type": "string"
+		},
+		{
+			"key": "rating_group",
+			"value": "DTE_ROAM_1",
+			"type": "string"
+		},
+		{
+			"key": "pattern",
+			"value": "Counter",
+			"type": "string"
+		},
+		{
+			"key": "threshold_type",
+			"value": "Percent",
+			"type": "string"
+		},
+		{
+			"key": "threshold_value",
+			"value": "20",
+			"type": "string"
+		},
+		{
+			"key": "threshold_value_new",
+			"value": "30",
+			"type": "string"
+		}
+	]
+}
