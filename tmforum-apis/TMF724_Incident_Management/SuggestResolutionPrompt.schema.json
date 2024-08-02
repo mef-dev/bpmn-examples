@@ -1,0 +1,117 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "title":"SuggestResolutionPrompt",
+   "type":"object",
+   "properties":{
+      "callType":{
+         "type":"string",
+         "description":"Prompt engineering strategy selector",
+         "enum":[
+            "OneShot",
+            "ChainOfThought"
+         ]
+      },
+      "apiOptions":{
+         "type":"object",
+         "description":"OpenAI connectivity options",
+         "properties":{
+            "url":{
+               "type":"string",
+               "description":"OpenAI endpoint URI starting from https"
+            },
+            "headers":{
+               "type":"object",
+               "properties":{
+                  "Content-Type":{
+                     "type":"string"
+                  },
+                  "Authorization":{
+                     "type":"string"
+                  }
+               },
+               "required":[
+                  "Content-Type",
+                  "Authorization"
+               ]
+            },
+            "model":{
+               "type":"string",
+               "description":"A LLM model name to use",
+               "enum":[
+                  "llama3-70b",
+                  "llama3-8b",
+                  "codellama-7b-instruct",
+                  "codellama-13b-instruct",
+                  "codellama-34b-instruct",
+                  "mixtral-8x22b-instruct",
+                  "mixtral-8x7b-instruct",
+                  "mistral-7b-instruct",
+                  "mistral-7b",
+                  "mixtral-8x22b",
+                  "gemma-7b",
+                  "gemma-2b",
+                  "alpaca-7b",
+                  "vicuna-7b",
+                  "vicuna-13b",
+                  "vicuna-13b-16k",
+                  "falcon-7b-instruct",
+                  "falcon-40b-instruct",
+                  "openassistant-llama2-70b",
+                  "open-mistral-7b",
+                  "open-mistral-8x7b",
+                  "open-mistral-8x22b",
+                  "mistral-small-latest",
+                  "mistral-medium-latest",
+                  "omistral-large-latest",
+                  "mistral-embed",
+                  "codestral-latest",
+                  "gpt-4-turbo",
+                  "gpt-3.5-turbo",
+                  "gpt-3.5-turbo-16k",
+                  "code-davinci-002",
+                  "code-cushman-001",
+                  "text-embedding-ada-002",
+                  "text-moderation-stable",
+                  "text-moderation-latest"
+               ]
+            },
+            "temperature":{
+               "type":"number",
+               "description":"Temperature is used to control the randomness of the output. When you set it higher, you'll get more random outputs. When you set it lower, towards 0, the values are more deterministic. A default value of 1 or 0.7 depending on the model you choose",
+               "minimum":0,
+               "maximum":2
+            },
+            "top_p":{
+               "type":"number",
+               "description":"The “top_p” value ranges from 0 to 2, where lower values increase determinism, and higher values increase randomness. When the top_p value is set to a lower value, the model will choose tokens from a smaller percentage of the highest probabilities",
+               "minimum":0,
+               "maximum":2
+            },
+            "frequency_penalty":{
+               "type":"number",
+               "description":"The frequency_penalty parameter allows you to control the model's tendency to generate repetitive responses. Higher values, like 1.0, encourage the model to explore more diverse and novel responses, while lower values, such as 0.2, make the model more likely to repeat information",
+               "minimum":0,
+               "maximum":2
+            }
+         },
+         "required":[
+            "url",
+            "headers",
+            "model"
+         ]
+      },
+      "prompt":{
+         "type":"string",
+         "description":"A Prompt sentense, namely question what you would like to be answered by LLM"
+      },
+      "context":{
+         "type":"string",
+         "description":"A context is used by Retrieval-Augmented Generation (RAG) approach, an AI development technique where a large language model (LLM) is connected to an external knowledge base to improve the accuracy and quality of its responses. Types of sources that LLMs can connect to with RAG include document repositories, files, APIs, and databases"
+      }
+   },
+   "required":[
+      "callType",
+      "apiOptions",
+      "prompt"
+   ]
+}
