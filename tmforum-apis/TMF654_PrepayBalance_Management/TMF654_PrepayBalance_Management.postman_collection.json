@@ -1,0 +1,840 @@
+{
+	"info": {
+		"_postman_id": "7f018a09-5734-4901-8726-cbbc257e53dc",
+		"name": "TMF654 PrepayBalance Management (MEF.DEV)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-7f018a09-5734-4901-8726-cbbc257e53dc?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "AccumulatedBalance",
+			"item": [
+				{
+					"name": "List of AccumulatedBalance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "bpmn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "x-ms-client-request-id",
+								"value": "20412345678903142363799",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"prepayBalanceManagement",
+								"AccumulatedBalance"
+							]
+						},
+						"description": "This operation list or find Service entities"
+					},
+					"response": [
+						{
+							"name": "By Customer ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance?offset=0&limit=50&relatedParty.id=1131627&relatedParty.@referredType=Customers&relatedParty.IDType=0",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "relatedParty.id",
+											"value": "1131627"
+										},
+										{
+											"key": "relatedParty.@referredType",
+											"value": "Customers"
+										},
+										{
+											"key": "relatedParty.IDType",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "6016a3da-27b2-4529-abe9-7e6e000f"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 16 Aug 2024 06:48:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"id\": \"1241539\",\r\n  \"partyAccount\": {\r\n    \"id\": 924725,\r\n    \"name\": \"0003860723\",\r\n    \"status\": \"close\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"billing\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2022-05-31T23:59:59.993\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"1131627\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "By Association",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance?offset=0&limit=50&relatedParty.id=6838&relatedParty.@referredType=Associations&relatedParty.IDType=1",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "relatedParty.id",
+											"value": "6838"
+										},
+										{
+											"key": "relatedParty.@referredType",
+											"value": "Associations"
+										},
+										{
+											"key": "relatedParty.IDType",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-9/9"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "77876f0e-2b16-498f-8ca6-a8e96ef0"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "9"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 16 Aug 2024 06:50:25 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"id\": \"144077\",\r\n  \"partyAccount\": {\r\n    \"id\": 21212,\r\n    \"name\": \"3404680\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"42945\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"2053594\",\r\n  \"partyAccount\": {\r\n    \"id\": 2121212,\r\n    \"name\": \"10785988\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"3812617\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707902\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894535,\r\n    \"name\": \"10000000001\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702207\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707906\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894545,\r\n    \"name\": \"10000000004\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"reserved\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-02-15T17:08:14.18\"\r\n        }\r\n      },\r\n      {\r\n        \"balanceType\": \"accepted\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-06-26T17:09:17.323\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892664\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"0671234568\"\r\n    },\r\n    {\r\n      \"id\": \"7892671\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234588\"\r\n    },\r\n    {\r\n      \"id\": \"7892672\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234589\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707908\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894550,\r\n    \"name\": \"10000000999\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702247\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707962\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894619,\r\n    \"name\": \"10000000102\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702611\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5708016\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894675,\r\n    \"name\": \"10000000300\",\r\n    \"status\": \"temp\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7703012\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707909\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894551,\r\n    \"name\": \"10000000100\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702258\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {},\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892700\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234566\"\r\n    },\r\n    {\r\n      \"id\": \"7892701\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"380671234599\"\r\n    },\r\n    {\r\n      \"id\": \"7892702\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"380671234589\"\r\n    },\r\n    {\r\n      \"id\": \"7892703\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134589\"\r\n    },\r\n    {\r\n      \"id\": \"7892710\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134599\"\r\n    },\r\n    {\r\n      \"id\": \"7892711\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134598\"\r\n    },\r\n    {\r\n      \"id\": \"7892712\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134577\"\r\n    },\r\n    {\r\n      \"id\": \"7892714\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134575\"\r\n    },\r\n    {\r\n      \"id\": \"7892715\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134574\"\r\n    },\r\n    {\r\n      \"id\": \"7892727\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134579\"\r\n    },\r\n    {\r\n      \"id\": \"7892729\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134529\"\r\n    },\r\n    {\r\n      \"id\": \"7892730\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134523\"\r\n    },\r\n    {\r\n      \"id\": \"7892731\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134521\"\r\n    },\r\n    {\r\n      \"id\": \"7892732\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134511\"\r\n    },\r\n    {\r\n      \"id\": \"7892733\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134512\"\r\n    },\r\n    {\r\n      \"id\": \"7892734\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134513\"\r\n    },\r\n    {\r\n      \"id\": \"7892735\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134514\"\r\n    },\r\n    {\r\n      \"id\": \"7892736\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134515\"\r\n    },\r\n    {\r\n      \"id\": \"7892737\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134516\"\r\n    },\r\n    {\r\n      \"id\": \"7892738\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134519\"\r\n    },\r\n    {\r\n      \"id\": \"7892739\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134520\"\r\n    },\r\n    {\r\n      \"id\": \"7892740\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134623\"\r\n    },\r\n    {\r\n      \"id\": \"7892741\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134621\"\r\n    },\r\n    {\r\n      \"id\": \"7892742\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134624\"\r\n    },\r\n    {\r\n      \"id\": \"7892746\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134627\"\r\n    },\r\n    {\r\n      \"id\": \"7892747\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134629\"\r\n    },\r\n    {\r\n      \"id\": \"7892748\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134619\"\r\n    },\r\n    {\r\n      \"id\": \"7892750\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134633\"\r\n    },\r\n    {\r\n      \"id\": \"7892755\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134634\"\r\n    },\r\n    {\r\n      \"id\": \"7892758\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134635\"\r\n    },\r\n    {\r\n      \"id\": \"7892761\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134636\"\r\n    },\r\n    {\r\n      \"id\": \"7892762\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134631\"\r\n    },\r\n    {\r\n      \"id\": \"7892764\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134630\"\r\n    },\r\n    {\r\n      \"id\": \"7892765\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134628\"\r\n    },\r\n    {\r\n      \"id\": \"7892766\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134626\"\r\n    },\r\n    {\r\n      \"id\": \"7892767\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134625\"\r\n    },\r\n    {\r\n      \"id\": \"7892768\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134622\"\r\n    },\r\n    {\r\n      \"id\": \"7892775\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134618\"\r\n    },\r\n    {\r\n      \"id\": \"7892776\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134616\"\r\n    },\r\n    {\r\n      \"id\": \"7892777\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134615\"\r\n    },\r\n    {\r\n      \"id\": \"7892780\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134613\"\r\n    },\r\n    {\r\n      \"id\": \"7892782\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134612\"\r\n    },\r\n    {\r\n      \"id\": \"7892790\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134611\"\r\n    },\r\n    {\r\n      \"id\": \"7892792\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134610\"\r\n    },\r\n    {\r\n      \"id\": \"7892793\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134609\"\r\n    },\r\n    {\r\n      \"id\": \"7892794\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134608\"\r\n    },\r\n    {\r\n      \"id\": \"7892795\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134607\"\r\n    },\r\n    {\r\n      \"id\": \"7892796\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134606\"\r\n    },\r\n    {\r\n      \"id\": \"7892797\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134605\"\r\n    },\r\n    {\r\n      \"id\": \"7892802\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134604\"\r\n    },\r\n    {\r\n      \"id\": \"7892804\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134602\"\r\n    },\r\n    {\r\n      \"id\": \"7892805\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134601\"\r\n    },\r\n    {\r\n      \"id\": \"7892806\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134501\"\r\n    },\r\n    {\r\n      \"id\": \"7892812\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134637\"\r\n    },\r\n    {\r\n      \"id\": \"7892815\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134639\"\r\n    },\r\n    {\r\n      \"id\": \"7892822\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134640\"\r\n    },\r\n    {\r\n      \"id\": \"7892823\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134641\"\r\n    },\r\n    {\r\n      \"id\": \"7892824\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134642\"\r\n    },\r\n    {\r\n      \"id\": \"7892825\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134645\"\r\n    },\r\n    {\r\n      \"id\": \"7892826\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166645\"\r\n    },\r\n    {\r\n      \"id\": \"7892828\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166646\"\r\n    },\r\n    {\r\n      \"id\": \"7892829\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166647\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707928\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894578,\r\n    \"name\": \"10000000112\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702391\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance/5707906",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance",
+										"5707906"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "9f48c50b-f1fa-44dd-8c5a-63ee0bd1"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 16 Aug 2024 06:51:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"id\": \"5707906\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894545,\r\n    \"name\": \"10000000004\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"reserved\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-02-15T17:08:14.18\"\r\n        }\r\n      },\r\n      {\r\n        \"balanceType\": \"accepted\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-06-26T17:09:17.323\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892664\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"0671234568\"\r\n    },\r\n    {\r\n      \"id\": \"7892671\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234588\"\r\n    },\r\n    {\r\n      \"id\": \"7892672\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234589\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}"
+						},
+						{
+							"name": "Between Amount",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance?offset=0&limit=50&relatedParty.id=6838&relatedParty.@referredType=Associations&relatedParty.IDType=1&0.00%3C%3DtotalBalance.amount%3C1000.00",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "relatedParty.id",
+											"value": "6838"
+										},
+										{
+											"key": "relatedParty.@referredType",
+											"value": "Associations"
+										},
+										{
+											"key": "relatedParty.IDType",
+											"value": "1"
+										},
+										{
+											"key": "0.00%3C%3DtotalBalance.amount%3C1000.00",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-9/9"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "c9ccc217-5790-4495-baf6-7b048335"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "9"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 16 Aug 2024 06:52:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"id\": \"144077\",\r\n  \"partyAccount\": {\r\n    \"id\": 21212,\r\n    \"name\": \"3404680\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"42945\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"2053594\",\r\n  \"partyAccount\": {\r\n    \"id\": 2121212,\r\n    \"name\": \"10785988\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"3812617\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707902\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894535,\r\n    \"name\": \"10000000001\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702207\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707906\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894545,\r\n    \"name\": \"10000000004\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"reserved\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-02-15T17:08:14.18\"\r\n        }\r\n      },\r\n      {\r\n        \"balanceType\": \"accepted\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-06-26T17:09:17.323\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892664\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"0671234568\"\r\n    },\r\n    {\r\n      \"id\": \"7892671\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234588\"\r\n    },\r\n    {\r\n      \"id\": \"7892672\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234589\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707908\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894550,\r\n    \"name\": \"10000000999\",\r\n    \"status\": \"synced\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702247\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707962\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894619,\r\n    \"name\": \"10000000102\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702611\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5708016\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894675,\r\n    \"name\": \"10000000300\",\r\n    \"status\": \"temp\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7703012\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707909\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894551,\r\n    \"name\": \"10000000100\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702258\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {},\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892700\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234566\"\r\n    },\r\n    {\r\n      \"id\": \"7892701\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"380671234599\"\r\n    },\r\n    {\r\n      \"id\": \"7892702\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"380671234589\"\r\n    },\r\n    {\r\n      \"id\": \"7892703\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134589\"\r\n    },\r\n    {\r\n      \"id\": \"7892710\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134599\"\r\n    },\r\n    {\r\n      \"id\": \"7892711\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134598\"\r\n    },\r\n    {\r\n      \"id\": \"7892712\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134577\"\r\n    },\r\n    {\r\n      \"id\": \"7892714\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134575\"\r\n    },\r\n    {\r\n      \"id\": \"7892715\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134574\"\r\n    },\r\n    {\r\n      \"id\": \"7892727\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134579\"\r\n    },\r\n    {\r\n      \"id\": \"7892729\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134529\"\r\n    },\r\n    {\r\n      \"id\": \"7892730\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134523\"\r\n    },\r\n    {\r\n      \"id\": \"7892731\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134521\"\r\n    },\r\n    {\r\n      \"id\": \"7892732\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134511\"\r\n    },\r\n    {\r\n      \"id\": \"7892733\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134512\"\r\n    },\r\n    {\r\n      \"id\": \"7892734\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134513\"\r\n    },\r\n    {\r\n      \"id\": \"7892735\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134514\"\r\n    },\r\n    {\r\n      \"id\": \"7892736\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134515\"\r\n    },\r\n    {\r\n      \"id\": \"7892737\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134516\"\r\n    },\r\n    {\r\n      \"id\": \"7892738\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134519\"\r\n    },\r\n    {\r\n      \"id\": \"7892739\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134520\"\r\n    },\r\n    {\r\n      \"id\": \"7892740\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134623\"\r\n    },\r\n    {\r\n      \"id\": \"7892741\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134621\"\r\n    },\r\n    {\r\n      \"id\": \"7892742\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134624\"\r\n    },\r\n    {\r\n      \"id\": \"7892746\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134627\"\r\n    },\r\n    {\r\n      \"id\": \"7892747\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134629\"\r\n    },\r\n    {\r\n      \"id\": \"7892748\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134619\"\r\n    },\r\n    {\r\n      \"id\": \"7892750\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134633\"\r\n    },\r\n    {\r\n      \"id\": \"7892755\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134634\"\r\n    },\r\n    {\r\n      \"id\": \"7892758\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134635\"\r\n    },\r\n    {\r\n      \"id\": \"7892761\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134636\"\r\n    },\r\n    {\r\n      \"id\": \"7892762\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134631\"\r\n    },\r\n    {\r\n      \"id\": \"7892764\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134630\"\r\n    },\r\n    {\r\n      \"id\": \"7892765\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134628\"\r\n    },\r\n    {\r\n      \"id\": \"7892766\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134626\"\r\n    },\r\n    {\r\n      \"id\": \"7892767\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134625\"\r\n    },\r\n    {\r\n      \"id\": \"7892768\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134622\"\r\n    },\r\n    {\r\n      \"id\": \"7892775\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134618\"\r\n    },\r\n    {\r\n      \"id\": \"7892776\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134616\"\r\n    },\r\n    {\r\n      \"id\": \"7892777\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134615\"\r\n    },\r\n    {\r\n      \"id\": \"7892780\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134613\"\r\n    },\r\n    {\r\n      \"id\": \"7892782\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134612\"\r\n    },\r\n    {\r\n      \"id\": \"7892790\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134611\"\r\n    },\r\n    {\r\n      \"id\": \"7892792\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134610\"\r\n    },\r\n    {\r\n      \"id\": \"7892793\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134609\"\r\n    },\r\n    {\r\n      \"id\": \"7892794\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134608\"\r\n    },\r\n    {\r\n      \"id\": \"7892795\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134607\"\r\n    },\r\n    {\r\n      \"id\": \"7892796\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134606\"\r\n    },\r\n    {\r\n      \"id\": \"7892797\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134605\"\r\n    },\r\n    {\r\n      \"id\": \"7892802\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134604\"\r\n    },\r\n    {\r\n      \"id\": \"7892804\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134602\"\r\n    },\r\n    {\r\n      \"id\": \"7892805\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134601\"\r\n    },\r\n    {\r\n      \"id\": \"7892806\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134501\"\r\n    },\r\n    {\r\n      \"id\": \"7892812\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134637\"\r\n    },\r\n    {\r\n      \"id\": \"7892815\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134639\"\r\n    },\r\n    {\r\n      \"id\": \"7892822\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134640\"\r\n    },\r\n    {\r\n      \"id\": \"7892823\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134641\"\r\n    },\r\n    {\r\n      \"id\": \"7892824\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134642\"\r\n    },\r\n    {\r\n      \"id\": \"7892825\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067134645\"\r\n    },\r\n    {\r\n      \"id\": \"7892826\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166645\"\r\n    },\r\n    {\r\n      \"id\": \"7892828\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166646\"\r\n    },\r\n    {\r\n      \"id\": \"7892829\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38067166647\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n},\n{\r\n  \"id\": \"5707928\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894578,\r\n    \"name\": \"10000000112\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": []\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702391\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "By Account Number",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance?offset=0&limit=50&partyAccount.name=10000000004",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "partyAccount.name",
+											"value": "10000000004"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "738decd8-9018-4737-a546-27aa8395"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 19 Aug 2024 06:39:26 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"id\": \"5707906\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894545,\r\n    \"name\": \"10000000004\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"reserved\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-02-15T17:08:14.18\"\r\n        }\r\n      },\r\n      {\r\n        \"balanceType\": \"accepted\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-06-26T17:09:17.323\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892664\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"0671234568\"\r\n    },\r\n    {\r\n      \"id\": \"7892671\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234588\"\r\n    },\r\n    {\r\n      \"id\": \"7892672\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234589\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}\r\n]\r\n"
+						},
+						{
+							"name": "by MSISDN",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8",
+										"type": "text"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363799",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/prepayBalanceManagement/AccumulatedBalance?offset=0&limit=50&logicalResource.name=MSISDN&logicalResource.value=0671234568",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"prepayBalanceManagement",
+										"AccumulatedBalance"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "logicalResource.name",
+											"value": "MSISDN"
+										},
+										{
+											"key": "logicalResource.value",
+											"value": "0671234568"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "7bfdc124-cd65-4966-b8ce-fef36be1"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 19 Aug 2024 06:40:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n{\r\n  \"id\": \"5707906\",\r\n  \"partyAccount\": {\r\n    \"id\": 5894545,\r\n    \"name\": \"10000000004\",\r\n    \"status\": \"activ\",\r\n    \"accountBalance\": [\r\n      {\r\n        \"balanceType\": \"reserved\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-02-15T17:08:14.18\"\r\n        }\r\n      },\r\n      {\r\n        \"balanceType\": \"accepted\",\r\n        \"amount\": {\r\n          \"unit\": \"UAH\",\r\n          \"value\": 0.0\r\n        },\r\n        \"validFor\": {\r\n          \"endDateTime\": \"2999-12-31T23:23:59.993Z\",\r\n          \"startDateTime\": \"2024-06-26T17:09:17.323\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"relatedParty\": [\r\n    {\r\n      \"id\": \"7702217\",\r\n      \"@referredType\": \"Customers\",\r\n      \"IDType\": 0\r\n    }\r\n  ],\r\n  \"product\": [\r\n    {}\r\n  ],\r\n  \"logicalResource\": [\r\n    {\r\n      \"id\": \"7892664\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"0671234568\"\r\n    },\r\n    {\r\n      \"id\": \"7892671\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234588\"\r\n    },\r\n    {\r\n      \"id\": \"7892672\",\r\n      \"name\": \"MSISDN\",\r\n      \"value\": \"38671234589\"\r\n    }\r\n  ],\r\n  \"totalBalance\": {\r\n    \"amount\": 0.0,\r\n    \"units\": \"UAH\"\r\n  },\r\n  \"isMonetary\": true\r\n}\r\n]\r\n"
+						}
+					]
+				}
+			]
+		}
+	]
+}
