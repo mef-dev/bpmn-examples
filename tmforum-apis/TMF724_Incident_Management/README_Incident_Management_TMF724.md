@@ -33,7 +33,7 @@ Next, the platform has to check which vendor will perform incident diagnosis, se
 3. For all the remaining incident categories, the gateway forwards further incident diagnosis to Huawei (stage 2.1).
 4. If the incident is network-based, the platform calls another BPMN flow (presented below) that generates a suggested resolution according to the TMF724 Incident Management API model.
 
-![Root Cause Analysis Flow](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/TMF724_Incident_Management/2.%20Root%20Cause%20Analysis%20Flow.png)
+![Root Cause Analysis Flow](./2.%20Root%20Cause%20Analysis%20Flow.png)
 |:--:|
 
 The RCA begins with checking the list of alarms. If the list of alarms is present, the platform prepares a request to a corresponding LLM model by building embeddings, referring to a database of manuals and a history of alarms from other vendors (stages 1 & 2). The goal is to identify the alarm that initially caused the incident and define how to resolve it using vendors’ documentation. At this step, MEF.DEV Platform also adds information about network topology (stage 2).
