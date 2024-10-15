@@ -22,6 +22,7 @@ The results are returned back to the Incident Co-Pilot and presented to the NOC 
 ## The Workflow
 ![Incident Diagnosis Flow](./1.%20Incident%20Diagnosis%20Flow.png)
 |:--:|
+Incident Diagnosis Flow
 
 The BPMN workflow above demonstrates what is happening underneath the hood of Incident Co-Pilot Catalyst on the multi-vendor incident diagnosis orchestration level.
 
@@ -35,6 +36,7 @@ Next, the platform has to check which vendor will perform incident diagnosis, se
 
 ![Root Cause Analysis Flow](./2.%20Root%20Cause%20Analysis%20Flow.png)
 |:--:|
+Root Cause Analysis Flow
 
 The RCA begins with checking the list of alarms. If the list of alarms is present, the platform prepares a request to a corresponding LLM model by building embeddings, referring to a database of manuals and a history of alarms from other vendors (stages 1 & 2). The goal is to identify the alarm that initially caused the incident and define how to resolve it using vendors’ documentation. At this step, MEF.DEV Platform also adds information about network topology (stage 2).
 
