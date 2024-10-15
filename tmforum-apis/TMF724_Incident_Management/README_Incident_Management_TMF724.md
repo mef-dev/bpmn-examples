@@ -20,7 +20,7 @@ The Network Incident Agent uses this response to address the incident.
 The results are returned back to the Incident Co-Pilot and presented to the NOC Engineer.
 
 ## The Workflow
-![Incident Diagnosis Flow](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/TMF724_Incident_Management/1.%20Incident%20Diagnosis%20Flow.png)
+![Incident Diagnosis Flow](./1.%20Incident%20Diagnosis%20Flow.png)
 |:--:|
 
 The BPMN workflow above demonstrates what is happening underneath the hood of Incident Co-Pilot Catalyst on the multi-vendor incident diagnosis orchestration level.
