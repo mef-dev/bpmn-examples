@@ -6,17 +6,16 @@ The process begins with the NOC Engineer, who initiates the workflow by providin
 Once the appropriate agent is selected, the Network Incident Agent is instantiated. This agent refines the engineer’s prompt by adding necessary context and querying a comprehensive Vectorized Knowledge Base and Real-Time Data sources. This allows the agent to gather all relevant information needed to address the incident thoroughly. The system utilizes various Foundation Models such as LLaMa3, Google Gemma, OpenAI GPT-4, and Mistral. These models are integrated to enhance the response capabilities of the Network Incident Agent, ensuring that the information and solutions provided are both sophisticated and relevant.
 
 The Agent Knowledge component is crucial to the operation. It comprises two main parts:
+1. **Vectorized Knowledge Base**. This includes unstructured text, Q&A pairs, rules, constraints, and knowledge graphs. It provides a deep well of contextual information that the agents draw upon to perform their tasks.
+2. **Real-Time Data**. This component includes current network data such as alarms and topology, ensuring that the agents’ actions are based on the latest available information.
 
-Vectorized Knowledge Base. This includes unstructured text, Q&A pairs, rules, constraints, and knowledge graphs. It provides a deep well of contextual information that the agents draw upon to perform their tasks.
-Real-Time Data. This component includes current network data such as alarms and topology, ensuring that the agents’ actions are based on the latest available information.
 In short, the overall workflow follows a clear and systematic process:
-
-The NOC Engineer issues a prompt.
-The Incident Co-Pilot receives the prompt, sets the goal, and adds context.
-The Incident Co-Pilot instantiates the Network Incident Agent.
-The Network Incident Agent queries the Vectorized Knowledge Base and Real-Time Data sources.
-The Agent refines the prompt and sends it to the LLM for a response.
-The LLM processes the refined prompt and generates a response.
+* The NOC Engineer issues a prompt.
+* The Incident Co-Pilot receives the prompt, sets the goal, and adds context.
+* The Incident Co-Pilot instantiates the Network Incident Agent.
+* The Network Incident Agent queries the Vectorized Knowledge Base and Real-Time Data sources.
+* The Agent refines the prompt and sends it to the LLM for a response.
+* The LLM processes the refined prompt and generates a response.
 The Network Incident Agent uses this response to address the incident.
 The results are returned back to the Incident Co-Pilot and presented to the NOC Engineer.
 
