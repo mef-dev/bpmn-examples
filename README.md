@@ -7,7 +7,11 @@
 4. [Service Usage Management TMF727](#Service-Usage-Management-TMF727)
 5. [Usage Consumption Management TMF677](#Usage-Consumption-Management-TMF677)
 6. [Customer Bill Management TMF678](#Customer-Bill-Management-TMF678)
-7. [Resources and Useful Links](#Resources-and-Useful-Links)
+7. [Product Catalog Management TMF620](#Product-Catalog-Management-TMF620)
+8. [Prepay Balance Management TMF654](#Prepay-Balance-Management-TMF654)
+9. [Event Management TMF688](#Event-Management-TMF688)
+10. [Incident Management TMF724](#Incident-Management-TMF724)
+11. [Resources and Useful Links](#Resources-and-Useful-Links)
 
 ## Account Management TMF666
 The "Account Management TMF666" API establishes a standardized mechanism for billing and settlement accounts administration. This ensures a seamless process within both B2C and B2B contexts. The API facilitates the creation, modification, and retrieval of account information, operating within the scope of diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount.
@@ -57,6 +61,26 @@ This API model accommodates the requirements for three fundamental billing types
 
 |![TMF Open APIs](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/tmforum-apis.png)|
 | :--: |
+
+## Product Catalog Management TMF620
+The Product Catalog Management API supports the lifecycle of catalog elements, such as product offerings, prices, and specifications, essential for processes like ordering and campaign management. It uses a characteristic-based model, where entity attributes are dynamically specified.
+
+This approach provides flexibility, enabling service providers to expose multiple catalogs for different markets, with independent product offerings that can be searched across catalogs. The API supports product lifecycle management, including versioning and tariff updates. It also offers various product roles (Base, Override, Addon) to manage product offerings, ensuring tailored and efficient service delivery.
+
+## Prepay Balance Management TMF654
+The Prepay Balance Management API tracks and manages balances for prepay users, ensuring they have sufficient funds to use services. It handles both monetary balances and non-monetary "buckets" (e.g., SMS or data). Users can transfer credit between accounts, and operators offer multiple recharge channels.
+
+When a customer acquires a product, balances and buckets are created to track voice, data, and SMS usage. Each balance and bucket is uniquely identified for tracking and top-ups. The API also supports accumulated balance methods, retrieving credit, reserved amounts, loyalty bonuses, and other account details.
+
+## Event Management TMF688
+The "Event Management TMF688" API enhances event handling and communication in telecom networks, allowing providers to deliver superior services. It supports large-scale distributed publishing and subscription for events from various Event Producers, facilitating diverse event-based architectures and seamless network communication.
+
+The API integrates efficiently within the WideCoup Business Support System, leveraging established entities like multi-threaded tasks for smooth operation. It offers functionalities for managing Topic and Event resources, enabling users to subscribe to events, receive notifications via callback APIs, and access event details, such as alarms categorized by predefined standards. Understanding the lifecycle of events—transitioning through states like raised, updated, and cleared—is vital for effective management and responsiveness in telecom operations.
+
+## Incident Management TMF724
+Incident Management enhances NOC engineers' efficiency by using advanced AI, LLMs, and real-time data to manage and resolve incidents. The process starts with engineers prompting the Co-Pilot, which orchestrates tasks by selecting agents from its repository. The Network Incident Agent refines the prompt, accessing a Vectorized Knowledge Base and real-time network data. AI models like GPT-4 and LLaMa3 help provide sophisticated responses.
+
+The MEF.DEV platform performs Root Cause Analysis, generating a resolution using the TMF724 API model. The Co-Pilot can integrate vendor-specific workflows for category-based incident diagnosis, such as device-based incidents, network-based incidents, etc.
 
 ## Resources and Useful Links
 For a technical preview of the MEF.DEV platform and additional information, feel free to use the following links.
