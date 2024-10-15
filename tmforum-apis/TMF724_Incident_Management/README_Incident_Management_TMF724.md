@@ -23,6 +23,7 @@ The results are returned back to the Incident Co-Pilot and presented to the NOC 
 ## The Workflow
 ![Incident Diagnosis Flow](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/TMF724_Incident_Management/1.%20Incident%20Diagnosis%20Flow.png)
 |:--:|
+
 The BPMN workflow above demonstrates what is happening underneath the hood of Incident Co-Pilot Catalyst on the multi-vendor incident diagnosis orchestration level.
 
 Orchestration begins with receiving an API request from the NOC engineer’s software to diagnose the incident. At stage 1, MEF.DEV Platform validates the request, checks if Qvantel’s trouble ticketing API is available, and creates the corresponding trouble ticket using TM Forum’s standardized TMF621 Trouble Ticket API.
@@ -35,6 +36,7 @@ Next, the platform has to check which vendor will perform incident diagnosis, se
 
 ![Root Cause Analysis Flow](https://github.com/mef-dev/bpmn-examples/blob/dev/tmforum-apis/TMF724_Incident_Management/2.%20Root%20Cause%20Analysis%20Flow.png)
 |:--:|
+
 The RCA begins with checking the list of alarms. If the list of alarms is present, the platform prepares a request to a corresponding LLM model by building embeddings, referring to a database of manuals and a history of alarms from other vendors (stages 1 & 2). The goal is to identify the alarm that initially caused the incident and define how to resolve it using vendors’ documentation. At this step, MEF.DEV Platform also adds information about network topology (stage 2).
 
 Next, the platform performs prompt engineering based on either “One Shot” or “Chain of Thoughts” technologies. It uses the unified SuggestResolution Prompting to access RAG, forming the suggested incident resolution (stage 3, SuggestResolution prompt example).
