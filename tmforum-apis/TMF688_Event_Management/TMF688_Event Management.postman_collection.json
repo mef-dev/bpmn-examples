@@ -64,7 +64,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1790906\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"80\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+							"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingGroup.AbsoluteOverlimit.DisableService\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1821105\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingGroupCode\",\n                     \"value\":\"DTE-ROAM-1\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Absolute\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"10485760\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Absolute\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
 						},
 						"url": {
 							"raw": "{{API}}/api/v2/tmf/event/topic",
@@ -158,7 +158,7 @@
 							"body": "{\n    \"code\": \"50000\",\n    \"reason\": \"Internal Server Error\",\n    \"message\": \"Ошибка выполнения: Некорректное значение входящего параметра: @header.eventType\",\n    \"status\": \"500\"\n}"
 						},
 						{
-							"name": "Percent Overlimit within the Pool",
+							"name": "Percent Overlimit Trigger",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -182,7 +182,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1790906\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"80\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+									"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1821105\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Percent\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"80\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Percent\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
 								},
 								"url": {
 									"raw": "{{API}}/api/v2/tmf/event/topic",
@@ -204,7 +204,7 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Tue, 16 Jul 2024 14:47:09 GMT"
+									"value": "Fri, 11 Oct 2024 12:12:31 GMT"
 								},
 								{
 									"key": "Content-Type",
@@ -244,7 +244,770 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"21\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+							"body": "{\n    \"id\": \"24\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						},
+						{
+							"name": "Absolute Overlimit Trigger",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\":\"m2m-rating\",\n   \"header\":{\n      \"eventType\":\"RatingGroup.AbsoluteOverlimit.Event\",\n      \"relatedParty\":[\n         {\n            \"@referredType\":\"Customers\",\n            \"id\":5234283,\n            \"IDType\":0\n         }\n      ]\n   },\n   \"event\":{\n      \"AckAlarms\":{\n         \"@type\":\"AckAlarms\",\n         \"ackUserId\":\"username\",\n         \"ackUserFrom\":\"hostname\",\n         \"alarmPattern\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Counter\",\n               \"analyticCharacteristic\":[\n                  {\n                     \"name\":\"PackageOverrideCode\",\n                     \"value\":\"1821105\",\n                     \"valueType\":\"string\",\n                     \"@type\":\"Characteristic\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"SimCardGroupCode\",\n                     \"value\":\"default\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingUnionCode\",\n                     \"value\":\"data\"\n                  },\n                  {\n                     \"@type\":\"Characteristic\",\n                     \"valueType\":\"string\",\n                     \"name\":\"RatingGroupCode\",\n                     \"value\":\"DTE-ROAM-1\"\n                  }\n               ]\n            }\n         ],\n         \"ackedAlarm\":[\n            {\n               \"@type\":\"Alarm\",\n               \"name\":\"Absolute\",\n               \"crossedThresholdInformation\":{\n                  \"observedValue\":\"10485760\",\n                  \"threshold\":{\n                     \"@type\":\"ThresholdRef\",\n                     \"id\":\"Absolute\"\n                  },\n                  \"@type\":\"CrossedThresholdInformation\"\n               }\n            }\n         ]\n      }\n   }\n}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 13:20:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"54\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingGroup.AbsoluteOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TopicByAssociation_RatingUnion.PercentOverlimit.Event_UsedCounter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Associations\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Percent\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"80\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Percent\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb-tst",
+								"kyivstar",
+								"ua"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic' \\\r\n--header 'Accept: application/json;charset=utf-8' \\\r\n--header 'Content-Type: application/json;charset=utf-8' \\\r\n--header 'Accept-Language: en' \\\r\n--header 'Authorization: Basic YXBpX3VzZXI6V2lkZWNvdXAx' \\\r\n--data-raw '{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Associations\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Percent\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"80\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Percent\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}'"
+					},
+					"response": [
+						{
+							"name": "Incorrect Input Value response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Associations\",\r\n            \"id\":999999999999,\r\n            \"IDType\":1\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"111\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"111\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"111\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Percent\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"80\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"111\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 10 Oct 2024 10:04:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"51685\",\n    \"reason\": \"50205\",\n    \"message\": \"Execution error: (Помилка виконання: (Некоректне значення вхідного параметра: SimCardGroupCode))\",\n    \"status\": \"500\",\n    \"referenceError\": \"\"\n}"
+						},
+						{
+							"name": "DataPercentOverlimit for Association",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.PercentOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Associations\",\r\n            \"id\":300000407,\r\n            \"IDType\":1\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"111\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Percent\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"80\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Percent\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 11 Oct 2024 12:18:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"51\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"300000407\",\n                \"@referredType\": \"Associations\",\n                \"idType\": \"1\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TopicByAccount_RatingUnion.AbsoluteOverlimit.Event_UsedCounter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/event/topic",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic' \\\r\n--header 'Accept: application/json;charset=utf-8' \\\r\n--header 'Content-Type: application/json;charset=utf-8' \\\r\n--header 'Accept-Language: en' \\\r\n--header 'Authorization: Basic YXBpX3VzZXI6V2lkZWNvdXAx' \\\r\n--data-raw '{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}'"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 16:27:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"59\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TopicByAccoiunt_RatingUnion.AbsoluteOverlimit.Event_outOfBucketCounter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Remainder\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"1024\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb-tst",
+								"kyivstar",
+								"ua"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic' \\\r\n--header 'Accept: application/json;charset=utf-8' \\\r\n--header 'Content-Type: application/json;charset=utf-8' \\\r\n--header 'Accept-Language: en' \\\r\n--header 'Authorization: Basic YXBpX3VzZXI6V2lkZWNvdXAx' \\\r\n--data-raw '{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Remainder\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"1024\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}'"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingUnion.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingUnionCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"data\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Remainder\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"1024\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic",
+									"protocol": "https",
+									"host": [
+										"api",
+										"wcb-tst",
+										"kyivstar",
+										"ua"
+									],
+									"port": "443",
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 16:27:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"60\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TopicByAccount_RatingGroup.AbsoluteOverlimit.Event_UsedCounter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingGroup.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"DTE-IN-UA\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic",
+							"protocol": "https",
+							"host": [
+								"api",
+								"wcb-tst",
+								"kyivstar",
+								"ua"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"event",
+								"topic"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic' \\\r\n--header 'Accept: application/json;charset=utf-8' \\\r\n--header 'Content-Type: application/json;charset=utf-8' \\\r\n--header 'Accept-Language: en' \\\r\n--header 'Authorization: Basic YXBpX3VzZXI6V2lkZWNvdXAx' \\\r\n--data-raw '{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingGroup.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"DTE-IN-UA\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}'"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YXBpX3VzZXI6V2lkZWNvdXAx"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"m2m-rating\",\r\n   \"header\":{\r\n      \"eventType\":\"RatingGroup.AbsoluteOverlimit.Event\",\r\n      \"relatedParty\":[\r\n         {\r\n            \"@referredType\":\"Customers\",\r\n            \"id\":5234283,\r\n            \"IDType\":0\r\n         }\r\n      ]\r\n   },\r\n   \"event\":{\r\n      \"AckAlarms\":{\r\n         \"@type\":\"AckAlarms\",\r\n         \"alarmPattern\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Counter\",\r\n               \"analyticCharacteristic\":[\r\n                  {\r\n                     \"name\":\"PackageOverrideCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"1790906\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"SimCardGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"default\",\r\n                     \"@type\":\"Characteristic\"\r\n                  },\r\n                  {\r\n                     \"name\":\"RatingGroupCode\",\r\n                     \"valueType\":\"string\",\r\n                     \"value\":\"DTE-IN-UA\",\r\n                     \"@type\":\"Characteristic\"\r\n                  }\r\n               ]\r\n            }\r\n         ],\r\n         \"ackedAlarm\":[\r\n            {\r\n               \"@type\":\"Alarm\",\r\n               \"name\":\"Absolute\",\r\n               \"crossedThresholdInformation\":{\r\n                  \"@type\":\"CrossedThresholdInformation\",\r\n                  \"observedValue\":\"157286400\",\r\n                  \"threshold\":{\r\n                     \"@type\":\"ThresholdRef\",\r\n                     \"id\":\"Absolute\"\r\n                  }\r\n               }\r\n            }\r\n         ],\r\n         \"ackUserFrom\":\"hostname\",\r\n         \"ackUserId\":\"username\"\r\n      }\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.wcb-tst.kyivstar.ua:443/api/v2/tmf/event/topic",
+									"protocol": "https",
+									"host": [
+										"api",
+										"wcb-tst",
+										"kyivstar",
+										"ua"
+									],
+									"port": "443",
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 16:27:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"61\",\n    \"header\": {\n        \"relatedParty\": [\n            {\n                \"id\": \"5234283\",\n                \"@referredType\": \"Customers\",\n                \"idType\": \"0\"\n            }\n        ],\n        \"eventType\": \"RatingGroup.AbsoluteOverlimit.Event\"\n    },\n    \"name\": \"m2m-rating\"\n}"
 						}
 					]
 				},
@@ -305,7 +1068,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/event/topic/21",
+							"raw": "{{API}}/api/v2/tmf/event/topic/52",
 							"host": [
 								"{{API}}"
 							],
@@ -315,7 +1078,7 @@
 								"tmf",
 								"event",
 								"topic",
-								"21"
+								"52"
 							]
 						},
 						"description": "This operation creates a BillingAccount entity."
@@ -468,6 +1231,84 @@
 							],
 							"cookie": [],
 							"body": null
+						},
+						{
+							"name": "Incorrect Topic ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic/52",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic",
+										"52"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 14:12:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"50205\",\n    \"reason\": \"50205\",\n    \"message\": \"Incorrect value of the input parameter: @id\",\n    \"status\": \"500\",\n    \"referenceError\": \"\"\n}"
 						}
 					]
 				},
@@ -539,7 +1380,7 @@
 					},
 					"response": [
 						{
-							"name": "Partial response by Related Party",
+							"name": "Partial by eventType & Related Party",
 							"originalRequest": {
 								"method": "GET",
 								"header": [
@@ -656,6 +1497,125 @@
 							],
 							"cookie": [],
 							"body": "[\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Percent\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"80.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Percent\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n  },\n  \"id\": \"14\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Percent\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"80.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Percent\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n  },\n  \"id\": \"23\",\n  \"name\": \"m2m-rating\"\n}\n]\n"
+						},
+						{
+							"name": "Partial by Related Party",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363734",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/event/topic?limit=5&offset=0&header={relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}]}",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"event",
+										"topic"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "header",
+											"value": "{relatedParty:[{\"id\": \"5234283\",\"@referredType\": \"Customers\",\"IDType\": \"0\"}]}"
+										}
+									]
+								}
+							},
+							"status": "Partial Content",
+							"code": 206,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Oct 2024 13:21:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-5/6"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "5a82a64f-d619-4480-a02e-d62eda6e"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "6"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "2"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "[\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Percent\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"80.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Percent\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.PercentOverlimit.Event\"\n  },\n  \"id\": \"24\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Absolute\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"157286400.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Absolute\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n  },\n  \"id\": \"27\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Remainder\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"1024.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Remainder\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n  },\n  \"id\": \"30\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Remainder\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"1024.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Remainder\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n  },\n  \"id\": \"36\",\n  \"name\": \"m2m-rating\"\n},\n{\n  \"event\": {\n    \"AckAlarms\": {\n      \"@type\": \"AckAlarms\",\n      \"alarmPattern\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Counter\",\n          \"analyticCharacteristic\": [\n            {\n              \"id\": \"PackageOverrideCode\",\n              \"name\": \"PackageOverrideCode\",\n              \"valueType\": \"string\",\n              \"value\": \"1790906777777777\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"RatingUnionCode\",\n              \"name\": \"RatingUnionCode\",\n              \"valueType\": \"string\",\n              \"value\": \"data\",\n              \"@type\": \"Characteristic\"\n            },\n            {\n              \"id\": \"scrg_code\",\n              \"name\": \"SimCardGroupCode\",\n              \"valueType\": \"string\",\n              \"value\": \"default\",\n              \"@type\": \"Characteristic\"\n            }\n          ]\n        }\n      ],\n      \"ackedAlarm\": [\n        {\n          \"@type\": \"Alarm\",\n          \"name\": \"Remainder\",\n          \"crossedThresholdInformation\": {\n            \"@type\": \"CrossedThresholdInformation\",\n            \"observedValue\": \"1024.0\",\n            \"threshold\": {\n              \"@type\": \"ThresholdRef\",\n              \"id\": \"Remainder\"\n            }\n          }\n        }\n      ],\n      \"ackUserFrom\": \"hostname\",\n      \"ackUserId\": \"username\"\n    }\n  },\n  \"header\": {\n    \"relatedParty\": [\n      {\n        \"id\": \"5234283\",\n        \"@referredType\": \"Customers\",\n        \"IDType\": \"0\"\n      }\n    ],\n    \"eventType\": \"RatingUnion.AbsoluteOverlimit.Event\"\n  },\n  \"id\": \"37\",\n  \"name\": \"m2m-rating\"\n}\n]\n"
 						}
 					]
 				}
@@ -1092,7 +2052,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/event/topic/24/hub?limit=5&offset=1",
+							"raw": "{{API}}/api/v2/tmf/event/topic/24/hub?limit=5&offset=0",
 							"host": [
 								"{{API}}"
 							],
@@ -1112,7 +2072,7 @@
 								},
 								{
 									"key": "offset",
-									"value": "1"
+									"value": "0"
 								}
 							]
 						}
