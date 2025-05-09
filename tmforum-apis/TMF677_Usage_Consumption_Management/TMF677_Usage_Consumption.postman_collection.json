@@ -72,7 +72,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\":\"10030771\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
+							"raw": "{\n   \"searchCriteria\":{\n      \"billCycleNo\":\"10030904\",\n      \"relatedParty\":[\n         {\n            \"id\":\"6838\",\n            \"@referredType\":\"Associations\",\n            \"IDType\":1\n         }\n      ]\n   },\n   \"sortCriteria\":{\n      \"bucketRefOrValue\":[\n         {\n            \"usageType\":\"data\"\n         }\n      ]\n   },\n   \"sort\":\"-usageConsumption.bucketRefOrValue.reservedValue.amount\",\n   \"limit\":10\n}"
 						},
 						"url": {
 							"raw": "{{API}}/api/v2/tmf/queryUsageConsumption",

@@ -648,7 +648,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{package_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"TemplateID\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":{{new_package_internal_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPackage\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
+							"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{package_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"tp_Code\",\r\n                  \"valueType\":\"String\",\r\n                  \"value\":{{new_package_external_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPackage\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
 						},
 						"url": {
 							"raw": "{{API}}/api/v2/tmf/productOrder/2285544",
@@ -692,7 +692,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"2023-11-01T00:00:00.000Z\",\r\n   \"requestedStartDate\":\"2023-11-01T00:00:00.000Z\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is a GSM product order change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"6295394\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"TemplateID\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":6209\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPackage\"\r\n            }\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"id\":\"7702703\",\r\n         \"@referredType\":\"Customers\"\r\n      }\r\n   ]\r\n}"
+									"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"2023-11-01T00:00:00.000Z\",\r\n   \"requestedStartDate\":\"2023-11-01T00:00:00.000Z\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is a GSM product order change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"6295394\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"tp_Code\",\r\n                  \"valueType\":\"String\",\r\n                  \"value\":\"1821205\"\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPackage\"\r\n            }\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"id\":\"7702703\",\r\n         \"@referredType\":\"Customers\"\r\n      }\r\n   ]\r\n}"
 								},
 								"url": {
 									"raw": "{{API}}/api/v2/tmf/productOrder/2285690",
@@ -803,7 +803,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{plan_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"PlanGroupID\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":{{new_plan_internal_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPlan\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
+							"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{plan_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"PlanGroupCode\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":{{new_plan_external_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPlan\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
 						},
 						"url": {
 							"raw": "{{API}}/api/v2/tmf/productOrder/2285544",
@@ -847,7 +847,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{plan_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"PlanGroupID\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":{{new_plan_internal_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPlan\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
+									"raw": "{\r\n   \"priority\":\"1\",\r\n   \"IDType\":0,\r\n   \"requestedCompletionDate\":\"{{effective_date}}\",\r\n   \"requestedStartDate\":\"{{effective_date}}\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\",\r\n         \"hostname\":\"192.156.7.77\",\r\n         \"text\":\"This is Tariff Package change\",\r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"productOrderItem\":[\r\n      {\r\n         \"id\":\"{{plan_instance_id}}\",\r\n         \"action\":\"change\",\r\n         \"product\":{\r\n            \"productCharacteristic\":[\r\n               {\r\n                  \"id\":\"PlanGroupCode\",\r\n                  \"valueType\":\"Integer\",\r\n                  \"value\":{{new_plan_external_id}}\r\n               }\r\n            ],\r\n            \"productSpecification\":{\r\n               \"id\":\"TariffPlan\"\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
 								},
 								"url": {
 									"raw": "{{API}}/api/v2/tmf/productOrder/2285544",
@@ -906,7 +906,7 @@
 					]
 				},
 				{
-					"name": "List or find ProductOrder objects",
+					"name": "Search by Two Label Role",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -951,7 +951,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/productOrder/2285653",
+							"raw": "{{API}}/api/v2/tmf/productOrder.json?productOrderItem=[{\"product\":{\"productCharacteristic\":[{\"id\":\"ExtentionNumber\",\"valueType\":\"String\",\"value\":\"380675255733\"}],\"productSpecification\":{\"id\":\"MSISDN\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Override\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Grace-activation\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}}]",
 							"host": [
 								"{{API}}"
 							],
@@ -959,8 +959,13 @@
 								"api",
 								"v2",
 								"tmf",
-								"productOrder",
-								"2285653"
+								"productOrder.json"
+							],
+							"query": [
+								{
+									"key": "productOrderItem",
+									"value": "[{\"product\":{\"productCharacteristic\":[{\"id\":\"ExtentionNumber\",\"valueType\":\"String\",\"value\":\"380675255733\"}],\"productSpecification\":{\"id\":\"MSISDN\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Override\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Grace-activation\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}}]"
+								}
 							]
 						}
 					},
@@ -1069,116 +1074,6 @@
 								{
 									"key": "Date",
 									"value": "Fri, 22 Mar 2024 07:24:14 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "[\r\n{\r\n  \"category\": \"ByDefault\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"1545405_00780030-0062-0030-3200-320063003000\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-1545405\"\r\n      },\r\n      \"id\": \"01-1547938\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"1545405\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"38671234567\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892667\"\r\n      },\r\n      \"id\": \"01-15479383\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892667\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"38671234568\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892668\"\r\n      },\r\n      \"id\": \"01-15479384\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892668\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Advanced\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-152\"\r\n      },\r\n      \"id\": \"02-2285544\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"2285544\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Bundle 100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": true,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Override\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"900974\",\r\n            \"valueType\": \"String\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-6229\"\r\n      },\r\n      \"id\": \"03-6295756\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"6295756\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 2285544,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-7702376\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n}\r\n]\r\n"
-						},
-						{
-							"name": "by MSISDN and Offering Category",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json;charset=utf-8",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json;charset=utf-8",
-										"type": "text"
-									},
-									{
-										"key": "x-ms-client-request-id",
-										"value": "20412345678903142363744",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "Accept-Language",
-										"value": "en",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API}}/api/v2/tmf/productOrder?productOrderItem=[{\"product\":{\"productCharacteristic\":[{\"id\":\"ExtentionNumber\",\"valueType\":\"String\",\"value\":\"38671234567\"}],\"productSpecification\":{\"id\":\"MSISDN\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Override\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}}]",
-									"host": [
-										"{{API}}"
-									],
-									"path": [
-										"api",
-										"v2",
-										"tmf",
-										"productOrder"
-									],
-									"query": [
-										{
-											"key": "productOrderItem",
-											"value": "[{\"product\":{\"productCharacteristic\":[{\"id\":\"ExtentionNumber\",\"valueType\":\"String\",\"value\":\"38671234567\"}],\"productSpecification\":{\"id\":\"MSISDN\"}}},{\"product\":{\"productCharacteristic\":[{\"id\":\"lbl_Role\",\"valueType\":\"String\",\"value\":\"Override\"}],\"productSpecification\":{\"id\":\"TariffPackage\"}}}]"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								},
-								{
-									"key": "Content-Range",
-									"value": "items 1-1/1"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "Accept-Language",
-									"value": "en"
-								},
-								{
-									"key": "x-ms-client-request-id",
-									"value": "a164a2b8-083e-4bf4-90df-5a9780d3"
-								},
-								{
-									"key": "X-Total-Count",
-									"value": "1"
-								},
-								{
-									"key": "X-Page-Count",
-									"value": "1"
-								},
-								{
-									"key": "cacheStatus",
-									"value": "Added"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, PUT, POST, DELETE, OPTIONS, HEAD"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization,Pragma,Cache-control,Content-type"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 22 Mar 2024 07:32:33 GMT"
 								}
 							],
 							"cookie": [],
@@ -1401,6 +1296,120 @@
 							],
 							"cookie": [],
 							"body": "{\r\n  \"category\": \"ByDefault\",\r\n  \"productOrderItem\": [\r\n    {\r\n      \"product\": {\r\n        \"name\": \"671234567\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionNumber\",\r\n            \"name\": \"ExtentionNumber\",\r\n            \"value\": \"671234567\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"StatusModifiedDate\",\r\n            \"name\": \"StatusModifiedDate\",\r\n            \"value\": \"2024-05-13T05:30:53.973\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ExtentionID\",\r\n            \"name\": \"ExtentionID\",\r\n            \"value\": \"7892778\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Category\",\r\n            \"name\": \"Category\",\r\n            \"value\": \"2\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Class\",\r\n            \"name\": \"Class\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Status\",\r\n            \"name\": \"Status\",\r\n            \"value\": \"4\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Type\",\r\n            \"name\": \"Type\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"ConnectionPoint\",\r\n            \"name\": \"ConnectionPoint\",\r\n            \"value\": \"20\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"Device\",\r\n            \"name\": \"Device\",\r\n            \"value\": \"1\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"MSISDN\",\r\n          \"name\": \"MSISDN\"\r\n        },\r\n        \"id\": \"01-7892778\"\r\n      },\r\n      \"id\": \"01-15479503\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Extentions\",\r\n          \"id\": \"7892778\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Advanced\",\r\n        \"@type\": \"ProductValue\",\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"actpd_Name\",\r\n            \"name\": \"actpd_Name\",\r\n            \"value\": \"Corporate\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"acatd_Name\",\r\n            \"name\": \"acatd_Name\",\r\n            \"value\": \"Postpaid\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"crnd_Name\",\r\n            \"name\": \"crnd_Name\",\r\n            \"value\": \"Hryvnia\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveStart\",\r\n            \"name\": \"grt_DateActiveStart\",\r\n            \"value\": \"2023-10-23T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_DateActiveEnd\",\r\n            \"name\": \"grt_DateActiveEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"PlanGroupID\",\r\n            \"name\": \"PlanGroupID\",\r\n            \"value\": \"152\",\r\n            \"valueType\": \"Integer\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"grt_ExternalId\",\r\n            \"name\": \"grt_ExternalId\",\r\n            \"value\": \"12000\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPlan\",\r\n          \"name\": \"TariffPlan\"\r\n        },\r\n        \"id\": \"02-152\"\r\n      },\r\n      \"id\": \"02-2285653\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"Agreements\",\r\n          \"id\": \"2285653\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    },\r\n    {\r\n      \"product\": {\r\n        \"name\": \"M2M Bundle 100\",\r\n        \"@type\": \"ProductValue\",\r\n        \"isBundle\": true,\r\n        \"productCharacteristic\": [\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"lbl_Role\",\r\n            \"name\": \"lbl_Role\",\r\n            \"value\": \"Override\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"tp_Code\",\r\n            \"name\": \"tp_Code\",\r\n            \"value\": \"900974\",\r\n            \"valueType\": \"String\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateStart\",\r\n            \"name\": \"DateStart\",\r\n            \"value\": \"2024-05-13T00:00:00\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"DateEnd\",\r\n            \"name\": \"DateEnd\",\r\n            \"value\": \"2999-12-31T23:59:59\",\r\n            \"valueType\": \"DateTime\"\r\n          },\r\n          {\r\n            \"@type\": \"Characteristic\",\r\n            \"id\": \"TemplateID\",\r\n            \"name\": \"TemplateID\",\r\n            \"value\": \"6229\",\r\n            \"valueType\": \"Integer\"\r\n          }\r\n        ],\r\n        \"productSpecification\": {\r\n          \"@type\": \"ProductSpecificationRef\",\r\n          \"id\": \"TariffPackage\",\r\n          \"name\": \"TariffPackage\"\r\n        },\r\n        \"id\": \"03-6229\"\r\n      },\r\n      \"id\": \"03-6295950\",\r\n      \"state\": \"added\",\r\n      \"productOrderItemRelationship\": [\r\n        {\r\n          \"@referredtype\": \"TemplateSubscriptions\",\r\n          \"id\": \"6295950\",\r\n          \"type\": \"cross-ref\"\r\n        }\r\n      ],\r\n      \"@type\": \"ProductOrderItem\"\r\n    }\r\n  ],\r\n  \"id\": 2285653,\r\n  \"orderRelationship\": [\r\n    {\r\n      \"id\": \"01-7702876\",\r\n      \"type\": \"cross-ref\",\r\n      \"@referredType\": \"Service\"\r\n    }\r\n  ],\r\n  \"state\": \"Completed\"\r\n}"
+						},
+						{
+							"name": "by MSISDN and Offering Category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json;charset=utf-8"
+									},
+									{
+										"key": "x-ms-client-request-id",
+										"value": "20412345678903142363744",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API}}/api/v2/tmf/productOrder.json?productOrderItem=[{ \"product\": {\"productCharacteristic\": [{\"id\": \"ExtentionNumber\", \"valueType\": \"String\", \"value\": \"380675255733\"}],     \"productSpecification\": { \"id\": \"MSISDN\" }}},{ \"product\": {     \"productCharacteristic\": [{\"id\": \"lbl_Role\", \"valueType\":\"String\", \"value\":\"Override\"}],     \"productSpecification\": { \"id\":\"TariffPackage\"}}}]",
+									"host": [
+										"{{API}}"
+									],
+									"path": [
+										"api",
+										"v2",
+										"tmf",
+										"productOrder.json"
+									],
+									"query": [
+										{
+											"key": "productOrderItem",
+											"value": "[{ \"product\": {\"productCharacteristic\": [{\"id\": \"ExtentionNumber\", \"valueType\": \"String\", \"value\": \"380675255733\"}],     \"productSpecification\": { \"id\": \"MSISDN\" }}},{ \"product\": {     \"productCharacteristic\": [{\"id\": \"lbl_Role\", \"valueType\":\"String\", \"value\":\"Override\"}],     \"productSpecification\": { \"id\":\"TariffPackage\"}}}]"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jul 2024 08:43:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Range",
+									"value": "items 1-1/1"
+								},
+								{
+									"key": "Accept-Language",
+									"value": "en"
+								},
+								{
+									"key": "x-ms-client-request-id",
+									"value": "c21884df-3c74-4107-b7ff-bb72afb0"
+								},
+								{
+									"key": "X-Total-Count",
+									"value": "1"
+								},
+								{
+									"key": "X-Page-Count",
+									"value": "1"
+								},
+								{
+									"key": "cacheStatus",
+									"value": "Added"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "img-src https: data:; upgrade-insecure-requests"
+								}
+							],
+							"cookie": [],
+							"body": "[\n{\n  \"category\": \"ByDefault\",\n  \"productOrderItem\": [\n    {\n      \"product\": {\n        \"name\": \"380675255733\",\n        \"@type\": \"ProductValue\",\n        \"productCharacteristic\": [],\n        \"productSpecification\": {\n          \"@type\": \"ProductSpecificationRef\",\n          \"id\": \"MSISDN\",\n          \"name\": \"MSISDN\"\n        },\n        \"id\": \"01-9045278\"\n      },\n      \"id\": \"01-101362436\",\n      \"state\": \"pendingCancellation\",\n      \"productOrderItemRelationship\": [\n        {\n          \"@referredtype\": \"Extentions\",\n          \"id\": \"9045278\",\n          \"type\": \"cross-ref\"\n        }\n      ],\n      \"@type\": \"ProductOrderItem\"\n    },\n    {\n      \"product\": {\n        \"name\": \"M2M Advanced\",\n        \"@type\": \"ProductValue\",\n        \"productCharacteristic\": [],\n        \"productSpecification\": {\n          \"@type\": \"ProductSpecificationRef\",\n          \"id\": \"TariffPlan\",\n          \"name\": \"TariffPlan\"\n        },\n        \"id\": \"02-153\"\n      },\n      \"id\": \"02-2296060\",\n      \"state\": \"Completed\",\n      \"productOrderItemRelationship\": [\n        {\n          \"@referredtype\": \"Agreements\",\n          \"id\": \"2296060\",\n          \"type\": \"cross-ref\"\n        }\n      ],\n      \"@type\": \"ProductOrderItem\"\n    },\n    {\n      \"product\": {\n        \"name\": \"IoT Platform 30\",\n        \"@type\": \"ProductValue\",\n        \"isBundle\": false,\n        \"productCharacteristic\": [\n          {\n            \"@type\": \"Characteristic\",\n            \"id\": \"lbl_Role\",\n            \"name\": \"lbl_Role\",\n            \"value\": \"Override\",\n            \"valueType\": \"String\"\n          },\n          {\n            \"@type\": \"Characteristic\",\n            \"id\": \"tp_Code\",\n            \"name\": \"tp_Code\",\n            \"value\": \"1821105\",\n            \"valueType\": \"String\"\n          }\n        ],\n        \"productSpecification\": {\n          \"@type\": \"ProductSpecificationRef\",\n          \"id\": \"TariffPackage\",\n          \"name\": \"TariffPackage\"\n        },\n        \"id\": \"03-6225\"\n      },\n      \"id\": \"03-6296673\",\n      \"state\": \"Completed\",\n      \"productOrderItemRelationship\": [\n        {\n          \"@referredtype\": \"TemplateSubscriptions\",\n          \"id\": \"6296673\",\n          \"type\": \"cross-ref\"\n        }\n      ],\n      \"@type\": \"ProductOrderItem\"\n    },\n    {\n      \"product\": {\n        \"name\": \"IoT Platform Test\",\n        \"@type\": \"ProductValue\",\n        \"isBundle\": false,\n        \"productCharacteristic\": [\n          {\n            \"@type\": \"Characteristic\",\n            \"id\": \"lbl_Role\",\n            \"name\": \"lbl_Role\",\n            \"value\": \"Grace-activation\",\n            \"valueType\": \"String\"\n          },\n          {\n            \"@type\": \"Characteristic\",\n            \"id\": \"tp_Code\",\n            \"name\": \"tp_Code\",\n            \"value\": \"1500001\",\n            \"valueType\": \"String\"\n          }\n        ],\n        \"productSpecification\": {\n          \"@type\": \"ProductSpecificationRef\",\n          \"id\": \"TariffPackage\",\n          \"name\": \"TariffPackage\"\n        },\n        \"id\": \"03-6270\"\n      },\n      \"id\": \"03-6296674\",\n      \"state\": \"Completed\",\n      \"productOrderItemRelationship\": [\n        {\n          \"@referredtype\": \"TemplateSubscriptions\",\n          \"id\": \"6296674\",\n          \"type\": \"cross-ref\"\n        }\n      ],\n      \"@type\": \"ProductOrderItem\"\n    }\n  ],\n  \"id\": 2296060,\n  \"orderRelationship\": [\n    {\n      \"id\": \"01-8750379\",\n      \"type\": \"cross-ref\",\n      \"@referredType\": \"Service\"\n    }\n  ],\n  \"state\": \"Completed\"\n}\n]\n"
 						}
 					]
 				}
@@ -1468,7 +1477,7 @@
 		},
 		{
 			"key": "new_msisdn",
-			"value": "671234568",
+			"value": "6713333333",
 			"type": "string"
 		},
 		{
@@ -1494,6 +1503,16 @@
 		{
 			"key": "customer_id",
 			"value": "7702209",
+			"type": "string"
+		},
+		{
+			"key": "new_package_external_id",
+			"value": "1821205",
+			"type": "string"
+		},
+		{
+			"key": "new_plan_external_id",
+			"value": "12000",
 			"type": "string"
 		}
 	]

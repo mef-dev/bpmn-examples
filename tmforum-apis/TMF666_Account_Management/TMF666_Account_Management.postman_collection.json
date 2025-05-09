@@ -228,6 +228,21 @@
 				{
 					"name": "Updates partially a BillingAccount",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "api_user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -252,10 +267,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"idType\":\"1\",\r\n   \"description\":\"This billing account ...\",\r\n   \"state\":\"synced\", \r\n   \"accountType\":\"1001\",\r\n   \"ratingType\":\"2\",\r\n   \"RegistrCatID\":0,\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\", \r\n         \"hostname\":\"192.156.7.77\", \r\n         \"text\":\"This is a M2M Advanced activation\", \r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"billStructure\":{\r\n      \"presentationMedia\":[\r\n         {\r\n            \"id\":\"3\",\r\n            \"deliveryZone\":\"45\"\r\n         }\r\n      ]\r\n   },\r\n   \"paymentPlan\":[\r\n      {\r\n         \"planType\":\"1\",\r\n         \"paymentMethod\":{\r\n            \"id\":\"2\"\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"@referredType\":\"Associations\",\r\n         \"id\":\"6838\",\r\n         \"IDType\":1\r\n      }\r\n   ],\r\n   \"accountBalance\":[\r\n      {\r\n         \"amount\":{\r\n            \"unit\":\"UAH\"\r\n         },\r\n         \"balanceType\":\"Main\",\r\n         \"validFor\":{\r\n            \"startDateTime\":\"2023-11-01T00:00:00.000Z\"\r\n         }\r\n      }\r\n   ]\r\n}\r\n"
+							"raw": "{\r\n   \"idType\":\"1\",\r\n   \"description\":\"This billing account ...\",\r\n   \"state\":\"synced\", \r\n   \"accountType\":\"1001\",\r\n   \"ratingType\":\"2\",\r\n   \"RegistrCatID\":0,\r\n   \"lastModified\": \"2023-09-15T00:00:00.000Z\",\r\n   \"note\":[\r\n      {\r\n         \"author\":\"domain+username\", \r\n         \"hostname\":\"192.156.7.77\", \r\n         \"text\":\"This is a M2M Advanced activation\", \r\n         \"@type\":\"Note\"\r\n      }\r\n   ],\r\n   \"billStructure\":{\r\n      \"presentationMedia\":[\r\n         {\r\n            \"id\":\"3\",\r\n            \"deliveryZone\":\"45\"\r\n         }\r\n      ]\r\n   },\r\n   \"paymentPlan\":[\r\n      {\r\n         \"planType\":\"1\",\r\n         \"paymentMethod\":{\r\n            \"id\":\"2\"\r\n         }\r\n      }\r\n   ],\r\n   \"relatedParty\":[\r\n      {\r\n         \"@referredType\":\"Associations\",\r\n         \"id\":\"6838\",\r\n         \"IDType\":1\r\n      }\r\n   ]\r\n}\r\n"
 						},
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/billingAccount.json/5894551",
+							"raw": "{{API}}/api/v2/tmf/billingAccount/5894551",
 							"host": [
 								"{{API}}"
 							],
@@ -263,7 +278,7 @@
 								"api",
 								"v2",
 								"tmf",
-								"billingAccount.json",
+								"billingAccount",
 								"5894551"
 							]
 						},
@@ -353,6 +368,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Widecoup1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "bpmn",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -381,7 +411,7 @@
 							"raw": "{}"
 						},
 						"url": {
-							"raw": "{{API}}/api/v2/tmf/billingAccount.json?name=10000000100",
+							"raw": "{{API}}/api/v2/tmf/billingAccount.json?name=10000000100&state=activ",
 							"host": [
 								"{{API}}"
 							],
@@ -395,6 +425,10 @@
 								{
 									"key": "name",
 									"value": "10000000100"
+								},
+								{
+									"key": "state",
+									"value": "activ"
 								}
 							]
 						}
