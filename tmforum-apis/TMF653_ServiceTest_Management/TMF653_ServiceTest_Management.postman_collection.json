@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "1d654c32-f48b-4933-ae6a-a4337ab6cfa5",
+		"name": "TMF653 ServiceTest Management (MEF.DEV)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16338639",
+		"_collection_link": "https://mef-dev.postman.co/workspace/mef-dev-Workspace~fe94183d-bd30-4fd9-8c8d-71a74155a6dc/collection/16338639-1d654c32-f48b-4933-ae6a-a4337ab6cfa5?action=share&source=collection_link&creator=16338639"
+	},
+	"item": [
+		{
+			"name": "ServiceTest",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "api_user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Widecoup1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"mode\": \"ondemand\",\r\n\t\"relatedService\": {\r\n\t\t\"id\": \"02-17343\",\r\n\t\t\"@referredType\": \"Service\"\r\n\t},\r\n\t\"testSpecification\": {\r\n\t\t\"id\": \"rating-service-info\",\r\n\t\t\"@referredType\": \"RatingSessions\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/api/v2/tmf/serviceTestManagement/serviceTest",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tmf",
+						"serviceTestManagement",
+						"serviceTest"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SUCCESS",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"mode\": \"ondemand\",\r\n\t\"relatedService\": {\r\n\t\t\"id\": \"02-17349\",\r\n\t\t\"@referredType\": \"Service\"\r\n\t},\r\n\t\"testSpecification\": {\r\n\t\t\"id\": \"rating-service-info\",\r\n\t\t\"@referredType\": \"RatingSessions\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}/api/v2/tmf/serviceTestManagement/serviceTest",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"tmf",
+								"serviceTestManagement",
+								"serviceTest"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Aug 2025 12:37:42 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-execution-status",
+							"value": "done"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Authorization,Pragma,Cache-control,Content-type,X-Requested-With"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "img-src https: data:; upgrade-insecure-requests"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"validFor\": {\n            \"endDateTime\": \"2025-08-04T15:37:42.907\",\n            \"startDateTime\": \"2025-08-01T00:00:00\"\n        },\n        \"relatedParty\": [\n            {\n                \"@referredType\": \"Customers\",\n                \"id\": \"7722572\",\n                \"idType\": 0\n            }\n        ],\n        \"testSpecification\": {\n            \"@referredType\": \"RatingSessions\",\n            \"id\": \"rating-service-info\"\n        },\n        \"mode\": \"ondemand\",\n        \"startDateTime\": \"2025-08-04T15:37:42.84\",\n        \"state\": \"Completed\",\n        \"characteristic\": [\n            {\n                \"name\": \"M2M_DTE\",\n                \"value\": {\n                    \"ratType\": \"UTRAN\",\n                    \"pdpAddress\": \"10.9.205.78\",\n                    \"chargingCharacteristics\": null,\n                    \"apn\": \"m2mplatform\",\n                    \"ChargingID\": \"20404200000000166220\",\n                    \"ChargingCause\": \"UPDATE\",\n                    \"mcc\": \"255\",\n                    \"mnc\": \"03\",\n                    \"IsRoaming\": \"0\"\n                }\n            }\n        ]\n    }\n]"
+				}
+			]
+		}
+	]
+}
