@@ -1,705 +1,500 @@
-{
-  "openapi": "3.0.1",
-  "info": {
-    "title": "TMF653_ServiceTest",
-    "description": "Alias: <b>tmf</b> Service type: <b>API</b> Date: <b>04 August 2025</b><br/><br/><b></b><br/><br/>",
-    "termsOfService": "http://devserv.natec.com:9001/terms",
-    "contact": {
-      "name": "NATEC base",
-      "url": "http://devserv.natec.com:9001/store/tenant/3",
-      "email": "yizhack@gmail.com"
-    },
-    "version": "1.0.0.5"
-  },
-  "servers": [
-    {
-      "url": "http://devserv.natec.com:9000/api/v2/tmf",
-      "description": "Main server"
-    }
-  ],
-  "paths": {
-    "/serviceTestManagement/serviceTest": {
-      "post": {
-        "tags": [
-          "serviceTestManagement"
-        ],
-        "operationId": "POST_serviceTestManagement_serviceTest",
-        "parameters": [
-          {
-            "name": "Accept_Language",
-            "in": "header",
-            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_ServiceTest",
-            "schema": {
-              "$ref": "#/components/schemas/AcceptLanguages"
-            }
-          },
-          {
-            "name": "x_ms_client_request_id",
-            "in": "header",
-            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_ServiceTest",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ServiceTest_Request_GET"
-              },
-              "examples": {
-                "SUCCESS": {
-                  "summary": "",
-                  "description": "",
-                  "value": {
-                    "mode": "ondemand",
-                    "relatedService": {
-                      "id": "02-55",
-                      "@referredType": "Service"
-                    },
-                    "testSpecification": {
-                      "id": "rating-service-info",
-                      "@referredType": "RatingSessions"
-                    }
-                  }
-                },
-                "FAIL": {
-                  "summary": "",
-                  "description": "",
-                  "value": {
-                    "mode": "ondemand",
-                    "relatedService": {
-                      "id": "02-00",
-                      "@referredType": "Service"
-                    },
-                    "testSpecification": {
-                      "id": "rating-service-info",
-                      "@referredType": "RatingSessions"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceTest_Response_GET_OUTPUT"
-                },
-                "examples": {
-                  "SUCCESS": {
-                    "summary": "",
-                    "description": "",
-                    "value": [
-                      {
-                        "relatedParty": [
-                          {
-                            "@referredType": "Customers",
-                            "idType": 0
-                          }
-                        ],
-                        "testSpecification": {
-                          "@referredType": "RatingSessions",
-                          "id": "rating-service-info"
-                        },
-                        "mode": "ondemand",
-                        "startDateTime": "2025-07-11T21:37:29.66",
-                        "state": "Completed"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 400,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "The specified login/password pair is incorrect",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 401,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "You do not have access to requested resource",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 403,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "The request URL is incorrect",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 404,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "The resource you are requesting doesn't support the request HTTP method",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 405,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "408": {
-            "description": "You need to repeat the request immediately",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 408,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 409,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 503,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/serviceTestManagement/serviceTest.{format}": {
-      "post": {
-        "tags": [
-          "serviceTestManagement"
-        ],
-        "operationId": "POST_serviceTestManagement_serviceTest_format",
-        "parameters": [
-          {
-            "name": "format",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Accept_Language",
-            "in": "header",
-            "description": "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_ServiceTest",
-            "schema": {
-              "$ref": "#/components/schemas/AcceptLanguages"
-            }
-          },
-          {
-            "name": "x_ms_client_request_id",
-            "in": "header",
-            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_ServiceTest",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ServiceTest_Request_GET"
-              },
-              "examples": {
-                "SUCCESS": {
-                  "summary": "",
-                  "description": "",
-                  "value": {
-                    "mode": "ondemand",
-                    "relatedService": {
-                      "id": "02-55",
-                      "@referredType": "Service"
-                    },
-                    "testSpecification": {
-                      "id": "rating-service-info",
-                      "@referredType": "RatingSessions"
-                    }
-                  }
-                },
-                "FAIL": {
-                  "summary": "",
-                  "description": "",
-                  "value": {
-                    "mode": "ondemand",
-                    "relatedService": {
-                      "id": "02-00",
-                      "@referredType": "Service"
-                    },
-                    "testSpecification": {
-                      "id": "rating-service-info",
-                      "@referredType": "RatingSessions"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceTest_Response_GET_OUTPUT"
-                },
-                "examples": {
-                  "SUCCESS": {
-                    "summary": "",
-                    "description": "",
-                    "value": [
-                      {
-                        "relatedParty": [
-                          {
-                            "@referredType": "Customers",
-                            "idType": 0
-                          }
-                        ],
-                        "testSpecification": {
-                          "@referredType": "RatingSessions",
-                          "id": "rating-service-info"
-                        },
-                        "mode": "ondemand",
-                        "startDateTime": "2025-07-11T21:37:29.66",
-                        "state": "Completed"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The server cannot or will not process the request. The client should not repeat this request without modification",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 400,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "The specified login/password pair is incorrect",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 401,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "You do not have access to requested resource",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 403,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "The request URL is incorrect",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 404,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "The resource you are requesting doesn't support the request HTTP method",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 405,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "408": {
-            "description": "You need to repeat the request immediately",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 408,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 409,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 503,
-                  "code": -2146233088,
-                  "message": "Error message",
-                  "type": "ErrorType"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "AcceptLanguages": {
-        "enum": [
-          "uk",
-          "en"
-        ],
-        "type": "string",
-        "description": "Test description\r\n\r\n* `uk` - Ukraininn\r\n* `en` - Endglish\r\n"
-      },
-      "Characteristic": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Code of the characteristic. LOV: Value, provided by BSS template",
-            "nullable": true
-          },
-          "value": {
-            "description": "A Value of the characteristic. LOV: Value, provided by BSS template",
-            "nullable": true
-          },
-          "valueType": {
-            "type": "string",
-            "description": "Data type of the value of the characteristic. LOV: object",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "nullable": true
-          },
-          "reason": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "referenceError": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RelatedParty": {
-        "type": "object",
-        "properties": {
-          "referredType": {
-            "type": "string",
-            "description": "The name of the entity for which the operation is performed. LOV: Customers",
-            "nullable": true
-          },
-          "id": {
-            "type": "string",
-            "description": "Tree Node identifier of accounting. LOV:",
-            "nullable": true
-          },
-          "IDType": {
-            "type": "integer",
-            "description": "Sign of passing an external ID value. LOV: 1 - external ID, 0 - internal ID",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "RelatedService": {
-        "type": "object",
-        "properties": {
-          "referredType": {
-            "type": "string",
-            "description": "The name of the entity for which the operation is performed. LOV: Customers\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          },
-          "id": {
-            "type": "string",
-            "description": "Tree Node identifier of accounting. LOV: String identifier in the format 'Prefix-Number', where Pefix is '02' for Resource Facing Service\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "ServiceTest_Request_GET": {
-        "type": "object",
-        "properties": {
-          "Accept_Language": {
-            "$ref": "#/components/schemas/AcceptLanguages"
-          },
-          "format": {
-            "type": "string",
-            "description": "Error output format. LOV: supported value is json\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          },
-          "relatedService": {
-            "$ref": "#/components/schemas/RelatedService"
-          },
-          "x_ms_client_request_id": {
-            "type": "string",
-            "description": "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          },
-          "mode": {
-            "type": "string",
-            "description": "An indication of whether the service test is running in \"proactive\" or \"ondemand\" mode. LOV: ondemand\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          },
-          "testSpecification": {
-            "$ref": "#/components/schemas/TestSpecification"
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "ServiceTest_Response_GET_OUTPUT": {
-        "type": "object",
-        "properties": {
-          "validFor": {
-            "$ref": "#/components/schemas/TimePeriod"
-          },
-          "relatedParty": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RelatedParty"
-            },
-            "description": "A Related Party for this operation. LOV: A List of object",
-            "nullable": true
-          },
-          "relatedService": {
-            "$ref": "#/components/schemas/RelatedService"
-          },
-          "testSpecification": {
-            "$ref": "#/components/schemas/TestSpecification"
-          },
-          "type": {
-            "type": "string",
-            "description": "The @type attribute represents the actual class type of an entity. LOV: ServiceTest",
-            "nullable": true
-          },
-          "mode": {
-            "type": "string",
-            "description": "An indication of whether the service test is running in \"proactive\" or \"ondemand\" mode. LOV: ondemand",
-            "nullable": true
-          },
-          "startDateTime": {
-            "type": "string",
-            "description": "The start date and time of the service test. LOV:",
-            "format": "date-time",
-            "nullable": true
-          },
-          "state": {
-            "type": "string",
-            "description": "The actual state the service test is in. Possible values include rejected, pending, inProgress, cancelled, completed and failed.. LOV: Completed, Failed",
-            "nullable": true
-          },
-          "characteristic": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Characteristic"
-            },
-            "description": "A list of characteristics with values that define the test run. LOV: A List of object",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "TestSpecification": {
-        "type": "object",
-        "properties": {
-          "referredType": {
-            "type": "string",
-            "description": "A Referred Entity name. LOV: RatingSessions\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          },
-          "id": {
-            "type": "string",
-            "description": "Identifier of a service test specification. LOV: rating-service-info\r\n`p_ucp_get_ServiceTest`",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      },
-      "TimePeriod": {
-        "type": "object",
-        "properties": {
-          "endDateTime": {
-            "type": "string",
-            "description": "An End date. LOV:",
-            "nullable": true
-          },
-          "startDateTime": {
-            "type": "string",
-            "description": "A Start date. LOV:",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": ""
-      }
-    },
-    "securitySchemes": {
-      "basicAuth": {
-        "type": "http",
-        "scheme": "basic"
-      },
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "name": "ApiKey",
-        "in": "header"
-      }
-    }
-  },
-  "security": [
-    {
-      "basicAuth": [ ],
-      "ApiKeyAuth": [ ]
-    }
-  ],
-  "tags": [
-    {
-      "name": "serviceTestManagement",
-      "description": ""
-    }
-  ]
-}
+openapi: 3.0.1
+info:
+  title: TMF653_ServiceTest
+  description: |
+    ## TMF653 Service Test Management API
+
+    The **Service Test Management API TMF653** is a specialized endpoint designed to enable telecom operators to perform **on-demand testing of active services** using predefined test specifications.
+    MEF.DEV's implementation facilitates the validation and monitoring of live services in a flexible, standards-aligned manner.
+
+    This API serves a vital role in automated service assurance processes, helping telcos ensure the quality and accuracy of their services, especially in billing, rating, and network-specific operations.
+
+    ### Key Features
+    * **On-Demand Test Execution**. Enables immediate testing of a specific service instance using a selected test specification (e.g., rating info validation)
+    * **Dynamic Evaluation**. Each test execution returns state, validity period, and custom characteristics gathered during the process
+    * **Multi-Network Compatibility**. Supports services across different network slices (e.g., 3G, 4G, 5G)
+    * **Integrated with Rating Function**. Can be used to retrieve real-time diagnostics characteristics like RAT-Type and Technology, charging ID, roaming status, etc
+
+    **You can try the TMF665 plugin as part of the platform's technical preview by following the link below.**
+    You can use this Postman collection to run the test locally or on the MEF.DEV platform. Make sure to configure your `{{API}}` environment variable to the correct base URL before executing.
+  termsOfService: https://mef.dev/terms-of-use/
+  contact:
+    name: MEF.DEV Support
+    url: https://t.me/mef_dev_support
+    email: support@mef.dev
+  version: 1.0.0.5
+servers:
+  - url: http://servername/api/v2/tmf
+    description: devserver
+paths:
+  /serviceTestManagement/serviceTest:
+    post:
+      tags:
+        - serviceTestManagement
+      operationId: POST_serviceTestManagement_serviceTest
+      parameters:
+        - name: Accept_Language
+          in: header
+          description: "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_ServiceTest"
+          schema:
+            $ref: '#/components/schemas/AcceptLanguages'
+        - name: x_ms_client_request_id
+          in: header
+          description: "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_ServiceTest"
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceTest_Request_GET'
+            examples:
+              SUCCESS:
+                summary: ''
+                description: ''
+                value:
+                  mode: ondemand
+                  relatedService:
+                    id: 02-55
+                    '@referredType': Service
+                  testSpecification:
+                    id: rating-service-info
+                    '@referredType': RatingSessions
+              FAIL:
+                summary: ''
+                description: ''
+                value:
+                  mode: ondemand
+                  relatedService:
+                    id: 02-00
+                    '@referredType': Service
+                  testSpecification:
+                    id: rating-service-info
+                    '@referredType': RatingSessions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceTest_Response_GET_OUTPUT'
+              examples:
+                SUCCESS:
+                  summary: ''
+                  description: ''
+                  value:
+                    - relatedParty:
+                        - '@referredType': Customers
+                          idType: 0
+                      testSpecification:
+                        '@referredType': RatingSessions
+                        id: rating-service-info
+                      mode: ondemand
+                      startDateTime: '2025-07-11T21:37:29.66'
+                      state: Completed
+        '400':
+          description: The server cannot or will not process the request. The client should not repeat this request without modification
+          content:
+            application/json:
+              example:
+                status: 400
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '401':
+          description: The specified login/password pair is incorrect
+          content:
+            application/json:
+              example:
+                status: 401
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '403':
+          description: You do not have access to requested resource
+          content:
+            application/json:
+              example:
+                status: 403
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '404':
+          description: The request URL is incorrect
+          content:
+            application/json:
+              example:
+                status: 404
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '405':
+          description: The resource you are requesting doesn't support the request HTTP method
+          content:
+            application/json:
+              example:
+                status: 405
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '408':
+          description: You need to repeat the request immediately
+          content:
+            application/json:
+              example:
+                status: 408
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '409':
+          description: The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while
+          content:
+            application/json:
+              example:
+                status: 409
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)
+          content:
+            application/json:
+              example:
+                status: 503
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+  /serviceTestManagement/serviceTest.{format}:
+    post:
+      tags:
+        - serviceTestManagement
+      operationId: POST_serviceTestManagement_serviceTest_format
+      parameters:
+        - name: format
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Accept_Language
+          in: header
+          description: "Specifying a language for a multi-language dataset. LOV: supported value are en-English, uk-Ukrainian, ru-russian\r\np_ucp_get_ServiceTest"
+          schema:
+            $ref: '#/components/schemas/AcceptLanguages'
+        - name: x_ms_client_request_id
+          in: header
+          description: "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\np_ucp_get_ServiceTest"
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceTest_Request_GET'
+            examples:
+              SUCCESS:
+                summary: ''
+                description: ''
+                value:
+                  mode: ondemand
+                  relatedService:
+                    id: 02-55
+                    '@referredType': Service
+                  testSpecification:
+                    id: rating-service-info
+                    '@referredType': RatingSessions
+              FAIL:
+                summary: ''
+                description: ''
+                value:
+                  mode: ondemand
+                  relatedService:
+                    id: 02-00
+                    '@referredType': Service
+                  testSpecification:
+                    id: rating-service-info
+                    '@referredType': RatingSessions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceTest_Response_GET_OUTPUT'
+              examples:
+                SUCCESS:
+                  summary: ''
+                  description: ''
+                  value:
+                    - relatedParty:
+                        - '@referredType': Customers
+                          idType: 0
+                      testSpecification:
+                        '@referredType': RatingSessions
+                        id: rating-service-info
+                      mode: ondemand
+                      startDateTime: '2025-07-11T21:37:29.66'
+                      state: Completed
+        '400':
+          description: The server cannot or will not process the request. The client should not repeat this request without modification
+          content:
+            application/json:
+              example:
+                status: 400
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '401':
+          description: The specified login/password pair is incorrect
+          content:
+            application/json:
+              example:
+                status: 401
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '403':
+          description: You do not have access to requested resource
+          content:
+            application/json:
+              example:
+                status: 403
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '404':
+          description: The request URL is incorrect
+          content:
+            application/json:
+              example:
+                status: 404
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '405':
+          description: The resource you are requesting doesn't support the request HTTP method
+          content:
+            application/json:
+              example:
+                status: 405
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '408':
+          description: You need to repeat the request immediately
+          content:
+            application/json:
+              example:
+                status: 408
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '409':
+          description: The request cannot be processed due to a conflict, for example, a parallel request conflict - is usually the result of an incorrect (too short) timeout waiting for a response or command execution. It is necessary to repeat the request after a while
+          content:
+            application/json:
+              example:
+                status: 409
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: There is no API access to the linked database or the authorization parameters of the server itself are outdated (not related to API authorization – the technical account is blocked, etc.)
+          content:
+            application/json:
+              example:
+                status: 503
+                code: -2146233088
+                message: Error message
+                type: ErrorType
+components:
+  schemas:
+    AcceptLanguages:
+      enum:
+        - uk
+        - en
+      type: string
+      description: "Test description\r\n\r\n* `uk` - Ukraininn\r\n* `en` - Endglish\r\n"
+    Characteristic:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Code of the characteristic. LOV: Value, provided by BSS template'
+          nullable: true
+        value:
+          description: 'A Value of the characteristic. LOV: Value, provided by BSS template'
+          nullable: true
+        valueType:
+          type: string
+          description: 'Data type of the value of the characteristic. LOV: object'
+          nullable: true
+      additionalProperties: false
+      description: ''
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        reason:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        referenceError:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RelatedParty:
+      type: object
+      properties:
+        referredType:
+          type: string
+          description: 'The name of the entity for which the operation is performed. LOV: Customers'
+          nullable: true
+        id:
+          type: string
+          description: 'Tree Node identifier of accounting. LOV:'
+          nullable: true
+        IDType:
+          type: integer
+          description: 'Sign of passing an external ID value. LOV: 1 - external ID, 0 - internal ID'
+          format: int32
+          nullable: true
+      additionalProperties: false
+      description: ''
+    RelatedService:
+      type: object
+      properties:
+        referredType:
+          type: string
+          description: "The name of the entity for which the operation is performed. LOV: Customers\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+        id:
+          type: string
+          description: "Tree Node identifier of accounting. LOV: String identifier in the format 'Prefix-Number', where Pefix is '02' for Resource Facing Service\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+      additionalProperties: false
+      description: ''
+    ServiceTest_Request_GET:
+      type: object
+      properties:
+        Accept_Language:
+          $ref: '#/components/schemas/AcceptLanguages'
+        format:
+          type: string
+          description: "Error output format. LOV: supported value is json\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+        relatedService:
+          $ref: '#/components/schemas/RelatedService'
+        x_ms_client_request_id:
+          type: string
+          description: "A unique identifier for the search request, used for the GET operation.. LOV: generally a GUID value\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+        mode:
+          type: string
+          description: "An indication of whether the service test is running in \"proactive\" or \"ondemand\" mode. LOV: ondemand\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+        testSpecification:
+          $ref: '#/components/schemas/TestSpecification'
+      additionalProperties: false
+      description: ''
+    ServiceTest_Response_GET_OUTPUT:
+      type: object
+      properties:
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+          description: 'A Related Party for this operation. LOV: A List of object'
+          nullable: true
+        relatedService:
+          $ref: '#/components/schemas/RelatedService'
+        testSpecification:
+          $ref: '#/components/schemas/TestSpecification'
+        type:
+          type: string
+          description: 'The @type attribute represents the actual class type of an entity. LOV: ServiceTest'
+          nullable: true
+        mode:
+          type: string
+          description: 'An indication of whether the service test is running in "proactive" or "ondemand" mode. LOV: ondemand'
+          nullable: true
+        startDateTime:
+          type: string
+          description: 'The start date and time of the service test. LOV:'
+          format: date-time
+          nullable: true
+        state:
+          type: string
+          description: 'The actual state the service test is in. Possible values include rejected, pending, inProgress, cancelled, completed and failed.. LOV: Completed, Failed'
+          nullable: true
+        characteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+          description: 'A list of characteristics with values that define the test run. LOV: A List of object'
+          nullable: true
+      additionalProperties: false
+      description: ''
+    TestSpecification:
+      type: object
+      properties:
+        referredType:
+          type: string
+          description: "A Referred Entity name. LOV: RatingSessions\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+        id:
+          type: string
+          description: "Identifier of a service test specification. LOV: rating-service-info\r\n`p_ucp_get_ServiceTest`"
+          nullable: true
+      additionalProperties: false
+      description: ''
+    TimePeriod:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: 'An End date. LOV:'
+          nullable: true
+        startDateTime:
+          type: string
+          description: 'A Start date. LOV:'
+          nullable: true
+      additionalProperties: false
+      description: ''
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      name: ApiKey
+      in: header
+security:
+  - basicAuth: []
+    ApiKeyAuth: []
+tags:
+  - name: serviceTestManagement
+    description: ''
