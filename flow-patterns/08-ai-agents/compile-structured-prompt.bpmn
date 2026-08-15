@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">["Action","Function"]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name":"Alarm","definition":"public class Alarm {\r\n    public string id { get; set; }\r\n    public string probableCause { get; set; }\r\n    public string severity { get; set; }\r\n    public string affectedResource { get; set; }\r\n    public string alarmType { get; set; }\r\n    public string timestamp { get; set; }\r\n}","isNativeDefinition":true},{"name":"CompilationResult","definition":"public class CompilationResult {\r\n    public StructuredPrompt structuredPrompt { get; set; }\r\n    public string tokenId { get; set; }\r\n    public string expiresAt { get; set; }\r\n    public string agentFrom { get; set; }\r\n    public string agentTo { get; set; }\r\n    public string gatewayId { get; set; }\r\n    public string branch { get; set; }\r\n}","isNativeDefinition":true},{"name":"ContextEnrichment","definition":"public class ContextEnrichment {\r\n    public double confidence { get; set; }\r\n    public System.Collections.Generic.List&lt;NameValue&gt; characteristic { get; set; }\r\n}","isNativeDefinition":true},{"name":"ErrorResponse","definition":"{\r\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n  \"$ref\": \"#/definitions/ErrorResponse\",\r\n  \"definitions\": {\r\n    \"ErrorResponse\": {\r\n      \"type\": \"object\",\r\n      \"additionalProperties\": true,\r\n      \"properties\": {\r\n        \"LevelMessage\": { \"type\": \"string\" },\r\n        \"statusCode\": { \"type\": \"integer\" },\r\n        \"ErrNumber\": { \"type\": \"string\" },\r\n        \"Message\": { \"type\": \"string\" },\r\n        \"State\": { \"type\": \"string\" }\r\n      },\r\n      \"title\": \"ErrorResponse\"\r\n    }\r\n  }\r\n}","isNativeDefinition":false},{"name":"Incident","definition":"public class Incident {\r\n    public string id { get; set; }\r\n    public string priority { get; set; }\r\n    public string status { get; set; }\r\n    public string description { get; set; }\r\n}","isNativeDefinition":true},{"name":"Instruction","definition":"public class Instruction {\r\n    public string id { get; set; }\r\n    public string text { get; set; }\r\n    public System.Collections.Generic.List&lt;Variable&gt; variables { get; set; }\r\n}","isNativeDefinition":true},{"name":"NameValue","definition":"public class NameValue {\r\n    public string name { get; set; }\r\n    public string value { get; set; }\r\n}","isNativeDefinition":true},{"name":"StructuredPrompt","definition":"public class StructuredPrompt {\r\n    public string name { get; set; }\r\n    public string version { get; set; }\r\n    public string profile { get; set; }\r\n    public string interaction_mode { get; set; }\r\n    public string intent3gpp { get; set; }\r\n    public System.Collections.Generic.List&lt;Instruction&gt; instructions { get; set; }\r\n}","isNativeDefinition":true},{"name":"Variable","definition":"public class Variable {\r\n    public string name { get; set; }\r\n    public string value { get; set; }\r\n    public string description { get; set; }\r\n}","isNativeDefinition":true},{"name":"FeasibilityEvaluation","definition":" public class FeasibilityEvaluation {\n    public string decision { get; set; }\n    public double confidence { get; set; }\n    public System.Collections.Generic.List&lt;string&gt; constraints { get; set; }\n}\n","isNativeDefinition":true},{"name":"ExecutionOrder","definition":"public class ExecutionOrder {\n    public string id { get; set; }\n    public string rollbackPlan { get; set; }\n    public string maintenanceWindow { get; set; }\n}\n","isNativeDefinition":true},{"name":"InputData","definition":"public class InputData {\n    public Alarm alarm { get; set; }\n    public Incident incident { get; set; }\n    public ContextEnrichment contextEnrichment { get; set; }\n    public FeasibilityEvaluation feasibilityEvaluation { get; set; }\n    public ExecutionOrder executionOrder { get; set; }\n}\n","isNativeDefinition":true},{"name":"CompilationRequest","definition":"public class CompilationRequest {\n    public string templateName { get; set; }\n    public string agentFrom { get; set; }\n    public string agentTo { get; set; }\n    public string gatewayId { get; set; }\n    public string branch { get; set; }\n    public InputData inputData { get; set; }\n}\n","isNativeDefinition":true},{"name":"PromptDeclaration","definition":"public class PromptDeclaration {\n    public string id { get; set; }\n    public string name { get; set; }\n    public string description { get; set; }\n}\n","isNativeDefinition":true},{"name":"AgentSkill","definition":"public class AgentSkill {\n    public string id { get; set; }\n    public string name { get; set; }\n    public string description { get; set; }\n}\n","isNativeDefinition":true},{"name":"AgentCard","definition":"public class AgentCard {\n    public string name { get; set; }\n    public string description { get; set; }\n    public string url { get; set; }\n    public string version { get; set; }\n    public System.Collections.Generic.List&lt;PromptDeclaration&gt; structuredPrompts { get; set; }\n    public System.Collections.Generic.List&lt;AgentSkill&gt; skills { get; set; }\n}\n","isNativeDefinition":true}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name":"HandleException","initCode":"ErrorResponse HandleException (\n\t\tPassingResult prevData\n\t)        \n    {\n        if (WorkflowEnvironment.RuntimeName == \"UCP\")\n            WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n        return new ErrorResponse()\n        {\n            Message = prevData.Exception.Message,\n            LevelMessage = \"11\",\n            statusCode = 500,\n            State = \"1\"\n        }; \n    }","initParameters":[{"name":"Result","type":"ErrorResponse"},{"name":"prevData","type":"PassingResult","required":true}]}]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[{"name":"bll","link":"libs://common/bll","version":"","entities":[]},{"name":"Platform","link":"libs://common/platform","version":"","entities":[]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[]</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[{"name":"result","type":"CompilationResult","initialValue":""},{"name":"agentCard","type":"AgentCard","initialValue":""},{"name":"tokenPrefix","type":"string","initialValue":"TKN-"},{"name":"tokenTtlMinutes","type":"int","initialValue":"30"},{"name":"registryBaseUrl","type":"string","initialValue":"https://md-platform.internal/fabric"},{"name":"agentRegistry","type":"string","initialValue":"{\"fiber-agent\":{\"name\":\"fiber-agent\",\"description\":\"Fiber domain execution agent for feasibility and repair operations.\",\"url\":\"https://fiber-agent.internal/a2a\",\"version\":\"1.0.0\",\"structuredPrompts\":[{\"id\":\"fiber-feasibility-eval\",\"name\":\"Fiber feasibility evaluation\",\"description\":\"Assess feasibility of fiber reconnect under constraints.\"},{\"id\":\"fiber-reconnect-execute\",\"name\":\"Fiber reconnect execute\",\"description\":\"Execute passive fiber reconnect per repair plan.\"},{\"id\":\"fiber-reconnect-execute-3gpp\",\"name\":\"Fiber reconnect execute (HYBRID / 3GPP TS 28.312)\",\"description\":\"HYBRID-mode reconnect carrying a 3GPP intent payload alongside NL context.\"}],\"skills\":[{\"id\":\"feasibility-evaluate\",\"name\":\"Evaluate feasibility\",\"description\":\"Negotiation-T feasibility assessment\"},{\"id\":\"fault-repair\",\"name\":\"Fault repair\",\"description\":\"Task-T fault repair execution\"}]},\"negotiation-agent\":{\"name\":\"negotiation-agent\",\"description\":\"Negotiation agent for information/target/feasibility negotiations.\",\"url\":\"https://negotiation-agent.internal/a2a\",\"version\":\"1.0.0\",\"structuredPrompts\":[{\"id\":\"disambiguation-request\",\"name\":\"Disambiguation request\",\"description\":\"Request supplementary information to resolve ambiguity.\"}],\"skills\":[{\"id\":\"information-negotiation\",\"name\":\"Information negotiation\",\"description\":\"Negotiation-T information exchange\"}]}}"},{"name":"promptRegistry","type":"string","initialValue":"{\"fiber-feasibility-eval\":{\"name\":\"fiber-feasibility-eval\",\"version\":\"1.0\",\"profile\":\"negotiation-t\",\"interaction_mode\":\"NL\",\"instructions\":[{\"id\":\"I1\",\"text\":\"This is a FEASIBILITY negotiation for capability assessment. The requester wants to verify whether the executor can perform the requested task under given constraints.\",\"variables\":[]},{\"id\":\"I2\",\"text\":\"Task to assess: {{Task Information}}.\",\"variables\":[{\"name\":\"Task Information\",\"value\":\"{{Task Information}}\",\"description\":\"Description of the task requirements to assess feasibility for\"}]},{\"id\":\"I3\",\"text\":\"Desired constraints: {{Constraints}}.\",\"variables\":[{\"name\":\"Constraints\",\"value\":\"{{Constraints}}\",\"description\":\"Desired execution constraints (timing, resources, domain scope)\"}]},{\"id\":\"I4\",\"text\":\"{{Feasibility Confirmation}}\",\"variables\":[{\"name\":\"Feasibility Confirmation\",\"value\":\"{{Feasibility Confirmation}}\",\"description\":\"Request for feasibility assessment\"}]},{\"id\":\"I5\",\"text\":\"Expected response format: {{Output Format}}.\",\"variables\":[{\"name\":\"Output Format\",\"value\":\"{{Output Format}}\",\"description\":\"Expected format for the feasibility response\"}]}]},\"fiber-reconnect-execute\":{\"name\":\"fiber-reconnect-execute\",\"version\":\"1.0\",\"profile\":\"task-t\",\"interaction_mode\":\"NL\",\"instructions\":[{\"id\":\"I1\",\"text\":\"You are a fault repair execution agent specializing in telecom network recovery operations. Execute repair procedures following safety protocols and change management processes.\",\"variables\":[]},{\"id\":\"I2\",\"text\":\"Repair fault {{Identifier}} affecting {{Affected Objects}}. Apply the recommended repair actions and verify service restoration.\",\"variables\":[{\"name\":\"Identifier\",\"value\":\"{{Identifier}}\",\"description\":\"Fault or incident identifier\"},{\"name\":\"Affected Objects\",\"value\":\"{{Affected Objects}}\",\"description\":\"Affected network elements, services, or customers\"}]},{\"id\":\"I3\",\"text\":\"Fault occurrence time: {{Fault Occurrence Time}}. Related information: {{Related Information}}. Fault context objects: {{Fault Context Objects}}. Diagnosis result: {{Diagnosis Result}}.\",\"variables\":[{\"name\":\"Fault Occurrence Time\",\"value\":\"{{Fault Occurrence Time}}\",\"description\":\"Timestamp when the fault was first detected\"},{\"name\":\"Related Information\",\"value\":\"{{Related Information}}\",\"description\":\"Related alarms, logs, and diagnosis output\"},{\"name\":\"Fault Context Objects\",\"value\":\"{{Fault Context Objects}}\",\"description\":\"Surrounding network elements and topology context\"},{\"name\":\"Diagnosis Result\",\"value\":\"{{Diagnosis Result}}\",\"description\":\"Root cause identified by diagnosis agent\"}]},{\"id\":\"I4\",\"text\":\"Available repair procedures: {{Repair Actions}}. Rollback plan: {{Rollback Plan}}. Approval required: {{Approval Required}}.\",\"variables\":[{\"name\":\"Repair Actions\",\"value\":\"{{Repair Actions}}\",\"description\":\"List of available repair procedures to attempt\"},{\"name\":\"Rollback Plan\",\"value\":\"{{Rollback Plan}}\",\"description\":\"Fallback procedure if repair fails\"},{\"name\":\"Approval Required\",\"value\":\"{{Approval Required}}\",\"description\":\"Whether human approval is needed before execution\"}]},{\"id\":\"I5\",\"text\":\"Priority: {{Priority}}. Maintenance window: {{Maintenance Window}}. Service impact tolerance: {{Service Impact Tolerance}}.\",\"variables\":[{\"name\":\"Priority\",\"value\":\"{{Priority}}\",\"description\":\"Task priority level (HIGH, MEDIUM, LOW)\"},{\"name\":\"Maintenance Window\",\"value\":\"{{Maintenance Window}}\",\"description\":\"Allowed time window for repair execution\"},{\"name\":\"Service Impact Tolerance\",\"value\":\"{{Service Impact Tolerance}}\",\"description\":\"Maximum acceptable service disruption during repair\"}]},{\"id\":\"I6\",\"text\":\"Provide a repair execution report including: 1. Actions taken and their results. 2. Service restoration status. 3. Verification test results. 4. Residual risks or follow-up actions needed.\",\"variables\":[]}]},\"fiber-reconnect-execute-3gpp\":{\"name\":\"fiber-reconnect-execute-3gpp\",\"version\":\"1.0\",\"profile\":\"task-t\",\"interaction_mode\":\"HYBRID\",\"intent3gpp\":\"{\\\"intentId\\\":\\\"FIBER-RECONNECT-{{Incident ID}}\\\",\\\"intentExpectations\\\":[{\\\"expectationId\\\":\\\"EXP-RESTORE-{{Fiber Span ID}}\\\",\\\"expectationVerb\\\":\\\"DELIVER\\\",\\\"expectationObject\\\":{\\\"objectType\\\":\\\"FiberSpan\\\",\\\"objectInstance\\\":\\\"{{Fiber Span ID}}\\\",\\\"objectContexts\\\":{\\\"affectedSite\\\":\\\"{{Affected Objects}}\\\",\\\"faultType\\\":\\\"{{Fault Type}}\\\"}},\\\"expectationTargets\\\":[{\\\"targetName\\\":\\\"ServiceAvailability\\\",\\\"targetCondition\\\":\\\"GREATER_THAN\\\",\\\"targetValueRange\\\":\\\"0.999\\\"},{\\\"targetName\\\":\\\"RestorationTime\\\",\\\"targetCondition\\\":\\\"LESS_THAN\\\",\\\"targetValueRange\\\":\\\"{{Maintenance Window}}\\\"}],\\\"expectationContext\\\":{\\\"priority\\\":\\\"{{Priority}}\\\",\\\"rollbackPlan\\\":\\\"{{Rollback Plan}}\\\"}}]}\",\"instructions\":[{\"id\":\"I1\",\"text\":\"You are a fiber domain repair execution agent. Fulfil the 3GPP TS 28.312 intent carried in intent3gpp field. Natural-language context below clarifies operational intent; the structured payload is authoritative.\",\"variables\":[]},{\"id\":\"I2\",\"text\":\"Restore fiber span {{Fiber Span ID}} for incident {{Incident ID}} on site {{Affected Objects}}. Fault classification: {{Fault Type}}. Honour the ServiceAvailability and RestorationTime targets declared in intent3gpp.\",\"variables\":[{\"name\":\"Fiber Span ID\",\"value\":\"{{Fiber Span ID}}\",\"description\":\"Identifier of the fiber span to reconnect\"},{\"name\":\"Incident ID\",\"value\":\"{{Incident ID}}\",\"description\":\"TMF724 Incident identifier\"},{\"name\":\"Affected Objects\",\"value\":\"{{Affected Objects}}\",\"description\":\"Affected BTS/site\"},{\"name\":\"Fault Type\",\"value\":\"{{Fault Type}}\",\"description\":\"Probable cause\"}]},{\"id\":\"I3\",\"text\":\"Priority: {{Priority}}. Maintenance window: {{Maintenance Window}}. Rollback plan: {{Rollback Plan}}.\",\"variables\":[{\"name\":\"Priority\",\"value\":\"{{Priority}}\",\"description\":\"Execution priority\"},{\"name\":\"Maintenance Window\",\"value\":\"{{Maintenance Window}}\",\"description\":\"Allowed restoration time window\"},{\"name\":\"Rollback Plan\",\"value\":\"{{Rollback Plan}}\",\"description\":\"Fallback procedure\"}]},{\"id\":\"I4\",\"text\":\"Return a 3GPP IntentReport as JSON matching the intent3gpp schema: { intentId: &lt;same as request&gt;, intentFulfilmentResult: FULFILLED|NOT_FULFILLED, fulfilmentDetails: [...] }. NL-side report is optional supplement.\",\"variables\":[]}]},\"disambiguation-request\":{\"name\":\"disambiguation-request\",\"version\":\"1.0\",\"profile\":\"negotiation-t\",\"interaction_mode\":\"NL\",\"instructions\":[{\"id\":\"I1\",\"text\":\"This is an INFORMATION negotiation for supplementary data exchange. The executor needs additional data from the requester to proceed with task execution.\",\"variables\":[]},{\"id\":\"I2\",\"text\":\"{{Information Supplement Request}}\",\"variables\":[{\"name\":\"Information Supplement Request\",\"value\":\"{{Information Supplement Request}}\",\"description\":\"The executor request for additional data\"}]},{\"id\":\"I3\",\"text\":\"Specific information items needed: {{Required Information Items}}. Format specification: {{Output Format Specification}}.\",\"variables\":[{\"name\":\"Required Information Items\",\"value\":\"{{Required Information Items}}\",\"description\":\"List of specific information items needed\"},{\"name\":\"Output Format Specification\",\"value\":\"{{Output Format Specification}}\",\"description\":\"Expected format for the requested information\"}]},{\"id\":\"I4\",\"text\":\"Data confirmation: {{Data Return Confirmation}}. Data rejection: {{Data Request Rejection}}. Rejection reason: {{Reason For Rejection}}. Alternative proposal: {{Alternative Solution Proposal}}.\",\"variables\":[{\"name\":\"Data Return Confirmation\",\"value\":\"{{Data Return Confirmation}}\",\"description\":\"Requester confirmation that data can be provided\"},{\"name\":\"Data Request Rejection\",\"value\":\"{{Data Request Rejection}}\",\"description\":\"Requester indication that data cannot be provided\"},{\"name\":\"Reason For Rejection\",\"value\":\"{{Reason For Rejection}}\",\"description\":\"Explanation for why data cannot be provided\"},{\"name\":\"Alternative Solution Proposal\",\"value\":\"{{Alternative Solution Proposal}}\",\"description\":\"Alternative approach when requested data is unavailable\"}]}]}}"},{"name":"variableMappings","type":"string","initialValue":"{\"fiber-feasibility-eval\":{\"Task Information\":\"$.alarm.probableCause\",\"Constraints\":\"Standard maintenance window; minimize service impact.\",\"Feasibility Confirmation\":\"Confirm whether reconnect of the affected fiber span is feasible within the stated constraints.\",\"Output Format\":\"JSON object with fields: decision (yes|no), confidence (0..1), constraints (list of strings).\"},\"fiber-reconnect-execute\":{\"Identifier\":\"$.incident.id\",\"Affected Objects\":\"$.alarm.affectedResource\",\"Fault Occurrence Time\":\"$.alarm.timestamp\",\"Related Information\":\"$.alarm.probableCause\",\"Fault Context Objects\":\"$.contextEnrichment.characteristic[?(@.name=='fiberSpanId')].value\",\"Diagnosis Result\":\"$.feasibilityEvaluation.decision\",\"Repair Actions\":\"Execute passive fiber reconnect on the affected span.\",\"Rollback Plan\":\"$.executionOrder.rollbackPlan\",\"Approval Required\":\"yes\",\"Priority\":\"$.incident.priority\",\"Maintenance Window\":\"$.executionOrder.maintenanceWindow\",\"Service Impact Tolerance\":\"minimal\"},\"fiber-reconnect-execute-3gpp\":{\"Fiber Span ID\":\"$.contextEnrichment.characteristic[?(@.name=='fiberSpanId')].value\",\"Incident ID\":\"$.incident.id\",\"Affected Objects\":\"$.alarm.affectedResource\",\"Fault Type\":\"$.alarm.probableCause\",\"Priority\":\"$.incident.priority\",\"Maintenance Window\":\"$.executionOrder.maintenanceWindow\",\"Rollback Plan\":\"$.executionOrder.rollbackPlan\"},\"disambiguation-request\":{\"Information Supplement Request\":\"$.alarm.probableCause\",\"Required Information Items\":\"$.contextEnrichment.characteristic[?(@.name=='missingField')].value\",\"Output Format Specification\":\"JSON key-value pairs matching each requested item.\"}}"}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"templateName":"fiber-feasibility-eval","agentFrom":"orchestrator","agentTo":"fiber-agent","gatewayId":"GW_DomainClear","branch":"A","inputData":{"alarm":{"id":"ALM-2026-0406-0042","probableCause":"Base Station Signal Loss","severity":"critical","affectedResource":"BTS-KV-0447","alarmType":"equipment","timestamp":"2026-04-06T08:42:00Z"},"incident":{"id":"INC-2026-0406-0447","priority":"critical","status":"open","description":"Base station offline"},"contextEnrichment":{"confidence":0.85,"characteristic":[{"name":"fiberSpanId","value":"FBR-SPAN-0447-KV-CORE"},{"name":"siteCode","value":"KV-0447"}]}}}</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_0csp001" name="compile_structured_prompt">
+    <startEvent id="Event_start">
+      <outgoing>Flow_01</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1ki9j23">
+        <targetRef>DataObjectReference_0i71cd6</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <task id="Activity_echo" name="InitResult">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Parameters.result = new CompilationResult() {\r\n    agentFrom = Input.agentFrom,\r\n    agentTo = Input.agentTo,\r\n    gatewayId = Input.gatewayId,\r\n    branch = Input.branch\r\n};\r\nLogger.LogInformation($\"InitResult:: {Input.templateName} for {Input.agentTo}\");\r\nreturn Parameters.result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_01</incoming>
+      <outgoing>Flow_02</outgoing>
+    </task>
+    <endEvent id="Event_end">
+      <incoming>Flow_0i959l3</incoming>
+      <property id="Property_1oexlb1" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0kyp9uq">
+        <sourceRef>DataObjectReference_19isabv</sourceRef>
+        <targetRef>Property_1oexlb1</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_01" sourceRef="Event_start" targetRef="Activity_echo" />
+    <sequenceFlow id="Flow_02" sourceRef="Activity_echo" targetRef="Activity_resolveAgent" />
+    <dataObjectReference id="DataObjectReference_0i71cd6" name="CompilationRequest" dataObjectRef="DataObject_07ugoc3" />
+    <dataObject id="DataObject_07ugoc3" />
+    <dataObjectReference id="DataObjectReference_19isabv" name="CompilationResult" dataObjectRef="DataObject_0ij1f8r" />
+    <dataObject id="DataObject_0ij1f8r" />
+    <task id="Activity_resolveAgent" name="ResolveAgentCard">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Logger.LogInformation($\"ResolveAgentCard:: GET {Parameters.registryBaseUrl}/agents/{Input.agentTo}\");\r\n\r\n// FUTURE: real REST call to Fabric Agent Registry\r\n// Matches /registry/agents/{agentId} contract (see AgentRegistration.json)\r\n// var response = RestApi.SendGet($\"{Parameters.registryBaseUrl}/agents/{Input.agentTo}\");\r\n// Parameters.agentCard = Newtonsoft.Json.JsonConvert.DeserializeObject&lt;AgentCard&gt;(response);\r\n\r\n// MVP: lookup in mock registry (will be replaced by real REST call)\r\nvar registry = Newtonsoft.Json.Linq.JObject.Parse(Parameters.agentRegistry.ToString());\r\nvar cardToken = registry[Input.agentTo] as Newtonsoft.Json.Linq.JObject;\r\nif (cardToken == null) {\r\n    throw new System.Exception($\"agent_not_found: '{Input.agentTo}' is not registered in Fabric\");\r\n}\r\nParameters.agentCard = cardToken.ToObject&lt;AgentCard&gt;();\r\nLogger.LogInformation($\"ResolveAgentCard:: found '{Parameters.agentCard.name}' with {Parameters.agentCard.structuredPrompts.Count} declared prompts\");\r\nreturn Parameters.agentCard;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_02</incoming>
+      <outgoing>Flow_02b</outgoing>
+    </task>
+    <sequenceFlow id="Flow_02b" sourceRef="Activity_resolveAgent" targetRef="Activity_validatePrompt" />
+    <task id="Activity_validatePrompt" name="ValidatePromptDeclared">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Logger.LogInformation($\"ValidatePromptDeclared:: check '{Input.templateName}' in AgentCard of '{Input.agentTo}'\");\r\n\r\n// Phase 1 check from token_flow.puml line 56:\r\n// structuredPrompt exists in AgentCard.structuredPrompts[]?\r\n// On failure DTG returns: 403 structured_prompt_not_declared\r\nvar declared = false;\r\nforeach (var sp in Parameters.agentCard.structuredPrompts) {\r\n    if (sp.id == Input.templateName) {\r\n        declared = true;\r\n        break;\r\n    }\r\n}\r\nif (!declared) {\r\n    throw new System.Exception($\"structured_prompt_not_declared: '{Input.templateName}' is not declared in AgentCard of '{Input.agentTo}'\");\r\n}\r\nreturn declared;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_02b</incoming>
+      <outgoing>Flow_02c</outgoing>
+    </task>
+    <sequenceFlow id="Flow_02c" sourceRef="Activity_validatePrompt" targetRef="Activity_1x0cc9x" />
+    <task id="Activity_1x0cc9x" name="ResolveTemplate">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Logger.LogInformation($\"ResolveTemplate:: GET {Parameters.registryBaseUrl}/prompt-templates/{Input.templateName}\");\r\n\r\n// FUTURE: real REST call to Prompt Template Registry\r\n// Returns a full StructuredPrompt (see A2A-T/src/python/a2a_telecom/prompt.py: load_template + parse_template)\r\n// var response = RestApi.SendGet($\"{Parameters.registryBaseUrl}/prompt-templates/{Input.templateName}\");\r\n// var template = Newtonsoft.Json.JsonConvert.DeserializeObject&lt;StructuredPrompt&gt;(response);\r\n\r\n// MVP: lookup in mock registry (will be replaced by real REST call)\r\nvar registry = Newtonsoft.Json.Linq.JObject.Parse(Parameters.promptRegistry.ToString());\r\nvar token = registry[Input.templateName] as Newtonsoft.Json.Linq.JObject;\r\nif (token == null) {\r\n    throw new System.Exception($\"template_not_found: '{Input.templateName}' not found in prompt registry\");\r\n}\r\nvar template = token.ToObject&lt;StructuredPrompt&gt;();\r\nParameters.result.structuredPrompt = template;\r\nLogger.LogInformation($\"ResolveTemplate:: loaded '{template.name}' v{template.version} with {template.instructions.Count} instructions\");\r\nreturn Parameters.result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_02c</incoming>
+      <outgoing>Flow_1nkca9z</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1nkca9z" sourceRef="Activity_1x0cc9x" targetRef="Activity_1fl8tnv" />
+    <task id="Activity_1fl8tnv" name="MapDataToVariables">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Logger.LogInformation($\"MapDataToVariables:: {Input.templateName}\");\r\n\r\nif (Input.inputData == null) {\r\n    Logger.LogWarning(\"Input.inputData is null — skipping variable resolution\");\r\n    return Parameters.result;\r\n}\r\n\r\n// Wrap inputData into JSON helper so we can query it via JSONPath\r\nvar inputJson = new JSON(Input.inputData);\r\n\r\n// Load mappings table. Keys contain hyphens/spaces, so use JObject directly (not JsonPath dot-access)\r\nvar allMappings = Newtonsoft.Json.Linq.JObject.Parse(Parameters.variableMappings.ToString());\r\nvar templateMappings = allMappings[Input.templateName] as Newtonsoft.Json.Linq.JObject;\r\nif (templateMappings == null) {\r\n    Logger.LogWarning($\"No mappings defined for template {Input.templateName}\");\r\n    return Parameters.result;\r\n}\r\n\r\n// Walk structured prompt, resolve each variable.\r\n// Mapping value convention: starts with '$' → JSONPath against inputData; otherwise → literal string.\r\n// Collect resolved values to reuse for intent3gpp (HYBRID/STRUCTURED mode).\r\nvar resolvedMap = new System.Collections.Generic.Dictionary&lt;string, string&gt;();\r\nvar prompt = Parameters.result.structuredPrompt;\r\nforeach (var instruction in prompt.instructions) {\r\n    if (instruction.variables == null) continue;\r\n    foreach (var variable in instruction.variables) {\r\n        var mappingToken = templateMappings[variable.name];\r\n        if (mappingToken == null) continue;\r\n        var expr = (string)mappingToken;\r\n        string resolved = null;\r\n        if (!string.IsNullOrEmpty(expr) &amp;&amp; expr.StartsWith(\"$\")) {\r\n            var found = inputJson.JsonPath(expr);\r\n            resolved = (string)found;\r\n        } else {\r\n            resolved = expr;\r\n        }\r\n        if (!string.IsNullOrEmpty(resolved)) {\r\n            variable.value = resolved;\r\n            instruction.text = instruction.text.Replace(\"{{\" + variable.name + \"}}\", resolved);\r\n            resolvedMap[variable.name] = resolved;\r\n            Logger.LogInformation($\"Resolved {{{variable.name}}} = {resolved}\");\r\n        } else {\r\n            Logger.LogWarning($\"Could not resolve '{expr}' for variable {variable.name}\");\r\n        }\r\n    }\r\n}\r\n\r\n// HYBRID / STRUCTURED mode: resolve placeholders inside intent3gpp (TS 28.312 payload).\r\n// NL-mode templates leave intent3gpp null — no-op.\r\nif (!string.IsNullOrEmpty(prompt.intent3gpp)) {\r\n    foreach (var kv in resolvedMap) {\r\n        prompt.intent3gpp = prompt.intent3gpp.Replace(\"{{\" + kv.Key + \"}}\", kv.Value);\r\n    }\r\n    Logger.LogInformation($\"intent3gpp resolved ({prompt.interaction_mode}): {prompt.intent3gpp.Length} chars\");\r\n}\r\n\r\nreturn Parameters.result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1nkca9z</incoming>
+      <outgoing>Flow_0ii4w3u</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0ii4w3u" sourceRef="Activity_1fl8tnv" targetRef="Activity_134aoil" />
+    <task id="Activity_134aoil" name="GenerateToken">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"// Phase 1 token issuance — matches dtg/token_flow.puml lines 62-64:\r\n// LOG TOKEN_ISSUED; return { token_id, structuredPrompt, expires_at }\r\nParameters.result.tokenId = $\"{Parameters.tokenPrefix}{System.DateTime.UtcNow:yyyyMMddHHmmss}\";\r\nParameters.result.expiresAt = System.DateTime.UtcNow.AddMinutes(Parameters.tokenTtlMinutes).ToString(\"o\");\r\nLogger.LogInformation($\"GenerateToken:: TOKEN_ISSUED tokenId={Parameters.result.tokenId} agentFrom={Parameters.result.agentFrom} agentTo={Parameters.result.agentTo} prompt={Parameters.result.structuredPrompt.name}\");\r\nreturn Parameters.result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0ii4w3u</incoming>
+      <outgoing>Flow_175h9c5</outgoing>
+    </task>
+    <sequenceFlow id="Flow_175h9c5" sourceRef="Activity_134aoil" targetRef="Activity_0hto78h" />
+    <task id="Activity_0hto78h" name="ReturnResult">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"Logger.LogInformation($\"ReturnResult:: finalizing for {Parameters.result.agentTo}\");\r\nreturn Parameters.result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_175h9c5</incoming>
+      <outgoing>Flow_0i959l3</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0i959l3" sourceRef="Activity_0hto78h" targetRef="Event_end" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-diagram-01">
+    <bpmndi:BPMNPlane id="sid-plane-01" bpmnElement="Process_0csp001">
+      <bpmndi:BPMNShape id="Event_start_di" bpmnElement="Event_start">
+        <omgdc:Bounds x="312" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_echo_di" bpmnElement="Activity_echo">
+        <omgdc:Bounds x="280" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_end_di" bpmnElement="Event_end">
+        <omgdc:Bounds x="312" y="1032" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0i71cd6_di" bpmnElement="DataObjectReference_0i71cd6">
+        <omgdc:Bounds x="422" y="105" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="397" y="162" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_19isabv_di" bpmnElement="DataObjectReference_19isabv">
+        <omgdc:Bounds x="422" y="1025" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="396" y="1082" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_resolveAgent_di" bpmnElement="Activity_resolveAgent">
+        <omgdc:Bounds x="280" y="310" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_validatePrompt_di" bpmnElement="Activity_validatePrompt">
+        <omgdc:Bounds x="280" y="430" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1x0cc9x_di" bpmnElement="Activity_1x0cc9x">
+        <omgdc:Bounds x="280" y="550" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fl8tnv_di" bpmnElement="Activity_1fl8tnv">
+        <omgdc:Bounds x="280" y="670" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_134aoil_di" bpmnElement="Activity_134aoil">
+        <omgdc:Bounds x="280" y="790" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hto78h_di" bpmnElement="Activity_0hto78h">
+        <omgdc:Bounds x="280" y="910" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1ki9j23_di" bpmnElement="DataOutputAssociation_1ki9j23">
+        <di:waypoint x="348" y="130" />
+        <di:waypoint x="422" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0kyp9uq_di" bpmnElement="DataInputAssociation_0kyp9uq">
+        <di:waypoint x="422" y="1050" />
+        <di:waypoint x="348" y="1050" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01_di" bpmnElement="Flow_01">
+        <di:waypoint x="330" y="148" />
+        <di:waypoint x="330" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02_di" bpmnElement="Flow_02">
+        <di:waypoint x="330" y="270" />
+        <di:waypoint x="330" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02b_di" bpmnElement="Flow_02b">
+        <di:waypoint x="330" y="390" />
+        <di:waypoint x="330" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02c_di" bpmnElement="Flow_02c">
+        <di:waypoint x="330" y="510" />
+        <di:waypoint x="330" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nkca9z_di" bpmnElement="Flow_1nkca9z">
+        <di:waypoint x="330" y="630" />
+        <di:waypoint x="330" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ii4w3u_di" bpmnElement="Flow_0ii4w3u">
+        <di:waypoint x="330" y="750" />
+        <di:waypoint x="330" y="790" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_175h9c5_di" bpmnElement="Flow_175h9c5">
+        <di:waypoint x="330" y="870" />
+        <di:waypoint x="330" y="910" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i959l3_di" bpmnElement="Flow_0i959l3">
+        <di:waypoint x="330" y="990" />
+        <di:waypoint x="330" y="1032" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

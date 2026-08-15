@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="CodeActionsTypes">["Action","Function"]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name":"ErrorResponse","definition":"{\r\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\r\n  \"$ref\": \"#/definitions/ErrorResponse\",\r\n  \"definitions\": {\r\n    \"ErrorResponse\": {\r\n      \"type\": \"object\",\r\n      \"additionalProperties\": true,\r\n      \"properties\": {\r\n        \"LevelMessage\": {\r\n          \"title\": \"The Error level\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"statusCode\": {\r\n          \"title\": \"The Error Status Code\",\r\n          \"type\": \"integer\"\r\n        },\r\n        \"ErrNumber\": {\r\n          \"title\": \"The Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Message\": {\r\n          \"title\": \"The Error Message\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"State\": {\r\n          \"title\": \"The Error State\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"HelpLink\": {\r\n          \"title\": \"The Help Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"errNumberReason\": {\r\n          \"title\": \"The initial Error Number\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"Data\": {\r\n          \"title\": \"The Error Data\",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"LevelMessage\": {\r\n              \"title\": \"The Error level\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"statusCode\": {\r\n              \"title\": \"The Error Status Code\",\r\n              \"type\": \"integer\"\r\n            },\r\n            \"ErrNumber\": {\r\n              \"title\": \"The Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Message\": {\r\n              \"title\": \"The Error Message\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"State\": {\r\n              \"title\": \"The Error State\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"HelpLink\": {\r\n              \"title\": \"The Help Link\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"errNumberReason\": {\r\n              \"title\": \"The initial Error Number\",\r\n              \"type\": \"string\"\r\n            },\r\n            \"Data\": {\r\n              \"title\": \"The Data Schema\",\r\n              \"type\": \"object\",\r\n              \"properties\": {\r\n                \"LevelMessage\": {\r\n                  \"title\": \"The Error level\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"statusCode\": {\r\n                  \"title\": \"The Error Status Code\",\r\n                  \"type\": \"integer\"\r\n                },\r\n                \"ErrNumber\": {\r\n                  \"title\": \"The Error Number\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"Message\": {\r\n                  \"title\": \"The Error Message\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"State\": {\r\n                  \"title\": \"The Error State\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"HelpLink\": {\r\n                  \"title\": \"The Help Link\",\r\n                  \"type\": \"string\"\r\n                },\r\n                \"errNumberReason\": {\r\n                  \"title\": \"The initial Error Number\",\r\n                  \"type\": \"string\"\r\n                }\r\n              }\r\n            },\r\n            \"ResolveUrl\": {\r\n              \"title\": \"The Resolve Url Link\",\r\n              \"type\": \"string\"\r\n            }\r\n          }\r\n        },\r\n        \"ResolveUrl\": {\r\n          \"title\": \"The Resolve Url Link\",\r\n          \"type\": \"string\"\r\n        },\r\n        \"extraData\": {\r\n          \"title\": \"The Error Extra Data \",\r\n          \"type\": \"object\",\r\n          \"properties\": {\r\n            \"operationDuration\": {\r\n              \"title\": \"The Operation Duration\",\r\n              \"type\": \"integer\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"title\": \"ErrorResponse\"\r\n    }\r\n  }\r\n}","isNativeDefinition":false},{"name":"HttpConfig","definition":"{\r\n    \"$schema\":\"http://natec.tech/simpleschema\",\r\n    \"$ref\":\"#/definitions/HttpConfig\",\r\n    \"definitions\":{\r\n        \"HttpConfig\":{\r\n            \"type\":\"object\",\r\n            \"properties\":{\r\n                \"host\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"port\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"login\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"password\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"encoding\":{\r\n                    \"type\":\"string\"\r\n                },\r\n                \"headers\":{\r\n                    \"type\":\"StringDictionary&lt;string, string&gt;\"\r\n                }\r\n            },\r\n            \"required\": [\"host\", \"encoding\", \"headers\"],\r\n            \"title\":\"HttpConfig\"\r\n        }\r\n    }\r\n}","isNativeDefinition":false},{"name":"SystemException","definition":"{\r\n   \"$schema\":\"http://natec.tech/simpleschema\",\r\n   \"$ref\":\"#/definitions/SystemException\",\r\n   \"definitions\":{\r\n      \"SystemException\":{\r\n         \"type\":\"object\",\r\n         \"properties\":{\r\n            \"Exception\":{\r\n               \"type\":\"types://core/System.Exception\"\r\n            },\r\n            \"info\":{\r\n               \"type\":\"string\"\r\n            }\r\n         },\r\n         \"title\":\"SystemException\"\r\n      }\r\n   }\r\n}","isNativeDefinition":false}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[{"definition":"types://external/Platform/UCP.API.Application.Services.SseMessage","name":"SseMessage"}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name":"CodeActionExample","initCode":"Json CodeActionExample (\n\t\tJson inputData\n\t)      \n    {\n    try \n    { \n       \n        Logger.LogInformation($\"CodeActionExample:: started\");\n        // TODO Insert your code here\n        Logger.LogInformation($\"CodeActionExample:: finished\");\n        return inputData;\n    }\n    catch (Exception e) {\n            Logger.LogError($\"CodeActionExample:: error {e}\");\n            throw new Exception($\"CodeActionExample:: error {e}\");\n    }\n    \n    }","initParameters":[{"name":"Result","type":"Json"},{"name":"inputData","type":"Json","required":false}]},{"name":"HandleException","initCode":"ErrorResponse HandleException (\n\t\tPassingResult prevData\n\t)        \n    {\n         try\n    {\n        //investigate the Exception \n        Logger.LogInformation($\"Exception name : {prevData.Exception.GetType().Name}\");\n         //casting to exception example\n        OracleException exception = null;\n        if (prevData.Exception is OracleException)\n        {\n             exception = prevData.Exception as OracleException;\n        }\n \n        //forming the HTTP error result\n        if (WorkflowEnvironment.RuntimeName == \"UCP\")\n            WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n        return new ErrorResponse()\n        {\n            Message = string.Concat(prevData.Exception.Message, $\"({prevData.Exception.InnerException?.Message})\"),\n            LevelMessage = \"11\",\n            statusCode = 500,\n            State = \"1\",\n            //ErrNumber = exception.Number.ToString()\n        }; \n    }\n    catch (Exception e) {\n            Logger.LogError($\"HandleException:: error {e}\");\n            throw new Exception($\"HandleException:: error {e}\");\n    }\n    }","initParameters":[{"name":"Result","type":"ErrorResponse"},{"name":"prevData","type":"PassingResult","required":true}]},{"name":"InspectOracleResult","initCode":"string[] InspectOracleResult (\n\t\tCollection oracleData\n\t)        \n    {\n            //get single value\n            //Logger.LogInformation($\"get single value of FIELD_NAME1 by index: syntax oracleData[index].FIELD_NAME1\");\n            var field_first = oracleData[0].FIELD_NAME1;\n\n            //enumeration of FIELD_NAME1 (with LINQ)\n            var field_rows = from row in oracleData\n                               select row.FIELD_NAME1;\n            //passing by enumeration\n            Logger.LogInformation($\"passing by enumeration field_rows of var1: syntax FIELD_NAME1:var1\");\n            foreach (var field1 in field_rows)\n                Logger.LogInformation($\"FIELD_NAME1:{field1}\");\n\n            //get array of msisdn from enumeration\n            Logger.LogInformation($\"get array from enumeration: syntax field_rows.ToArray()\");\n            var myArray = field_rows.ToArray();\n            //get first value from array\n            var field_from_Array = myArray[0];\n\n            //passing by enumeration of whole dataset\n            Logger.LogInformation($\"passing by enumeration of whole dataset: syntax FIELD_NAME1:row.FIELD_NAME1, FIELD_NAME2:row.FIELD_NAME2 etc...\");\n            foreach (var row in oracleData)\n                Logger.LogInformation($\"FIELD_NAME1:{row.FIELD_NAME1}\");\n\n            //convert whole dataset to string \n            var field_list = from row in oracleData\n                            select row.FIELD_NAME1 as string;\n            //convert string to string array \n            return field_list.ToList();\n\n    }","initParameters":[{"name":"Result","type":"string[]"},{"name":"oracleData","type":"Collection","required":true}]},{"name":"TestCodeAction","initCode":"string[] TestCodeAction (\n\t\tstring arg\n\t)  \n    {\n        // TODO Insert your code here\n    }","initParameters":[{"name":"Result","type":"string[]"},{"name":"arg","type":"string","required":false}]}]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[{"name":"Platform","link":"libs://common/platform","version":"","entities":[]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name":"RestApi","initCode":"functions://default/RestApi","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","oldType":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Method","type":"string","required":true,"oldName":"Method","oldType":"String","defaultValue":"GET"},{"name":"Login","type":"string","required":false,"oldName":"Login","oldType":"String","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","oldType":"String","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","oldType":"StringDictionary","defaultValue":"{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"},{"name":"Body","type":"string","required":false,"oldName":"Body","oldType":"String","defaultValue":"{}"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","oldType":"String","defaultValue":"utf-8"},{"name":"Timeout","type":"int","required":false,"oldName":"Timeout","oldType":"int","defaultValue":"0"},{"name":"Result","type":"HttpResponse","required":false,"oldName":"Result","oldType":"HttpResponse","defaultValue":null}],"oldName":"RestApi"},{"name":"RestApi/GET","initCode":"functions://default/RestApi/Get","initParameters":[{"name":"Uri","type":"Uri","required":true,"oldName":"Uri","oldType":"Uri","defaultValue":"http://servername:port/resource"},{"name":"Login","type":"string","required":false,"oldName":"Login","oldType":"String","defaultValue":null},{"name":"Password","type":"string","required":false,"oldName":"Password","oldType":"String","defaultValue":null},{"name":"Headers","type":"StringDictionary","required":false,"oldName":"Headers","oldType":"StringDictionary","defaultValue":"{\r\n               \"Content-Type\":\"application/json;charset=utf-16\",\r\n               \"system\":\"204\",\r\n               \"global_unique_id\":\"6a297fcb-956e-4228-8c11-017e9bacd629\"\r\n            }"},{"name":"Encoding","type":"string","required":false,"oldName":"Encoding","oldType":"String","defaultValue":"utf-8"},{"name":"Timeout","type":"int","required":false,"oldName":"Timeout","oldType":"int","defaultValue":"0"},{"name":"Result","type":"HttpResponse","required":false,"oldName":"Result","oldType":"HttpResponse","defaultValue":null}],"oldName":"RestApi/GET"},{"name":"JsonPath","initCode":"functions://default//JsonPath","initParameters":[{"name":"Response","type":"HttpResponse","required":true,"oldName":"Response","oldType":"HttpResponse","defaultValue":null},{"name":"Path","type":"string","required":false,"oldName":"Path","oldType":"String","defaultValue":"$"},{"name":"Result","type":"Json","required":false,"oldName":"Result","oldType":"Json","defaultValue":null}],"oldName":"JsonPath"},{"name":"SaveVariable","initCode":"functions://default//SaveVariable","initParameters":[{"name":"VariableName","type":"string","required":true,"oldName":"VariableName","oldType":"string","defaultValue":"varName"},{"name":"Data","type":"object","required":true,"oldName":"Data","oldType":"object","defaultValue":"#previous"}],"oldName":"SaveVariable"},{"name":"SQL/Oracle/Query","initCode":"functions://default//SQL/Oracle/Query","initParameters":[{"name":"userID","type":"string","required":true,"oldName":"userID","oldType":"String","defaultValue":null},{"name":"password","type":"string","required":false,"oldName":"password","oldType":"String","defaultValue":null},{"name":"dataSource","type":"string","required":false,"oldName":"dataSource","oldType":"String","defaultValue":null},{"name":"query","type":"string","required":false,"oldName":"query","oldType":"String","defaultValue":null},{"name":"Result","type":"Collection","required":false,"oldName":"Result","oldType":"Collection","defaultValue":null}],"oldName":"SQL/Oracle/Query"},{"name":"SQL/Oracle/Command","initCode":"functions://default//SQL/Oracle/Command","initParameters":[{"name":"userID","type":"string","required":true,"oldName":"userID","oldType":"String","defaultValue":null},{"name":"password","type":"string","required":false,"oldName":"password","oldType":"String","defaultValue":null},{"name":"dataSource","type":"string","required":false,"oldName":"dataSource","oldType":"String","defaultValue":null},{"name":"command","type":"string","required":false,"oldName":"command","oldType":"String","defaultValue":null},{"name":"Result","type":"int","required":false,"oldName":"Result","oldType":"int","defaultValue":null}],"oldName":"SQL/Oracle/Command"}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalDefinitionLib">[]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[{"name":"alias","type":"string","initialValue":"bss"},{"name":"pluginName","type":"string","initialValue":"BSS.Entities"},{"name":"stopWord","type":"string","initialValue":"stop"},{"name":"stopWordsCount","type":"int","initialValue":"5"}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">["test1","test2","test3","stop","stop","test5","test6","test7","stop","test8","stop","test9","test10","stop","test11","test12","stop","test13","test14","test15","test16","test17","test18"]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_1llnnqn" name="sse-test">
+    <startEvent id="Event_1hk2ab0" name="">
+      <outgoing>Flow_0xuw6mo</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1nmd8bj">
+        <targetRef>DataObjectReference_0eqkq7z</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <endEvent id="Event_0sav6wr">
+      <incoming>Flow_08eqg34</incoming>
+      <property id="Property_1rqqtzp" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0e36m15">
+        <sourceRef>DataObjectReference_1a2hfh4</sourceRef>
+        <targetRef>Property_1rqqtzp</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_0xuw6mo" sourceRef="Event_1hk2ab0" targetRef="Activity_Send_Get_Request" />
+    <dataObjectReference id="DataObjectReference_0eqkq7z" name="string[]" dataObjectRef="DataObject_0tr0hnf" />
+    <dataObject id="DataObject_0tr0hnf" isCollection="true" />
+    <dataObjectReference id="DataObjectReference_1a2hfh4" name="string[]" dataObjectRef="DataObject_080emqn" />
+    <dataObject id="DataObject_080emqn" isCollection="true" />
+    <task id="Inline_Action_ReadSend_Lines" name="Inline Action ReadSend Lines">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"\nforeach(var s in Input)\n{\n\tAction.BoundaryEvents[\"Event_Start_Sending\"].Raise(s);\n}\nreturn null;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1k2gom5</incoming>
+      <outgoing>Flow_2</outgoing>
+    </task>
+    <task id="Activity_Send_Get_Request" name="Send Get Request">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi/GET","actionParam":{"Uri":"http://servername:port/api/v0/message/sse/connect?alias={Parameters.alias}&amp;pluginName={Parameters.pluginName}","Login":"","Password":"","Headers":"{\"Content-Type\":\"application/json\",\n\"Authorization\":\"Basic {Root.Parameters.config.basic_auth}\",\n\"Accept\":\"text/event-stream\"}","Encoding":"utf-8","Timeout":"0"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0xuw6mo</incoming>
+      <outgoing>Flow_13y22uf</outgoing>
+    </task>
+    <parallelGateway id="Gateway_13awzup">
+      <incoming>Flow_0fsll7q</incoming>
+      <outgoing>Flow_0isdzfm</outgoing>
+      <outgoing>Flow_1k2gom5</outgoing>
+    </parallelGateway>
+    <sequenceFlow id="Flow_0rt7it1" sourceRef="Gateway_16lzu5i" targetRef="Activity_Return_Ok" />
+    <parallelGateway id="Gateway_16lzu5i">
+      <incoming>Flow_1</incoming>
+      <incoming>Flow_2</incoming>
+      <outgoing>Flow_0rt7it1</outgoing>
+    </parallelGateway>
+    <task id="Activity_Read_Response" name="Read Response">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"List&lt;string&gt; result = new List&lt;string&gt;();\nint counter = 0;\nstring data = #Previous.Reader.ReadLine();\nwhile (data != null)\n{\n\tif (!string.IsNullOrEmpty(data))\n\t{\n\t\tresult.Add(data);\n\t\tif(data.EndsWith($\"\\\"{Parameters.stopWord}\\\"\"))\n            counter ++;\n\t}\n\tif(counter &gt;= Parameters.stopWordsCount)\n\t{\n\t    #Previous.Reader.Dispose();\n\t    return result;\n\t}\n\t\n\tdata = #Previous.Reader.ReadLine();\n}\n#Previous.Reader.Dispose();\nresult.Add(\"null\");\nreturn result;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0isdzfm</incoming>
+      <outgoing>Flow_1</outgoing>
+    </task>
+    <sequenceFlow id="Flow_1" sourceRef="Activity_Read_Response" targetRef="Gateway_16lzu5i" />
+    <boundaryEvent id="Event_Start_Sending" name="Start Sending" cancelActivity="false" attachedToRef="Inline_Action_ReadSend_Lines">
+      <outgoing>Flow_1drwhel</outgoing>
+      <messageEventDefinition id="MessageEventDefinition_04o3cr3" />
+    </boundaryEvent>
+    <intermediateThrowEvent id="Event_Send_Message" name="Send Message">
+      <extensionElements>
+        <ep:elementParameter name="ThrowMessageEvent">{"tsk_ProcessName":"Server-side events","data":{"alias":"bss","pluginname":"BSS.Entities"},"lang":"en"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_1drwhel</incoming>
+      <messageEventDefinition id="MessageEventDefinition_0w2rl0t" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="Flow_1drwhel" sourceRef="Event_Start_Sending" targetRef="Event_Send_Message" />
+    <task id="Activity_Return_Ok">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"return #Previous[\"Activity_Read_Response\"];"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_0rt7it1</incoming>
+      <outgoing>Flow_08eqg34</outgoing>
+    </task>
+    <sequenceFlow id="Flow_08eqg34" sourceRef="Activity_Return_Ok" targetRef="Event_0sav6wr" />
+    <sequenceFlow id="Flow_13y22uf" sourceRef="Activity_Send_Get_Request" targetRef="Gateway_Check_200" />
+    <exclusiveGateway id="Gateway_Check_200">
+      <incoming>Flow_13y22uf</incoming>
+      <outgoing>Flow_0fsll7q</outgoing>
+      <outgoing>Flow_Not_200</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_0fsll7q" sourceRef="Gateway_Check_200" targetRef="Gateway_13awzup" />
+    <task id="Activity_Return_Not_200">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"return \"not 200\";"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Flow_Not_200</incoming>
+      <outgoing>Flow_13s4qsf</outgoing>
+    </task>
+    <sequenceFlow id="Flow_0isdzfm" sourceRef="Gateway_13awzup" targetRef="Activity_Read_Response" />
+    <sequenceFlow id="Flow_1k2gom5" sourceRef="Gateway_13awzup" targetRef="Inline_Action_ReadSend_Lines" />
+    <sequenceFlow id="Flow_Not_200" name="Not 200" sourceRef="Gateway_Check_200" targetRef="Activity_Return_Not_200">
+      <conditionExpression xsi:type="tFormalExpression">#Previous.StatusCode != 200</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_2" sourceRef="Inline_Action_ReadSend_Lines" targetRef="Gateway_16lzu5i" />
+    <endEvent id="Event_0my0kms">
+      <incoming>Flow_13s4qsf</incoming>
+      <property id="Property_0b2kzc3" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_15oejyl">
+        <sourceRef>DataObjectReference_04ijmd3</sourceRef>
+        <targetRef>Property_0b2kzc3</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <sequenceFlow id="Flow_13s4qsf" sourceRef="Activity_Return_Not_200" targetRef="Event_0my0kms" />
+    <dataObjectReference id="DataObjectReference_04ijmd3" name="string" dataObjectRef="DataObject_04thaeg" />
+    <dataObject id="DataObject_04thaeg" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1llnnqn">
+      <bpmndi:BPMNShape id="Event_1hk2ab0_di" bpmnElement="Event_1hk2ab0">
+        <omgdc:Bounds x="-38" y="22" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="411" y="-2" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sav6wr_di" bpmnElement="Event_0sav6wr">
+        <omgdc:Bounds x="1122" y="22" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0eqkq7z_di" bpmnElement="DataObjectReference_0eqkq7z">
+        <omgdc:Bounds x="-138" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="-134" y="72" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1a2hfh4_di" bpmnElement="DataObjectReference_1a2hfh4">
+        <omgdc:Bounds x="1192" y="15" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1198" y="72" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jlh6uv_di" bpmnElement="Inline_Action_ReadSend_Lines">
+        <omgdc:Bounds x="500" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ia2ml7_di" bpmnElement="Activity_Send_Get_Request">
+        <omgdc:Bounds x="60" y="0" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_129mi7a_di" bpmnElement="Gateway_13awzup">
+        <omgdc:Bounds x="305" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0grjwly_di" bpmnElement="Gateway_16lzu5i">
+        <omgdc:Bounds x="745" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tdvpy1_di" bpmnElement="Activity_Read_Response">
+        <omgdc:Bounds x="500" y="-130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_08vlck2_di" bpmnElement="Event_Send_Message">
+        <omgdc:Bounds x="532" y="262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="513" y="305" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wpab6y_di" bpmnElement="Activity_Return_Ok">
+        <omgdc:Bounds x="970" y="0" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0imvsfj_di" bpmnElement="Gateway_Check_200" isMarkerVisible="true">
+        <omgdc:Bounds x="205" y="15" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15uivm6_di" bpmnElement="Activity_Return_Not_200">
+        <omgdc:Bounds x="970" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0my0kms_di" bpmnElement="Event_0my0kms">
+        <omgdc:Bounds x="1122" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_04ijmd3_di" bpmnElement="DataObjectReference_04ijmd3">
+        <omgdc:Bounds x="1192" y="375" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1198" y="432" width="28" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_005z0ut_di" bpmnElement="Event_Start_Sending">
+        <omgdc:Bounds x="532" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="516" y="215" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1nmd8bj_di" bpmnElement="DataOutputAssociation_1nmd8bj">
+        <di:waypoint x="-38" y="40" />
+        <di:waypoint x="-102" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0e36m15_di" bpmnElement="DataInputAssociation_0e36m15">
+        <di:waypoint x="1192" y="40" />
+        <di:waypoint x="1158" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xuw6mo_di" bpmnElement="Flow_0xuw6mo">
+        <di:waypoint x="-2" y="40" />
+        <di:waypoint x="60" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rt7it1_di" bpmnElement="Flow_0rt7it1">
+        <di:waypoint x="795" y="40" />
+        <di:waypoint x="970" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1b4a3zx_di" bpmnElement="Flow_1">
+        <di:waypoint x="600" y="-90" />
+        <di:waypoint x="770" y="-90" />
+        <di:waypoint x="770" y="15" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1drwhel_di" bpmnElement="Flow_1drwhel">
+        <di:waypoint x="550" y="208" />
+        <di:waypoint x="550" y="262" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08eqg34_di" bpmnElement="Flow_08eqg34">
+        <di:waypoint x="1070" y="40" />
+        <di:waypoint x="1122" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13y22uf_di" bpmnElement="Flow_13y22uf">
+        <di:waypoint x="160" y="40" />
+        <di:waypoint x="205" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fsll7q_di" bpmnElement="Flow_0fsll7q">
+        <di:waypoint x="255" y="40" />
+        <di:waypoint x="305" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0isdzfm_di" bpmnElement="Flow_0isdzfm">
+        <di:waypoint x="330" y="15" />
+        <di:waypoint x="330" y="-90" />
+        <di:waypoint x="500" y="-90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k2gom5_di" bpmnElement="Flow_1k2gom5">
+        <di:waypoint x="330" y="65" />
+        <di:waypoint x="330" y="150" />
+        <di:waypoint x="500" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1er7uhn_di" bpmnElement="Flow_Not_200">
+        <di:waypoint x="230" y="65" />
+        <di:waypoint x="230" y="400" />
+        <di:waypoint x="970" y="400" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="225" y="230" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05iqtsf_di" bpmnElement="Flow_2">
+        <di:waypoint x="600" y="150" />
+        <di:waypoint x="770" y="150" />
+        <di:waypoint x="770" y="65" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_15oejyl_di" bpmnElement="DataInputAssociation_15oejyl">
+        <di:waypoint x="1192" y="400" />
+        <di:waypoint x="1158" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13s4qsf_di" bpmnElement="Flow_13s4qsf">
+        <di:waypoint x="1070" y="400" />
+        <di:waypoint x="1122" y="400" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>
