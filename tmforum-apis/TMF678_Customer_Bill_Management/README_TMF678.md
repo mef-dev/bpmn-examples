@@ -10,7 +10,7 @@ Furthermore, this API allows for the identification and retrieval of details rel
 
 Over recent years, the WideCoup Billing (REST) API [BSS.Entities](https://github.com/mef-dev/bss-entities) has evolved into an open API platform with diverse implementations by various external system consumers. The native implementation of TMF Product Ordering management is grounded in established Entities and Actions, specifically `BillingTasks`, `Customers/CalcCharges`, and `Subscribers/Recharge`.
 
-Despite the existence of different Customer Bill Management resources in the Telecom Forum (TMF) design, such as the real-time request for customer bill creation and its management, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates appliedCustomerBillingRate and billCycle due to support for external BSS synchronization.
+Despite the existence of different Customer Bill Management resources in the TM Forum (TMF) design, such as the real-time request for customer bill creation and its management, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates appliedCustomerBillingRate and billCycle due to support for external BSS synchronization.
 
 ## Customer Bill Management Functionality
 

@@ -7,7 +7,7 @@ The Usage Consumption Application Programming REST Interface (API) provides the 
 - Retrieval of an existing usage consumption query by its identifier.
 - Creation of a new query for usage consumption
  
-Despite the existence of diverse Usage Consumption API resources within the Telecom Forum (TMF) design, the implementation within the WideCoup Business Support System (BSS) excludes certain activities due to the Online mode of operations execution. These excluded activities encompass:
+Despite the existence of diverse Usage Consumption API resources within the TM Forum (TMF) design, the implementation within the WideCoup Business Support System (BSS) excludes certain activities due to the Online mode of operations execution. These excluded activities encompass:
 - Deletion of an existing query for usage consumption.
 - Notification of events, specifically QueryUsageConsumption creation or removal events.
 

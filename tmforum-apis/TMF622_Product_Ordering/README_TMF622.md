@@ -4,7 +4,7 @@ The Product Ordering Management REST Application Programming Interface (API) est
 
 This API permits the creation, modification, and retrieval of Product Order information, where Product Orders are associated with Customer parties. However, it is important to note that the administration of parties falls beyond the scope of this API.
 
-Despite the existence of different Product Order resources in the Telecom Forum (TMF) design, such as CancelProductOrder and SubmitProductOrder, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates the Product Order due to the Online mode of order execution. All Product Orders can be accessed using the Product Order identifier or Product Order Item identifier, as well as an external identifier if applicable. It is noteworthy that the instantiation of a Product Order from scratch necessitates the creation of an Extension entity, including external identifiers for future synchronization purposes.
+Despite the existence of different Product Order resources in the TM Forum (TMF) design, such as CancelProductOrder and SubmitProductOrder, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates the Product Order due to the Online mode of order execution. All Product Orders can be accessed using the Product Order identifier or Product Order Item identifier, as well as an external identifier if applicable. It is noteworthy that the instantiation of a Product Order from scratch necessitates the creation of an Extension entity, including external identifiers for future synchronization purposes.
 
 ## Native Implementation within the WideCoup BSS
 

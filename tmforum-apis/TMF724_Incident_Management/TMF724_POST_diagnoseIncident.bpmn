@@ -200,7 +200,7 @@
     </exclusiveGateway>
     <task id="Activity_12q2ba3" name="Get corelate alerts">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi","actionParam":{"Uri":"http://devserv.natec.com:9000/api/v2/natec/postgre/exec/sql","Method":"POST","Login":"Bauth1406","Password":"Bauth1406","Headers":"{\n   \"Content-Type\":\"application/json\"\n}","Body":"#Previous.ToString()","Encoding":"utf-8","Timeout":"0"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi","actionParam":{"Uri":"http://devserv.natec.com:9000/api/v2/natec/postgre/exec/sql","Method":"POST","Login":"login","Password":"password","Headers":"{\n   \"Content-Type\":\"application/json\"\n}","Body":"#Previous.ToString()","Encoding":"utf-8","Timeout":"0"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
       </extensionElements>
       <incoming>Flow_02reli7</incoming>
       <outgoing>Flow_1wqma5r</outgoing>
@@ -242,7 +242,7 @@
     </task>
     <task id="Activity_1ldau6u" name="GET DEFINITION">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi","actionParam":{"Uri":"http://devserv.natec.com:9000/api/v2/natec/postgre/exec/sql","Method":"POST","Login":"Bauth1406","Password":"Bauth1406","Headers":"{\n   \"Content-Type\":\"application/json\"\n}","Body":"#Previous.ToString()","Encoding":"utf-8","Timeout":"0"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Function","action":"RestApi","actionParam":{"Uri":"http://devserv.natec.com:9000/api/v2/natec/postgre/exec/sql","Method":"POST","Login":"login","Password":"password","Headers":"{\n   \"Content-Type\":\"application/json\"\n}","Body":"#Previous.ToString()","Encoding":"utf-8","Timeout":"0"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
       </extensionElements>
       <incoming>Flow_0o3f08n</incoming>
       <outgoing>Flow_01ftk4r</outgoing>

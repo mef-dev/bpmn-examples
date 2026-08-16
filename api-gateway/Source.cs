@@ -241,7 +241,7 @@ public sealed class WorkflowProcess : BaseWorkflowProcess, IWorkflow, IWorkflowC
 						System.String Login=default(System.String);
 						try
 						{
-							Login=$"api_user";
+							Login=$"login";
 						}
 						catch(Exception e)
 						{
@@ -252,7 +252,7 @@ public sealed class WorkflowProcess : BaseWorkflowProcess, IWorkflow, IWorkflowC
 						System.String Password=default(System.String);
 						try
 						{
-							Password=$"Widecoup1";
+							Password=$"password";
 						}
 						catch(Exception e)
 						{

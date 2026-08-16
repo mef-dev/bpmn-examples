@@ -21,12 +21,12 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "api_user",
+									"value": "login",
 									"type": "string"
 								},
 								{
 									"key": "password",
-									"value": "Widecoup1",
+									"value": "password",
 									"type": "string"
 								}
 							]
@@ -316,12 +316,12 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "api_user",
+									"value": "login",
 									"type": "string"
 								},
 								{
 									"key": "password",
-									"value": "Widecoup1",
+									"value": "password",
 									"type": "string"
 								}
 							]

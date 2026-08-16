@@ -1,4 +1,4 @@
-# BPMN-based flow examples for execution within the MEF.DEV Enterprise Integration platform
+# BPMN-based flow examples for execution within the MEF.DEV Open API Enablement & Monetization Platform
 
 ### Table of Contents
 1. [Account Management TMF666](#Account-Management-TMF666)

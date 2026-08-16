@@ -3378,8 +3378,8 @@
     "initialValue": "{\r
 \n   \"host\":\"https://10.29.101.122\",\r
 \n   \"port\":\"6992\",\r
-\n   \"login\":\"api_user\",\r
-\n   \"password\":\"Widecoup1\",\r
+\n   \"login\":\"login\",\r
+\n   \"password\":\"password\",\r
 \n   \"encoding\":\"utf-8\",\r
 \n   \"headers\":{\r
 \n      \"Content-Type\":\"application/vnd.api+json\",\r
@@ -3391,7 +3391,7 @@
   {
     "name": "sqlConnectionString",
     "type": "string",
-    "initialValue": "Data Source=sqlserv;Initial Catalog=unibill;User ID=ucpteam;Password=Widecoup1;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"
+    "initialValue": "Data Source=sqlserv;Initial Catalog=unibill;User ID=login;Password=password;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"
   },
   {
     "name": "x_page_count",

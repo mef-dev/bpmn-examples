@@ -12,7 +12,7 @@ This API enables the creation, modification, and retrieval of Product Order info
 - Removing services
 - Assigning service-related resources (pertaining to Resource Facing Services)
 
-Despite the existence of different Product Order resources in the Telecom Forum (TMF) design, the WideCoup Business Support System (BSS) implementation excludes certain activities due to the Online mode of operations execution. These excluded activities include:
+Despite the existence of different Product Order resources in the TM Forum (TMF) design, the WideCoup Business Support System (BSS) implementation excludes certain activities due to the Online mode of operations execution. These excluded activities include:
 - Monitoring long-running service creation processes
 - Creating inactive services
 - Modifying inflight service creation
