@@ -50,7 +50,7 @@
     <sequenceFlow id="Flow_0dc2tim" sourceRef="Action_Read_Request" targetRef="Event_0sav6wr" />
     <task id="Activity_Handle_Message" name="Handle Message">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"string rawStr = (string)#Previous;\n            if(rawStr.Contains(\"\\\"finish_reason\\\": \\\"stop\\\"\"))\n                Parameters.Stop = true;\nstring result = rawStr;\nreturn result;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"string rawStr = (string)#Previous;\n            if(rawStr.Replace(\" \", \"\").Contains(\"\\\"finish_reason\\\":\\\"stop\\\"\"))\n                Parameters.Stop = true;\nstring result = rawStr;\nreturn result;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Flow_13i8flm</incoming>
       <outgoing>Flow_0p5t37u</outgoing>
