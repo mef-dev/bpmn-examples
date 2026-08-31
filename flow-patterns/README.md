@@ -39,12 +39,20 @@ reference uses. Import the companion first.
 | Example | Import first |
 |---|---|
 | `03-config-as-flow/send-links.bpmn` | `03-config-as-flow/get-config.bpmn`, named `test-config` |
-| `01-basics/echo-agent.bpmn` | `ama_base_agent` |
+| `01-basics/echo-agent.bpmn` | `ama_base_agent`, in the tenant library `Shared AI Agents` |
 | `02-error-handling/event-error-routing.bpmn` | `EVENT_BankFeed_Sync_config` |
 | `04-pagination/sync-folder-paged.bpmn` | `sharepoint-get-folders` |
-| `08-ai-agents/ai-completions.bpmn` | `Create_Config_Yiz_Http` |
+| `07-triggers/http-route-start.bpmn` | `ama_base_agent` and `chat-compleation-call`, in the tenant library `AI_Agents_Shared` |
+| `08-ai-agents/ai-completions.bpmn` | `Create_Config_Yiz_Http`, and the version-pinned target `activities://bpmn/personal/12/1726/13` |
 | `06-streaming-sse/sse-roundtrip.bpmn` | a Kafka configuration named `eventHub-operator` on the stand |
 
-Only the first companion ships with this repository; the others belong to the
-environment you import into. Every other example in the table of contents above
-compiles on its own.
+Only `get-config.bpmn` ships with this repository; every other companion belongs
+to the environment you import into. Note the two reference forms: the mnemonic
+one resolves by name and follows `#latest`, while the numeric one
+(`activities://bpmn/<libType>/<libId>/<flowId>/<version>`) pins a specific
+version and carries no name, so it only resolves in the environment those
+identifiers came from.
+
+The examples not listed above compile without a companion Flow. `http-route-start`
+is listed even though it compiled on our stand: its companions happened to exist
+there, which is exactly the kind of accident this table is meant to remove.
