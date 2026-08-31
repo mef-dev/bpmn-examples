@@ -1,37 +1,38 @@
-# 05 · Події та сигнали
+# 05 · Events and signals
 
-Дві різні речі, які легко переплутати: **сигнал** чують усі, хто на нього підписаний; **повідомлення** йде одному адресату. І окремо — як підняти подію з коду.
+Two different things that are easy to confuse: a **signal** is heard by everyone subscribed to it; a **message** goes to a single recipient. And, separately, how to raise an event from code.
 
-## Коли застосовувати
+## When to use
 
-Складання результату з частин, координація паралельних гілок, «продовжити, коли надійде».
+Assembling a result from parts, coordinating parallel branches, "continue when it arrives".
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `zip-chunks.bpmn` | паралельний шлюз fork/join, сигнал `AllPagesCompleted` проти повідомлення `PageNCompleted`, event-based gateway у циклі очікування, упорядкування частин |
-| `boundary-event-fanout.bpmn` | **`Action.BoundaryEvents["…"].Raise(payload)`** — виклик граничної події з коду; неперериваюча гранична подія |
+| `zip-chunks.bpmn` | parallel gateway fork/join, signal `AllPagesCompleted` versus message `PageNCompleted`, event-based gateway in a wait loop, ordering of the parts |
+| `boundary-event-fanout.bpmn` | **`Action.BoundaryEvents["…"].Raise(payload)`** — raising a boundary event from code; non-interrupting boundary event |
 
-## Задіяні функції платформи
+## Platform functions used
 
 `RestApi/GET`
 
-## Зарезервовані слова
+## Reserved words
 
-**`Action.BoundaryEvents[].Raise()`** · `#event.Data` · `#Previous["ім'я-вузла"]` · `Parameters.Clone()` · `Transition`
+**`Action.BoundaryEvents[].Raise()`** · `#event.Data` · `#Previous["node-name"]` · `Parameters.Clone()` · `Transition`
 
-## На що звернути увагу
+## What to watch for
 
-- **`Action.BoundaryEvents["Event_X"].Raise(x)`** — головне з цієї групи:
-  так із коду задачі піднімається прикріплена до неї гранична подія. Ім'я в
-  дужках — це `id` події на схемі.
-- Гранична подія з `cancelActivity="false"` **не перериває** задачу: та працює
-  далі, а гілка події йде паралельно. Саме це потрібно для розсилки.
-- Після паралельного шлюзу `#Previous` — словник. Звертайтеся
-  `#Previous["ім'я-вузла"]`, інакше отримаєте словник замість об'єкта.
-- `Parameters.Clone()` дає гілці власну копію стану — без цього дві гілки
-  писатимуть в одне.
+- **`Action.BoundaryEvents["Event_X"].Raise(x)`** — the main point of this group:
+  this is how the code of a task raises the boundary event attached to it. The name
+  in brackets is the `id` of the event in the diagram.
+- A boundary event with `cancelActivity="false"` does **not** interrupt the task: the
+  task keeps running and the event branch runs in parallel. That is exactly what a
+  fan-out needs.
+- After a parallel gateway, `#Previous` is a dictionary. Address it as
+  `#Previous["node-name"]`, otherwise you get the dictionary instead of the object.
+- `Parameters.Clone()` gives a branch its own copy of the state; without it, two
+  branches write into the same one.
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

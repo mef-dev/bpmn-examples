@@ -1,39 +1,39 @@
-# 03 · Конфігурація окремим Flow
+# 03 · Configuration as a separate Flow
 
-Рядки підключення, адреси й пошта не місце в моделі процесу. Тут показано, як винести їх у окремий Flow і підключити через Call Activity — і як виглядав той самий процес до рефакторингу.
+Connection strings, addresses, and mail settings do not belong in the process model. This group shows how to move them into a separate Flow and plug it in through a Call Activity — and what the same process looked like before the refactoring.
 
-## Коли застосовувати
+## When to use
 
-Щойно у Flow з'явився бодай один рядок підключення або адреса стенду.
+As soon as a Flow contains even one connection string or stand address.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `get-config.bpmn` | цільовий Flow конфігурації: три елементи, повертає типізований об'єкт |
-| `send-links.bpmn` | споживач: Call Activity → `Parse Config` → усе решта бере значення з `Root.Parameters.config` |
-| `send-links-before.bpmn` | **як було**: рядок підключення в моделі, ручний `HttpClient`, зашита адреса пошти |
+| `get-config.bpmn` | the target configuration Flow: three elements, returns a typed object |
+| `send-links.bpmn` | the consumer: Call Activity → `Parse Config` → everything else takes its values from `Root.Parameters.config` |
+| `send-links-before.bpmn` | **how it was**: the connection string in the model, a hand-written `HttpClient`, a hard-coded mail address |
 
-## Задіяні функції платформи
+## Platform functions used
 
 `RestApi/Download`
 
-## Зарезервовані слова
+## Reserved words
 
 `Root.Parameters` · `#Previous` · `Input` · `DataAssociations`
 
-## На що звернути увагу
+## What to watch out for
 
-- Порівняйте `send-links-before` і `send-links` поруч — це та сама задача
-  до і після винесення конфігурації.
-- Тип конфігурації оголошують **обидві** сторони: у `get-config` як власний,
-  у `send-links` як зовнішній (`types://external/…`).
-- `Root.Parameters` — саме `Root`, бо значення читаються з підпроцесів; звичайне
-  `Parameters` у підпроцесі вкаже на його власні.
-- Посилання на зовнішній Flow має **два формати**: мнемонічний
-  (`activities://bpmn-mnemo/<libType>/<libName>/<flowName>/#latest`) і числовий
-  (`activities://bpmn/<libType>/<libId>/<flowId>/<version>`). Перший читабельний,
-  другий закріплює конкретну версію.
+- Compare `send-links-before` and `send-links` side by side — it is the same
+  task before and after the configuration was moved out.
+- The configuration type is declared by **both** sides: in `get-config` as its
+  own, in `send-links` as external (`types://external/…`).
+- `Root.Parameters` — `Root` specifically, because the values are read from sub
+  processes; a plain `Parameters` inside a Sub Process points at its own.
+- A reference to an external Flow has **two forms**: mnemonic
+  (`activities://bpmn-mnemo/<libType>/<libName>/<flowName>/#latest`) and numeric
+  (`activities://bpmn/<libType>/<libId>/<flowId>/<version>`). The first is
+  readable, the second pins a specific version.
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

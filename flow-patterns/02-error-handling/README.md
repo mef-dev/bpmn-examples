@@ -1,35 +1,35 @@
-# 02 · Помилки як окремий шлях
+# 02 · Errors as a separate path
 
-Помилка тут не зупиняє процес мовчки — вона стає гілкою схеми з власним результатом і власним HTTP-кодом.
+Here an error does not stop the process silently — it becomes a branch of the diagram with its own result and its own HTTP code.
 
-## Коли застосовувати
+## When to use
 
-Будь-який Flow, що ходить у зовнішню систему. Тобто майже будь-який.
+Any Flow that calls an external system. That is, almost any Flow.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `event-error-routing.bpmn` | гранична подія помилки на двох задачах → спільний обробник → окрема кінцева подія з кодом 500 |
+| `event-error-routing.bpmn` | an error boundary event on two tasks → a shared handler → a separate end event with code 500 |
 
-## Задіяні функції платформи
+## Platform functions used
 
-— (усе на Code Action та Expression)
+— (everything is done with Code Action and Expression)
 
-## Зарезервовані слова
+## Reserved words
 
 `#PreviousData` · `PassingResult` · `WorkflowEnvironment.RuntimeName` · `WorkflowEnvironment.Variables["StatusCode"]`
 
-## На що звернути увагу
+## What to watch out for
 
-- Обробник приймає `#PreviousData`, а не `#Previous`: йому потрібен не
-  результат, а обгортка з полем `Exception`.
-- Один обробник на кілька задач — нормальна практика: до нього ведуть кілька
-  вхідних потоків.
-- `WorkflowEnvironment.RuntimeName` розрізняє режим (`UCP` / `Plugin`) — код
-  відповіді ставиться по-різному.
-- Кінцева подія має власний `EndSignalRoute` з кодом; без нього клієнт отримає 200
-  на помилку.
+- The handler takes `#PreviousData`, not `#Previous`: it needs the wrapper with
+  the `Exception` field, not the result.
+- One handler for several tasks is normal practice: several incoming flows lead
+  into it.
+- `WorkflowEnvironment.RuntimeName` tells the mode apart (`UCP` / `Plugin`) —
+  the response code is set differently in each.
+- The end event has its own `EndSignalRoute` with a code; without it the client
+  gets 200 for an error.
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

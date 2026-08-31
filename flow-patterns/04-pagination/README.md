@@ -1,32 +1,34 @@
-# 04 · Пагінація великих вибірок
+# 04 · Paginating large result sets
 
-Коли даних більше, ніж влізає в одну відповідь: список сторінок готується окремим кроком, кожна обробляється підпроцесом.
+When there is more data than fits into one response: the list of pages is prepared by a separate step, and each page is handled by a Sub Process.
 
-## Коли застосовувати
+## When to use
 
-Вибірка, яка не поміщається в один запит, або обробка набору файлів.
+A result set that does not fit into a single request, or the processing of a set of files.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `sync-folder-paged.bpmn` | підпроцес із Multi Instance, `PackSize`, вкладені Call Activity |
+| `sync-folder-paged.bpmn` | a Sub Process with Multi Instance, `PackSize`, nested Call Activities |
 
-## Задіяні функції платформи
+## Platform functions used
 
 `RestApi` · `JsonPath`
 
-## Зарезервовані слова
+## Reserved words
 
-`Input` (елемент набору) · `Transition.Counter` · `PackSize`
+`Input` (an element of the set) · `Transition.Counter` · `PackSize`
 
-## На що звернути увагу
+## What to watch out for
 
-- Підпроцес із Multi Instance отримує в `Input` **один елемент** набору,
-  а не весь набір. Якщо він виконався один раз — на елементі даних забули `[]`.
-- `PackSize` задає розмір пакета; послідовний режим (горизонтальні смуги) проти
-  паралельного (вертикальні) — це властивість підпроцесу, не коду.
-- Лічильник проходів — `Transition.Counter` (він же `#PassCounter`).
+- A Sub Process with Multi Instance receives **one element** of the set in
+  `Input`, not the whole set. If it ran only once, the `[]` was forgotten on the
+  data element.
+- `PackSize` sets the pack size; sequential mode (horizontal bars) versus
+  parallel mode (vertical bars) is a property of the Sub Process, not of the
+  code.
+- The pass counter is `Transition.Counter` (also known as `#PassCounter`).
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

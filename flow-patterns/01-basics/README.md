@@ -1,34 +1,35 @@
-# 01 · Основи: конвеєр даних
+# 01 · Basics: the data pipeline
 
-Найменші робочі Flow. Тут видно, як дані входять у процес, проходять елементами й виходять — без черг, файлів і паралельності.
+The smallest working Flows. They show how data enters a process, passes through the elements, and leaves — with no queues, files, or parallelism.
 
-## Коли застосовувати
+## When to use
 
-Перший Flow. Або коли треба згадати, звідки береться `#Previous` і чим `Global` відрізняється від `Parameters`.
+Your first Flow. Or when you need to recall where `#Previous` comes from and how `Global` differs from `Parameters`.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `echo-agent.bpmn` | мінімальний конвеєр: старт → задача → кінець; типізація входу й виходу одним типом |
-| `global-and-jsonpath.bpmn` | `JsonPath` витягає значення з відповіді, `SaveVariable` кладе його в `Global`, наступні кроки читають |
+| `echo-agent.bpmn` | a minimal pipeline: start → task → end; input and output typed with the same type |
+| `global-and-jsonpath.bpmn` | `JsonPath` extracts a value from the response, `SaveVariable` puts it into `Global`, and the following steps read it |
 
-## Задіяні функції платформи
+## Platform functions used
 
 `JsonPath` · `SaveVariable` · `RestApi`
 
-## Зарезервовані слова
+## Reserved words
 
 `Input` · `#Previous` · `Parameters` · `Global` · `Logger`
 
-## На що звернути увагу
+## What to watch out for
 
-- `SaveVariable` пише **у `Global`**, а не в `Parameters`. Читати потім —
-  `Global.<ім'я>`, і воно доступне до кінця виконання процесу.
-- `Global` — динамічний: помилку в імені компілятор не побачить, вона вилізе на
-  виконанні. Іменуйте змінні один раз і однаково.
-- У `echo-agent` вхід і вихід — той самий тип. Це нормально для ехо, але в
-  реальному процесі кожен крок зазвичай має свій (див. TYPE-DESIGN §3.1).
+- `SaveVariable` writes **to `Global`**, not to `Parameters`. To read it later,
+  use `Global.<name>`; it stays available until the process run ends.
+- `Global` is dynamic: the compiler will not see a mistake in a name, it will
+  surface at run time. Name your variables once and name them consistently.
+- In `echo-agent` the input and the output are the same type. That is fine for
+  an echo, but in a real process each step usually has its own (see
+  TYPE-DESIGN §3.1).
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

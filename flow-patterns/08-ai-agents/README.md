@@ -1,37 +1,38 @@
-# 08 · Агентні сценарії
+# 08 · Agent scenarios
 
-Виклик мовної моделі й підготовка структурованого запиту до неї.
+Calling a language model, and preparing a Structured Prompt for it.
 
-## Коли застосовувати
+## When to use
 
-LLM у процесі; складання запиту з шаблону й даних.
+An LLM inside a process; assembling a prompt from a template and data.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `compile-structured-prompt.bpmn` | **чиста логіка**: сім кроків Expression, жодної функції й жодного сховища — робота з JSON, шаблонами та підстановкою |
-| `ai-completions.bpmn` | виклик `AI/Completions`, два Call Activity з різними форматами посилання |
+| `compile-structured-prompt.bpmn` | **pure logic**: seven Expression steps, no functions and no storage — working with JSON, templates and substitution |
+| `ai-completions.bpmn` | a call to `AI/Completions`, two Call Activity nodes with different reference formats |
 
-## Задіяні функції платформи
+## Platform functions used
 
 `AI/Completions`
 
-## Зарезервовані слова
+## Reserved words
 
-`Parameters` як накопичувач · `#Previous` · `Logger`
+`Parameters` as an accumulator · `#Previous` · `Logger`
 
-## На що звернути увагу
+## What to watch for
 
-- `compile-structured-prompt` — найкращий приклад для розділу про типи:
-  видно, як `Parameters.result` накопичує результат через сім кроків, а
-  `new JSON(x).JsonPath(expr)` дістає значення з довільної структури.
-- Помилки тут — це `throw` з кодом (`template_not_found`,
-  `structured_prompt_not_declared`). Код помилки — частина контракту, не текст
-  для людини.
-- Блок `Functions` у файлі — **знімок** сигнатури на момент збереження, а не
-  контракт. Контракт визначає платформа: під час компіляції сигнатура береться
-  з неї. Якщо приклад не збирається — перезбережіть його в поточному Designer.
+- `compile-structured-prompt` is the best example for the section on types:
+  it shows how `Parameters.result` accumulates the result across seven steps, and how
+  `new JSON(x).JsonPath(expr)` takes a value out of an arbitrary structure.
+- Errors here are a `throw` with a code (`template_not_found`,
+  `structured_prompt_not_declared`). The error code is part of the contract, not text
+  for a human to read.
+- The `Functions` block in the file is a **snapshot** of the signature at the moment of
+  saving, not a contract. The contract is defined by the platform: at compile time the
+  signature is taken from there. If an example does not build, save it again in the
+  current designer.
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

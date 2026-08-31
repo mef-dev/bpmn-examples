@@ -1,33 +1,33 @@
-# 07 · Чим запускається процес
+# 07 · What starts a process
 
-Той самий Flow можна запустити HTTP-запитом, повідомленням із черги або вручну. Це властивість стартової події, а не окремий вид процесу.
+The same Flow can be started by an HTTP request, by a message from a queue, or by hand. This is a property of the start event, not a separate kind of process.
 
-## Коли застосовувати
+## When to use
 
-Проєктування точки входу: маршрут, черга, розклад.
+Designing the entry point: route, queue, schedule.
 
-## Файли
+## Files
 
-| Файл | Що показує |
+| File | What it shows |
 |---|---|
-| `http-route-start.bpmn` | стартова подія з HTTP-маршрутом: метод і шлях задаються прямо на ній |
+| `http-route-start.bpmn` | start event with an HTTP route: the method and the path are set directly on it |
 
-## Задіяні функції платформи
+## Platform functions used
 
-`AI/Completions` (через Call Activity)
+`AI/Completions` (through a Call Activity)
 
-## Зарезервовані слова
+## Reserved words
 
 `Input` · `#Previous`
 
-## На що звернути увагу
+## What to watch for
 
-- HTTP-маршрут задається на стартовій події (`StartSignalRoute`): метод +
-  route. Схема від цього не змінюється — змінюється спосіб виклику.
-- Запуск із черги — сигнальна стартова подія з описом джерела (топік, фільтр,
-  режим `run` / `debug` / `async`); приклад є в `02-error-handling`.
-- `DebugParamas` — дані для кнопки Debug; `ExecuteParamas` — для Execute. Це
-  різні набори, і обидва лишаються у файлі, тож у них не має бути реальних даних.
+- The HTTP route is set on the start event (`StartSignalRoute`): method +
+  route. The diagram does not change because of it — what changes is the way it is called.
+- Starting from a queue is a signal start event with a description of the source (topic,
+  filter, mode `run` / `debug` / `async`); there is an example in `02-error-handling`.
+- `DebugParamas` is the data for the Debug button; `ExecuteParamas` is for Execute. These
+  are different sets, and both stay in the file, so they must hold no real data.
 
 ---
-Про типи даних у цих прикладах — [TYPE-DESIGN.md](../TYPE-DESIGN.md).
+For the data types in these examples, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
