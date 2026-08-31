@@ -23,7 +23,7 @@
     <dataObject id="DataObject_0tr0hnf" />
     <dataObjectReference id="DataObjectReference_1a2hfh4" name="Json" dataObjectRef="DataObject_080emqn" />
     <dataObject id="DataObject_080emqn" />
-    <subProcess id="Activity_04gn2d0" name="читаємо одну сторінку">
+    <subProcess id="Activity_04gn2d0" name="read one page">
       <extensionElements>
         <ep:elementParameter name="PackSize">10</ep:elementParameter>
       </extensionElements>
@@ -36,7 +36,7 @@
           <targetRef>DataObjectReference_1y3l3pb</targetRef>
         </dataOutputAssociation>
       </startEvent>
-      <task id="Activity_0jveese" name="виклик процедури">
+      <task id="Activity_0jveese" name="call the procedure">
         <extensionElements>
           <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"GetPage","actionParam":{"pageInfo":"Input"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
         </extensionElements>
@@ -50,7 +50,7 @@
       </task>
       <sequenceFlow id="Flow_1kv5sri" sourceRef="Event_0adkzab" targetRef="Activity_0jveese" />
       <sequenceFlow id="Flow_1pefznh" sourceRef="Activity_0jveese" targetRef="Activity_0r37lvh" />
-      <task id="Activity_0r37lvh" name="формування даних">
+      <task id="Activity_0r37lvh" name="shape the data">
         <extensionElements>
           <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"var sd = #Previous as List&lt;ServiceData&gt;;\n\nbyte[] buf = Encoding.Default.GetBytes(JsonString(sd));\n\nreturn new DataChunk()\n{\n    Index = Input.Number,\n    Data = buf\n};"}</ep:elementParameter>
         </extensionElements>
@@ -80,10 +80,10 @@
       <dataObjectReference id="DataObjectReference_1y5e7v6" name="PageInfo" dataObjectRef="DataObject_0t90yzj" />
       <dataObject id="DataObject_0t90yzj" />
     </subProcess>
-    <subProcess id="Activity_1c3vvtl" name="процедура формування файлу">
+    <subProcess id="Activity_1c3vvtl" name="file assembly procedure">
       <incoming>Flow_0fymw2o</incoming>
       <outgoing>Flow_1ywmvqa</outgoing>
-      <task id="Activity_HandleData" name="обробляємо порцію даних">
+      <task id="Activity_HandleData" name="handle one chunk of data">
         <extensionElements>
           <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"var dataChunk = #event.Data as DataChunk;\n\nParameters.SBuffer.AddChunk(dataChunk.Index, dataChunk.Content);\nusing (Stream aFile = DataAssociations.DataStoreReference_TmpFile.OpenStream(FileMode.Append))\nusing (StreamWriter sw = new StreamWriter(aFile))\n{\n    var chunkNum = 0;\n    string nchunk = Parameters.SBuffer.ReadNextChunk(out chunkNum);\n    while (nchunk != null)\n    {\n        sw.Write( nchunk );\n        nchunk = Parameters.SBuffer.ReadNextChunk(out chunkNum);\n    }\n}            \n\nreturn dataChunk.Index;"}</ep:elementParameter>
         </extensionElements>
@@ -163,7 +163,7 @@
       </task>
       <sequenceFlow id="Flow_1ua89ds" sourceRef="Activity_0pbmgac" targetRef="Activity_Clone_Parameters_And_Delete_File" />
     </subProcess>
-    <task id="Activity_00ussmu" name="готуємо список сторінок для зчитування">
+    <task id="Activity_00ussmu" name="prepare the list of pages to read">
       <extensionElements>
         <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"GetPageInfos","actionParam":{"pageSize":"Parameters.PageSize"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
       </extensionElements>
@@ -192,7 +192,7 @@
     <sequenceFlow id="Flow_1ywmvqa" sourceRef="Activity_1c3vvtl" targetRef="Gateway_1ig33vz" />
     <sequenceFlow id="Flow_16oj51m" sourceRef="Gateway_1ig33vz" targetRef="Activity_0kruhwu" />
     <sequenceFlow id="Flow_0bdcue1" sourceRef="Event_AllPagesCompleted" targetRef="Gateway_1ig33vz" />
-    <task id="Activity_0kruhwu" name="формуємо зіп">
+    <task id="Activity_0kruhwu" name="build the zip">
       <extensionElements>
         <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"    var file = DataAssociations.DataStoreReference_TmpFile.GetFile();\r\n    file.AddToZip(\"tst.zip\");\r\n    var lnk = file.CreateLink();\r\n\treturn lnk;"}</ep:elementParameter>
       </extensionElements>
@@ -215,7 +215,7 @@
     </intermediateThrowEvent>
     <dataStoreReference id="p_ucp_get_ServiceUsage">
       <extensionElements>
-        <ep:elementParameter name="storeParameters">{"type":"MSSQL.Procedure","connection":"{Root.Parameters.config.db_connection_str}","object":"[dbo].[p_ucp_get_ServiceUsage]","parameters":[{"name":"ErrFormat","dbType":"String","direction":"Input","size":25},{"name":"Lang","dbType":"String","direction":"InputOutput","size":3},{"name":"id","dbType":"Int64","direction":"Input","size":null},{"name":"x_ms_client_request_id","dbType":"String","direction":"InputOutput","size":32},{"name":"relatedParty","dbType":"String","direction":"Input","size":null},{"name":"periodCoverage","dbType":"String","direction":"Input","size":null},{"name":"logicalResource","dbType":"String","direction":"Input","size":null},{"name":"billCycleNo","dbType":"String","direction":"Input","size":50},{"name":"externalId","dbType":"String","direction":"Input","size":null},{"name":"IsExternalID","dbType":"Int32","direction":"InputOutput","size":null},{"name":"PageNumber","dbType":"Int32","direction":"InputOutput","size":null},{"name":"PageSize","dbType":"Int32","direction":"InputOutput","size":null},{"name":"SortColumn","dbType":"String","direction":"InputOutput","size":null},{"name":"SortDirection","dbType":"String","direction":"InputOutput","size":20},{"name":"DebugLevel","dbType":"Int32","direction":"Input","size":null}]}</ep:elementParameter>
+        <ep:elementParameter name="storeParameters">{"type":"MSSQL.Procedure","connection":"Server=servername;Database=database;User ID=login;Password=;TrustServerCertificate=true;MultipleActiveResultSets=true","object":"[dbo].[p_ucp_get_ServiceUsage]","parameters":[{"name":"ErrFormat","dbType":"String","direction":"Input","size":25},{"name":"Lang","dbType":"String","direction":"InputOutput","size":3},{"name":"id","dbType":"Int64","direction":"Input","size":null},{"name":"x_ms_client_request_id","dbType":"String","direction":"InputOutput","size":32},{"name":"relatedParty","dbType":"String","direction":"Input","size":null},{"name":"periodCoverage","dbType":"String","direction":"Input","size":null},{"name":"logicalResource","dbType":"String","direction":"Input","size":null},{"name":"billCycleNo","dbType":"String","direction":"Input","size":50},{"name":"externalId","dbType":"String","direction":"Input","size":null},{"name":"IsExternalID","dbType":"Int32","direction":"InputOutput","size":null},{"name":"PageNumber","dbType":"Int32","direction":"InputOutput","size":null},{"name":"PageSize","dbType":"Int32","direction":"InputOutput","size":null},{"name":"SortColumn","dbType":"String","direction":"InputOutput","size":null},{"name":"SortDirection","dbType":"String","direction":"InputOutput","size":20},{"name":"DebugLevel","dbType":"Int32","direction":"Input","size":null}]}</ep:elementParameter>
       </extensionElements>
     </dataStoreReference>
     <sequenceFlow id="Flow_0bv1llb" sourceRef="Event_SendEmailWithLink" targetRef="Event_0sav6wr" />

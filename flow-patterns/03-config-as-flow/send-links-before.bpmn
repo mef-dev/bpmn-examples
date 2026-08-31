@@ -22,7 +22,7 @@
     <dataObject id="DataObject_0tr0hnf" />
     <dataObjectReference id="DataObjectReference_1a2hfh4" name="Json" dataObjectRef="DataObject_080emqn" />
     <dataObject id="DataObject_080emqn" />
-    <subProcess id="Activity_04gn2d0" name="читаємо одну сторінку">
+    <subProcess id="Activity_04gn2d0" name="read one page">
       <extensionElements>
         <ep:elementParameter name="PackSize">10</ep:elementParameter>
       </extensionElements>
@@ -35,7 +35,7 @@
           <targetRef>DataObjectReference_1y3l3pb</targetRef>
         </dataOutputAssociation>
       </startEvent>
-      <task id="Activity_0jveese" name="виклик процедури">
+      <task id="Activity_0jveese" name="call the procedure">
         <extensionElements>
           <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"GetLinks","actionParam":{"pageInfo":"Input"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
         </extensionElements>
@@ -63,7 +63,7 @@
       <dataObject id="DataObject_0t90yzj" isCollection="true" />
       <task id="Activity_0sbmrmn">
         <extensionElements>
-          <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"var links = #Previous as List&lt;FileLinkInfo&gt;;\n\n            var result = new List&lt;FileLinkInfo&gt;();\n            using var client = new HttpClient();\n            var authToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(\"{Root.Parameters.config.basic_auth}\"));\n            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(\"Basic\", authToken);\n            \n            foreach (var fli in links)\n            {\n                string fileUrl = fli.Url;\n                var localFile = DataAssociations.DS_LinksFolder.CreateFile(fli.FileName);\n\n                using HttpResponseMessage response = client.GetAsync(fileUrl, HttpCompletionOption.ResponseHeadersRead).Result;\n                using Stream streamToReadFrom = response.Content.ReadAsStream();\n                using Stream streamToWriteTo = localFile.OpenStream();\n                streamToReadFrom.CopyTo(streamToWriteTo);\n                var rLink = localFile.CreateLink();\n                result.Add(new FileLinkInfo()\n                {\n                    FileName = fli.FileName,\n                    Url = rLink\n                });\n            }\n\n            return result;"}</ep:elementParameter>
+          <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"var links = #Previous as List&lt;FileLinkInfo&gt;;\n\n            var result = new List&lt;FileLinkInfo&gt;();\n            using var client = new HttpClient();\n            var authToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(\"login:password\"));\n            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(\"Basic\", authToken);\n            \n            foreach (var fli in links)\n            {\n                string fileUrl = fli.Url;\n                var localFile = DataAssociations.DS_LinksFolder.CreateFile(fli.FileName);\n\n                using HttpResponseMessage response = client.GetAsync(fileUrl, HttpCompletionOption.ResponseHeadersRead).Result;\n                using Stream streamToReadFrom = response.Content.ReadAsStream();\n                using Stream streamToWriteTo = localFile.OpenStream();\n                streamToReadFrom.CopyTo(streamToWriteTo);\n                var rLink = localFile.CreateLink();\n                result.Add(new FileLinkInfo()\n                {\n                    FileName = fli.FileName,\n                    Url = rLink\n                });\n            }\n\n            return result;"}</ep:elementParameter>
         </extensionElements>
         <incoming>Flow_0m1psi6</incoming>
         <outgoing>Flow_0lbkzux</outgoing>
@@ -126,7 +126,7 @@
       </subProcess>
       <sequenceFlow id="Flow_0m1psi6" sourceRef="Activity_12mk5gh" targetRef="Activity_0sbmrmn" />
     </subProcess>
-    <task id="Activity_00ussmu" name="готуємо список сторінок для зчитування">
+    <task id="Activity_00ussmu" name="prepare the list of pages to read">
       <extensionElements>
         <ep:elementParameter name="ElementImplementation">{"actionType":"Action","action":"GetPageInfos","actionParam":{"pageSize":"Parameters.PageSize"},"libName":"","libEntity":"","libMethod":""}</ep:elementParameter>
       </extensionElements>
@@ -140,7 +140,7 @@
     </task>
     <sequenceFlow id="Flow_1m73j3r" sourceRef="Activity_00ussmu" targetRef="Activity_04gn2d0" />
     <sequenceFlow id="Flow_0y201wn" sourceRef="Activity_04gn2d0" targetRef="Gateway_16gjvgb" />
-    <task id="Activity_0kruhwu" name="формуємо список урлів">
+    <task id="Activity_0kruhwu" name="build the list of URLs">
       <extensionElements>
         <ep:elementParameter name="ElementImplementation">{"actionType":"Expression","action":"var linksList = #Previous;\r\nvar sb = new StringBuilder();\r\n\r\nsb.AppendLine(\r\n    \"&lt;p style='font-family:Arial,sans-serif;font-size:14px;line-height:1.5;'&gt;\" +\r\n    \"Це автоматичне повідомлення. Нижче наведено перелік білінгових рахунків на оплату \" +\r\n    \"із зазначенням ідентифікатора &lt;strong&gt;Service Line&lt;/strong&gt;, які були згенеровані \" +\r\n    \"системою WideCoup BSS для послуги доступу до двостороннього супутникового \" +\r\n    \"Інтернету Starlink.\" +\r\n    \"&lt;/p&gt;\"\r\n);\r\n\r\nsb.AppendLine(\r\n    \"&lt;table style='border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:14px;'&gt;\"\r\n);\r\n\r\nsb.AppendLine(\r\n    \"&lt;thead&gt;\" +\r\n        \"&lt;tr&gt;\" +\r\n            \"&lt;th style='border:1px solid #d9d9d9;padding:10px;text-align:left;background-color:#f2f2f2;'&gt;\" +\r\n                \"Service Line\" +\r\n            \"&lt;/th&gt;\" +\r\n        \"&lt;/tr&gt;\" +\r\n    \"&lt;/thead&gt;\"\r\n);\r\n\r\nsb.AppendLine(\"&lt;tbody&gt;\");\r\n\r\nforeach (var links in linksList)\r\n{\r\n    foreach (var lnk in links)\r\n    {\r\n        sb.AppendLine(\r\n            \"&lt;tr&gt;\" +\r\n                \"&lt;td style='border:1px solid #d9d9d9;padding:10px;'&gt;\" +\r\n                    $\"&lt;a href='{lnk.Url}' target='_blank'&gt;{lnk.FileName}&lt;/a&gt;\" +\r\n                \"&lt;/td&gt;\" +\r\n            \"&lt;/tr&gt;\"\r\n        );\r\n    }\r\n}\r\n\r\nsb.AppendLine(\"&lt;/tbody&gt;\");\r\nsb.AppendLine(\"&lt;/table&gt;\");\r\n\r\nsb.AppendLine(\r\n    \"&lt;p style='font-family:Arial,sans-serif;font-size:12px;color:#777777;margin-top:16px;'&gt;\" +\r\n    \"Повідомлення сформовано автоматично. Будь ласка, не відповідайте на нього.\" +\r\n    \"&lt;/p&gt;\"\r\n);\r\n\r\nreturn sb.ToString();"}</ep:elementParameter>
       </extensionElements>
@@ -181,7 +181,7 @@
     </dataStoreReference>
     <dataStoreReference id="p_ucp_get_TreeNodes_Grid">
       <extensionElements>
-        <ep:elementParameter name="storeParameters">{"type":"MSSQL.Procedure","connection":"{Root.Parameters.config.db_connection_str}","object":"p_ucp_get_TreeNodes_Grid","parameters":[{"name":"Ntw_ID","dbType":"Int64","direction":"Input","size":null},{"name":"mode","dbType":"Int64","direction":"Input","size":null},{"name":"PageNumber","dbType":"Int64","direction":"Input","size":null},{"name":"PageSize","dbType":"Int64","direction":"Input","size":null}]}</ep:elementParameter>
+        <ep:elementParameter name="storeParameters">{"type":"MSSQL.Procedure","connection":"Server=servername;Database=database;User ID=login;Password=;TrustServerCertificate=true;MultipleActiveResultSets=true","object":"p_ucp_get_TreeNodes_Grid","parameters":[{"name":"Ntw_ID","dbType":"Int64","direction":"Input","size":null},{"name":"mode","dbType":"Int64","direction":"Input","size":null},{"name":"PageNumber","dbType":"Int64","direction":"Input","size":null},{"name":"PageSize","dbType":"Int64","direction":"Input","size":null}]}</ep:elementParameter>
       </extensionElements>
     </dataStoreReference>
     <boundaryEvent id="Event_1ygjd0y" attachedToRef="Activity_00ussmu">
