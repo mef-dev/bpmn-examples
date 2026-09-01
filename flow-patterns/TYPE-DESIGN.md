@@ -68,7 +68,7 @@ half of whose fields are empty at every step. Let every step have its own input
 and its own output — the diagram then reads without comments.
 
 Bad: `ProcessData` with 20 fields, of which 3 are filled in at each step.
-Good: `PageInfo` → `FileLinkInfo[]` → `EmailBody`.
+Good: `PageRequest` → `PageInfo[]` → `PageResult`.
 
 ### 3.2 An accumulator is a parameter, not the result of a step
 
@@ -81,12 +81,12 @@ Parameters.result.structuredPrompt = template;   // accumulate
 return Parameters.result;                        // and pass it on
 ```
 
-That is how `08-ai-agents/compile-structured-prompt.bpmn` is built: seven steps
-in a row add to a single `CompilationResult`.
+The same idea holds wherever several steps contribute to one answer: the shape
+is declared once, and each step fills its part of it.
 
 ### 3.3 A collection is a type with `[]`, not "an array of something"
 
-If a data element is named `FileLinkInfo[]`, the platform knows it is a set, and
+If a data element is named `PageInfo[]`, the platform knows it is a set, and
 a Sub Process with Multi Instance will receive **one element** in `Input`, not
 the whole array. Forgetting the `[]` is the most common reason for "why did my
 loop run only once".
@@ -188,9 +188,9 @@ then work without casts. That is better than `Query()` without a type.
 
 | Question | Example |
 |---|---|
-| A minimal pipeline with types | `01-basics/echo-agent.bpmn` |
-| JSON → typed configuration | `03-config-as-flow/get-config.bpmn` |
-| An accumulator in a parameter | `08-ai-agents/compile-structured-prompt.bpmn` |
-| A collection + Multi Instance | `04-pagination/sync-folder-paged.bpmn` |
-| A cast after a parallel gateway | `05-events-and-signals/boundary-event-fanout.bpmn` |
-| External types between Flows | `03-config-as-flow/send-links.bpmn` |
+| A minimal pipeline with types | `01-basics/first-flow.bpmn` |
+| A native C# class as a declared type | `03-config-as-flow/service-config.bpmn` |
+| External types between Flows | `03-config-as-flow/use-config.bpmn` |
+| A collection + Multi Instance | `04-pagination/paged-fetch.bpmn` |
+| A type owned by a platform library | `08-ai-agents/structured-prompt.bpmn` |
+| The shape of a failure | `02-error-handling/error-as-branch.bpmn` |

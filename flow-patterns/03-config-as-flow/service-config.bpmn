@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="InnerTypes">[{"name": "Config", "definition": "public class Config\n{\n    /* One declaration of the settings, shared by every Flow that calls this one.\n       Consumers reach these fields as ExternalConfig, never as a copy. */\n\n    /* Exchange rates published by the European Central Bank. Open, no key. */\n    public string ratesUrl { get; set; }\n\n    /* A list endpoint that understands _start and _limit, for the paging example. */\n    public string listUrl { get; set; }\n\n    /* Both sources are public, so these stay empty. Real deployments fill them\n       here, in one place, and no consuming Flow ever holds a credential. */\n    public string login { get; set; }\n    public string password { get; set; }\n\n    public int pageSize { get; set; }\n}", "isNativeDefinition": true},{"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_service_config" name="service-config">
+    <dataObjectReference id="DO_Output" name="Config" dataObjectRef="Do_Output" />
+    <dataObject id="Do_Output" />
+    <startEvent id="Ev_Start" name="">
+      <outgoing>Fl_001</outgoing>
+    </startEvent>
+    <task id="T_GetConfig" name="resolve the settings">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "return new Config()\n{\n    ratesUrl = \"https://api.frankfurter.dev/v1\",\n    listUrl = \"https://jsonplaceholder.typicode.com/posts\",\n    login = \"\",\n    password = \"\",\n    pageSize = 10\n};"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_001</incoming>
+      <outgoing>Fl_002</outgoing>
+    </task>
+    <endEvent id="Ev_End" name="">
+      <incoming>Fl_002</incoming>
+      <property id="Prop_Ev_End" name="__targetRef_placeholder" />
+      <dataInputAssociation id="Dia_Ev_End">
+        <sourceRef>DO_Output</sourceRef>
+        <targetRef>Prop_Ev_End</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="T_HandleException" name="handle Exception">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Action", "action": "HandleException", "actionParam": {"prevData": "#PreviousData"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_003</incoming>
+      <outgoing>Fl_004</outgoing>
+    </task>
+    <endEvent id="Ev_Failed" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_004</incoming>
+    </endEvent>
+    <boundaryEvent id="Ev_Err_T_GetConfig" name="" attachedToRef="T_GetConfig">
+      <outgoing>Fl_003</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_T_GetConfig" />
+    </boundaryEvent>
+    <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="T_GetConfig" />
+    <sequenceFlow id="Fl_002" sourceRef="T_GetConfig" targetRef="Ev_End" />
+    <sequenceFlow id="Fl_003" sourceRef="Ev_Err_T_GetConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_004" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+  </process>
+  <bpmndi:BPMNDiagram id="Di_Diagram">
+    <bpmndi:BPMNPlane id="Di_Plane" bpmnElement="Process_service_config">
+      <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
+        <omgdc:Bounds x="160" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_GetConfig" bpmnElement="T_GetConfig">
+        <omgdc:Bounds x="340" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
+        <omgdc:Bounds x="520" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
+        <omgdc:Bounds x="480" y="80" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
+        <di:waypoint x="196" y="218" />
+        <di:waypoint x="340" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_002" bpmnElement="Fl_002">
+        <di:waypoint x="440" y="218" />
+        <di:waypoint x="520" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_GetConfig" bpmnElement="Ev_Err_T_GetConfig">
+        <omgdc:Bounds x="372" y="262" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
+        <omgdc:Bounds x="340" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
+        <omgdc:Bounds x="520" y="380" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_003" bpmnElement="Fl_003">
+        <di:waypoint x="390" y="298" />
+        <di:waypoint x="390" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_004" bpmnElement="Fl_004">
+        <di:waypoint x="440" y="398" />
+        <di:waypoint x="520" y="398" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
+        <di:waypoint x="498" y="200" />
+        <di:waypoint x="498" y="130" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

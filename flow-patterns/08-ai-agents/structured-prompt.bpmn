@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="InnerTypes">[{"name": "PromptRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/PromptRequest\", \"definitions\": {\"PromptRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"question\": {\"type\": \"string\"}, \"tone\": {\"type\": \"string\"}}, \"title\": \"PromptRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}, {"name": "ChatMessage", "definition": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest", "version": "", "entities": []}, {"name": "ai", "link": "libs://common/ai", "version": "", "entities": []}]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_structured_prompt" name="structured-prompt">
+    <dataObjectReference id="DO_Input" name="PromptRequest" dataObjectRef="Do_Input" />
+    <dataObject id="Do_Input" />
+    <dataObjectReference id="DO_Output" name="PromptRequest" dataObjectRef="Do_Output" />
+    <dataObject id="Do_Output" />
+    <startEvent id="Ev_Start" name="">
+      <outgoing>Fl_001</outgoing>
+      <dataOutputAssociation id="Doa_Input">
+        <targetRef>DO_Input</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <callActivity id="CA_Config" name="Get Config">
+      <extensionElements>
+        <ep:elementParameter name="ElementExternalLibDef">{"libName": "tenant_shared", "libType": "tenant", "flowName": "flow-patterns-config", "version": "#latest", "packSize": 0}</ep:elementParameter>
+        <ep:elementParameter name="ExternalDefinitionLink">activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_001</incoming>
+      <outgoing>Fl_002</outgoing>
+    </callActivity>
+    <task id="T_ParseConfig" name="Parse Config">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "ExternalConfig cfg = ((JSON)#Previous).Cast&lt;ExternalConfig&gt;();\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from flow-patterns-config\");\nreturn cfg;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_002</incoming>
+      <outgoing>Fl_003</outgoing>
+    </task>
+    <task id="T_Compose" name="compose the prompt">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// ChatMessage is the platform's own message type, declared as an\n// external type instead of being copied into this file. One\n// declaration, one shape, no drift between Flows.\nvar messages = new List&lt;ChatMessage&gt;\n{\n    // The system message sets the behaviour, the user message asks.\n    // Keeping them as data — not as one glued string — is what makes\n    // a prompt reviewable and testable.\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nLogger.LogInformation($\"prompt built from {messages.Count} messages\");\nreturn messages;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_003</incoming>
+      <outgoing>Fl_004</outgoing>
+    </task>
+    <endEvent id="Ev_End" name="">
+      <incoming>Fl_004</incoming>
+      <property id="Prop_Ev_End" name="__targetRef_placeholder" />
+      <dataInputAssociation id="Dia_Ev_End">
+        <sourceRef>DO_Output</sourceRef>
+        <targetRef>Prop_Ev_End</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="T_HandleException" name="handle Exception">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Action", "action": "HandleException", "actionParam": {"prevData": "#PreviousData"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_005</incoming>
+      <outgoing>Fl_006</outgoing>
+    </task>
+    <endEvent id="Ev_Failed" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_006</incoming>
+      <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
+      <dataInputAssociation id="Dia_Ev_Failed">
+        <sourceRef>DO_Output</sourceRef>
+        <targetRef>Prop_Ev_Failed</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+      <outgoing>Fl_005</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
+    </boundaryEvent>
+    <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
+    <sequenceFlow id="Fl_002" sourceRef="CA_Config" targetRef="T_ParseConfig" />
+    <sequenceFlow id="Fl_003" sourceRef="T_ParseConfig" targetRef="T_Compose" />
+    <sequenceFlow id="Fl_004" sourceRef="T_Compose" targetRef="Ev_End" />
+    <sequenceFlow id="Fl_005" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_006" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+  </process>
+  <bpmndi:BPMNDiagram id="Di_Diagram">
+    <bpmndi:BPMNPlane id="Di_Plane" bpmnElement="Process_structured_prompt">
+      <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
+        <omgdc:Bounds x="160" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
+        <omgdc:Bounds x="340" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_ParseConfig" bpmnElement="T_ParseConfig">
+        <omgdc:Bounds x="520" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Compose" bpmnElement="T_Compose">
+        <omgdc:Bounds x="700" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
+        <omgdc:Bounds x="880" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
+        <omgdc:Bounds x="1060" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
+        <omgdc:Bounds x="1240" y="200" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
+        <omgdc:Bounds x="560" y="260" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_DO_Input" bpmnElement="DO_Input">
+        <omgdc:Bounds x="120" y="80" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
+        <omgdc:Bounds x="120" y="80" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
+        <di:waypoint x="210" y="218" />
+        <di:waypoint x="340" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_002" bpmnElement="Fl_002">
+        <di:waypoint x="390" y="218" />
+        <di:waypoint x="520" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_003" bpmnElement="Fl_003">
+        <di:waypoint x="570" y="218" />
+        <di:waypoint x="700" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_004" bpmnElement="Fl_004">
+        <di:waypoint x="750" y="218" />
+        <di:waypoint x="880" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_005" bpmnElement="Fl_005">
+        <di:waypoint x="610" y="278" />
+        <di:waypoint x="1060" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
+        <di:waypoint x="1110" y="218" />
+        <di:waypoint x="1240" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
+        <di:waypoint x="178" y="200" />
+        <di:waypoint x="138" y="130" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
