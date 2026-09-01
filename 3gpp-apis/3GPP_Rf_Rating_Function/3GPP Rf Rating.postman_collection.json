@@ -1233,7 +1233,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n{\n  \"id\": \"204-52-24\",\n  \"callback\": \"http://10.49.199.96:8080/api/kafka\",\n  \"query\": \"esym_Method=ETG.Counter.Overlimit.Notification\"\n}\n]\n"
+							"body": "[\n{\n  \"id\": \"204-52-24\",\n  \"callback\": \"http://localhost:8080/api/kafka\",\n  \"query\": \"esym_Method=ETG.Counter.Overlimit.Notification\"\n}\n]\n"
 						}
 					]
 				}

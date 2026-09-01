@@ -1313,7 +1313,7 @@
 	"variable": [
 		{
 			"key": "API",
-			"value": "https://team-api.wcb-tst.kyivstar.ua"
+			"value": "https://localhost"
 		}
 	]
 }

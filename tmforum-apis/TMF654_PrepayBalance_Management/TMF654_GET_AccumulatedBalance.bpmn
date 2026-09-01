@@ -3376,7 +3376,7 @@
     "name": "httpConfig",
     "type": "HttpConfig",
     "initialValue": "{\r
-\n   \"host\":\"https://10.29.101.122\",\r
+\n   \"host\":\"https://localhost\",\r
 \n   \"port\":\"6992\",\r
 \n   \"login\":\"login\",\r
 \n   \"password\":\"password\",\r
@@ -3391,7 +3391,7 @@
   {
     "name": "sqlConnectionString",
     "type": "string",
-    "initialValue": "Data Source=sqlserv;Initial Catalog=unibill;User ID=login;Password=password;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"
+    "initialValue": "Data Source=localhost;Initial Catalog=examples;User ID=login;Password=;MultipleActiveResultSets=true;Encrypt=True;TrustServerCertificate=True;Command Timeout=3600"
   },
   {
     "name": "x_page_count",
