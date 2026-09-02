@@ -78,14 +78,15 @@ replies below are what came back — not what the code was expected to produce.
 | `raise-event` | `{"jobId":"job-7"}` | **fails** — see below |
 | `stream-response` | `{"topic":"USD"}` | **fails** — see below |
 
-Both failures are in the engine, not in the models, and both are set out in full
-in the group's own README:
+Neither failure is in the models, and both are set out in full in the group's own
+README:
 
-- **`Action.BoundaryEvents[…].Raise(…)` cannot work in this build.** The value it
-  needs is an `AsyncLocal` that nothing assigns: the only two lines that would
-  are commented out in `WorkflowItemTaskCodeAction.cs`. Any `Raise` from a task
-  body throws a `NullReferenceException`. This affects `raise-event` and the
-  chunk-passing half of `stream-response`.
+- **`Action.BoundaryEvents[…].Raise(…)` depends on the engine build.** The value
+  it needs is an `AsyncLocal` whose assignment was commented out on 9 January
+  2026 and restored on 2 September 2026. On a stand carrying the fix these two
+  models run; on an older one any `Raise` from a task body throws a
+  `NullReferenceException`. The stand these results were taken from is still on
+  the older build.
 - **An outbound call needs a stand with a route to the internet.** Without one
   the call fails and the error branch answers, which is the correct behaviour.
 

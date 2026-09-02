@@ -39,10 +39,11 @@ The event payload itself is a plain string here (`"part 2 of 3"`). It can be any
 declared type — the reporting branch reads it as `#event.Data`. Start with a
 string and give it a type once the branch does more than log.
 
-## What you get back today
+## What you get back, and on which build
 
-**This example does not run on the current platform build.** It compiles, the
-diagram is correct, and the call fails:
+This example depends on an engine fix that landed on 2 September 2026. On a
+stand that has it, the three progress events are raised and the reporting branch
+logs each one. On a stand that does not, the call fails:
 
 ```
 { "jobId": "job-7" }   →   HTTP 200, state "Error"
@@ -72,17 +73,18 @@ result.Result = Action.Invoke(...);
 //BoundaryEvents.ConveyorBranch = null;
 ```
 
-So the value is always null, and any `Raise` from a task body throws. Nothing a
-diagram can do works around it.
+While those lines stayed commented the value was always null, and any `Raise`
+from a task body threw. The assignment was removed on 9 January 2026 and
+restored on 2 September 2026 — eight months in which this capability could not
+work from any diagram at all.
 
-**When the engine sets that value again**, this model answers as designed: three
-progress events, the reporting branch logging each one, and the process ending
-on whichever branch finishes last. The run log is where the work shows —
-`part 1 done` … `progress reported: part 1 of 3` and so on.
+**How to tell which build you are on.** Start this model. `state.status` of
+`Completed` means the fix is present; `Error` with a `NullReferenceException`
+inside `Raise` means the stand is still on an older build. Nothing in the
+diagram changes that, and nothing in the diagram works around it.
 
-The example is kept because it is the correct way to write this, and because the
-failure is worth being able to recognise: an unexplained
-`NullReferenceException` inside `Raise` means the engine, not your code.
+The failure is worth being able to recognise for its own sake: an unexplained
+`NullReferenceException` from inside `Raise` is the engine, not your code.
 
 ## Why it is built this way
 
