@@ -45,7 +45,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </task>
     <endEvent id="Ev_End" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "BUILT", "value": "{\"key\": \"https://api.frankfurter.dev/v1/latest?base=EUR\"}"}], "producedTypeVariants": ["LookupRequest"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "BUILT", "value": "{\n  \"key\": \"https://api.frankfurter.dev/v1/latest?base=EUR\"\n}"}], "producedTypeVariants": ["LookupRequest"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
@@ -63,7 +63,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "CONFIG_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"configuration could not be read\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "CONFIG_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"configuration could not be read\",\n  \"state\": \"1\"\n}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />

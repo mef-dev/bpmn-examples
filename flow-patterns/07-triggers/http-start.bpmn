@@ -17,7 +17,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
       <extensionElements>
-        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "", "description": "", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}, "ACCEPT_FAILED": {"summary": "", "description": "", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}}}</ep:elementParameter>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "", "description": "", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}}}</ep:elementParameter>
       </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
@@ -48,7 +48,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     </task>
     <endEvent id="Ev_End" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "ACCEPTED", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}], "producedTypeVariants": ["WebhookRequest"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "ACCEPTED", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}], "producedTypeVariants": ["WebhookRequest"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
@@ -66,7 +66,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "ACCEPT_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the call could not be accepted\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "ACCEPT_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the call could not be accepted\",\n  \"state\": \"1\"\n}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />

@@ -24,7 +24,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </task>
     <endEvent id="Ev_End" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "SETTINGS", "value": "{\"ratesUrl\": \"https://api.frankfurter.dev/v1\", \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\", \"login\": \"\", \"password\": \"\", \"pageSize\": 10}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://api.frankfurter.dev/v1\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
@@ -42,7 +42,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "SETTINGS_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"settings could not be resolved\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"settings could not be resolved\",\n  \"state\": \"1\"\n}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
     </endEvent>
