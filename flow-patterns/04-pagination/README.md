@@ -38,10 +38,16 @@ start → read one page → end
 | `ErrorResponse` | inner, JSON Schema | the shape of a failure |
 | `ExternalConfig` | external | the configuration type; `pageSize` and `listUrl` come from it |
 
-The `[]` on the data element name is not decoration. `PageInfo[]` is what tells
-the engine this element carries a collection. Drop the brackets and the Sub
-Process receives the whole list as a single item and runs exactly once — no
-error, no warning, just one pass where you expected three.
+The data element carrying the pages is marked as a set twice, and the two marks
+do different jobs. `isCollection="true"` is what BPMN reads, and what makes a
+viewer draw the three-bar collection marker. The `[]` in the name is for the
+person reading the diagram, and for the repository's own linter.
+
+What actually drives the iteration is neither: the Sub Process carries
+`multiInstanceLoopCharacteristics`, and the engine iterates over the result it
+receives. Both marks were removed in turn and the run still produced three
+pages — so treat them as documentation of intent, and the loop characteristics
+as the mechanism.
 
 ## What you should get back
 

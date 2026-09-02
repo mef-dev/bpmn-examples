@@ -10,7 +10,7 @@
   </extensionElements>
   <process id="Process_paged_fetch" name="paged-fetch">
     <dataObjectReference id="DO_Pages" name="PageInfo[]" dataObjectRef="Do_Pages" />
-    <dataObject id="Do_Pages" />
+    <dataObject id="Do_Pages" isCollection="true" />
     <dataObjectReference id="DO_Input" name="PageRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="PageRequest" dataObjectRef="Do_Output" />
