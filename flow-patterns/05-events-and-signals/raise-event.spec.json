@@ -23,7 +23,20 @@
       "id": "T_Work",
       "name": "do the work in parts",
       "expression": "// A long step does not have to stay silent until it ends. Raising the\n// boundary event lets a second branch report progress while this one\n// keeps working — the event is non-interrupting.\nfor (int part = 1; part <= 3; part++)\n{\n    Logger.LogInformation($\"part {part} done\");\n\n    // The name in brackets is the id of the boundary event on the\n    // diagram. Get it wrong and the engine raises BoundaryEventNotFound.\n    Action.BoundaryEvents[\"Event_Progress\"].Raise($\"part {part} of 3\");\n}\nreturn new JobRequest() { jobId = Input.jobId };",
-      "note": "A long step does not have to stay silent until it ends. The boundary event is non-interrupting, so a second branch reports progress while this one keeps working."
+      "note": "A long step does not have to stay silent until it ends. The boundary event is non-interrupting, so a second branch reports progress while this one keeps working.",
+      "raises": {
+        "id": "Event_Progress",
+        "name": "progress",
+        "to": {
+          "id": "Event_Notify",
+          "name": "notify subscribers",
+          "process": "Server-side events",
+          "data": {
+            "alias": "bss",
+            "pluginname": "BSS.Entities"
+          }
+        }
+      }
     }
   ],
   "documentation": "A step raises an event and keeps working; a second branch reports it.",

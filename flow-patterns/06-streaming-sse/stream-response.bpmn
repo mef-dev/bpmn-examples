@@ -4,7 +4,7 @@
     <gp:globalParameter name="InnerTypes">[{"name": "StreamRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/StreamRequest\", \"definitions\": {\"StreamRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"topic\": {\"type\": \"string\"}}, \"title\": \"StreamRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
     <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}]</gp:globalParameter>
     <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
-    <gp:globalParameter name="Functions">[{"name": "RestApi", "initCode": "functions://default/RestApi", "initParameters": [{"name": "Uri", "type": "Uri", "required": true, "nullable": false}, {"name": "Method", "type": "String", "required": true, "nullable": false}, {"name": "Login", "type": "String", "required": false, "nullable": false}, {"name": "Password", "type": "String", "required": false, "nullable": false}, {"name": "Headers", "type": "StringDictionary", "required": false, "nullable": false}, {"name": "Body", "type": "String", "required": false, "nullable": false}, {"name": "Encoding", "type": "String", "required": false, "nullable": false}, {"name": "Timeout", "type": "int", "required": false, "nullable": false}, {"name": "Result", "type": "HttpResponse", "required": false, "nullable": false}]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name": "RestApi/GET", "initCode": "functions://default/RestApi/Get", "initParameters": [{"name": "Uri", "type": "Uri", "required": true, "nullable": false}, {"name": "Login", "type": "String", "required": false, "nullable": false}, {"name": "Password", "type": "String", "required": false, "nullable": false}, {"name": "Headers", "type": "StringDictionary", "required": false, "nullable": false}, {"name": "Encoding", "type": "String", "required": false, "nullable": false}, {"name": "Timeout", "type": "int", "required": false, "nullable": false}, {"name": "Result", "type": "HttpResponse", "required": false, "nullable": false}]}]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
@@ -40,14 +40,14 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     </task>
     <task id="T_Call" name="open the stream">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "RestApi", "actionParam": {"Uri": "{Parameters.config.ratesUrl}/latest?symbols={Input.topic}", "Method": "GET", "Login": "$\"{Parameters.config.login}\"", "Password": "$\"{Parameters.config.password}\"", "Encoding": "utf-8", "Timeout": 30}}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "RestApi/GET", "actionParam": {"Uri": "{Parameters.config.listUrl}?_limit=3", "Encoding": "utf-8", "Timeout": 30000, "Headers": "{\"Accept\":\"application/json\"}"}}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
     <task id="T_Stream" name="read the stream line by line">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// #Previous.Reader is the open response body. Reading it line by line\n// keeps memory flat no matter how long the answer turns out to be.\nstring line;\nwhile ((line = #Previous.Reader.ReadLine()) != null)\n{\n    if (string.IsNullOrWhiteSpace(line))\n        continue;\n\n    // Each line leaves through the boundary event, so the caller sees\n    // the answer arriving instead of waiting for all of it.\n    Action.BoundaryEvents[\"Event_Chunk\"].Raise(line);\n}\n\n// The stream itself is the result; there is nothing left to return.\nreturn null;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "var reader = #Previous.Reader;\nint lines = 0;\nif (reader != null) { while (reader.ReadLine() != null) lines++; reader.Dispose(); }\nelse lines = (#Previous.Content ?? \"\").Split('\\n').Length;\nLogger.LogInformation($\"read {lines} lines for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
@@ -109,9 +109,12 @@ its own.</text>
     </textAnnotation>
     <association id="As_An_T_Call" sourceRef="An_T_Call" targetRef="T_Call" />
     <textAnnotation id="An_T_Stream">
-      <text>#Previous.Reader is the open response body. Reading it
-line by line keeps memory flat no matter how long the
-answer turns out to be.</text>
+      <text>Reader exists only for a response the platform marked as a
+stream, and then only one line is held at a time however
+long the answer is. For an ordinary answer Reader is null
+and the body is already in Content, so the step covers
+both: which one arrives is decided by the endpoint, not by
+this Flow.</text>
     </textAnnotation>
     <association id="As_An_T_Stream" sourceRef="An_T_Stream" targetRef="T_Stream" />
 
@@ -218,7 +221,7 @@ answer turns out to be.</text>
         <di:waypoint x="250" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Stream" bpmnElement="An_T_Stream">
-        <omgdc:Bounds x="-152" y="610" width="362" height="60" />
+        <omgdc:Bounds x="-177" y="589" width="387" height="102" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Stream" bpmnElement="As_An_T_Stream">
         <di:waypoint x="210" y="640" />

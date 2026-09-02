@@ -17,14 +17,14 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </startEvent>
     <task id="T_GetConfig" name="resolve the settings">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "return new Config()\n{\n    ratesUrl = \"https://api.frankfurter.dev/v1\",\n    listUrl = \"https://jsonplaceholder.typicode.com/posts\",\n    login = \"\",\n    password = \"\",\n    pageSize = 10\n};"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "return new Config()\n{\n    ratesUrl = \"https://open.er-api.com/v6\",\n    listUrl = \"https://jsonplaceholder.typicode.com/posts\",\n    login = \"\",\n    password = \"\",\n    pageSize = 10\n};"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_001</incoming>
       <outgoing>Fl_002</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://api.frankfurter.dev/v1\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://open.er-api.com/v6\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
@@ -112,26 +112,11 @@ that reads it.</text>
         <di:waypoint x="620" y="482" />
         <di:waypoint x="620" y="532" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
-        <omgdc:Bounds x="245" y="-6" width="110" height="46" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
-        <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="80" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Sh_An_T_GetConfig" bpmnElement="An_T_GetConfig">
-        <omgdc:Bounds x="-177" y="213" width="387" height="74" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Ed_As_An_T_GetConfig" bpmnElement="As_An_T_GetConfig">
-        <di:waypoint x="210" y="250" />
-        <di:waypoint x="250" y="250" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
         <di:waypoint x="128" y="105" />
         <di:waypoint x="300" y="105" />
         <di:waypoint x="300" y="340" />
       </bpmndi:BPMNEdge>
-
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

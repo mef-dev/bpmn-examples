@@ -44,6 +44,7 @@ is fit to publish.
 | `documentation` | the process description; the link back to this repository is derived from the file's own path |
 | `input.example` | the request shown in a comment beside the start event, so the first thing a newcomer does is run it |
 | `steps[].note` | the comment beside that step — the reason for a decision belongs next to the decision |
+| `steps[].raises` | the message boundary event that step raises from code, and the throw event it leads to |
 | `steps[].risky` | moves the error boundary event onto that step; the code only has to throw |
 | `types`, `externalTypes`, `libs` | what a step uses beyond its own input and output. A type given as text is a class declaration and is marked native; given as an object it is a JSON schema |
 | `outcomes` | the response example on each end event, paired with the request by name |
@@ -152,6 +153,7 @@ them on a copy or under version control.
 | `place_notes.py` | Positions comments near what they explain |
 | `fit_notes.py` | Wraps comment text and fits the frame to it, so no line is cut off |
 | `split_shared_data.py` | Gives each end event its own data element instead of one shared between them |
+| `add_boundary_event.py` | The message boundary event a step raises from code, and the throw event it leads to |
 | `add_types.py` | Types, external types and libraries a step uses beyond its own input and output |
 | `add_examples.py` | Process documentation with the link back to source, and the response example on each end event |
 | `add_notes.py` | The comments declared in the specification, and the input example beside the start event |

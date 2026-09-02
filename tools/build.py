@@ -10,6 +10,7 @@
     relayout   зверху вниз, гілки починаються поруч зі своїм джерелом
     straighten ортогональні маршрути, підпис умови біля свого шлюзу
     split_shared_data  кожній кінцевій події — власний елемент даних
+    add_boundary_event  гранична подія, яку крок піднімає з коду
     add_types  типи, які крок вживає понад свій вхід і вихід
     add_examples  документація з посиланням на джерело і приклади відповідей
     add_notes  коментарі, оголошені в специфікації, і приклад входу
@@ -40,6 +41,7 @@ PASSES = [
     ("relayout.py", False),
     ("straighten.py", False),
     ("split_shared_data.py", False),
+    ("add_boundary_event.py", True),
     ("add_types.py", True),
     ("add_examples.py", True),
     ("add_notes.py", True),

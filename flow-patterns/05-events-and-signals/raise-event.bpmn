@@ -81,6 +81,18 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/05-ev
     <sequenceFlow id="Fl_004" sourceRef="T_Work" targetRef="Ev_End" />
     <sequenceFlow id="Fl_005" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_006" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <boundaryEvent id="Event_Progress" name="progress" cancelActivity="false" attachedToRef="T_Work">
+      <outgoing>Fl_Event_Progress</outgoing>
+      <messageEventDefinition id="Med_Event_Progress" />
+    </boundaryEvent>
+    <intermediateThrowEvent id="Event_Notify" name="notify subscribers">
+      <extensionElements>
+        <ep:elementParameter name="ThrowMessageEvent">{"tsk_ProcessName": "Server-side events", "data": {"alias": "bss", "pluginname": "BSS.Entities"}, "lang": "en"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_Event_Progress</incoming>
+      <messageEventDefinition id="Med_Event_Notify" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="Fl_Event_Progress" sourceRef="Event_Progress" targetRef="Event_Notify" />
     <textAnnotation id="An_Input">
       <text>Example input:
 {
@@ -166,6 +178,16 @@ reports progress while this one keeps working.</text>
           <omgdc:Bounds x="395" y="308" width="70" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Event_Progress" bpmnElement="Event_Progress">
+        <omgdc:Bounds x="282" y="532" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Event_Notify" bpmnElement="Event_Notify">
+        <omgdc:Bounds x="470" y="532" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_Event_Progress" bpmnElement="Fl_Event_Progress">
+        <di:waypoint x="318" y="550" />
+        <di:waypoint x="470" y="550" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
         <omgdc:Bounds x="232" y="-34" width="135" height="74" />
       </bpmndi:BPMNShape>
