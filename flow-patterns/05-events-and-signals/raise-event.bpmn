@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_raise_event" name="raise-event">
+    <documentation>A step raises an event and keeps working; a second branch reports it.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/05-events-and-signals</documentation>
     <dataObjectReference id="DO_Input" name="JobRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="JobRequest" dataObjectRef="Do_Output" />
@@ -42,6 +44,9 @@
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "DONE", "value": "{\"jobId\": \"job-7\"}"}], "producedTypeVariants": ["JobRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -58,7 +63,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "JOB_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the job could not be started\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
@@ -83,6 +88,9 @@
       <outgoing>Fl_011</outgoing>
     </task>
     <endEvent id="Ev_Reported" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "PROGRESS", "value": "{\"jobId\": \"job-7\"}"}], "producedTypeVariants": ["JobRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_011</incoming>
     </endEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />

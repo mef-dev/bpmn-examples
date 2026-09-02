@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_paged_fetch" name="paged-fetch">
+    <documentation>Plans the pages first, then walks them with Multi Instance.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/04-pagination</documentation>
     <dataObjectReference id="DO_Pages" name="PageInfo[]" dataObjectRef="Do_Pages" />
     <dataObject id="Do_Pages" isCollection="true" />
     <dataObjectReference id="DO_Input" name="PageRequest" dataObjectRef="Do_Input" />
@@ -47,6 +49,9 @@
       </dataOutputAssociation>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "PAGED", "value": "[{\"number\": 1, \"startIndex\": 0, \"size\": 10}, {\"number\": 2, \"startIndex\": 10, \"size\": 10}, {\"number\": 3, \"startIndex\": 20, \"size\": 10}]"}], "producedTypeVariants": ["PageInfo"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_021</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -63,7 +68,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "PAGING_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the page plan could not be built\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
@@ -106,6 +111,9 @@
         <outgoing>Fl_023</outgoing>
       </task>
       <endEvent id="Ev_Page_End">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "ONE_PAGE", "value": "{\"number\": 1, \"startIndex\": 0, \"size\": 10}"}], "producedTypeVariants": ["PageInfo"]}</ep:elementParameter>
+      </extensionElements>
         <incoming>Fl_023</incoming>
         <property id="Prop_Ev_Page_End" name="__targetRef_placeholder" />
         <dataInputAssociation id="Dia_Page_Out">

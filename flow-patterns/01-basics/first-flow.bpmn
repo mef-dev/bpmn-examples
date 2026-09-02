@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_first_flow" name="first-flow">
+    <documentation>The smallest working Flow: typed input in, typed output out.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/01-basics</documentation>
     <dataObjectReference id="DO_Input" name="GreetingRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="GreetingRequest" dataObjectRef="Do_Output" />
@@ -42,6 +44,9 @@
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "GREETED", "value": "{\"name\": \"Ada\", \"language\": \"en\"}"}], "producedTypeVariants": ["GreetingRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -58,7 +63,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "GREETING_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the greeting could not be composed\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />

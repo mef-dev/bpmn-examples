@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_stream_response" name="stream-response">
+    <documentation>Reads a response as it arrives and passes each chunk on.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-streaming-sse</documentation>
     <dataObjectReference id="DO_Input" name="StreamRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="StreamRequest" dataObjectRef="Do_Output" />
@@ -49,6 +51,9 @@
       <outgoing>Fl_005</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "STREAMED", "value": "{\"topic\": \"USD\"}"}], "producedTypeVariants": ["StreamRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_005</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -66,7 +71,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "STREAM_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"Error while try to call action 'T_Call/open the stream'\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_008</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
@@ -95,6 +100,9 @@
       <outgoing>Fl_031</outgoing>
     </task>
     <endEvent id="Ev_Sent" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "CHUNK", "value": "{\"topic\": \"USD\"}"}], "producedTypeVariants": ["StreamRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_031</incoming>
     </endEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />

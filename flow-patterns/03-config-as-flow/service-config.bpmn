@@ -8,6 +8,8 @@
     <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
   </extensionElements>
   <process id="Process_service_config" name="service-config">
+    <documentation>Settings live here, so no consuming Flow knows its environment.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-config-as-flow</documentation>
     <dataObjectReference id="DO_Output" name="Config" dataObjectRef="Do_Output" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
@@ -21,6 +23,9 @@
       <outgoing>Fl_002</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "SETTINGS", "value": "{\"ratesUrl\": \"https://api.frankfurter.dev/v1\", \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\", \"login\": \"\", \"password\": \"\", \"pageSize\": 10}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_002</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -37,7 +42,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "SETTINGS_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"settings could not be resolved\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
     </endEvent>

@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_error_as_branch" name="error-as-branch">
+    <documentation>An error is a branch of the diagram, with its own typed answer.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/02-error-handling</documentation>
     <dataObjectReference id="DO_Input" name="OrderRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="OrderRequest" dataObjectRef="Do_Output" />
@@ -42,6 +44,9 @@
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "ACCEPTED", "value": "{\"orderId\": \"A-1001\"}"}], "producedTypeVariants": ["OrderRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -59,7 +64,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "REJECTED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"Error while try to call action 'T_Validate/validate the order'\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_007</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />

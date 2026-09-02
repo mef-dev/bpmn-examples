@@ -9,13 +9,15 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_http_start" name="http-start">
+    <documentation>Declares the route that starts this Flow.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-triggers</documentation>
     <dataObjectReference id="DO_Input" name="WebhookRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="WebhookRequest" dataObjectRef="Do_Output" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
       <extensionElements>
-        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook"}</ep:elementParameter>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "", "description": "", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}, "ACCEPT_FAILED": {"summary": "", "description": "", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}}}</ep:elementParameter>
       </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
@@ -45,6 +47,9 @@
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "ACCEPTED", "value": "{\"event\": \"order.created\", \"payload\": \"{}\"}"}], "producedTypeVariants": ["WebhookRequest"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -61,7 +66,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "ACCEPT_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the call could not be accepted\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />

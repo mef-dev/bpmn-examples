@@ -9,6 +9,8 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_structured_prompt" name="structured-prompt">
+    <documentation>Builds the model request as typed data instead of a glued string.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai-agents</documentation>
     <dataObjectReference id="DO_Input" name="PromptRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="PromptRequest" dataObjectRef="Do_Output" />
@@ -42,6 +44,9 @@
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "", "exampelsVariants": [{"title": "PROMPT", "value": "[{\"role\": \"system\", \"content\": \"Answer in a plain tone.\"}, {\"role\": \"user\", \"content\": \"What is BPMN?\"}]"}], "producedTypeVariants": ["ChatMessage"]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -58,7 +63,7 @@
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500"}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "", "exampelsVariants": [{"title": "PROMPT_FAILED", "value": "{\"levelMessage\": \"11\", \"statusCode\": 500, \"message\": \"the prompt could not be built\", \"state\": \"1\"}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
