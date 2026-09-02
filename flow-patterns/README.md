@@ -60,6 +60,39 @@ Compiling never touches the network. Running the examples that make an outbound
 call does — if your stand has no route to the internet, those runs end on the
 error branch, which is the correct behaviour and is shown in the group's README.
 
+## What was actually verified
+
+Every model was compiled against the platform and then **started**, and the
+replies below are what came back — not what the code was expected to produce.
+
+| Model | Input | Result |
+|---|---|---|
+| `first-flow` | `{"name":"Ada","language":"en"}` | `{"name":"Ada","language":"en"}` |
+| `error-as-branch` | `{"orderId":"A-1001"}` | `{"orderId":"A-1001"}` |
+| `error-as-branch` | `{"orderId":""}` | ends on `ev_Failed` with a typed `ErrorResponse` |
+| `service-config` | `{}` | the settings object |
+| `use-config` | `{"key":"EUR"}` | `{"key":"https://api.frankfurter.dev/v1/latest?base=EUR"}` |
+| `paged-fetch` | `{"total":25}` | three `PageInfo` entries, the last one short |
+| `http-start` | `{"event":"order.created",…}` | the request echoed back |
+| `structured-prompt` | `{"question":…,"tone":"plain"}` | two typed chat messages |
+| `raise-event` | `{"jobId":"job-7"}` | **fails** — see below |
+| `stream-response` | `{"topic":"USD"}` | **fails** — see below |
+
+Both failures are in the engine, not in the models, and both are set out in full
+in the group's own README:
+
+- **`Action.BoundaryEvents[…].Raise(…)` cannot work in this build.** The value it
+  needs is an `AsyncLocal` that nothing assigns: the only two lines that would
+  are commented out in `WorkflowItemTaskCodeAction.cs`. Any `Raise` from a task
+  body throws a `NullReferenceException`. This affects `raise-event` and the
+  chunk-passing half of `stream-response`.
+- **An outbound call needs a stand with a route to the internet.** Without one
+  the call fails and the error branch answers, which is the correct behaviour.
+
+A third limit sits in [08 · Agents](08-ai-agents/): the `AI/Completions` built-in
+cannot be called from a model at all, so that example stops at building the
+request.
+
 ## How to read a group
 
 Each group's README says the same four things:

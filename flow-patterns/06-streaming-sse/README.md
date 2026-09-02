@@ -38,12 +38,12 @@ answer at once.
 
 ## What you should get back
 
-**On a stand that can reach the public internet**, the reading step raises one
-event per non-empty line and the process ends without a body of its own — the
-chunks are the output. The run log shows one `chunk out: …` line per chunk.
+Two things stand between this model and a finished run, and both are outside the
+diagram.
 
-**On a stand without outbound access** — including the one these examples were
-verified on — the call fails and the error branch answers:
+**The stand must be able to reach the endpoint.** Without outbound access — the
+case on the stand these examples were verified against — the call fails and the
+error branch answers:
 
 ```
 { "topic": "USD" }   →   HTTP 200
@@ -64,6 +64,14 @@ resolved:
 
 Use that when a Flow behaves as if it had no settings: it tells you whether the
 configuration arrived or the call itself is at fault.
+
+**And `Raise` does not work in the current engine build.** Even with the endpoint
+reachable, passing a chunk out through the boundary event throws a
+`NullReferenceException` inside `TransitionBoundaryEvent.Raise`, because the
+engine never assigns the conveyor branch it needs — the two lines that would are
+commented out in `WorkflowItemTaskCodeAction.cs`. [05 · Events](../05-events-and-signals/)
+sets out the detail. The reading loop above is correct and will work unchanged
+once the engine does.
 
 ## Why it is built this way
 

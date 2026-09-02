@@ -78,65 +78,63 @@
     <sequenceFlow id="Fl_005" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_006" sourceRef="T_HandleException" targetRef="Ev_Failed" />
   </process>
-  <bpmndi:BPMNDiagram id="Di_Diagram">
-    <bpmndi:BPMNPlane id="Di_Plane" bpmnElement="Process_first_flow">
-      <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
-        <omgdc:Bounds x="160" y="200" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
-        <omgdc:Bounds x="340" y="200" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_T_ParseConfig" bpmnElement="T_ParseConfig">
-        <omgdc:Bounds x="520" y="200" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_T_Compose" bpmnElement="T_Compose">
-        <omgdc:Bounds x="700" y="200" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
-        <omgdc:Bounds x="880" y="200" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="1060" y="200" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="1240" y="200" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
-        <omgdc:Bounds x="560" y="260" width="36" height="36" />
-      </bpmndi:BPMNShape>
+  <bpmndi:BPMNDiagram id="Di_Process_first_flow">
+    <bpmndi:BPMNPlane id="Dp_Process_first_flow" bpmnElement="Process_first_flow">
       <bpmndi:BPMNShape id="Sh_DO_Input" bpmnElement="DO_Input">
-        <omgdc:Bounds x="120" y="80" width="36" height="50" />
+        <omgdc:Bounds x="92" y="80" width="36" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
-        <omgdc:Bounds x="120" y="80" width="36" height="50" />
+        <omgdc:Bounds x="92" y="190" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
+        <omgdc:Bounds x="282" y="80" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
+        <omgdc:Bounds x="250" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_ParseConfig" bpmnElement="T_ParseConfig">
+        <omgdc:Bounds x="250" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Compose" bpmnElement="T_Compose">
+        <omgdc:Bounds x="250" y="470" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
+        <omgdc:Bounds x="282" y="600" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
+        <omgdc:Bounds x="570" y="460" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
+        <omgdc:Bounds x="602" y="590" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
+        <omgdc:Bounds x="332" y="402" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
-        <di:waypoint x="210" y="218" />
-        <di:waypoint x="340" y="218" />
+        <di:waypoint x="300" y="116" />
+        <di:waypoint x="300" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_002" bpmnElement="Fl_002">
-        <di:waypoint x="390" y="218" />
-        <di:waypoint x="520" y="218" />
+        <di:waypoint x="300" y="290" />
+        <di:waypoint x="300" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_003" bpmnElement="Fl_003">
-        <di:waypoint x="570" y="218" />
-        <di:waypoint x="700" y="218" />
+        <di:waypoint x="300" y="420" />
+        <di:waypoint x="300" y="470" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_004" bpmnElement="Fl_004">
-        <di:waypoint x="750" y="218" />
-        <di:waypoint x="880" y="218" />
+        <di:waypoint x="300" y="550" />
+        <di:waypoint x="300" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_005" bpmnElement="Fl_005">
-        <di:waypoint x="610" y="278" />
-        <di:waypoint x="1060" y="218" />
+        <di:waypoint x="350" y="438" />
+        <di:waypoint x="350" y="468" />
+        <di:waypoint x="620" y="468" />
+        <di:waypoint x="620" y="460" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
-        <di:waypoint x="1110" y="218" />
-        <di:waypoint x="1240" y="218" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
-        <di:waypoint x="178" y="200" />
-        <di:waypoint x="138" y="130" />
+        <di:waypoint x="620" y="540" />
+        <di:waypoint x="620" y="590" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -39,28 +39,50 @@ The event payload itself is a plain string here (`"part 2 of 3"`). It can be any
 declared type — the reporting branch reads it as `#event.Data`. Start with a
 string and give it a type once the branch does more than log.
 
-## What you should get back
+## What you get back today
+
+**This example does not run on the current platform build.** It compiles, the
+diagram is correct, and the call fails:
 
 ```
-{ "jobId": "job-7" }   →   HTTP 204, empty body
+{ "jobId": "job-7" }   →   HTTP 200, state "Error"
+```
+```
+T_Work: System.NullReferenceException
+  at Natec.Workflow.TransitionBoundaryEvent.Raise(Object payload)
+     TransitionBoundaryEvent.cs:line 22
 ```
 
-The **204 is the lesson**. The reporting branch is the one that finished last,
-and it returns nothing, so the process as a whole answers with no content. The
-work actually done shows in the run log:
+The cause is in the engine, not in the model. `Raise` reads the conveyor branch
+it was constructed with:
 
-```
-part 1 done
-part 2 done
-part 3 done
-progress reported: part 1 of 3
-progress reported: part 2 of 3
-progress reported: part 3 of 3
+```csharp
+// TransitionBoundaryEvent.cs:22
+var cct = _workflowConveyorBranch.ChainCancellationToken;
 ```
 
-If you need the main branch's result back, the two paths have to be joined
-before the end — a parallel gateway does that. Left as they are, two ends mean
-whichever finishes last decides the answer.
+That branch comes from `BoundaryEventsList.ConveyorBranch`, an `AsyncLocal`
+value — and the only two lines in the whole engine that would set it are
+commented out:
+
+```csharp
+// WorkflowItemTaskCodeAction.cs:101-103
+//BoundaryEvents.ConveyorBranch = workflowConveyorBranch;
+result.Result = Action.Invoke(...);
+//BoundaryEvents.ConveyorBranch = null;
+```
+
+So the value is always null, and any `Raise` from a task body throws. Nothing a
+diagram can do works around it.
+
+**When the engine sets that value again**, this model answers as designed: three
+progress events, the reporting branch logging each one, and the process ending
+on whichever branch finishes last. The run log is where the work shows —
+`part 1 done` … `progress reported: part 1 of 3` and so on.
+
+The example is kept because it is the correct way to write this, and because the
+failure is worth being able to recognise: an unexplained
+`NullReferenceException` inside `Raise` means the engine, not your code.
 
 ## Why it is built this way
 
