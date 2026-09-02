@@ -1,5 +1,79 @@
 # tools
 
+Every example here is built from the specification lying next to it, and held
+to the rules below.
+
+```bash
+python tools/build.py                                      # rebuild every example
+python tools/build.py flow-patterns/01-basics/first-flow.spec.json
+python tools/verify.py                                     # check without rebuilding
+```
+
+A model you cannot regenerate can only be edited by hand, and that is how the
+file and the intent drift apart. So the intent lives in `<name>.spec.json`, the
+model is what the tools make of it, and `verify.py` decides whether the result
+is fit to publish.
+
+## The specification
+
+```json
+{
+  "name": "first-flow",
+  "documentation": "The smallest working Flow: typed input in, typed output out.",
+  "config":  { "flow": "flow-patterns-config", "library": "tenant_shared", … },
+  "input":   { "title": "GreetingRequest",
+               "properties": { "name": "string", "language": "string" },
+               "example":    { "name": "Ada", "language": "en" } },
+  "types":       { "PageInfo": "public class PageInfo { … }" },
+  "externalTypes": { "ChatMessage": "types://external/ai/…" },
+  "libs":        { "ai": "libs://common/ai" },
+  "steps": [
+    { "id": "T_Compose", "name": "compose the greeting",
+      "expression": "return new GreetingRequest() { … };",
+      "note": "Input is what the caller sent and stays reachable for the whole process." }
+  ],
+  "outcomes": {
+    "success": { "title": "GREETED",          "value": "{ … }" },
+    "failure": { "title": "GREETING_FAILED",  "value": "{ … }" }
+  }
+}
+```
+
+| Field | What it decides |
+|-------|-----------------|
+| `documentation` | the process description; the link back to this repository is derived from the file's own path |
+| `input.example` | the request shown in a comment beside the start event, so the first thing a newcomer does is run it |
+| `steps[].note` | the comment beside that step — the reason for a decision belongs next to the decision |
+| `steps[].risky` | moves the error boundary event onto that step; the code only has to throw |
+| `types`, `externalTypes`, `libs` | what a step uses beyond its own input and output. A type given as text is a class declaration and is marked native; given as an object it is a JSON schema |
+| `outcomes` | the response example on each end event, paired with the request by name |
+| `generate: false` | the model is kept by hand and only passed through the passes. The configuration Flow is the one case: it is the source of settings, so it has no configuration of its own to call |
+
+Two specifications in `flow-patterns/parked/` have no model: they wait on
+platform capabilities (`AI/Completions` callable from a model, `IO/Local/Archive`
+exposed to flows).
+
+## The build
+
+`gen` comes from [bpmn_forge](https://dev.azure.com/natecrd/Unibill%20Cloud%20Platform/_git/graph-api-files-sync)
+and produces the skeleton — types, the typed process boundary, the error branch,
+the routes, the call to the configuration Flow. Point `BPMN_FORGE` at it, or keep
+that repository beside this one. Everything after `gen` is in `tools/layout`, in
+this order:
+
+```
+relayout → straighten → split_shared_data → add_types → add_examples
+        → add_notes → fit_notes → place_notes → place_labels
+        → place_data_labels → snap_associations
+```
+
+The order carries two decisions worth knowing. A data element's caption is
+anchored under its own shape and does not move; the lines route around it, not
+the other way round. And associations are drawn before comment lines, because
+data is part of the contract and an explanation is what should give way.
+
+---
+
 The rules these examples are held to, as code you can run.
 
 The platform compiles a model with overlapping shapes, arrows ending in empty
@@ -77,6 +151,10 @@ them on a copy or under version control.
 | `place_data_labels.py` | Puts a data element's caption under its own shape and nowhere else |
 | `place_notes.py` | Positions comments near what they explain |
 | `fit_notes.py` | Wraps comment text and fits the frame to it, so no line is cut off |
+| `split_shared_data.py` | Gives each end event its own data element instead of one shared between them |
+| `add_types.py` | Types, external types and libraries a step uses beyond its own input and output |
+| `add_examples.py` | Process documentation with the link back to source, and the response example on each end event |
+| `add_notes.py` | The comments declared in the specification, and the input example beside the start event |
 | `drop_redundant_dor.py` | Removes a data object that only repeats a type already declared on the boundary (rule 11) |
 | `bind_type_reference.py` | Fills `dataObjectRefName` so the Types panel shows which data element carries each type |
 | `fix_binding.py` | Rewrites Code Action arguments to the form that passes a value rather than the literal text of the expression |

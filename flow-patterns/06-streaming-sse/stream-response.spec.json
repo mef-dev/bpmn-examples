@@ -1,0 +1,54 @@
+{
+  "name": "stream-response",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "StreamRequest",
+    "properties": {
+      "topic": "string"
+    },
+    "example": {
+      "topic": "USD"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Call",
+      "name": "open the stream",
+      "function": "RestApi",
+      "params": {
+        "Uri": "{Parameters.config.ratesUrl}/latest?symbols={Input.topic}",
+        "Method": "GET",
+        "Login": "$\"{Parameters.config.login}\"",
+        "Password": "$\"{Parameters.config.password}\"",
+        "Encoding": "utf-8",
+        "Timeout": 30
+      },
+      "note": "The endpoint and its credentials come from the configuration Flow, so this model carries no address of its own."
+    },
+    {
+      "id": "T_Stream",
+      "name": "read the stream line by line",
+      "expression": "// #Previous.Reader is the open response body. Reading it line by line\n// keeps memory flat no matter how long the answer turns out to be.\nstring line;\nwhile ((line = #Previous.Reader.ReadLine()) != null)\n{\n    if (string.IsNullOrWhiteSpace(line))\n        continue;\n\n    // Each line leaves through the boundary event, so the caller sees\n    // the answer arriving instead of waiting for all of it.\n    Action.BoundaryEvents[\"Event_Chunk\"].Raise(line);\n}\n\n// The stream itself is the result; there is nothing left to return.\nreturn null;",
+      "note": "#Previous.Reader is the open response body. Reading it line by line keeps memory flat no matter how long the answer turns out to be."
+    }
+  ],
+  "documentation": "Reads a response as it arrives and passes each chunk on.",
+  "outcomes": {
+    "success": {
+      "title": "CHUNK",
+      "value": "{\n  \"topic\": \"USD\"\n}"
+    },
+    "failure": {
+      "title": "STREAM_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Call/open the stream'\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}

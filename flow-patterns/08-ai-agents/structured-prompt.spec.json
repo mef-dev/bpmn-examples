@@ -1,0 +1,48 @@
+{
+  "name": "structured-prompt",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "PromptRequest",
+    "properties": {
+      "question": "string",
+      "tone": "string"
+    },
+    "example": {
+      "question": "What changed in the last release?",
+      "tone": "plain"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Compose",
+      "name": "compose the prompt",
+      "expression": "// ChatMessage is the platform's own message type, declared as an\n// external type instead of being copied into this file. One\n// declaration, one shape, no drift between Flows.\nvar messages = new List<ChatMessage>\n{\n    // The system message sets the behaviour, the user message asks.\n    // Keeping them as data — not as one glued string — is what makes\n    // a prompt reviewable and testable.\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nLogger.LogInformation($\"prompt built from {messages.Count} messages\");\nreturn messages;",
+      "note": "ChatMessage is the platform's own message type, declared once as an external type instead of copied into this file. One declaration, one shape, everywhere."
+    }
+  ],
+  "documentation": "Builds the model request as typed data instead of a glued string.",
+  "outcomes": {
+    "success": {
+      "title": "PROMPT",
+      "value": "[\n  {\n    \"role\": \"system\",\n    \"content\": \"Answer in a plain tone.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"What is BPMN?\"\n  }\n]"
+    },
+    "failure": {
+      "title": "PROMPT_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the prompt could not be built\",\n  \"state\": \"1\"\n}"
+    }
+  },
+  "externalTypes": {
+    "ChatMessage": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"
+  },
+  "libs": {
+    "ai": "libs://common/ai"
+  }
+}

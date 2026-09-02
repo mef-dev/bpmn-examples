@@ -1,0 +1,39 @@
+{
+  "name": "fetch-and-deliver",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "DeliveryRequest",
+    "properties": {
+      "currency": "string",
+      "recipient": "string"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Download",
+      "name": "download the file into the store",
+      "function": "RestApi/Download",
+      "params": {
+        "Uri": "{Parameters.config.ratesUrl}/latest?base={Input.currency}",
+        "Login": "$\"{Parameters.config.login}\"",
+        "Password": "$\"{Parameters.config.password}\"",
+        "Headers": "{ \"Content-Type\": \"application/json\" }",
+        "file": "",
+        "Timeout": 30
+      }
+    },
+    {
+      "id": "T_Link",
+      "name": "turn the stored file into a link",
+      "expression": "// RestApi/Download returns the file it has just written into the\n// data store attached to the previous node.\nvar storedFile = #Previous;\n\n// CreateLink hands out a URL the recipient can open. The file itself\n// never leaves the store, so nothing large travels through the message.\nvar url = storedFile.CreateLink();\n\nLogger.LogInformation($\"file stored, link is {url}\");\nreturn url;"
+    }
+  ]
+}

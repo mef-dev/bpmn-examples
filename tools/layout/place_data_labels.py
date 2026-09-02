@@ -70,13 +70,13 @@ for eid, name in names.items():
     lh = LINE_H + 4
     lx = x + w / 2 - lw / 2
     ly = y + h + GAP
-    # якщо просто під фігурою вже щось стоїть — опускаємось, але не вбік:
-    # горизонтальний зсув перетворив би підпис на чужий.
+    # Підпис стоїть під своєю фігурою і ніде більше: горизонтальний зсув
+    # перетворив би його на підпис сусіда. Якщо просто під фігурою вже стоїть
+    # інша фігура — опускаємось, але тільки вниз. Лінії тут не враховуються:
+    # це вони обходять підпис, а не навпаки (див. snap_associations.py).
     for _ in range(8):
         box = (lx, ly, lw, lh)
-        clear = (not any(overlap(box, b) for b in occupied)
-                 and not any(hits(p1, p2, box) for p1, p2 in segments))
-        if clear:
+        if not any(overlap(box, b) for b in occupied):
             break
         ly += lh + 4
 

@@ -54,11 +54,27 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     <sequenceFlow id="Fl_002" sourceRef="T_GetConfig" targetRef="Ev_End" />
     <sequenceFlow id="Fl_003" sourceRef="Ev_Err_T_GetConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_004" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <textAnnotation id="An_Input">
+      <text>Example input:
+{}</text>
+    </textAnnotation>
+    <association id="As_An_Input" sourceRef="An_Input" targetRef="Ev_Start" />
+    <textAnnotation id="An_T_GetConfig">
+      <text>This Flow is the source, so it has no configuration of its
+own to call. Everything a consumer needs is returned from
+one place, and changing it here changes it for every Flow
+that reads it.</text>
+    </textAnnotation>
+    <association id="As_An_T_GetConfig" sourceRef="An_T_GetConfig" targetRef="T_GetConfig" />
+
   </process>
   <bpmndi:BPMNDiagram id="Di_Process_service_config">
     <bpmndi:BPMNPlane id="Dp_Process_service_config" bpmnElement="Process_service_config">
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
         <omgdc:Bounds x="92" y="80" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="87" y="136" width="46" height="18" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
         <omgdc:Bounds x="282" y="80" width="36" height="36" />
@@ -96,6 +112,26 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
         <di:waypoint x="620" y="482" />
         <di:waypoint x="620" y="532" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
+        <omgdc:Bounds x="245" y="-6" width="110" height="46" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
+        <di:waypoint x="300" y="40" />
+        <di:waypoint x="300" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_T_GetConfig" bpmnElement="An_T_GetConfig">
+        <omgdc:Bounds x="-177" y="213" width="387" height="74" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_T_GetConfig" bpmnElement="As_An_T_GetConfig">
+        <di:waypoint x="210" y="250" />
+        <di:waypoint x="250" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
+        <di:waypoint x="128" y="105" />
+        <di:waypoint x="300" y="105" />
+        <di:waypoint x="300" y="340" />
+      </bpmndi:BPMNEdge>
+
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

@@ -14,11 +14,10 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     <dataObjectReference id="DO_Input" name="WebhookRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="WebhookRequest" dataObjectRef="Do_Output" />
+    <dataObjectReference id="DO_Output_1" name="WebhookRequest" dataObjectRef="Do_Output_1" />
+    <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
-      <extensionElements>
-        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "A webhook call on the declared route", "description": "The Flow accepts the call, logs the event name and answers 200 with the request echoed back.", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}}}</ep:elementParameter>
-      </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>
@@ -47,9 +46,6 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
-      <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "ACCEPTED", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}], "producedTypeVariants": ["WebhookRequest"]}</ep:elementParameter>
-      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -66,12 +62,12 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     </task>
     <endEvent id="Ev_Failed" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "ACCEPT_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the call could not be accepted\",\n  \"state\": \"1\"\n}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "ACCEPT_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the call could not be accepted\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
-        <sourceRef>DO_Output</sourceRef>
+        <sourceRef>DO_Output_1</sourceRef>
         <targetRef>Prop_Ev_Failed</targetRef>
       </dataInputAssociation>
     </endEvent>
@@ -85,14 +81,35 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     <sequenceFlow id="Fl_004" sourceRef="T_Accept" targetRef="Ev_End" />
     <sequenceFlow id="Fl_005" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_006" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <textAnnotation id="An_Input">
+      <text>Example input:
+{
+  "event": "order.created",
+  "payload": "{\"orderId\":\"ORD-1001\"}"
+}</text>
+    </textAnnotation>
+    <association id="As_An_Input" sourceRef="An_Input" targetRef="Ev_Start" />
+    <textAnnotation id="An_T_Accept">
+      <text>This process is started by an HTTP call, not by a person
+pressing Run: the route is declared on the start event as
+StartSignalRoute.</text>
+    </textAnnotation>
+    <association id="As_An_T_Accept" sourceRef="An_T_Accept" targetRef="T_Accept" />
+
   </process>
   <bpmndi:BPMNDiagram id="Di_Process_http_start">
     <bpmndi:BPMNPlane id="Dp_Process_http_start" bpmnElement="Process_http_start">
       <bpmndi:BPMNShape id="Sh_DO_Input" bpmnElement="DO_Input">
         <omgdc:Bounds x="92" y="80" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="63" y="136" width="94" height="18" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
         <omgdc:Bounds x="92" y="190" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="63" y="246" width="94" height="18" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
         <omgdc:Bounds x="282" y="80" width="36" height="36" />
@@ -144,6 +161,42 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
         <di:waypoint x="620" y="612" />
         <di:waypoint x="620" y="662" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
+        <omgdc:Bounds x="412" y="252" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="383" y="308" width="94" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
+        <omgdc:Bounds x="160" y="-48" width="280" height="88" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
+        <di:waypoint x="300" y="40" />
+        <di:waypoint x="300" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_T_Accept" bpmnElement="An_T_Accept">
+        <omgdc:Bounds x="-171" y="480" width="381" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_T_Accept" bpmnElement="As_An_T_Accept">
+        <di:waypoint x="210" y="510" />
+        <di:waypoint x="250" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
+        <di:waypoint x="282" y="98" />
+        <di:waypoint x="128" y="98" />
+        <di:waypoint x="128" y="105" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
+        <di:waypoint x="128" y="215" />
+        <di:waypoint x="300" y="215" />
+        <di:waypoint x="300" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
+        <di:waypoint x="448" y="277" />
+        <di:waypoint x="638" y="277" />
+        <di:waypoint x="638" y="680" />
+      </bpmndi:BPMNEdge>
+
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
