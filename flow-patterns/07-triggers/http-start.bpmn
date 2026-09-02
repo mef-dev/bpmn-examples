@@ -17,7 +17,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/07-tr
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
       <extensionElements>
-        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "", "description": "", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}}}</ep:elementParameter>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "method": "POST", "route": "webhook", "examples": {"ACCEPTED": {"summary": "A webhook call on the declared route", "description": "The Flow accepts the call, logs the event name and answers 200 with the request echoed back.", "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"}}}</ep:elementParameter>
       </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
