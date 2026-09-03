@@ -1,0 +1,43 @@
+{
+  "name": "paged-fetch",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "PageRequest",
+    "properties": {
+      "total": "integer"
+    },
+    "example": {
+      "total": 250
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Plan",
+      "name": "plan the pages",
+      "expression": "// The page size is a setting, not a constant: it belongs in the\n// configuration Flow so every consumer agrees on it.\nvar size = Parameters.config.pageSize;\n\n// This step only plans. Building the list first, and walking it\n// second, is what lets the Sub Process run the pages in parallel.\nvar pages = new List<PageInfo>();\nfor (int start = 0; start < Input.total; start += size)\n    pages.Add(new PageInfo() { number = pages.Count + 1, startIndex = start, size = size });\n\nLogger.LogInformation($\"{Input.total} rows split into {pages.Count} pages of {size}\");\nreturn pages;",
+      "note": "The page size is a setting, not a constant, so it lives in the configuration Flow. Planning first and walking the list second is what lets the pages run in parallel."
+    }
+  ],
+  "documentation": "Plans the pages first, then walks them with Multi Instance.",
+  "outcomes": {
+    "success": {
+      "title": "ONE_PAGE",
+      "value": "{\n  \"number\": 1,\n  \"startIndex\": 0,\n  \"size\": 10\n}"
+    },
+    "failure": {
+      "title": "PAGING_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the page plan could not be built\",\n  \"state\": \"1\"\n}"
+    }
+  },
+  "types": {
+    "PageInfo": "public class PageInfo\n{\n    public int number { get; set; }\n    public int startIndex { get; set; }\n    public int size { get; set; }\n}"
+  }
+}

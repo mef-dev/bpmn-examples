@@ -1,0 +1,42 @@
+{
+  "name": "first-flow",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "GreetingRequest",
+    "properties": {
+      "name": "string",
+      "language": "string"
+    },
+    "example": {
+      "name": "Ada",
+      "language": "en"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Compose",
+      "name": "compose the greeting",
+      "expression": "// Input is what the caller sent. It stays reachable for the whole\n// process, unlike #Previous, which is only the previous step's result.\nvar who = string.IsNullOrEmpty(Input.name) ? \"world\" : Input.name;\n\n// Logger writes into the run log you can open next to the diagram.\nLogger.LogInformation($\"greeting {who}\");\n\n// A step must return a value: the engine compiles this body into a\n// method, and a path without return fails the whole model (CS0161).\nreturn new GreetingRequest() { name = who, language = Input.language };",
+      "note": "Input is what the caller sent and stays reachable for the whole process; #Previous is only the step before. Every step must return a value - a path without one fails the whole model, not just the step."
+    }
+  ],
+  "documentation": "The smallest working Flow: typed input in, typed output out.",
+  "outcomes": {
+    "success": {
+      "title": "GREETED",
+      "value": "{\n  \"name\": \"Ada\",\n  \"language\": \"en\"\n}"
+    },
+    "failure": {
+      "title": "GREETING_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the greeting could not be composed\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}

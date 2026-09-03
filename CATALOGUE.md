@@ -1,150 +1,148 @@
-# Каталог прикладів
+# Catalog of examples
 
-Перелік моделей репозиторію з призначенням кожної та переліком того, що саме вона показує. Дані зібрано з самих файлів, а не з описів: режими задач, задіяні елементи, зарезервовані слова та оголошені типи прочитано з моделей.
+A list of the models in this repository, what each one is for, and what it shows. The data is collected from the files themselves, not from descriptions: task modes, elements used, reserved words and declared types are read from the models.
 
-## Покриття можливостей
+## Capability coverage
 
-Знаменник — те, що приймає компілятор і що пропонує панель властивостей. Порожній рядок означає, що можливість не покрита жодним прикладом.
+The denominator is what the compiler accepts and what the properties panel offers. An empty row means the capability is not covered by any example.
 
-| Можливість | Моделей | Де подивитись |
+| Capability | Models | Where to look |
 |---|---|---|
-| **Вузли** | | |
-| Задача | 48 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+46) |
-| Зовнішній компонент (Call Activity) | 5 | `flow-patterns/02-error-handling/event-error-routing.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+3) |
-| Підпроцес | 4 | `flow-patterns/03-config-as-flow/send-links-before.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+2) |
-| Ексклюзивний шлюз | 32 | `api-call/api-call.bpmn`, `flow-patterns/01-basics/global-and-jsonpath.bpmn` (+30) |
-| Паралельний шлюз | 15 | `flow-patterns/05-events-and-signals/boundary-event-fanout.bpmn`, `flow-patterns/05-events-and-signals/zip-chunks.bpmn` (+13) |
-| Подієвий шлюз | 1 | `flow-patterns/05-events-and-signals/zip-chunks.bpmn` |
-| Початкова подія | 48 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+46) |
-| Кінцева подія | 48 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+46) |
-| Гранична подія | 39 | `flow-patterns/01-basics/global-and-jsonpath.bpmn`, `flow-patterns/02-error-handling/event-error-routing.bpmn` (+37) |
-| Проміжна подія-перехоплювач | 2 | `api-call/api-call.bpmn`, `flow-patterns/05-events-and-signals/zip-chunks.bpmn` |
-| Проміжна подія-кидок | 7 | `flow-patterns/03-config-as-flow/send-links-before.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+5) |
-| **Види подій** | | |
-| помилка | 35 | `flow-patterns/01-basics/global-and-jsonpath.bpmn`, `flow-patterns/02-error-handling/event-error-routing.bpmn` (+33) |
-| таймер | 1 | `api-call/api-call.bpmn` |
-| сигнал | 3 | `flow-patterns/02-error-handling/event-error-routing.bpmn`, `flow-patterns/05-events-and-signals/zip-chunks.bpmn` (+1) |
-| повідомлення | 7 | `flow-patterns/03-config-as-flow/send-links-before.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+5) |
-| **Цикли** | | |
-| виконання у кількох екземплярах | 4 | `flow-patterns/03-config-as-flow/send-links-before.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+2) |
-| **Дані** | | |
-| Data Object | 48 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+46) |
-| Data Store | 3 | `flow-patterns/03-config-as-flow/send-links-before.bpmn`, `flow-patterns/03-config-as-flow/send-links.bpmn` (+1) |
-| **Режими задачі** | | |
-| Action | 39 | `api-call/api-call.bpmn`, `api-gateway/api-gateway.bpmn` (+37) |
-| Function | 13 | `api-call/api-call.bpmn`, `api-gateway/api-gateway.bpmn` (+11) |
-| ExternalAction | 0 | — **немає** |
-| Inline | 17 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+15) |
-| **Типи** | | |
-| Native (клас C#) | 40 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+38) |
-| Inner (JSON Schema) | 44 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+42) |
-| External (посилання) | 9 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+7) |
-| **Інше** | | |
-| Підключені бібліотеки | 12 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+10) |
-| Параметри Flow | 44 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+42) |
-| Посилання на інший Flow | 7 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/echo-agent.bpmn` (+5) |
+| **Nodes** | | |
+| Task | 43 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+41) |
+| External component (Call Activity) | 8 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+6) |
+| Sub Process | 1 | `flow-patterns/04-pagination/paged-fetch.bpmn` |
+| Exclusive gateway | 24 | `api-call/api-call.bpmn`, `http-stream/http_stream.bpmn` (+22) |
+| Parallel gateway | 12 | `tmforum-apis/TMF620_Product_Catalog_Management/TMF620_Get_ProductOffering.bpmn`, `tmforum-apis/TMF640_Service_Activation_and_Configuration/TMF640_Get_Service.bpmn` (+10) |
+| Event-based gateway | 0 | — **none** |
+| Start event | 43 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+41) |
+| End event | 43 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+41) |
+| Boundary event | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
+| Intermediate catch event | 1 | `api-call/api-call.bpmn` |
+| Intermediate throw event | 1 | `http-stream/http_stream.bpmn` |
+| **Event kinds** | | |
+| error | 39 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+37) |
+| timer | 1 | `api-call/api-call.bpmn` |
+| signal | 0 | — **none** |
+| message | 3 | `flow-patterns/05-events-and-signals/raise-event.bpmn`, `flow-patterns/06-streaming-sse/stream-response.bpmn` (+1) |
+| **Loops and data** | | |
+| Multi Instance execution | 1 | `flow-patterns/04-pagination/paged-fetch.bpmn` |
+| Data Object | 43 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+41) |
+| Data Store | 0 | — **none** |
+| **Task modes** | | |
+| Action | 41 | `api-call/api-call.bpmn`, `api-gateway/api-gateway.bpmn` (+39) |
+| Function | 5 | `api-call/api-call.bpmn`, `api-gateway/api-gateway.bpmn` (+3) |
+| ExternalAction | 0 | — **none** |
+| Inline | 14 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/first-flow.bpmn` (+12) |
+| **Types** | | |
+| Native (C# class) | 34 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/03-config-as-flow/service-config.bpmn` (+32) |
+| Inner (JSON Schema) | 43 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+41) |
+| External (reference) | 10 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/first-flow.bpmn` (+8) |
+| **Other** | | |
+| Linked libraries | 3 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/08-ai-agents/structured-prompt.bpmn` (+1) |
+| Flow parameters | 42 | `Kafka_getConfig/Kafka.bpmn`, `api-call/api-call.bpmn` (+40) |
+| Reference to another Flow | 9 | `Kafka_getConfig/Kafka.bpmn`, `flow-patterns/01-basics/first-flow.bpmn` (+7) |
 
-## Моделі
+## Models
 
 ### Kafka_getConfig
 
-Наскрізний приклад із ґайду: з JSON на вході до типізованої конфігурації.
+End-to-end example from the guide: from JSON on input to a typed configuration.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `Kafka.bpmn` | тип Native; тип External | Inline | `Input`, `Logger`, `Parameters`, `WorkflowEnvironment` |
+| `Kafka.bpmn` | Data Object; Native (C# class); Inner (JSON Schema); External (reference) | Inline | `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
 
 ### api-call
 
-Наскрізний приклад із ґайду: виклик зовнішнього API з повтором.
+End-to-end example from the guide: calling an external API with a retry.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `api-call.bpmn` | ексклюзивний шлюз; таймер; функції: FormReport, RestApi/GET | Action, Function | `#Previous`, `Input`, `Logger`, `Parameters`, `ServiceProvider` |
+| `api-call.bpmn` | Exclusive gateway; timer; Data Object; Inner (JSON Schema) | Action, Function | `#Previous`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `Transition`, `PassingResult` |
 
 ### api-gateway
 
-Наскрізний приклад із ґайду: проксі-шлюз із коригуванням запиту.
+End-to-end example from the guide: a proxy gateway that corrects the request.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `api-gateway.bpmn` | функції: CorrectModels, FormResponse, RestApi | Action, Function | `#Previous`, `Input`, `Parameters`, `ServiceProvider` |
+| `api-gateway.bpmn` | Data Object; Inner (JSON Schema) | Action, Function | `#Previous`, `Input`, `Parameters`, `ServiceProvider`, `PassingResult` |
 
 ### flow-patterns
 
-Навчальні приклади, згруповані за задачею, яку вони розвʼязують.
+Teaching examples, one per problem. Each is written for this folder, not lifted from a running system.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `01-basics/echo-agent.bpmn` | тип Native; тип External | Inline | `#Previous`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment` |
-| `01-basics/global-and-jsonpath.bpmn` | гранична подія; ексклюзивний шлюз; функції: JsonPath, RestApi, SaveVariable | Action, Function | `#Previous`, `Global`, `Input`, `Logger`, `Parameters` |
-| `02-error-handling/event-error-routing.bpmn` | гранична подія; ексклюзивний шлюз; виклик іншого Flow; сигнал; тип Native; функції: HandleException, correctInput, p_ucp_act_Customers_Sync | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `03-config-as-flow/get-config.bpmn` | тип Native | Inline | `#Previous`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment` |
-| `03-config-as-flow/send-links-before.bpmn` | гранична подія; ексклюзивний шлюз; підпроцес; повідомлення; Data Store; кілька екземплярів; тип Native; функції: GetLinks, GetPageInfos, RestApi/Download | Action, Inline, Function | `#Previous`, `DataAssociations`, `Input`, `Logger`, `Parameters` |
-| `03-config-as-flow/send-links.bpmn` | гранична подія; ексклюзивний шлюз; підпроцес; виклик іншого Flow; повідомлення; Data Store; кілька екземплярів; тип Native; тип External; функції: GetLinks, GetPageInfos, RestApi/Download | Action, Inline, Function | `#Previous`, `DataAssociations`, `Input`, `Logger`, `Parameters` |
-| `04-pagination/sync-folder-paged.bpmn` | гранична подія; ексклюзивний шлюз; підпроцес; виклик іншого Flow; кілька екземплярів; функції: HandleException, JsonPath, RestApi | Action, Function | `#Previous`, `Global`, `Input`, `Logger`, `Parameters` |
-| `05-events-and-signals/boundary-event-fanout.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; повідомлення; тип External; функції: RestApi/GET | Inline, Function | `#Previous`, `Action.BoundaryEvents`, `Input`, `Logger`, `Parameters` |
-| `05-events-and-signals/zip-chunks.bpmn` | паралельний шлюз; подієвий шлюз; підпроцес; сигнал; повідомлення; Data Store; кілька екземплярів; тип Native; функції: GetPage, GetPageInfos, SaveVariable | Action, Inline, Function | `#Previous`, `#event`, `DataAssociations`, `Input`, `Logger` |
-| `06-streaming-sse/llm-stream.bpmn` | гранична подія; ексклюзивний шлюз; повідомлення; тип Native; тип External; функції: RestApi | Inline, Function | `#Previous`, `Action.BoundaryEvents`, `Input`, `Logger`, `Parameters` |
-| `06-streaming-sse/sse-roundtrip.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; сигнал; повідомлення; тип External; функції: 1, DataResult, RestApi | Action, Inline, Function | `#Previous`, `Action.BoundaryEvents`, `Input`, `Logger`, `Parameters` |
-| `07-triggers/http-route-start.bpmn` | виклик іншого Flow; тип Native; тип External | Inline | `#Previous`, `Input`, `Parameters` |
-| `08-ai-agents/ai-completions.bpmn` | виклик іншого Flow; тип Native; тип External; функції: AI/Completions | Inline, Function | `Input`, `Logger`, `Parameters`, `WorkflowEnvironment` |
-| `08-ai-agents/compile-structured-prompt.bpmn` | тип Native | Inline | `Input`, `Logger`, `Parameters`, `Root`, `WorkflowEnvironment` |
+| `01-basics/first-flow.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `02-error-handling/error-as-branch.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `03-config-as-flow/service-config.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `03-config-as-flow/use-config.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `04-pagination/paged-fetch.bpmn` | External component (Call Activity); Sub Process; error; Multi Instance execution; Data Object; Native (C# class); Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `Root`, `WorkflowEnvironment`, `Transition`, `PassingResult` |
+| `05-events-and-signals/raise-event.bpmn` | External component (Call Activity); error; message; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `#event`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `Action.BoundaryEvents`, `PassingResult` |
+| `06-streaming-sse/stream-response.bpmn` | External component (Call Activity); error; message; Data Object; Inner (JSON Schema); External (reference) | Action, Function, Inline | `#Previous`, `#PreviousData`, `#event`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `Action.BoundaryEvents`, `PassingResult` |
+| `07-triggers/http-start.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `08-ai-agents/structured-prompt.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
 
 ### http-stream
 
-Наскрізний приклад із ґайду: потокова відповідь і розсилання подій.
+End-to-end example from the guide: a streaming response and event delivery.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `http_stream.bpmn` | гранична подія; ексклюзивний шлюз; повідомлення; тип Native; тип External; функції: RestApi | Inline, Function | `#Previous`, `Action.BoundaryEvents`, `Input`, `Logger`, `Parameters` |
+| `http_stream.bpmn` | Exclusive gateway; message; Data Object; Native (C# class); Inner (JSON Schema); External (reference) | Function, Inline | `#Previous`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `Action.BoundaryEvents`, `PassingResult` |
 
 ### tmforum-apis
 
-Реалізації відкритих API TM Forum: кожен Flow — одна операція (метод + ресурс) з кешуванням відповіді та обробкою помилок.
+Implementations of TM Forum Open APIs: each Flow is one operation (method + resource) with response caching and error handling.
 
-| Модель | Що показує | Режими | Задіяні слова |
+| Model | What it shows | Modes | Words used |
 |---|---|---|---|
-| `TMF620_Product_Catalog_Management/TMF620_Get_ProductOffering.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_CancelProductOrder/TMF622_Post_CancelProductOrder.bpmn` | гранична подія; тип Native; функції: HandleException, get_Note, p_ucp_del_ProductOrder | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_Monitor/TMF622_Get_Monitor.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, correct_EmptyResult, correct_Request | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_Product_Ordering/TMF622_Get_ProductOrder.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, correct_EmptyResult, correct_Request | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_Product_Ordering/TMF622_Post_CancelProductOrder.bpmn` | гранична подія; тип Native; функції: HandleException, get_Note, p_ucp_del_ProductOrder | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_Product_Ordering/TMF622_Post_ProductOrder.bpmn` | гранична подія; тип Native; функції: HandleException, POST_p_ucp_set_ProductOrder, add | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF622_Product_Ordering/TMF622_Put_ProductOrder.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, PUT_p_ucp_set_ProductOrder, change | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF640_Service_Activation_and_Configuration/TMF640_Get_Service.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF640_Service_Activation_and_Configuration/TMF640_Patch_Service.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, formResponse, form_CacheId | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF640_Service_Activation_and_Configuration/TMF640_Post_Service.bpmn` | гранична подія; тип Native; функції: HandleException, p_ucp_set_ServiceOrder, proceedConfig | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF640_Service_Activation_and_Configuration/TMF640_Put_Service.bpmn` | гранична подія; тип Native; функції: HandleException, p_ucp_set_ServiceOrder, proceedConfig | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF653_Service_Test_Management/TMF653_POST_ServiceTest.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, p_ucp_get_ServiceTest, proceedSessionParameters | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF654_PrepayBalance_Management/GET_AccumulatedBalance.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF654_PrepayBalance_Management/TMF654_GET_AccumulatedBalance.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF666_Account_Management/TMF666_Get_BillingAccount.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF666_Account_Management/TMF666_Post_BillingAccount.bpmn` | гранична подія; тип Native; функції: HandleException, p_ucp_set_BillingAccount_Dbss, proceedSessionParameters | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF666_Account_Management/TMF666_Put_BillingAccount.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, formValidationError, p_ucp_set_BillingAccount_Dbss | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF677_Usage_Consumption_Management/TMF677_Get_QueryUsageConsumption.bpmn` | гранична подія; ексклюзивний шлюз; функції: HandleException, add_Cache, correct_Result | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF677_Usage_Consumption_Management/TMF677_Post_QueryUsageConsumption.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, add_Cache_Status, correct_Empty_Result | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF678_Customer_Bill_Management/TMF678_BillingCycle.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF678_Customer_Bill_Management/TMF678_Get_AppliedCustomerBillingRate.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF678_Customer_Bill_Management/TMF678_Get_BillingCycle.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Delete_Topic.bpmn` | гранична подія; тип Native; функції: HandleException, p_ucp_del_EventTopic, proceedConfig | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Get_Hub.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Get_Topic.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Get_Topic_Event.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Post_Topic.bpmn` | гранична подія; тип Native; функції: HandleException, p_ucp_set_EventTopic, proceedSessionParameters | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF688_Event_Management/TMF688_Put_Topic.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: HandleException, format_Validation_Error, p_ucp_set_EventTopic | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF724_Incident_Management/TMF724_POST_diagnoseIncident.bpmn` | гранична подія; ексклюзивний шлюз; тип Native; функції: RestApi, RestApi/GET, formatException | Action, Inline, Function | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
-| `TMF727_Service_Usage_Management/TMF727_Get_ServiceUsage.bpmn` | гранична подія; паралельний шлюз; ексклюзивний шлюз; тип Native; функції: HandleException, compose_ReadCacheResult, compose_WriteCacheResult | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters` |
+| `TMF620_Product_Catalog_Management/TMF620_Get_ProductOffering.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF622_CancelProductOrder/TMF622_Post_CancelProductOrder.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF622_Monitor/TMF622_Get_Monitor.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF622_Product_Ordering/TMF622_Get_ProductOrder.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF622_Product_Ordering/TMF622_Post_CancelProductOrder.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF622_Product_Ordering/TMF622_Post_ProductOrder.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF622_Product_Ordering/TMF622_Put_ProductOrder.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF640_Service_Activation_and_Configuration/TMF640_Get_Service.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF640_Service_Activation_and_Configuration/TMF640_Patch_Service.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF640_Service_Activation_and_Configuration/TMF640_Post_Service.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF640_Service_Activation_and_Configuration/TMF640_Put_Service.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF653_Service_Test_Management/TMF653_POST_ServiceTest.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF654_PrepayBalance_Management/GET_AccumulatedBalance.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF654_PrepayBalance_Management/TMF654_GET_AccumulatedBalance.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF666_Account_Management/TMF666_Get_BillingAccount.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF666_Account_Management/TMF666_Post_BillingAccount.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF666_Account_Management/TMF666_Put_BillingAccount.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF677_Usage_Consumption_Management/TMF677_Get_QueryUsageConsumption.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF677_Usage_Consumption_Management/TMF677_Post_QueryUsageConsumption.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF678_Customer_Bill_Management/TMF678_BillingCycle.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF678_Customer_Bill_Management/TMF678_Get_AppliedCustomerBillingRate.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF678_Customer_Bill_Management/TMF678_Get_BillingCycle.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Delete_Topic.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Get_Hub.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Get_Topic.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Get_Topic_Event.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Post_Topic.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF688_Event_Management/TMF688_Put_Topic.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF724_Incident_Management/TMF724_POST_diagnoseIncident.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action, Function, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `Root`, `WorkflowEnvironment`, `PassingResult` |
+| `TMF727_Service_Usage_Management/TMF727_Get_ServiceUsage.bpmn` | Exclusive gateway; error; Data Object; Native (C# class); Inner (JSON Schema) | Action | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `ServiceProvider`, `PassingResult` |
 
-## Чого бракує для повного покриття
+## What is missing for full coverage
 
-Не покрито жодним прикладом:
+Not covered by any example:
 
-- режим ExternalAction
+- Event-based gateway
+- signal
+- Data Store
+- ExternalAction
 
-Покрито одним-двома прикладами, тобто фактично не перевіряється:
+Covered by one or two examples, which means it is effectively untested:
 
-- Подієвий шлюз — 1
-- Проміжна подія-перехоплювач — 2
-- таймер — 1
-
+- Sub Process — 1
+- Intermediate catch event — 1
+- Intermediate throw event — 1
+- timer — 1
+- Multi Instance execution — 1

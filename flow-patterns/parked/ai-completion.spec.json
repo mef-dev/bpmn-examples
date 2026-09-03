@@ -1,0 +1,70 @@
+{
+  "name": "ai-completion",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "AskRequest",
+    "properties": {
+      "question": "string",
+      "tone": "string"
+    },
+    "example": {
+      "question": "What is BPMN?",
+      "tone": "plain"
+    }
+  },
+  "externalTypes": {
+    "ChatCompletionsRequestMessageViewModel": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"
+  },
+  "libs": {
+    "ai": "libs://common/ai"
+  },
+  "steps": [
+    {
+      "id": "T_Compose",
+      "name": "compose the prompt",
+      "expression": "// The platform's own message type, declared under its own name: the\n// argument assignment the engine generates names it exactly so.\nvar messages = new List<ChatCompletionsRequestMessageViewModel>\n{\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();",
+      "note": "A prompt is data, not a glued string. AI/Completions declares Messages as ChatCompletionsRequestMessageViewModel[], and the assignment the engine generates uses that name without a namespace - so the external type is declared under exactly that name rather than under a shorter alias."
+    },
+    {
+      "id": "T_Ask",
+      "name": "ask the model",
+      "function": "AI/Completions",
+      "params": {
+        "Model": "meta-llama/Llama-3.1-8B-Instruct",
+        "Messages": "#Previous as List<ChatCompletionsRequestMessageViewModel>"
+      },
+      "note": "The declared argument is an array, but the generated method takes a List, and #Previous arrives as object - so the assignment needs a cast. It has to be written with as, not with a prefix cast: # must stay the first character of the expression, or the compiler reads it as a preprocessor directive."
+    },
+    {
+      "id": "T_Collect",
+      "name": "join the chunks",
+      "expression": "// JSON is not a dynamic object: the way into it is Cast<T> with a\n// declared type. AiChunk is that shape, and nothing more of it.\nvar chunks = (List<string>)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var parsed = new JSON(chunk).Cast<AiChunk>();\n    var piece = parsed?.choices?[0]?.delta?.content;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };",
+      "note": "The function answers string[] - one serialised chunk per step of the generation, not one finished text. Joining them is the caller's job, and reading choices[0].delta.content keeps the model's own wire shape."
+    }
+  ],
+  "types": {
+    "AiDelta": "public class AiDelta\n{\n    /* The piece of text this chunk carries. */\n    public string content { get; set; }\n}",
+    "AiChoice": "public class AiChoice\n{\n    /* One alternative. In practice there is exactly one. */\n    public AiDelta delta { get; set; }\n}",
+    "AiChunk": "public class AiChunk\n{\n    /* One serialised step of the generation, as the function\n       answers it: the same shape the chat API streams. */\n    public List<AiChoice> choices { get; set; }\n}",
+    "AskResult": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}"
+  },
+  "documentation": "Call the model through the engine's own AI function, then join the chunks it answers with.",
+  "outcomes": {
+    "success": {
+      "title": "ANSWERED",
+      "value": "{\n  \"question\": \"What is BPMN?\",\n  \"answer\": \"BPMN is a notation for business processes…\"\n}"
+    },
+    "failure": {
+      "title": "ANSWER_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the model could not be reached\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}

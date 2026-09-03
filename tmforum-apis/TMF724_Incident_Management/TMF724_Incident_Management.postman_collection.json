@@ -359,7 +359,7 @@
 					]
 				},
 				{
-					"name": "185.190.206.134:8484/diagnoseIncident",
+					"name": "localhost:8484/diagnoseIncident",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -378,7 +378,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://185.190.206.134:8484/diagnoseIncident",
+							"raw": "http://localhost:8484/diagnoseIncident",
 							"protocol": "http",
 							"host": [
 								"185",
@@ -413,7 +413,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://185.190.206.134:8484/diagnoseIncident",
+									"raw": "http://localhost:8484/diagnoseIncident",
 									"protocol": "http",
 									"host": [
 										"185",

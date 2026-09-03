@@ -1,0 +1,52 @@
+{
+  "name": "stream-response",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "StreamRequest",
+    "properties": {
+      "topic": "string"
+    },
+    "example": {
+      "topic": "USD"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Call",
+      "name": "open the stream",
+      "function": "RestApi/GET",
+      "params": {
+        "Uri": "{Parameters.config.listUrl}?_limit=3",
+        "Encoding": "utf-8",
+        "Timeout": 30000,
+        "Headers": "{\"Accept\":\"application/json\"}"
+      },
+      "note": "The endpoint and its credentials come from the configuration Flow, so this model carries no address of its own."
+    },
+    {
+      "id": "T_Stream",
+      "name": "read the stream line by line",
+      "expression": "var reader = #Previous.Reader;\nint lines = 0;\nif (reader != null) { while (reader.ReadLine() != null) lines++; reader.Dispose(); }\nelse lines = (#Previous.Content ?? \"\").Split('\\n').Length;\nLogger.LogInformation($\"read {lines} lines for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };",
+      "note": "Reader exists only for a response the platform marked as a stream, and then only one line is held at a time however long the answer is. For an ordinary answer Reader is null and the body is already in Content, so the step covers both: which one arrives is decided by the endpoint, not by this Flow."
+    }
+  ],
+  "documentation": "Reads a response as it arrives and passes each chunk on.",
+  "outcomes": {
+    "success": {
+      "title": "CHUNK",
+      "value": "{\n  \"topic\": \"USD\"\n}"
+    },
+    "failure": {
+      "title": "STREAM_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Call/open the stream'\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}

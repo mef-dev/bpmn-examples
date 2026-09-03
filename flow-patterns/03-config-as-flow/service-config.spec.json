@@ -1,0 +1,20 @@
+{
+  "name": "service-config",
+  "generate": false,
+  "documentation": "Settings live here, so no consuming Flow knows its environment.",
+  "input": {
+    "title": "ConfigRequest",
+    "properties": {},
+    "example": {}
+  },
+  "steps": [
+    {
+      "id": "T_GetConfig",
+      "name": "resolve the settings",
+      "note": "This Flow is the source, so it has no configuration of its own to call. Everything a consumer needs is returned from one place, and changing it here changes it for every Flow that reads it."
+    }
+  ],
+  "types": {
+    "Config": "public class Config\n{\n    /* One declaration of the settings, shared by every Flow that calls this one.\n       Consumers reach these fields as ExternalConfig, never as a copy. */\n\n    /* Exchange rates published by the European Central Bank. Open, no key. */\n    public string ratesUrl { get; set; }\n\n    /* A list endpoint that understands _start and _limit, for the paging example. */\n    public string listUrl { get; set; }\n\n    /* Both sources are public, so these stay empty. Real deployments fill them\n       here, in one place, and no consuming Flow ever holds a credential. */\n    public string login { get; set; }\n    public string password { get; set; }\n\n    public int pageSize { get; set; }\n}"
+  }
+}

@@ -1613,7 +1613,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }
@@ -1737,7 +1737,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }
@@ -1785,7 +1785,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }
@@ -2662,7 +2662,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }
@@ -2786,7 +2786,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }
@@ -2834,7 +2834,7 @@
                     "note": [
                       {
                         "author": "domain+username",
-                        "hostname": "192.156.7.77",
+                        "hostname": "localhost",
                         "text": "creating GSM services",
                         "@type": "Note"
                       }

@@ -1,0 +1,30 @@
+{
+  "name": "ask-model",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "PromptRequest",
+    "properties": {
+      "prompt": "string",
+      "model": "string"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Ask",
+      "name": "ask the model",
+      "function": "AI/Completions",
+      "params": {
+        "Model": "Input.model",
+        "Messages": "new List<ChatCompletionsRequestMessageViewModel> { new ChatCompletionsRequestMessageViewModel() { Role = \"user\", Content = Input.prompt } }"
+      }
+    }
+  ]
+}

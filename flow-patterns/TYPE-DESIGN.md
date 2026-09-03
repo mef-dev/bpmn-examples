@@ -1,191 +1,196 @@
-# Дизайн типів у BPMN Flow
+# Type design in BPMN Flow
 
-Цей розділ — не про C#. Він про те, **як спроєктувати дані вашого процесу**, щоб
-схема лишалася читабельною, а помилки не з'являлися посеред виконання.
+This section is not about C#. It is about **how to design the data of your
+process** so that the diagram stays readable and errors do not appear in the
+middle of a run.
 
-Читати варто перед тим, як малювати перший елемент: тип, обраний на початку,
-визначає, скільки коду доведеться написати далі.
+Read it before you draw the first element: the type chosen at the start
+determines how much code you will have to write later.
 
 ---
 
-## 1. Чому це взагалі проблема
+## 1. Why this is a problem at all
 
-Кожен елемент схеми отримує дані від попереднього і віддає далі свої. Платформа
-не питає щоразу «якого це типу» — вона визначає тип **один раз, під час
-компіляції**, з того, що ви оголосили в редакторі типів і в параметрах.
+Every element of the diagram receives data from the previous one and passes its
+own data on. The platform does not ask "what type is this" every time — it
+determines the type **once, at compile time**, from what you declared in the type
+editor and in the parameters.
 
-Звідси правило, яке пояснює майже всі помилки новачків:
+Hence the rule that explains almost every beginner's error:
 
-> Якщо ви не сказали, який тип іде конвеєром, платформа працює з ним як із
-> «чимось» (`object` / `Json`). Це компілюється, але падає при першій спробі
-> звернутися до поля.
+> If you have not said which type travels along the pipeline, the platform works
+> with it as "something" (`object` / `Json`). That compiles, but it fails on the
+> first attempt to access a field.
 
-Три типові симптоми:
+Three typical symptoms:
 
-| Що бачить автор | Що насправді сталося |
+| What the author sees | What actually happened |
 |---|---|
-| `Cannot access property 'id' of object` | конвеєром іде нетипізований `object` |
-| `Unable to cast object of type 'JObject' to …` | дані прийшли як JSON, а код чекає клас |
-| `Object reference not set to an instance` | поле є в схемі, але у вхідних даних його не було |
+| `Cannot access property 'id' of object` | an untyped `object` travels along the pipeline |
+| `Unable to cast object of type 'JObject' to …` | the data arrived as JSON, but the code expects a class |
+| `Object reference not set to an instance` | the field is in the schema, but it was absent from the input data |
 
-Усі три — не «баг платформи», а **пропущений крок проєктування типів**.
+None of the three is a "platform bug"; each is a **skipped type design step**.
 
 ---
 
-## 2. Чотири способи оголосити тип — і коли який
+## 2. Four ways to declare a type — and when to use which
 
-У редакторі **Types** тип задається одним із чотирьох способів. Вони не
-рівноцінні: кожен має свою зону застосування.
+In the **Types** editor a type is defined in one of four ways. They are not
+equivalent: each has its own area of use.
 
-| Спосіб | Як виглядає | Коли брати |
+| Way | What it looks like | When to use it |
 |---|---|---|
-| **JSON Schema** | `{"$schema": "http://json-schema.org/draft-06/schema#", …}` | контракт із зовнішнім світом: вхід процесу, тіло REST-відповіді, повідомлення черги |
-| **C#-клас** | `public class PageInfo { public int StartIndex {get;set;} … }` | внутрішня структура процесу, яку ніхто ззовні не бачить |
-| **Зовнішній тип** | `types://external/<flow>/<Type>` | тип, який уже оголошений в іншому Flow або бібліотеці — щоб не дублювати |
-| **Платформний тип** | `types://core/System.Exception` | системні типи |
+| **JSON Schema** | `{"$schema": "http://json-schema.org/draft-06/schema#", …}` | a contract with the outside world: process input, REST response body, queue message |
+| **C# class** | `public class PageInfo { public int StartIndex {get;set;} … }` | an internal structure of the process that nobody outside sees |
+| **External type** | `types://external/<flow>/<Type>` | a type already declared in another Flow or library — so as not to duplicate it |
+| **Platform type** | `types://core/System.Exception` | system types |
 
-**Практичне правило.** Межа процесу — JSON Schema. Усе, що живе всередині і не
-перетинає межу, — C#-клас: він коротший, читабельніший і дає підказки в редакторі.
+**Rule of thumb.** The process boundary is JSON Schema. Everything that lives
+inside and does not cross the boundary is a C# class: it is shorter, more
+readable, and gives hints in the editor.
 
 ```
-        ┌──────────── межа процесу ────────────┐
-JSON →  │  клас  →  клас  →  клас   →  клас    │ → JSON
-Schema  │      (внутрішня кухня)               │  Schema
-        └──────────────────────────────────────┘
+        ┌──────────── process boundary ────────────┐
+JSON →  │  class  →  class  →  class   →  class    │ → JSON
+Schema  │      (internal workings)                 │  Schema
+        └──────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. Сім рекомендацій щодо дизайну типів
+## 3. Seven recommendations on type design
 
-### 3.1 Один крок — один тип
+### 3.1 One step — one type
 
-Не робіть «універсальний» об'єкт, який тягнеться через увесь процес і в якому
-половина полів порожня на кожному кроці. Хай кожен крок має свій вхід і свій
-вихід — схема тоді читається без коментарів.
+Do not build a "universal" object that is dragged through the whole process and
+half of whose fields are empty at every step. Let every step have its own input
+and its own output — the diagram then reads without comments.
 
-Погано: `ProcessData` з 20 полями, з них на кожному кроці заповнені 3.
-Добре: `PageInfo` → `FileLinkInfo[]` → `EmailBody`.
+Bad: `ProcessData` with 20 fields, of which 3 are filled in at each step.
+Good: `PageRequest` → `PageInfo[]` → `PageResult`.
 
-### 3.2 Накопичувач — це параметр, а не результат кроку
+### 3.2 An accumulator is a parameter, not the result of a step
 
-Якщо треба збирати результат по шматках, заведіть **параметр** процесу потрібного
-типу і доповнюйте його, а конвеєром пускайте те, що справді потрібне наступному
-кроку.
-
-```
-Parameters.result.structuredPrompt = template;   // накопичуємо
-return Parameters.result;                        // і віддаємо далі
-```
-
-Так зроблено в `08-ai-agents/compile-structured-prompt.bpmn`: сім кроків
-поспіль доповнюють один `CompilationResult`.
-
-### 3.3 Колекція — це тип із `[]`, а не «масив чогось»
-
-Якщо елемент даних називається `FileLinkInfo[]`, платформа знає, що це набір, і
-підпроцес із Multi Instance отримає **один елемент** у `Input`, а не весь масив.
-Забути `[]` — найчастіша причина «чому мій цикл виконався один раз».
-
-### 3.4 Не змішуйте JSON і клас на одному кроці
-
-Якщо на вхід приходить JSON, а далі потрібен клас — зробіть **окремий крок
-перетворення** і назвіть його чесно (`Parse Config`, `Json Convert`). Не ховайте
-перетворення всередині кроку, який робить щось інше: коли воно впаде, ви шукатимете
-помилку не там.
+If you need to collect a result piece by piece, declare a process **parameter**
+of the required type and add to it, and send along the pipeline what the next
+step actually needs.
 
 ```
-var cfg = ((JSON)#Previous).Cast<ExternalConfig>();   // окремий крок
+Parameters.result.structuredPrompt = template;   // accumulate
+return Parameters.result;                        // and pass it on
+```
+
+The same idea holds wherever several steps contribute to one answer: the shape
+is declared once, and each step fills its part of it.
+
+### 3.3 A collection is a type with `[]`, not "an array of something"
+
+If a data element is named `PageInfo[]`, the platform knows it is a set, and
+a Sub Process with Multi Instance will receive **one element** in `Input`, not
+the whole array. Forgetting the `[]` is the most common reason for "why did my
+loop run only once".
+
+### 3.4 Do not mix JSON and a class in one step
+
+If JSON arrives at the input and a class is needed further on, make a
+**separate conversion step** and name it honestly (`Parse Config`,
+`Json Convert`). Do not hide the conversion inside a step that does something
+else: when it fails, you will look for the error in the wrong place.
+
+```
+var cfg = ((JSON)#Previous).Cast<ExternalConfig>();   // a separate step
 Parameters.config = cfg;
 return cfg;
 ```
 
-### 3.5 Зовнішній тип оголошують обидві сторони
+### 3.5 An external type is declared by both sides
 
-Якщо Flow A викликає Flow B і передає об'єкт, тип має бути оголошений
-**в обох** — у B як власний, у A як зовнішній
-(`types://external/<flowB>/<Type>`). Інакше A отримає назад `object`, і
-звернення до полів впаде вже на виконанні.
+If Flow A calls Flow B and passes an object, the type has to be declared **in
+both** — in B as its own, in A as external
+(`types://external/<flowB>/<Type>`). Otherwise A gets an `object` back, and
+field access will fail at run time.
 
-### 3.6 Необов'язкове поле позначайте явно
+### 3.6 Mark an optional field explicitly
 
-У JSON Schema — через відсутність у `required`; у C# — через `?` для
-значущих типів (`int?`, `DateTime?`). Порожнє поле, яке платформа вважає
-обов'язковим, дає `Object reference not set` у найнезручніший момент.
+In JSON Schema — by leaving it out of `required`; in C# — with `?` for value
+types (`int?`, `DateTime?`). An empty field that the platform treats as required
+gives `Object reference not set` at the most inconvenient moment.
 
-### 3.7 Тип на межі — це документація вашого API
+### 3.7 A type at the boundary is the documentation of your API
 
-Схема входу процесу — те, що побачить інтегратор у Swagger. Називайте поля так,
-як їх називає предметна область (`serviceOrderId`, а не `id2`), і додавайте
-`title` — воно потрапляє в згенеровану специфікацію.
+The input schema of a process is what an integrator will see in Swagger. Name
+the fields the way the domain names them (`serviceOrderId`, not `id2`), and add
+`title` — it ends up in the generated specification.
 
 ---
 
-## 4. Приведення типів — коли воно потрібне і як його не боятися
+## 4. Type casting — when it is needed and how not to fear it
 
-Приведення (`cast`) — це коли ви кажете платформі: «те, що прийшло як щось
-загальне, насправді ось цього типу». Потрібне рівно в трьох ситуаціях.
+A cast is when you tell the platform: "what arrived as something generic is in
+fact this type". It is needed in exactly three situations.
 
-### 4.1 Дані прийшли ззовні як JSON
+### 4.1 The data arrived from outside as JSON
 
 ```
 var cfg = ((JSON)#Previous).Cast<ExternalConfig>();
 ```
 
-`#Previous` тут — «щось». `(JSON)` каже: це JSON. `.Cast<ExternalConfig>()` каже:
-розклади його по полях ось цього типу. **Якщо структура не збігається — поля
-будуть порожні, а не помилка.** Тому після Cast варто одразу залогувати ключове
-поле:
+`#Previous` here is "something". `(JSON)` says: this is JSON.
+`.Cast<ExternalConfig>()` says: lay it out into the fields of this type. **If the
+structure does not match, the fields will be empty rather than an error.** So
+right after a Cast it is worth logging a key field:
 
 ```
 Logger.LogInformation($"connection str = '{cfg.db_connection_str}'");
 ```
 
-### 4.2 Дані прийшли після паралельного шлюзу
+### 4.2 The data arrived after a parallel gateway
 
-Після паралельного шлюзу `#Previous` — це **словник**, а не об'єкт. Звертатися
-треба за іменем вузла:
+After a parallel gateway `#Previous` is a **dictionary**, not an object. Access
+it by node name:
 
 ```
 var list = (List<string>)#Previous["Activity_Read_Response"];
 ```
 
-Без імені вузла ви отримаєте словник і не зрозумієте, чому «поля немає».
+Without the node name you get a dictionary and will not understand why "the
+field is missing".
 
-### 4.3 Дані з SQL
+### 4.3 Data from SQL
 
-`Collection` — це набір рядків із динамічними полями. Поля доступні за іменем
-колонки, і компілятор їх не перевіряє (він їх не знає):
+`Collection` is a set of rows with dynamic fields. The fields are accessed by
+column name, and the compiler does not check them (it does not know them):
 
 ```
 var rows = DataAssociations.p_get_grid.Query<TreeNodeGridData>();
 ```
 
-Указавши тип у `Query<T>()`, ви одразу отримуєте типізований набір — і далі
-працюєте без приведень. Це краще, ніж `Query()` без типу.
+By specifying the type in `Query<T>()` you get a typed set straight away — and
+then work without casts. That is better than `Query()` without a type.
 
 ---
 
-## 5. Чек-лист перед першим запуском
+## 5. Checklist before the first run
 
-- [ ] Вхід процесу описаний JSON Schema, поля названі як у предметній області
-- [ ] Кожен Data Object на схемі має тип (не порожній)
-- [ ] Колекції мають `[]` в імені
-- [ ] Перетворення JSON → клас винесене в окремий крок
-- [ ] Зовнішні типи оголошені з обох боків виклику
-- [ ] Необов'язкові поля не в `required` / позначені `?`
-- [ ] Після кожного Cast є `Logger.LogInformation` з ключовим полем
-- [ ] Після паралельного шлюзу звернення йде через `#Previous["ім'я-вузла"]`
+- [ ] The process input is described by JSON Schema, with fields named as in the domain
+- [ ] Every data object on the diagram has a type (not empty)
+- [ ] Collections have `[]` in the name
+- [ ] The JSON → class conversion is moved into a separate step
+- [ ] External types are declared on both sides of the call
+- [ ] Optional fields are not in `required` / are marked with `?`
+- [ ] After every Cast there is a `Logger.LogInformation` with a key field
+- [ ] After a parallel gateway, access goes through `#Previous["node-name"]`
 
 ---
 
-## 6. Куди дивитися далі
+## 6. Where to look next
 
-| Питання | Приклад |
+| Question | Example |
 |---|---|
-| Мінімальний конвеєр із типами | `01-basics/echo-agent.bpmn` |
-| JSON → типізована конфігурація | `03-config-as-flow/get-config.bpmn` |
-| Накопичувач у параметрі | `08-ai-agents/compile-structured-prompt.bpmn` |
-| Колекція + Multi Instance | `04-pagination/sync-folder-paged.bpmn` |
-| Приведення після паралельного шлюзу | `05-events-and-signals/boundary-event-fanout.bpmn` |
-| Зовнішні типи між Flow | `03-config-as-flow/send-links.bpmn` |
+| A minimal pipeline with types | `01-basics/first-flow.bpmn` |
+| A native C# class as a declared type | `03-config-as-flow/service-config.bpmn` |
+| External types between Flows | `03-config-as-flow/use-config.bpmn` |
+| A collection + Multi Instance | `04-pagination/paged-fetch.bpmn` |
+| A type owned by a platform library | `08-ai-agents/structured-prompt.bpmn` |
+| The shape of a failure | `02-error-handling/error-as-branch.bpmn` |

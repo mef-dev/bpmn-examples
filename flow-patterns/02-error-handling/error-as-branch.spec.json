@@ -1,0 +1,41 @@
+{
+  "name": "error-as-branch",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "OrderRequest",
+    "properties": {
+      "orderId": "string"
+    },
+    "example": {
+      "orderId": "ORD-1001"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Validate",
+      "name": "validate the order",
+      "risky": true,
+      "expression": "// Let it throw. Catching here would hide the failure from the diagram\n// and the process would carry on down the happy path with no order.\nif (string.IsNullOrEmpty(Input.orderId))\n    throw new Exception(\"orderId is required\");\n\nLogger.LogInformation($\"order {Input.orderId} accepted\");\nreturn new OrderRequest() { orderId = Input.orderId };",
+      "note": "The step throws instead of catching. Catching here would hide the failure from the diagram, and the process would carry on down the happy path with no order."
+    }
+  ],
+  "documentation": "An error is a branch of the diagram, with its own typed answer.",
+  "outcomes": {
+    "success": {
+      "title": "ACCEPTED",
+      "value": "{\n  \"orderId\": \"A-1001\"\n}"
+    },
+    "failure": {
+      "title": "REJECTED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Validate/validate the order'\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}

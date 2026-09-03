@@ -4573,7 +4573,7 @@ components:
                 value:
                   '@type': JSONSpecification
                   '@schemaLocation': 'http://my.schemas/vCPE.schema.json'
-                  vCPE_IP: 193.218.236.21
+                  vCPE_IP: localhost
                   MaxTxRate: 300
                   TransmitPower: 11 dBm
                   maxTream: 'OFF'
@@ -4762,7 +4762,7 @@ components:
                 value:
                   '@type': JSONSpecification
                   '@schemaLocation': 'http://my.schemas/vCPE.schema.json'
-                  vCPE_IP: 193.218.236.21
+                  vCPE_IP: localhost
                   MaxTxRate: 300
                   TransmitPower: 11 dBm
                   maxTream: 'OFF'
