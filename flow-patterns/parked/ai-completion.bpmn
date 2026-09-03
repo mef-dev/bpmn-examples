@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <extensionElements>
-    <gp:globalParameter name="InnerTypes">[{"name": "AskResult", "isNativeDefinition": true, "definition": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}", "dataObjectRefName": "AskResult"}, {"name": "AskRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/AskRequest\", \"definitions\": {\"AskRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"question\": {\"type\": \"string\"}, \"tone\": {\"type\": \"string\"}}, \"title\": \"AskRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
-    <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}, {"name": "ChatMessage", "definition": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"}]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name": "AskResult", "isNativeDefinition": true, "definition": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}", "dataObjectRefName": "AskResult"}, {"name": "AiChunk", "isNativeDefinition": true, "definition": "public class AiChunk\n{\n    /* One serialised step of the generation, as the function\n       answers it: the same shape the chat API streams. */\n    public List&lt;AiChoice&gt; choices { get; set; }\n}", "dataObjectRefName": "AiChunk"}, {"name": "AiChoice", "isNativeDefinition": true, "definition": "public class AiChoice\n{\n    /* One alternative. In practice there is exactly one. */\n    public AiDelta delta { get; set; }\n}", "dataObjectRefName": "AiChoice"}, {"name": "AiDelta", "isNativeDefinition": true, "definition": "public class AiDelta\n{\n    /* The piece of text this chunk carries. */\n    public string content { get; set; }\n}", "dataObjectRefName": "AiDelta"}, {"name": "AskRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/AskRequest\", \"definitions\": {\"AskRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"question\": {\"type\": \"string\"}, \"tone\": {\"type\": \"string\"}}, \"title\": \"AskRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}, {"name": "ChatCompletionsRequestMessageViewModel", "definition": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"}]</gp:globalParameter>
     <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[{"name": "AI/Completions", "initCode": "functions://default//AI/Completions", "initParameters": [{"name": "Model", "type": "String", "required": true, "nullable": false}, {"name": "Messages", "type": "ChatCompletionsRequestMessageViewModel[]", "required": true, "nullable": false}, {"name": "Result", "type": "string[]", "required": false, "nullable": false}]}]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest", "version": "", "entities": []}, {"name": "ai", "link": "libs://common/ai", "version": "", "entities": []}, {"name": "bll", "link": "libs://common/bll", "version": "", "entities": []}]</gp:globalParameter>
@@ -10,7 +10,7 @@
   </extensionElements>
   <process id="Process_ai_completion" name="ai-completion">
     <documentation>Call the model through the engine's own AI function, then join the chunks it answers with.
-Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-ai-function</documentation>
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/parked</documentation>
     <dataObjectReference id="DO_Input" name="AskRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="AskRequest" dataObjectRef="Do_Output" />
@@ -40,21 +40,21 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-ai
     </task>
     <task id="T_Compose" name="compose the prompt">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The platform's own message type, declared once as an external type.\n// AI/Completions takes an array of exactly this shape.\nvar messages = new List&lt;ChatMessage&gt;\n{\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The platform's own message type, declared under its own name: the\n// argument assignment the engine generates names it exactly so.\nvar messages = new List&lt;ChatCompletionsRequestMessageViewModel&gt;\n{\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
     <task id="T_Ask" name="ask the model">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "AI/Completions", "actionParam": {"Model": "meta-llama/Llama-3.1-8B-Instruct", "Messages": "#Previous"}}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "AI/Completions", "actionParam": {"Model": "meta-llama/Llama-3.1-8B-Instruct", "Messages": "#Previous as List&lt;ChatCompletionsRequestMessageViewModel&gt;"}}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
     </task>
     <task id="T_Collect" name="join the chunks">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Every chunk is a serialised completion object; the text lives in\n// choices[0].delta.content, the same shape the chat API streams.\nvar chunks = (List&lt;string&gt;)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var piece = new JSON(chunk).choices[0].delta.content as string;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// JSON is not a dynamic object: the way into it is Cast&lt;T&gt; with a\n// declared type. AiChunk is that shape, and nothing more of it.\nvar chunks = (List&lt;string&gt;)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var parsed = new JSON(chunk).Cast&lt;AiChunk&gt;();\n    var piece = parsed?.choices?[0]?.delta?.content;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_005</incoming>
       <outgoing>Fl_006</outgoing>
@@ -114,25 +114,26 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-ai
     <textAnnotation id="An_T_Compose">
       <text>A prompt is data, not a glued string. AI/Completions
 declares Messages as
-ChatCompletionsRequestMessageViewModel[], so the step
-hands it an array of that very type - no serialising, no
-shape to drift.</text>
+ChatCompletionsRequestMessageViewModel[], and the
+assignment the engine generates uses that name without a
+namespace - so the external type is declared under exactly
+that name rather than under a shorter alias.</text>
     </textAnnotation>
     <association id="As_An_T_Compose" sourceRef="An_T_Compose" targetRef="T_Compose" />
     <textAnnotation id="An_T_Ask">
-      <text>The built-in answers with string[] - one serialised chunk
-per step of the generation, not one finished text. It also
-raises a boundary event named Event_Start_Sending on every
-chunk; the name is fixed inside the engine, and when no
-such event exists the engine logs a warning and carries
-on.</text>
+      <text>The declared argument is an array, but the generated
+method takes a List, and #Previous arrives as object - so
+the assignment needs a cast. It has to be written with as,
+not with a prefix cast: # must stay the first character of
+the expression, or the compiler reads it as a preprocessor
+directive.</text>
     </textAnnotation>
     <association id="As_An_T_Ask" sourceRef="An_T_Ask" targetRef="T_Ask" />
     <textAnnotation id="An_T_Collect">
-      <text>The chunks arrive in order, and joining them is the
-caller's job. Reading choices[0].delta.content keeps the
-model's own wire shape, so the same code works whether the
-answer came in two pieces or two hundred.</text>
+      <text>The function answers string[] - one serialised chunk per
+step of the generation, not one finished text. Joining
+them is the caller's job, and reading
+choices[0].delta.content keeps the model's own wire shape.</text>
     </textAnnotation>
     <association id="As_An_T_Collect" sourceRef="An_T_Collect" targetRef="T_Collect" />
 
@@ -239,7 +240,7 @@ answer came in two pieces or two hundred.</text>
         <di:waypoint x="300" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Compose" bpmnElement="An_T_Compose">
-        <omgdc:Bounds x="-165" y="466" width="375" height="88" />
+        <omgdc:Bounds x="-177" y="459" width="387" height="102" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Compose" bpmnElement="As_An_T_Compose">
         <di:waypoint x="210" y="510" />

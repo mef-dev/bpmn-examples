@@ -21,7 +21,7 @@
     }
   },
   "externalTypes": {
-    "ChatMessage": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"
+    "ChatCompletionsRequestMessageViewModel": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"
   },
   "libs": {
     "ai": "libs://common/ai"
@@ -30,8 +30,8 @@
     {
       "id": "T_Compose",
       "name": "compose the prompt",
-      "expression": "// The platform's own message type, declared once as an external type.\n// AI/Completions takes an array of exactly this shape.\nvar messages = new List<ChatMessage>\n{\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();",
-      "note": "A prompt is data, not a glued string. AI/Completions declares Messages as ChatCompletionsRequestMessageViewModel[], so the step hands it an array of that very type - no serialising, no shape to drift."
+      "expression": "// The platform's own message type, declared under its own name: the\n// argument assignment the engine generates names it exactly so.\nvar messages = new List<ChatCompletionsRequestMessageViewModel>\n{\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatCompletionsRequestMessageViewModel()\n        { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();",
+      "note": "A prompt is data, not a glued string. AI/Completions declares Messages as ChatCompletionsRequestMessageViewModel[], and the assignment the engine generates uses that name without a namespace - so the external type is declared under exactly that name rather than under a shorter alias."
     },
     {
       "id": "T_Ask",
@@ -39,18 +39,21 @@
       "function": "AI/Completions",
       "params": {
         "Model": "meta-llama/Llama-3.1-8B-Instruct",
-        "Messages": "#Previous"
+        "Messages": "#Previous as List<ChatCompletionsRequestMessageViewModel>"
       },
-      "note": "The built-in answers with string[] - one serialised chunk per step of the generation, not one finished text. It also raises a boundary event named Event_Start_Sending on every chunk; the name is fixed inside the engine, and when no such event exists the engine logs a warning and carries on."
+      "note": "The declared argument is an array, but the generated method takes a List, and #Previous arrives as object - so the assignment needs a cast. It has to be written with as, not with a prefix cast: # must stay the first character of the expression, or the compiler reads it as a preprocessor directive."
     },
     {
       "id": "T_Collect",
       "name": "join the chunks",
-      "expression": "// Every chunk is a serialised completion object; the text lives in\n// choices[0].delta.content, the same shape the chat API streams.\nvar chunks = (List<string>)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var piece = new JSON(chunk).choices[0].delta.content as string;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };",
-      "note": "The chunks arrive in order, and joining them is the caller's job. Reading choices[0].delta.content keeps the model's own wire shape, so the same code works whether the answer came in two pieces or two hundred."
+      "expression": "// JSON is not a dynamic object: the way into it is Cast<T> with a\n// declared type. AiChunk is that shape, and nothing more of it.\nvar chunks = (List<string>)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var parsed = new JSON(chunk).Cast<AiChunk>();\n    var piece = parsed?.choices?[0]?.delta?.content;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };",
+      "note": "The function answers string[] - one serialised chunk per step of the generation, not one finished text. Joining them is the caller's job, and reading choices[0].delta.content keeps the model's own wire shape."
     }
   ],
   "types": {
+    "AiDelta": "public class AiDelta\n{\n    /* The piece of text this chunk carries. */\n    public string content { get; set; }\n}",
+    "AiChoice": "public class AiChoice\n{\n    /* One alternative. In practice there is exactly one. */\n    public AiDelta delta { get; set; }\n}",
+    "AiChunk": "public class AiChunk\n{\n    /* One serialised step of the generation, as the function\n       answers it: the same shape the chat API streams. */\n    public List<AiChoice> choices { get; set; }\n}",
     "AskResult": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}"
   },
   "documentation": "Call the model through the engine's own AI function, then join the chunks it answers with.",
