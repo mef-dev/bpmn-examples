@@ -19,6 +19,7 @@ production Flow with the names filed off — they were built for this folder.
 | [06 · Streaming](06-streaming-sse/) | read a response as it arrives, pass each chunk on | `stream-response.bpmn` |
 | [07 · Triggers](07-triggers/) | the start event decides how a Flow is reached | `http-start.bpmn` |
 | [08 · Agents](08-ai-agents/) | build a prompt as typed data, not as a string | `structured-prompt.bpmn` |
+| [09 · Files](09-files-and-archives/) | a file lives in a store, and what you hand back is a link | `archive-and-link.bpmn` |
 
 **Before your first Flow**, read [TYPE-DESIGN.md](TYPE-DESIGN.md). Most errors
 that look like a platform failure are a skipped type-design step.
@@ -75,24 +76,25 @@ replies below are what came back — not what the code was expected to produce.
 | `paged-fetch` | `{"total":25}` | three `PageInfo` entries, the last one short |
 | `http-start` | `{"event":"order.created",…}` | the request echoed back |
 | `structured-prompt` | `{"question":…,"tone":"plain"}` | two typed chat messages |
-| `raise-event` | `{"jobId":"job-7"}` | **fails** — see below |
-| `stream-response` | `{"topic":"USD"}` | **fails** — see below |
+| `raise-event` | `{"jobId":"job-7"}` | `{"jobId":"JOB-7"}` |
+| `stream-response` | `{"topic":"USD"}` | `{"topic":"USD"}` |
 
-Neither failure is in the models, and both are set out in full in the group's own
-README:
+Two limits still shape what these models can show, and both are outside the
+diagrams:
 
-- **`Action.BoundaryEvents[…].Raise(…)` depends on the engine build.** The value
-  it needs is an `AsyncLocal` whose assignment was commented out on 9 January
-  2026 and restored on 2 September 2026. On a stand carrying the fix these two
-  models run; on an older one any `Raise` from a task body throws a
-  `NullReferenceException`. The stand these results were taken from is still on
-  the older build.
 - **An outbound call needs a stand with a route to the internet.** Without one
   the call fails and the error branch answers, which is the correct behaviour.
+- **The `AI/Completions` built-in cannot be called from a model.** Its body uses
+  `CT` and `Action.BoundaryEvents`, neither of which exists in the context a
+  task node is generated into, and its `Messages` parameter type does not
+  resolve. The compiler answers `CS0103`, `CS0117` and `CS0246` — all from
+  inside the function, none from the model. [08 · Agents](08-ai-agents/) stops
+  at building the request for that reason, and the attempt to call it is parked
+  under `parked/ai-completion.spec.json`.
 
-A third limit sits in [08 · Agents](08-ai-agents/): the `AI/Completions` built-in
-cannot be called from a model at all, so that example stops at building the
-request.
+`Action.BoundaryEvents[…].Raise(…)` used to be a third limit: the value it needs
+was an `AsyncLocal` whose assignment sat commented out for eight months. That is
+fixed, and both models above now run.
 
 ## How to read a group
 

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <extensionElements>
+    <gp:globalParameter name="InnerTypes">[{"name": "AskResult", "isNativeDefinition": true, "definition": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}", "dataObjectRefName": "AskResult"}, {"name": "AskRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/AskRequest\", \"definitions\": {\"AskRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"question\": {\"type\": \"string\"}, \"tone\": {\"type\": \"string\"}}, \"title\": \"AskRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
+    <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}, {"name": "ChatMessage", "definition": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="Functions">[{"name": "AI/Completions", "initCode": "functions://default//AI/Completions", "initParameters": [{"name": "Model", "type": "String", "required": true, "nullable": false}, {"name": "Messages", "type": "ChatCompletionsRequestMessageViewModel[]", "required": true, "nullable": false}, {"name": "Result", "type": "string[]", "required": false, "nullable": false}]}]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest", "version": "", "entities": []}, {"name": "ai", "link": "libs://common/ai", "version": "", "entities": []}, {"name": "bll", "link": "libs://common/bll", "version": "", "entities": []}]</gp:globalParameter>
+    <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
+  </extensionElements>
+  <process id="Process_ai_completion" name="ai-completion">
+    <documentation>Call the model through the engine's own AI function, then join the chunks it answers with.
+Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-ai-function</documentation>
+    <dataObjectReference id="DO_Input" name="AskRequest" dataObjectRef="Do_Input" />
+    <dataObject id="Do_Input" />
+    <dataObjectReference id="DO_Output" name="AskRequest" dataObjectRef="Do_Output" />
+    <dataObjectReference id="DO_Output_1" name="AskRequest" dataObjectRef="Do_Output_1" />
+    <dataObject id="Do_Output_1" />
+    <dataObject id="Do_Output" />
+    <startEvent id="Ev_Start" name="">
+      <outgoing>Fl_001</outgoing>
+      <dataOutputAssociation id="Doa_Input">
+        <targetRef>DO_Input</targetRef>
+      </dataOutputAssociation>
+    </startEvent>
+    <callActivity id="CA_Config" name="Get Config">
+      <extensionElements>
+        <ep:elementParameter name="ElementExternalLibDef">{"libName": "tenant_shared", "libType": "tenant", "flowName": "flow-patterns-config", "version": "#latest", "packSize": 0}</ep:elementParameter>
+        <ep:elementParameter name="ExternalDefinitionLink">activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_001</incoming>
+      <outgoing>Fl_002</outgoing>
+    </callActivity>
+    <task id="T_ParseConfig" name="Parse Config">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "ExternalConfig cfg = ((JSON)#Previous).Cast&lt;ExternalConfig&gt;();\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from flow-patterns-config\");\nreturn cfg;"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_002</incoming>
+      <outgoing>Fl_003</outgoing>
+    </task>
+    <task id="T_Compose" name="compose the prompt">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The platform's own message type, declared once as an external type.\n// AI/Completions takes an array of exactly this shape.\nvar messages = new List&lt;ChatMessage&gt;\n{\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_003</incoming>
+      <outgoing>Fl_004</outgoing>
+    </task>
+    <task id="T_Ask" name="ask the model">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "AI/Completions", "actionParam": {"Model": "meta-llama/Llama-3.1-8B-Instruct", "Messages": "#Previous"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_004</incoming>
+      <outgoing>Fl_005</outgoing>
+    </task>
+    <task id="T_Collect" name="join the chunks">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Every chunk is a serialised completion object; the text lives in\n// choices[0].delta.content, the same shape the chat API streams.\nvar chunks = (List&lt;string&gt;)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var piece = new JSON(chunk).choices[0].delta.content as string;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_005</incoming>
+      <outgoing>Fl_006</outgoing>
+    </task>
+    <endEvent id="Ev_End" name="">
+      <incoming>Fl_006</incoming>
+      <property id="Prop_Ev_End" name="__targetRef_placeholder" />
+      <dataInputAssociation id="Dia_Ev_End">
+        <sourceRef>DO_Output</sourceRef>
+        <targetRef>Prop_Ev_End</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <task id="T_HandleException" name="handle Exception">
+      <extensionElements>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Action", "action": "HandleException", "actionParam": {"prevData": "#PreviousData"}}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_007</incoming>
+      <incoming>Fl_008</incoming>
+      <outgoing>Fl_009</outgoing>
+    </task>
+    <endEvent id="Ev_Failed" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "ANSWER_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the model could not be reached\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_009</incoming>
+      <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
+      <dataInputAssociation id="Dia_Ev_Failed">
+        <sourceRef>DO_Output_1</sourceRef>
+        <targetRef>Prop_Ev_Failed</targetRef>
+      </dataInputAssociation>
+    </endEvent>
+    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+      <outgoing>Fl_007</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
+    </boundaryEvent>
+    <boundaryEvent id="Ev_Err_T_Ask" name="" attachedToRef="T_Ask">
+      <outgoing>Fl_008</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_T_Ask" />
+    </boundaryEvent>
+    <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
+    <sequenceFlow id="Fl_002" sourceRef="CA_Config" targetRef="T_ParseConfig" />
+    <sequenceFlow id="Fl_003" sourceRef="T_ParseConfig" targetRef="T_Compose" />
+    <sequenceFlow id="Fl_004" sourceRef="T_Compose" targetRef="T_Ask" />
+    <sequenceFlow id="Fl_005" sourceRef="T_Ask" targetRef="T_Collect" />
+    <sequenceFlow id="Fl_006" sourceRef="T_Collect" targetRef="Ev_End" />
+    <sequenceFlow id="Fl_007" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_008" sourceRef="Ev_Err_T_Ask" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_009" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <textAnnotation id="An_Input">
+      <text>Example input:
+{
+  "question": "What is BPMN?",
+  "tone": "plain"
+}</text>
+    </textAnnotation>
+    <association id="As_An_Input" sourceRef="An_Input" targetRef="Ev_Start" />
+    <textAnnotation id="An_T_Compose">
+      <text>A prompt is data, not a glued string. AI/Completions
+declares Messages as
+ChatCompletionsRequestMessageViewModel[], so the step
+hands it an array of that very type - no serialising, no
+shape to drift.</text>
+    </textAnnotation>
+    <association id="As_An_T_Compose" sourceRef="An_T_Compose" targetRef="T_Compose" />
+    <textAnnotation id="An_T_Ask">
+      <text>The built-in answers with string[] - one serialised chunk
+per step of the generation, not one finished text. It also
+raises a boundary event named Event_Start_Sending on every
+chunk; the name is fixed inside the engine, and when no
+such event exists the engine logs a warning and carries
+on.</text>
+    </textAnnotation>
+    <association id="As_An_T_Ask" sourceRef="An_T_Ask" targetRef="T_Ask" />
+    <textAnnotation id="An_T_Collect">
+      <text>The chunks arrive in order, and joining them is the
+caller's job. Reading choices[0].delta.content keeps the
+model's own wire shape, so the same code works whether the
+answer came in two pieces or two hundred.</text>
+    </textAnnotation>
+    <association id="As_An_T_Collect" sourceRef="An_T_Collect" targetRef="T_Collect" />
+
+  </process>
+  <bpmndi:BPMNDiagram id="Di_Process_ai_completion">
+    <bpmndi:BPMNPlane id="Dp_Process_ai_completion" bpmnElement="Process_ai_completion">
+      <bpmndi:BPMNShape id="Sh_DO_Input" bpmnElement="DO_Input">
+        <omgdc:Bounds x="92" y="80" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="75" y="136" width="70" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
+        <omgdc:Bounds x="92" y="190" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="75" y="246" width="70" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
+        <omgdc:Bounds x="282" y="80" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
+        <omgdc:Bounds x="250" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_ParseConfig" bpmnElement="T_ParseConfig">
+        <omgdc:Bounds x="250" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Compose" bpmnElement="T_Compose">
+        <omgdc:Bounds x="250" y="470" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Ask" bpmnElement="T_Ask">
+        <omgdc:Bounds x="250" y="600" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Collect" bpmnElement="T_Collect">
+        <omgdc:Bounds x="250" y="730" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
+        <omgdc:Bounds x="282" y="860" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
+        <omgdc:Bounds x="570" y="532" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
+        <omgdc:Bounds x="602" y="662" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
+        <omgdc:Bounds x="332" y="402" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_Ask" bpmnElement="Ev_Err_T_Ask">
+        <omgdc:Bounds x="332" y="662" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
+        <di:waypoint x="300" y="116" />
+        <di:waypoint x="300" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_002" bpmnElement="Fl_002">
+        <di:waypoint x="300" y="290" />
+        <di:waypoint x="300" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_003" bpmnElement="Fl_003">
+        <di:waypoint x="300" y="420" />
+        <di:waypoint x="300" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_004" bpmnElement="Fl_004">
+        <di:waypoint x="300" y="550" />
+        <di:waypoint x="300" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_005" bpmnElement="Fl_005">
+        <di:waypoint x="300" y="680" />
+        <di:waypoint x="300" y="730" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
+        <di:waypoint x="300" y="810" />
+        <di:waypoint x="300" y="860" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_007" bpmnElement="Fl_007">
+        <di:waypoint x="350" y="438" />
+        <di:waypoint x="350" y="468" />
+        <di:waypoint x="620" y="468" />
+        <di:waypoint x="620" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_008" bpmnElement="Fl_008">
+        <di:waypoint x="350" y="698" />
+        <di:waypoint x="350" y="728" />
+        <di:waypoint x="620" y="728" />
+        <di:waypoint x="620" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_009" bpmnElement="Fl_009">
+        <di:waypoint x="620" y="612" />
+        <di:waypoint x="620" y="662" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
+        <omgdc:Bounds x="412" y="-8" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="395" y="48" width="70" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
+        <omgdc:Bounds x="194" y="-48" width="211" height="88" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
+        <di:waypoint x="300" y="40" />
+        <di:waypoint x="300" y="80" />
+        <di:waypoint x="300" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_T_Compose" bpmnElement="An_T_Compose">
+        <omgdc:Bounds x="-165" y="466" width="375" height="88" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_T_Compose" bpmnElement="As_An_T_Compose">
+        <di:waypoint x="210" y="510" />
+        <di:waypoint x="250" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_T_Ask" bpmnElement="An_T_Ask">
+        <omgdc:Bounds x="-177" y="589" width="387" height="102" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_T_Ask" bpmnElement="As_An_T_Ask">
+        <di:waypoint x="210" y="640" />
+        <di:waypoint x="250" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_T_Collect" bpmnElement="An_T_Collect">
+        <omgdc:Bounds x="-177" y="733" width="387" height="74" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_T_Collect" bpmnElement="As_An_T_Collect">
+        <di:waypoint x="210" y="770" />
+        <di:waypoint x="250" y="770" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
+        <di:waypoint x="282" y="98" />
+        <di:waypoint x="128" y="98" />
+        <di:waypoint x="128" y="105" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
+        <di:waypoint x="128" y="215" />
+        <di:waypoint x="300" y="215" />
+        <di:waypoint x="300" y="860" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
+        <di:waypoint x="448" y="17" />
+        <di:waypoint x="638" y="17" />
+        <di:waypoint x="638" y="680" />
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

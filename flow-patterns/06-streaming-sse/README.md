@@ -65,13 +65,18 @@ resolved:
 Use that when a Flow behaves as if it had no settings: it tells you whether the
 configuration arrived or the call itself is at fault.
 
-**And `Raise` does not work in the current engine build.** Even with the endpoint
-reachable, passing a chunk out through the boundary event throws a
-`NullReferenceException` inside `TransitionBoundaryEvent.Raise`, because the
-engine never assigns the conveyor branch it needs — the two lines that would are
-commented out in `WorkflowItemTaskCodeAction.cs`. [05 · Events](../05-events-and-signals/)
-sets out the detail. The reading loop above is correct and will work unchanged
-once the engine does.
+**`Raise` needs an engine build carrying the conveyor-branch fix.** For eight
+months the assignment that `TransitionBoundaryEvent.Raise` depends on sat
+commented out in `WorkflowItemTaskCodeAction.cs`, and any `Raise` from a task
+body threw a `NullReferenceException`. It was restored on 2 September 2026, and
+on a stand with that build the chunks are passed out as written here.
+[05 · Events](../05-events-and-signals/) sets out how to tell the two builds
+apart.
+
+Raising is not free, though. Each `Raise` starts a separate conveyor branch, and
+a branch costs about 0.2 s — measured on a stand at 50, 100, 150 and 200 raises
+in a single run. That is fine for progress events, and far too slow for a token
+stream: send in batches, or write to the channel from the step itself.
 
 ## Why it is built this way
 

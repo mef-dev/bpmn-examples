@@ -42,6 +42,7 @@ PASSES = [
     ("straighten.py", False),
     ("split_shared_data.py", False),
     ("add_boundary_event.py", True),
+    ("add_stores.py", True),
     ("add_types.py", True),
     ("add_examples.py", True),
     ("add_notes.py", True),

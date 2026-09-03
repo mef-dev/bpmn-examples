@@ -63,7 +63,7 @@ that repository beside this one. Everything after `gen` is in `tools/layout`, in
 this order:
 
 ```
-relayout → straighten → split_shared_data → add_types → add_examples
+relayout → straighten → split_shared_data → add_stores → add_types → add_examples
         → add_notes → fit_notes → place_notes → place_labels
         → place_data_labels → snap_associations
 ```
@@ -154,6 +154,7 @@ them on a copy or under version control.
 | `fit_notes.py` | Wraps comment text and fits the frame to it, so no line is cut off |
 | `split_shared_data.py` | Gives each end event its own data element instead of one shared between them |
 | `add_boundary_event.py` | The message boundary event a step raises from code, and the throw event it leads to |
+| `add_stores.py` | Data stores from the `stores` block, each bound to the step that uses it — the engine ignores an unbound one |
 | `add_types.py` | Types, external types and libraries a step uses beyond its own input and output |
 | `add_examples.py` | Process documentation with the link back to source, and the response example on each end event |
 | `add_notes.py` | The comments declared in the specification, and the input example beside the start event |

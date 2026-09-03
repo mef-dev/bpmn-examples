@@ -1,0 +1,67 @@
+{
+  "name": "ai-completion",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "AskRequest",
+    "properties": {
+      "question": "string",
+      "tone": "string"
+    },
+    "example": {
+      "question": "What is BPMN?",
+      "tone": "plain"
+    }
+  },
+  "externalTypes": {
+    "ChatMessage": "types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel"
+  },
+  "libs": {
+    "ai": "libs://common/ai"
+  },
+  "steps": [
+    {
+      "id": "T_Compose",
+      "name": "compose the prompt",
+      "expression": "// The platform's own message type, declared once as an external type.\n// AI/Completions takes an array of exactly this shape.\nvar messages = new List<ChatMessage>\n{\n    new ChatMessage() { Role = \"system\", Content = $\"Answer in a {Input.tone} tone.\" },\n    new ChatMessage() { Role = \"user\", Content = Input.question }\n};\n\nreturn messages.ToArray();",
+      "note": "A prompt is data, not a glued string. AI/Completions declares Messages as ChatCompletionsRequestMessageViewModel[], so the step hands it an array of that very type - no serialising, no shape to drift."
+    },
+    {
+      "id": "T_Ask",
+      "name": "ask the model",
+      "function": "AI/Completions",
+      "params": {
+        "Model": "meta-llama/Llama-3.1-8B-Instruct",
+        "Messages": "#Previous"
+      },
+      "note": "The built-in answers with string[] - one serialised chunk per step of the generation, not one finished text. It also raises a boundary event named Event_Start_Sending on every chunk; the name is fixed inside the engine, and when no such event exists the engine logs a warning and carries on."
+    },
+    {
+      "id": "T_Collect",
+      "name": "join the chunks",
+      "expression": "// Every chunk is a serialised completion object; the text lives in\n// choices[0].delta.content, the same shape the chat API streams.\nvar chunks = (List<string>)#Previous;\nstring answer = \"\";\nforeach (var chunk in chunks)\n{\n    var piece = new JSON(chunk).choices[0].delta.content as string;\n    if (!string.IsNullOrEmpty(piece))\n        answer += piece;\n}\n\nLogger.LogInformation($\"joined {chunks.Count} chunks\");\nreturn new AskResult() { question = Input.question, answer = answer };",
+      "note": "The chunks arrive in order, and joining them is the caller's job. Reading choices[0].delta.content keeps the model's own wire shape, so the same code works whether the answer came in two pieces or two hundred."
+    }
+  ],
+  "types": {
+    "AskResult": "public class AskResult\n{\n    /* What the caller asked, kept so the answer is self-describing. */\n    public string question { get; set; }\n\n    /* The chunks joined back into one text. */\n    public string answer { get; set; }\n}"
+  },
+  "documentation": "Call the model through the engine's own AI function, then join the chunks it answers with.",
+  "outcomes": {
+    "success": {
+      "title": "ANSWERED",
+      "value": "{\n  \"question\": \"What is BPMN?\",\n  \"answer\": \"BPMN is a notation for business processes…\"\n}"
+    },
+    "failure": {
+      "title": "ANSWER_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the model could not be reached\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}
