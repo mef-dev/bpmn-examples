@@ -41,14 +41,14 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     </task>
     <task id="T_Call" name="open the stream">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "RestApi/GET", "actionParam": {"Uri": "{Parameters.config.listUrl}?_limit=3", "Encoding": "utf-8", "Timeout": 30000, "Headers": "{\"Accept\":\"application/json\"}"}}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Function", "action": "RestApi/GET", "actionParam": {"Uri": "{Parameters.config.listUrl}?_limit=3", "Encoding": "utf-8", "Timeout": 30000, "Headers": "{\"Accept\":\"application/json\"}", "Login": "$\"{Parameters.config.login}\"", "Password": "$\"{Parameters.config.password}\""}}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
     <task id="T_Stream" name="read the stream line by line">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "var reader = #Previous.Reader;\nint lines = 0;\nif (reader != null) { while (reader.ReadLine() != null) lines++; reader.Dispose(); }\nelse lines = (#Previous.Content ?? \"\").Split('\\n').Length;\nLogger.LogInformation($\"read {lines} lines for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// A streamed answer comes as Reader; an ordinary one is already in Content.\nvar reader = #Previous.Reader;\nvar rest = new Queue&lt;string&gt;((#Previous.Content ?? \"\").Split('\\n'));\nFunc&lt;string&gt; next = () =&gt; reader != null ? reader.ReadLine()\n                        : rest.Count &gt; 0 ? rest.Dequeue() : null;\nint sent = 0;\nfor (var line = next(); line != null; line = next())\n{\n    if (string.IsNullOrWhiteSpace(line)) continue;   // separators, not chunks\n    Action.BoundaryEvents[\"Event_Chunk\"].Raise(line); // out as it lands\n    sent++;\n}\nreader?.Dispose();\nLogger.LogInformation($\"{sent} chunks passed on for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
@@ -101,6 +101,18 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     <sequenceFlow id="Fl_006" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_007" sourceRef="Ev_Err_T_Call" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_008" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <boundaryEvent id="Event_Chunk" name="chunk" cancelActivity="false" attachedToRef="T_Stream">
+      <outgoing>Fl_Event_Chunk</outgoing>
+      <messageEventDefinition id="Med_Event_Chunk" />
+    </boundaryEvent>
+    <intermediateThrowEvent id="Event_Send" name="send the chunk on">
+      <extensionElements>
+        <ep:elementParameter name="ThrowMessageEvent">{"tsk_ProcessName": "Server-side events", "data": {"alias": "bss", "pluginname": "BSS.Entities"}, "lang": "en"}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_Event_Chunk</incoming>
+      <messageEventDefinition id="Med_Event_Send" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="Fl_Event_Chunk" sourceRef="Event_Chunk" targetRef="Event_Send" />
     <textAnnotation id="An_Input">
       <text>Example input:
 {
@@ -218,6 +230,16 @@ this Flow.</text>
           <omgdc:Bounds x="618" y="516" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Event_Chunk" bpmnElement="Event_Chunk">
+        <omgdc:Bounds x="332" y="622" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Event_Send" bpmnElement="Event_Send">
+        <omgdc:Bounds x="418" y="622" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_Fl_Event_Chunk" bpmnElement="Fl_Event_Chunk">
+        <di:waypoint x="368" y="640" />
+        <di:waypoint x="418" y="640" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
         <omgdc:Bounds x="238" y="-34" width="123" height="74" />
       </bpmndi:BPMNShape>

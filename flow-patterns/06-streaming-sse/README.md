@@ -7,7 +7,7 @@ on as it lands, keeps memory flat and lets the caller see progress.
 
 | Capability | Where to look |
 |---|---|
-| A built-in function as a step | `T_Call`, `actionType: Function`, `action: RestApi` |
+| A built-in function as a step | `T_Call`, `actionType: Function`, `action: RestApi/GET` |
 | Every declared argument, `Timeout` included | the `actionParam` of `T_Call` |
 | Credentials taken from the configuration | `Login` and `Password`, read from `Parameters.config` |
 | `#Previous.Reader` — the open response body | `T_Stream`, the `while` loop |
@@ -21,7 +21,7 @@ start → Get Config → Parse Config → open the stream → read line by line 
                                                              │
                                                      (chunk, non-interrupting)
                                                              ↓
-                                                    send the chunk on → end
+                                              send the chunk on (to Server-side events)
 ```
 
 ## Types it declares
@@ -30,7 +30,7 @@ start → Get Config → Parse Config → open the stream → read line by line 
 |---|---|---|
 | `StreamRequest` | inner, JSON Schema | the process boundary; `Input.topic` selects what to ask for |
 | `ErrorResponse` | inner, JSON Schema | the shape of a failure |
-| `ExternalConfig` | external | supplies `ratesUrl`, `login` and `password` |
+| `ExternalConfig` | external | supplies `listUrl`, `login` and `password` |
 
 `HttpResponse` is not declared by you: it is the result type of the `RestApi`
 function, and `.Reader` is its open body. Nothing in the model holds the whole
@@ -38,23 +38,28 @@ answer at once.
 
 ## What you should get back
 
-Two things stand between this model and a finished run, and both are outside the
-diagram.
-
-**The stand must be able to reach the endpoint.** Without outbound access — the
-case on the stand these examples were verified against — the call fails and the
-error branch answers:
-
 ```
 { "topic": "USD" }   →   HTTP 200
+{"topic":"USD"}
+```
+
+The reply is the request handed back: what matters happens on the way. Every
+non-blank line of the answer leaves through `Event_Chunk` as it is read, and the
+branch behind it passes the line to `Server-side events`, where a subscriber
+receives it. Add `debug=true` to the start call and the trace shows one
+transition out of `Event_Chunk` per line, while `T_Stream` is still running.
+
+When the stand cannot reach the endpoint, the call fails and the error branch
+answers — the example working correctly, because an unreachable endpoint is a
+failure and the failure has a path:
+
+```
 {"levelMessage":"11","statusCode":500,
  "message":"Error while try to call action 'T_Call/open the stream'","state":"1"}
 ```
 
-That is the example working correctly: an unreachable endpoint is a failure, and
-the failure has a path. Add `debug=true` to the start call and the reply also
-carries `parametersContainer`, where you can see the configuration that was
-resolved:
+With `debug=true` the reply also carries `parametersContainer`, where the
+resolved configuration is visible:
 
 ```json
 "config": { "ratesUrl": "https://api.frankfurter.dev/v1",
@@ -65,18 +70,9 @@ resolved:
 Use that when a Flow behaves as if it had no settings: it tells you whether the
 configuration arrived or the call itself is at fault.
 
-**`Raise` needs an engine build carrying the conveyor-branch fix.** For eight
-months the assignment that `TransitionBoundaryEvent.Raise` depends on sat
-commented out in `WorkflowItemTaskCodeAction.cs`, and any `Raise` from a task
-body threw a `NullReferenceException`. It was restored on 2 September 2026, and
-on a stand with that build the chunks are passed out as written here.
-[05 · Events](../05-events-and-signals/) sets out how to tell the two builds
-apart.
-
-Raising is not free, though. Each `Raise` starts a separate conveyor branch, and
-a branch costs about 0.2 s — measured on a stand at 50, 100, 150 and 200 raises
-in a single run. That is fine for progress events, and far too slow for a token
-stream: send in batches, or write to the channel from the step itself.
+**Each `Raise` starts its own conveyor branch.** Measured on the stand: 50 raises
+in one run take 0.8 s in total. That is fine for lines of an answer; for a long
+token stream, send in batches.
 
 ## Why it is built this way
 
@@ -106,7 +102,7 @@ collection would mean waiting for the last line before anything moves.
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
 into a **tenant** library first, under the name `flow-patterns-config`. Then
 import this file and compile it. It compiles anywhere; whether it *runs* depends
-on your stand reaching `api.frankfurter.dev`.
+on your stand reaching `jsonplaceholder.typicode.com`.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

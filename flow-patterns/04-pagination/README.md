@@ -10,7 +10,7 @@ them.
 | Sub Process with Multi Instance | `SP_Page` and its `multiInstanceLoopCharacteristics` |
 | A collection handed to the Sub Process | the data element `DO_Pages`, named `PageInfo[]` |
 | `PackSize` — how many instances run together | the element parameter on `SP_Page` |
-| A Sub Process with its own typed boundary | `SP_DO_In` / `SP_DO_Out` inside it |
+| A Sub Process with its own typed boundary | `SP_Page_DO_In` / `SP_Page_DO_Out` inside it |
 | `Input` meaning **one element** inside the loop | `T_Page`, first line |
 | `Transition.Counter` — which pass this is | the log line in `T_Page` |
 | Reaching the outer scope with `Root.` | `Root.Parameters.config.listUrl` in `T_Page` |
@@ -56,13 +56,16 @@ as the mechanism.
 ```
 ```
 HTTP 200
-[{"number":1,"startIndex":0,"size":10},
- {"number":2,"startIndex":10,"size":10},
+[{"number":2,"startIndex":10,"size":10},
+ {"number":1,"startIndex":0,"size":10},
  {"number":3,"startIndex":20,"size":10}]
 ```
 
-Twenty-five rows at ten per page make three pages, the last one short. The run
-log carries one line per page, each naming the URL that page would read:
+Twenty-five rows at ten per page make three pages, the last one short. The
+order is not guaranteed: with `PackSize` 2 two instances run at once, and the
+result lists them as they finish — the run above returned page 2 first. Sort by
+`number` when the order matters. The run log carries one line per page, each
+naming the URL that page would read:
 `page 2 would read https://jsonplaceholder.typicode.com/posts?_start=10&_limit=10, pass 2`.
 
 ## Why it is built this way

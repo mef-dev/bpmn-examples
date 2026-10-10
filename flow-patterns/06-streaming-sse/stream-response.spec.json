@@ -27,15 +27,30 @@
         "Uri": "{Parameters.config.listUrl}?_limit=3",
         "Encoding": "utf-8",
         "Timeout": 30000,
-        "Headers": "{\"Accept\":\"application/json\"}"
+        "Headers": "{\"Accept\":\"application/json\"}",
+        "Login": "$\"{Parameters.config.login}\"",
+        "Password": "$\"{Parameters.config.password}\""
       },
       "note": "The endpoint and its credentials come from the configuration Flow, so this model carries no address of its own."
     },
     {
       "id": "T_Stream",
       "name": "read the stream line by line",
-      "expression": "var reader = #Previous.Reader;\nint lines = 0;\nif (reader != null) { while (reader.ReadLine() != null) lines++; reader.Dispose(); }\nelse lines = (#Previous.Content ?? \"\").Split('\\n').Length;\nLogger.LogInformation($\"read {lines} lines for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };",
-      "note": "Reader exists only for a response the platform marked as a stream, and then only one line is held at a time however long the answer is. For an ordinary answer Reader is null and the body is already in Content, so the step covers both: which one arrives is decided by the endpoint, not by this Flow."
+      "expression": "// A streamed answer comes as Reader; an ordinary one is already in Content.\nvar reader = #Previous.Reader;\nvar rest = new Queue<string>((#Previous.Content ?? \"\").Split('\\n'));\nFunc<string> next = () => reader != null ? reader.ReadLine()\n                        : rest.Count > 0 ? rest.Dequeue() : null;\nint sent = 0;\nfor (var line = next(); line != null; line = next())\n{\n    if (string.IsNullOrWhiteSpace(line)) continue;   // separators, not chunks\n    Action.BoundaryEvents[\"Event_Chunk\"].Raise(line); // out as it lands\n    sent++;\n}\nreader?.Dispose();\nLogger.LogInformation($\"{sent} chunks passed on for {Input.topic}\");\nreturn new StreamRequest() { topic = Input.topic };",
+      "note": "Reader exists only for a response the platform marked as a stream, and then only one line is held at a time however long the answer is. For an ordinary answer Reader is null and the body is already in Content, so the step covers both: which one arrives is decided by the endpoint, not by this Flow.",
+      "raises": {
+        "id": "Event_Chunk",
+        "name": "chunk",
+        "to": {
+          "id": "Event_Send",
+          "name": "send the chunk on",
+          "process": "Server-side events",
+          "data": {
+            "alias": "bss",
+            "pluginname": "BSS.Entities"
+          }
+        }
+      }
     }
   ],
   "documentation": "Reads a response as it arrives and passes each chunk on.",

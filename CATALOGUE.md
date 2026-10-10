@@ -11,7 +11,7 @@ The denominator is what the compiler accepts and what the properties panel offer
 | **Nodes** | | |
 | Task | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
 | External component (Call Activity) | 9 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+7) |
-| Sub Process | 0 | — **none** |
+| Sub Process | 1 | `flow-patterns/04-pagination/paged-fetch.bpmn` |
 | Exclusive gateway | 22 | `tmforum-apis/TMF620_Product_Catalog_Management/TMF620_Get_ProductOffering.bpmn`, `tmforum-apis/TMF622_Monitor/TMF622_Get_Monitor.bpmn` (+20) |
 | Parallel gateway | 12 | `tmforum-apis/TMF620_Product_Catalog_Management/TMF620_Get_ProductOffering.bpmn`, `tmforum-apis/TMF640_Service_Activation_and_Configuration/TMF640_Get_Service.bpmn` (+10) |
 | Event-based gateway | 0 | — **none** |
@@ -19,14 +19,14 @@ The denominator is what the compiler accepts and what the properties panel offer
 | End event | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
 | Boundary event | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
 | Intermediate catch event | 0 | — **none** |
-| Intermediate throw event | 1 | `flow-patterns/05-events-and-signals/raise-event.bpmn` |
+| Intermediate throw event | 2 | `flow-patterns/05-events-and-signals/raise-event.bpmn`, `flow-patterns/06-streaming-sse/stream-response.bpmn` |
 | **Event kinds** | | |
 | error | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
 | timer | 0 | — **none** |
 | signal | 0 | — **none** |
-| message | 1 | `flow-patterns/05-events-and-signals/raise-event.bpmn` |
+| message | 2 | `flow-patterns/05-events-and-signals/raise-event.bpmn`, `flow-patterns/06-streaming-sse/stream-response.bpmn` |
 | **Loops and data** | | |
-| Multi Instance execution | 0 | — **none** |
+| Multi Instance execution | 1 | `flow-patterns/04-pagination/paged-fetch.bpmn` |
 | Data Object | 40 | `flow-patterns/01-basics/first-flow.bpmn`, `flow-patterns/02-error-handling/error-as-branch.bpmn` (+38) |
 | Data Store | 1 | `flow-patterns/09-files-and-archives/archive-and-link.bpmn` |
 | **Task modes** | | |
@@ -55,9 +55,9 @@ Teaching examples for the MEF.DEV platform, one per problem. Each was written to
 | `02-error-handling/error-as-branch.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
 | `03-config-as-flow/service-config.bpmn` | error; Data Object; Native (C# class); Inner (JSON Schema) | Action, Inline | `#PreviousData`, `Logger`, `WorkflowEnvironment`, `PassingResult` |
 | `03-config-as-flow/use-config.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
-| `04-pagination/paged-fetch.bpmn` | External component (Call Activity); error; Data Object; Native (C# class); Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `04-pagination/paged-fetch.bpmn` | External component (Call Activity); Sub Process; error; Multi Instance execution; Data Object; Native (C# class); Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `Root`, `WorkflowEnvironment`, `Transition`, `PassingResult` |
 | `05-events-and-signals/raise-event.bpmn` | External component (Call Activity); error; message; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `Action.BoundaryEvents`, `PassingResult` |
-| `06-streaming-sse/stream-response.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Function, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
+| `06-streaming-sse/stream-response.bpmn` | External component (Call Activity); error; message; Data Object; Inner (JSON Schema); External (reference) | Action, Function, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `Action.BoundaryEvents`, `PassingResult` |
 | `07-triggers/http-start.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
 | `08-ai-agents/structured-prompt.bpmn` | External component (Call Activity); error; Data Object; Inner (JSON Schema); External (reference) | Action, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
 | `09-files-and-archives/archive-and-link.bpmn` | External component (Call Activity); error; Data Object; Data Store; Native (C# class); Inner (JSON Schema); External (reference) | Action, Function, Inline | `#Previous`, `#PreviousData`, `Input`, `Logger`, `Parameters`, `WorkflowEnvironment`, `PassingResult` |
@@ -103,17 +103,17 @@ Implementations of TM Forum Open APIs: each Flow is one operation (method + reso
 
 Not covered by any example:
 
-- Sub Process
 - Event-based gateway
 - Intermediate catch event
 - timer
 - signal
-- Multi Instance execution
 - ExternalAction
 
 Covered by one or two examples, which means it is effectively untested:
 
-- Intermediate throw event — 1
-- message — 1
+- Sub Process — 1
+- Intermediate throw event — 2
+- message — 2
+- Multi Instance execution — 1
 - Data Store — 1
 - Linked libraries — 1
