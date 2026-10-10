@@ -106,6 +106,16 @@ Each group's README says the same four things:
 - **what you should get back** — the actual reply, taken from a real run;
 - **why it is built that way**, and where newcomers usually trip.
 
+## The file beside each model
+
+Next to every `<name>.bpmn` lies `<name>.spec.json`: the intent the model is
+built from — the input and its example, each step with the comment that
+explains it, the stores, the outcomes and their examples. The model is what a
+generator makes of it, layout included, so the two cannot drift apart: a change
+starts in the specification, and the model is regenerated, never edited by
+hand. Read the specification when you want the decisions without the diagram
+around them.
+
 ---
 
 Every model here compiles against the platform. The models are generated from
