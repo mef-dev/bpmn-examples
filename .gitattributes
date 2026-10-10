@@ -1,0 +1,5 @@
+# The models are generated, and the generator writes LF. Without this rule a
+# Windows clone with core.autocrlf=true checks them out as CRLF, and the next
+# regeneration reports every line of every model as changed — a diff nobody
+# can review.
+*.bpmn text eol=lf
