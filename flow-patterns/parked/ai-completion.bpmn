@@ -14,7 +14,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/parke
     <dataObjectReference id="DO_Input" name="AskRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="AskResult" dataObjectRef="Do_Output" />
-    <dataObjectReference id="DO_Output_1" name="AskResult" dataObjectRef="Do_Output_1" />
+    <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
@@ -229,7 +229,7 @@ choices[0].delta.content keeps the model's own wire shape.</text>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
         <omgdc:Bounds x="644" y="525" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="630" y="581" width="64" height="18" />
+          <omgdc:Bounds x="618" y="581" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">

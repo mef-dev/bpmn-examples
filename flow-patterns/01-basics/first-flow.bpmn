@@ -14,7 +14,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/01-ba
     <dataObjectReference id="DO_Input" name="GreetingRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="GreetingRequest" dataObjectRef="Do_Output" />
-    <dataObjectReference id="DO_Output_1" name="GreetingRequest" dataObjectRef="Do_Output_1" />
+    <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
@@ -166,7 +166,7 @@ whole model, not just the step.</text>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
         <omgdc:Bounds x="644" y="395" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="612" y="451" width="100" height="18" />
+          <omgdc:Bounds x="618" y="451" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">

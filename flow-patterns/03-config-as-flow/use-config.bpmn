@@ -14,7 +14,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     <dataObjectReference id="DO_Input" name="LookupRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="LookupRequest" dataObjectRef="Do_Output" />
-    <dataObjectReference id="DO_Output_1" name="LookupRequest" dataObjectRef="Do_Output_1" />
+    <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">

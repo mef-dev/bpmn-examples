@@ -14,7 +14,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/04-pa
     <dataObjectReference id="DO_Input" name="PageRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
     <dataObjectReference id="DO_Output" name="PageInfo" dataObjectRef="Do_Output" />
-    <dataObjectReference id="DO_Output_1" name="PageInfo" dataObjectRef="Do_Output_1" />
+    <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
@@ -164,7 +164,7 @@ list second is what lets the pages run in parallel.</text>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
         <omgdc:Bounds x="644" y="395" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="633" y="451" width="58" height="18" />
+          <omgdc:Bounds x="618" y="451" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
