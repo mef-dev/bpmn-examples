@@ -9,7 +9,7 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_use_config" name="use-config">
-    <documentation>Builds a call out of settings taken from the configuration Flow.
+      <documentation>Builds a call out of settings taken from the configuration Flow.
 Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-config-as-flow</documentation>
     <dataObjectReference id="DO_Input" name="LookupRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
@@ -17,7 +17,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
-    <startEvent id="Ev_Start" name="">
+    <startEvent id="Ev_Start" name="use-config">
+      <documentation>Starts use-config. Request: LookupRequest (key: string).</documentation>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>
@@ -45,7 +46,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
-    <endEvent id="Ev_End" name="">
+    <endEvent id="Ev_End" name="use-config">
+      <documentation>Success, HTTP 200, BUILT: returns LookupRequest.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "BUILT", "value": "{\n  \"key\": \"https://api.frankfurter.dev/v1/latest?base=EUR\"\n}"}]}</ep:elementParameter>
       </extensionElements>
@@ -63,7 +65,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
       <incoming>Fl_005</incoming>
       <outgoing>Fl_006</outgoing>
     </task>
-    <endEvent id="Ev_Failed" name="">
+    <endEvent id="Ev_Failed" name="use-config">
+      <documentation>Failure, HTTP 500, CONFIG_FAILED: returns ErrorResponse built by the error branch from the exception of the step that failed.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "CONFIG_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"configuration could not be read\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
@@ -116,6 +119,9 @@ indirection.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
         <omgdc:Bounds x="282" y="80" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="326" y="91" width="62" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
         <omgdc:Bounds x="250" y="210" width="100" height="80" />
@@ -128,12 +134,18 @@ indirection.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
         <omgdc:Bounds x="282" y="600" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="212" y="611" width="62" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
         <omgdc:Bounds x="418" y="380" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
         <omgdc:Bounds x="568" y="402" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="555" y="382" width="62" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />

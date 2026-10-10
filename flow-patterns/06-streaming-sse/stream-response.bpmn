@@ -9,7 +9,7 @@
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_stream_response" name="stream-response">
-    <documentation>Reads a response as it arrives and passes each chunk on.
+      <documentation>Reads a response as it arrives and passes each chunk on.
 Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-streaming-sse</documentation>
     <dataObjectReference id="DO_Input" name="StreamRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
@@ -17,7 +17,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
-    <startEvent id="Ev_Start" name="">
+    <startEvent id="Ev_Start" name="stream-response">
+      <documentation>Starts stream-response. Request: StreamRequest (topic: string).</documentation>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>
@@ -52,7 +53,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
     </task>
-    <endEvent id="Ev_End" name="">
+    <endEvent id="Ev_End" name="stream-response">
+      <documentation>Success, HTTP 200, CHUNK: returns StreamRequest.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "CHUNK", "value": "{\n  \"topic\": \"USD\"\n}"}]}</ep:elementParameter>
       </extensionElements>
@@ -71,7 +73,8 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
       <incoming>Fl_007</incoming>
       <outgoing>Fl_008</outgoing>
     </task>
-    <endEvent id="Ev_Failed" name="">
+    <endEvent id="Ev_Failed" name="stream-response">
+      <documentation>Failure, HTTP 500, STREAM_FAILED: returns ErrorResponse built by the error branch from the exception of the step that failed.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "STREAM_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Call/open the stream'\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
@@ -138,6 +141,9 @@ this Flow.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
         <omgdc:Bounds x="282" y="80" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="326" y="91" width="93" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_CA_Config" bpmnElement="CA_Config">
         <omgdc:Bounds x="250" y="210" width="100" height="80" />
@@ -153,12 +159,18 @@ this Flow.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
         <omgdc:Bounds x="282" y="730" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="181" y="741" width="93" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
         <omgdc:Bounds x="418" y="445" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
         <omgdc:Bounds x="568" y="467" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="540" y="447" width="93" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
