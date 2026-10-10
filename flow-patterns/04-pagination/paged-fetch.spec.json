@@ -18,6 +18,7 @@
       "total": 250
     }
   },
+  "output": "PageInfo",
   "steps": [
     {
       "id": "T_Plan",

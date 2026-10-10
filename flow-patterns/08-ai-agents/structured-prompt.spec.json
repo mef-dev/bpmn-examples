@@ -20,6 +20,7 @@
       "tone": "plain"
     }
   },
+  "output": "ChatMessage",
   "steps": [
     {
       "id": "T_Compose",

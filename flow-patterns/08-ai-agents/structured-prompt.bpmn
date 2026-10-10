@@ -13,8 +13,8 @@
 Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai-agents</documentation>
     <dataObjectReference id="DO_Input" name="PromptRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
-    <dataObjectReference id="DO_Output" name="PromptRequest" dataObjectRef="Do_Output" />
-    <dataObjectReference id="DO_Output_1" name="PromptRequest" dataObjectRef="Do_Output_1" />
+    <dataObjectReference id="DO_Output" name="ChatMessage" dataObjectRef="Do_Output" />
+    <dataObjectReference id="DO_Output_1" name="ChatMessage" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="">
@@ -46,6 +46,9 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "PROMPT", "value": "[\n  {\n    \"role\": \"system\",\n    \"content\": \"Answer in a plain tone.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"What is BPMN?\"\n  }\n]"}]}</ep:elementParameter>
+      </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
@@ -100,15 +103,15 @@ One declaration, one shape, everywhere.</text>
   <bpmndi:BPMNDiagram id="Di_Process_structured_prompt">
     <bpmndi:BPMNPlane id="Dp_Process_structured_prompt" bpmnElement="Process_structured_prompt">
       <bpmndi:BPMNShape id="Sh_DO_Input" bpmnElement="DO_Input">
-        <omgdc:Bounds x="92" y="80" width="36" height="50" />
+        <omgdc:Bounds x="206" y="73" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="66" y="136" width="88" height="18" />
+          <omgdc:Bounds x="180" y="129" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
-        <omgdc:Bounds x="92" y="190" width="36" height="50" />
+        <omgdc:Bounds x="358" y="593" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="66" y="246" width="88" height="18" />
+          <omgdc:Bounds x="338" y="649" width="76" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
@@ -127,10 +130,10 @@ One declaration, one shape, everywhere.</text>
         <omgdc:Bounds x="282" y="600" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="570" y="532" width="100" height="80" />
+        <omgdc:Bounds x="418" y="380" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="602" y="662" width="36" height="36" />
+        <omgdc:Bounds x="568" y="402" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
@@ -152,19 +155,17 @@ One declaration, one shape, everywhere.</text>
         <di:waypoint x="300" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_005" bpmnElement="Fl_005">
-        <di:waypoint x="350" y="438" />
-        <di:waypoint x="350" y="468" />
-        <di:waypoint x="620" y="468" />
-        <di:waypoint x="620" y="532" />
+        <di:waypoint x="368" y="420" />
+        <di:waypoint x="418" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
-        <di:waypoint x="620" y="612" />
-        <di:waypoint x="620" y="662" />
+        <di:waypoint x="518" y="420" />
+        <di:waypoint x="568" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
-        <omgdc:Bounds x="412" y="252" width="36" height="50" />
+        <omgdc:Bounds x="644" y="395" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="386" y="308" width="88" height="18" />
+          <omgdc:Bounds x="624" y="451" width="76" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
@@ -184,18 +185,15 @@ One declaration, one shape, everywhere.</text>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
         <di:waypoint x="282" y="98" />
-        <di:waypoint x="128" y="98" />
-        <di:waypoint x="128" y="105" />
+        <di:waypoint x="242" y="98" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
-        <di:waypoint x="128" y="215" />
-        <di:waypoint x="300" y="215" />
-        <di:waypoint x="300" y="600" />
+        <di:waypoint x="358" y="618" />
+        <di:waypoint x="318" y="618" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="448" y="277" />
-        <di:waypoint x="638" y="277" />
-        <di:waypoint x="638" y="680" />
+        <di:waypoint x="644" y="420" />
+        <di:waypoint x="604" y="420" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>

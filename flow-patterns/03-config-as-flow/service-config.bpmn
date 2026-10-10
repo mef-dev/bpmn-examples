@@ -17,14 +17,14 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </startEvent>
     <task id="T_GetConfig" name="resolve the settings">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "return new Config()\n{\n    ratesUrl = \"https://open.er-api.com/v6\",\n    listUrl = \"https://jsonplaceholder.typicode.com/posts\",\n    login = \"\",\n    password = \"\",\n    pageSize = 10\n};"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "return new Config()\n{\n    ratesUrl = \"https://api.frankfurter.dev/v1\",\n    listUrl = \"https://jsonplaceholder.typicode.com/posts\",\n    login = \"\",\n    password = \"\",\n    pageSize = 10\n};"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_001</incoming>
       <outgoing>Fl_002</outgoing>
     </task>
     <endEvent id="Ev_End" name="">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://open.er-api.com/v6\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://api.frankfurter.dev/v1\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
@@ -71,9 +71,9 @@ that reads it.</text>
   <bpmndi:BPMNDiagram id="Di_Process_service_config">
     <bpmndi:BPMNPlane id="Dp_Process_service_config" bpmnElement="Process_service_config">
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
-        <omgdc:Bounds x="92" y="80" width="36" height="50" />
+        <omgdc:Bounds x="358" y="333" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="87" y="136" width="46" height="18" />
+          <omgdc:Bounds x="353" y="389" width="46" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
@@ -86,10 +86,10 @@ that reads it.</text>
         <omgdc:Bounds x="282" y="340" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="570" y="402" width="100" height="80" />
+        <omgdc:Bounds x="418" y="250" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="602" y="532" width="36" height="36" />
+        <omgdc:Bounds x="568" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_GetConfig" bpmnElement="Ev_Err_T_GetConfig">
         <omgdc:Bounds x="332" y="272" width="36" height="36" />
@@ -103,19 +103,16 @@ that reads it.</text>
         <di:waypoint x="300" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_003" bpmnElement="Fl_003">
-        <di:waypoint x="350" y="308" />
-        <di:waypoint x="350" y="338" />
-        <di:waypoint x="620" y="338" />
-        <di:waypoint x="620" y="402" />
+        <di:waypoint x="368" y="290" />
+        <di:waypoint x="418" y="290" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_004" bpmnElement="Fl_004">
-        <di:waypoint x="620" y="482" />
-        <di:waypoint x="620" y="532" />
+        <di:waypoint x="518" y="290" />
+        <di:waypoint x="568" y="290" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
-        <di:waypoint x="128" y="105" />
-        <di:waypoint x="300" y="105" />
-        <di:waypoint x="300" y="340" />
+        <di:waypoint x="358" y="358" />
+        <di:waypoint x="318" y="358" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

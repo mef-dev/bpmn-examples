@@ -151,13 +151,26 @@ class Plane:
                 f'        <omgdc:Bounds x="{x}" y="{y}" width="{w}" height="{h}" />',
                 "      </bpmndi:BPMNShape>",
             ]
+        # Гілки, що приходять у ціль знизу, ділять її нижню грань між собою:
+        # інакше їхні вертикалі збігаються в одну лінію і читаються як перетин.
+        from_below = {}
+        for fid, src, dst in self.flows:
+            if src in self.pos and dst in self.pos:
+                if self.pos[src][1] > self.pos[dst][1]:
+                    from_below.setdefault(dst, []).append(fid)
+
         for fid, src, dst in self.flows:
             if src not in self.pos or dst not in self.pos:
                 continue
             sx, sy, sw, sh = self.pos[src]
             tx, ty, tw, th = self.pos[dst]
             start = (sx + sw // 2, sy + sh)
-            end = (tx + tw // 2, ty)
+            siblings = from_below.get(dst, [])
+            if fid in siblings:
+                share = tw // (len(siblings) + 1)
+                end = (tx + share * (siblings.index(fid) + 1), ty + th)
+            else:
+                end = (tx + tw // 2, ty)
             lines.append(f'      <bpmndi:BPMNEdge id="Ed_{fid}" bpmnElement="{fid}">')
             if start[0] == end[0]:
                 points = [start, end]

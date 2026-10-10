@@ -18,6 +18,7 @@
       "note": "quarterly summary"
     }
   },
+  "output": "ArchiveResult",
   "types": {
     "ArchiveResult": "public class ArchiveResult\n{\n    /* What the caller gets back: where the archive came from and how to fetch it. */\n\n    /* The folder that was packed, exactly as it was asked for. */\n    public string folder { get; set; }\n\n    /* A link the platform issues for the archive. It carries its own\n       authorisation, so it works without the caller's session. */\n    public string url { get; set; }\n}"
   },
@@ -44,7 +45,8 @@
       "id": "T_Folder",
       "name": "make sure the folder is there",
       "expression": "// A store reaches the code only through its binding on the\n// diagram; GetFolder turns that binding into the folder.\nvar folder = DataAssociations.DS_Folder.GetFolder();\nif (!folder.IsExists())\n    folder.CreateFolder();\n\nLogger.LogInformation($\"folder ready: {folder.FolderPath}\");\nreturn Input;",
-      "note": "Writing a file does not bring its folder into being: the store answers DirectoryNotFoundException when a folder on the path is missing. The path may be as deep as you like - the two levels here are one string, because a folder is a path, not an object of its own."
+      "note": "Writing a file does not bring its folder into being: the store answers DirectoryNotFoundException when a folder on the path is missing. The path may be as deep as you like - the two levels here are one string, because a folder is a path, not an object of its own.",
+      "risky": true
     },
     {
       "id": "T_Write",
@@ -61,7 +63,8 @@
       "id": "T_Archive",
       "name": "pack it and issue a link",
       "expression": "// AddToZip answers with the archive as a file of its own.\nLocalFile archive = DataAssociations.DS_File.GetFile().AddToZip(\"archive.zip\");\n\n// The link carries its own authorisation: whoever receives it\n// needs no session of yours to fetch the archive.\nreturn new ArchiveResult() { folder = \"flow-patterns/archive-demo\", url = archive.CreateLink() };",
-      "note": "Each store needs its own binding: the engine shows a step only the stores bound to it, so an unbound store compiles and then is not there. LocalFolder.AddFolderToZip would pack the whole folder, but it takes a CompressionLevel and System.IO.Compression is not among the assemblies the Flow compiler references."
+      "note": "Each store needs its own binding: the engine shows a step only the stores bound to it, so an unbound store compiles and then is not there. LocalFolder.AddFolderToZip would pack the whole folder, but it takes a CompressionLevel and System.IO.Compression is not among the assemblies the Flow compiler references.",
+      "risky": true
     }
   ],
   "documentation": "Write a file, pack the folder around it, and hand back a link to the archive.",

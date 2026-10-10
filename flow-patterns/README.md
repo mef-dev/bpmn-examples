@@ -84,13 +84,14 @@ diagrams:
 
 - **An outbound call needs a stand with a route to the internet.** Without one
   the call fails and the error branch answers, which is the correct behaviour.
-- **The `AI/Completions` built-in cannot be called from a model.** Its body uses
-  `CT` and `Action.BoundaryEvents`, neither of which exists in the context a
-  task node is generated into, and its `Messages` parameter type does not
-  resolve. The compiler answers `CS0103`, `CS0117` and `CS0246` — all from
-  inside the function, none from the model. [08 · Agents](08-ai-agents/) stops
-  at building the request for that reason, and the attempt to call it is parked
-  under `parked/ai-completion.spec.json`.
+- **The `AI/Completions` built-in runs only a model installed on the stand.**
+  It compiles and it is callable from a model, but it answers from a local
+  ONNX model under the organisation's `AI/<model>/cpu` directory and never
+  reaches the remote provider that `POST /api/v0/ai/chat/completions` uses.
+  On a stand without a local chat model every call ends on the error branch.
+  [08 · Agents](08-ai-agents/) stops at building the request for that reason,
+  and the call itself is parked under `parked/ai-completion.spec.json` — it
+  builds, passes every check, and waits for a stand that has the model.
 
 `Action.BoundaryEvents[…].Raise(…)` used to be a third limit: the value it needs
 was an `AsyncLocal` whose assignment sat commented out for eight months. That is

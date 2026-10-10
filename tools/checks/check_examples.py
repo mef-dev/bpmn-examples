@@ -40,11 +40,27 @@ for el in root.iter():
         for _n, _v in (data.get("examples") or {}).items():
             request_names.add(_n)
             request_values[_n] = (_v or {}).get("value")
-    elif el.get("name") == "EndSignalRoute":
-        titles = [v.get("title") for v in (data.get("exampelsVariants") or [])
+
+# Перебираються саме кінцеві події: маршрут - їхня властивість, і подія без
+# маршруту має потрапити в підрахунок, а не зникнути з нього. Поки тут
+# перебиралися маршрути, модель із двома кінцевими подіями й одним маршрутом
+# звітувала «кінцевих подій без прикладу: 0».
+for el in root.iter():
+    if local(el.tag) != "endEvent":
+        continue
+    route = None
+    for child in el.iter():
+        if local(child.tag) == "elementParameter" and child.get("name") == "EndSignalRoute":
+            route = load(child.text or "")
+            break
+    if isinstance(route, dict):
+        titles = [v.get("title") for v in (route.get("exampelsVariants") or [])
                   if isinstance(v, dict) and v.get("title")]
-        ends.append((data.get("code"), titles, data.get("producedTypeVariants")))
+        ends.append((el.get("id"), route.get("code"), titles,
+                     route.get("producedTypeVariants")))
         response_names |= set(titles)
+    else:
+        ends.append((el.get("id"), "—", [], None))
 
 print(f"# {path.name}\n")
 print(f"імен прикладів запиту : {sorted(request_names) or '—'}")
@@ -53,10 +69,10 @@ print()
 
 print("кінцеві події:")
 empty = 0
-for code, titles, produced in ends:
+for event_id, code, titles, produced in ends:
     mark = "" if titles else "   <- без жодного прикладу"
     empty += not titles
-    print(f"   код {str(code):<5} приклади: {titles or '[]'}"
+    print(f"   {event_id:<12} код {str(code):<5} приклади: {titles or '[]'}"
           f"   тип: {produced or '[]'}{mark}")
 
 has_route = bool(request_names)
