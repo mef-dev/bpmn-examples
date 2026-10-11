@@ -1,0 +1,40 @@
+{
+  "name": "use-config",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "LookupRequest",
+    "properties": {
+      "key": "string"
+    },
+    "example": {
+      "key": "greeting"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_UseConfig",
+      "name": "build the call from settings",
+      "expression": "// Parameters.config was filled by the Parse Config step from the answer\n// of the configuration Flow. Nothing here knows which environment it is.\nvar cfg = Parameters.config;\n\n// Change the endpoint once, in the configuration Flow, and every Flow\n// that reads it follows. That is the whole point of the indirection.\nvar url = $\"{cfg.ratesUrl}/latest?base={Input.key}\";\n\nLogger.LogInformation($\"the call would go to {url}, \"\n    + $\"taking {cfg.pageSize} rows at a time\");\nreturn new LookupRequest() { key = url };",
+      "note": "Nothing here knows which environment it is. Change the endpoint once in the configuration Flow and every Flow that reads it follows - that is the whole point of the indirection."
+    }
+  ],
+  "documentation": "Builds a call out of settings taken from the configuration Flow.",
+  "outcomes": {
+    "success": {
+      "title": "BUILT",
+      "value": "{\n  \"key\": \"https://api.frankfurter.dev/v1/latest?base=EUR\"\n}"
+    },
+    "failure": {
+      "title": "CONFIG_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"configuration could not be read\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}
