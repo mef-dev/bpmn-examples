@@ -1,0 +1,15 @@
+# Product Ordering Management
+
+The Product Ordering Management REST Application Programming Interface (API) establishes a standardized mechanism for initiating product orders with Related Parties of Billing accounts, specifically Customers. Additionally, it facilitates the tracking of the lifecycle status of product orders. A Product Order, in this context, represents a specific type of order that enables transactions between a customer and a service provider, or between a service provider and a partner, and vice versa.
+
+This API permits the creation, modification, and retrieval of Product Order information, where Product Orders are associated with Customer parties. However, it is important to note that the administration of parties falls beyond the scope of this API.
+
+Despite the existence of different Product Order resources in the TM Forum (TMF) design, such as CancelProductOrder and SubmitProductOrder, the implementation within the WideCoup Business Support System (BSS) exclusively incorporates the Product Order due to the Online mode of order execution. All Product Orders can be accessed using the Product Order identifier or Product Order Item identifier, as well as an external identifier if applicable. It is noteworthy that the instantiation of a Product Order from scratch necessitates the creation of an Extension entity, including external identifiers for future synchronization purposes.
+
+## Native Implementation within the WideCoup BSS
+
+Over recent years, the WideCoup BSS API [BSS.Entities](https://github.com/mef-dev/bss-entities) has matured into an open API platform with numerous implementations from various external system consumers. The native implementation of TMF Product Ordering management is founded on established Entities and Actions, specifically `Subscribers`,`Agreements`, `Extensions`, `TemplateSubscriptions`, and `ServiceSubscriptions`.
+
+## Product Ordering Management Functionality
+
+From a technical standpoint, the Product Ordering Management functionality supports the *ProductOrder* and *cancelProductOrder* methods based on [BPMN Workflows](https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis/TMF622_Product_Ordering), which facilitate both the creation and update of a Product Order, along with the associated Service Orders within the Product Order lifecycle. The Product Order lifecycle is monitored by the **'state'** attribute, which is contingent on each Product Order Item's **'state'** attribute. Typical lifecycle values for a Product Order include `Acknowledged`, `Accepted`, `Completed`, and `Canceled`. Notably, when placing a Product Order with a Priority equal to `1`, the only state present due to Online execution is `Completed`. The typical lifecycle values for a Product Order Item include `Acknowledged`, `InProgress`, and `Completed`. It is essential to acknowledge that certain implementations may introduce additional states. For instance, a Product Order reaches the state `Accepted` only if the Service Order has reached the state `In progress`

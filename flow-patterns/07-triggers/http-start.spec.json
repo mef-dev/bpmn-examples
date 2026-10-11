@@ -1,0 +1,42 @@
+{
+  "name": "http-start",
+  "config": {
+    "flow": "flow-patterns-config",
+    "libType": "tenant",
+    "library": "tenant_shared",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "WebhookRequest",
+    "properties": {
+      "event": "string",
+      "payload": "string"
+    },
+    "example": {
+      "event": "order.created",
+      "payload": "{\"orderId\":\"ORD-1001\"}"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Accept",
+      "name": "accept the call",
+      "expression": "// This process is started by an HTTP call, not by a person pressing\n// Run: the route is declared on the start event as StartSignalRoute.\n// 'event' is a C# keyword, so the field is escaped with @.\nLogger.LogInformation($\"received '{Input.@event}' on the declared route\");\nreturn new WebhookRequest() { @event = Input.@event, payload = Input.payload };",
+      "note": "This process is started by an HTTP call, not by a person pressing Run: the route is declared on the start event as StartSignalRoute."
+    }
+  ],
+  "documentation": "Declares the route that starts this Flow.",
+  "outcomes": {
+    "success": {
+      "title": "ACCEPTED",
+      "value": "{\n  \"event\": \"order.created\",\n  \"payload\": \"{}\"\n}"
+    },
+    "failure": {
+      "title": "ACCEPT_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the call could not be accepted\",\n  \"state\": \"1\"\n}"
+    }
+  }
+}
