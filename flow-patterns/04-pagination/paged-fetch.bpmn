@@ -249,9 +249,9 @@ Parameters are reached through Root.</text>
         <omgdc:Bounds x="408" y="80" width="110" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
-        <di:waypoint x="408" y="117" />
-        <di:waypoint x="318" y="117" />
-        <di:waypoint x="318" y="98" />
+        <di:waypoint x="408" y="129" />
+        <di:waypoint x="306" y="129" />
+        <di:waypoint x="306" y="116" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Plan" bpmnElement="An_T_Plan">
         <omgdc:Bounds x="-177" y="480" width="387" height="60" />
@@ -272,14 +272,14 @@ Parameters are reached through Root.</text>
         <di:waypoint x="242" y="98" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Doa_T_Plan" bpmnElement="Doa_T_Plan">
-        <di:waypoint x="350" y="510" />
-        <di:waypoint x="350" y="550" />
-        <di:waypoint x="428" y="550" />
+        <di:waypoint x="350" y="523" />
+        <di:waypoint x="422" y="523" />
+        <di:waypoint x="422" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_SP_Page" bpmnElement="Dia_SP_Page">
-        <di:waypoint x="410" y="575" />
-        <di:waypoint x="370" y="575" />
-        <di:waypoint x="370" y="645" />
+        <di:waypoint x="410" y="583" />
+        <di:waypoint x="323" y="583" />
+        <di:waypoint x="323" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
         <di:waypoint x="358" y="748" />
@@ -324,8 +324,10 @@ Parameters are reached through Root.</text>
         <di:waypoint x="300" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Doa_Ev_SP_Page_Start" bpmnElement="Doa_Ev_SP_Page_Start">
-        <di:waypoint x="282" y="98" />
-        <di:waypoint x="242" y="98" />
+        <di:waypoint x="282" y="92" />
+        <di:waypoint x="262" y="92" />
+        <di:waypoint x="262" y="90" />
+        <di:waypoint x="242" y="90" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_SP_Page_End" bpmnElement="Dia_Ev_SP_Page_End">
         <di:waypoint x="358" y="358" />

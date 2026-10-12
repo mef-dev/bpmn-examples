@@ -250,7 +250,6 @@ choices[0].delta.content keeps the model's own wire shape.</text>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
         <di:waypoint x="300" y="40" />
         <di:waypoint x="300" y="80" />
-        <di:waypoint x="300" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Compose" bpmnElement="An_T_Compose">
         <omgdc:Bounds x="-177" y="459" width="387" height="102" />
