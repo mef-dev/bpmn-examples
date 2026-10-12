@@ -308,8 +308,8 @@ compiler references.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Dia_DS_Folder" bpmnElement="Dia_DS_Folder">
-        <di:waypoint x="135" y="520" />
-        <di:waypoint x="135" y="510" />
+        <di:waypoint x="143" y="520" />
+        <di:waypoint x="143" y="510" />
         <di:waypoint x="250" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DS_File" bpmnElement="DS_File">
@@ -319,8 +319,8 @@ compiler references.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Dia_DS_File" bpmnElement="Dia_DS_File">
-        <di:waypoint x="135" y="780" />
-        <di:waypoint x="135" y="770" />
+        <di:waypoint x="143" y="780" />
+        <di:waypoint x="143" y="770" />
         <di:waypoint x="250" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
@@ -328,16 +328,16 @@ compiler references.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
         <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="40" />
         <di:waypoint x="300" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Folder" bpmnElement="An_T_Folder">
         <omgdc:Bounds x="-312" y="466" width="387" height="88" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Folder" bpmnElement="As_An_T_Folder">
-        <di:waypoint x="75" y="510" />
-        <di:waypoint x="75" y="470" />
-        <di:waypoint x="300" y="470" />
+        <di:waypoint x="75" y="495" />
+        <di:waypoint x="95" y="495" />
+        <di:waypoint x="95" y="497" />
+        <di:waypoint x="250" y="497" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Write" bpmnElement="An_T_Write">
         <omgdc:Bounds x="-177" y="596" width="387" height="88" />
@@ -350,9 +350,10 @@ compiler references.</text>
         <omgdc:Bounds x="-312" y="719" width="387" height="102" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Archive" bpmnElement="As_An_T_Archive">
-        <di:waypoint x="75" y="770" />
-        <di:waypoint x="75" y="730" />
-        <di:waypoint x="300" y="730" />
+        <di:waypoint x="75" y="753" />
+        <di:waypoint x="95" y="753" />
+        <di:waypoint x="95" y="757" />
+        <di:waypoint x="250" y="757" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Doa_Input" bpmnElement="Doa_Input">
         <di:waypoint x="282" y="98" />

@@ -200,7 +200,6 @@ carry on down the happy path with no order.</text>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
         <di:waypoint x="300" y="40" />
         <di:waypoint x="300" y="80" />
-        <di:waypoint x="300" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Validate" bpmnElement="An_T_Validate">
         <omgdc:Bounds x="-165" y="480" width="375" height="60" />

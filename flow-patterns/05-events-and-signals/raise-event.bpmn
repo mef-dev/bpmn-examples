@@ -192,21 +192,23 @@ reports progress while this one keeps working.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Event_Progress" bpmnElement="Event_Progress">
-        <omgdc:Bounds x="332" y="492" width="36" height="36" />
+        <omgdc:Bounds x="332" y="452" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="380" y="500" width="76" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Event_Notify" bpmnElement="Event_Notify">
-        <omgdc:Bounds x="730" y="492" width="36" height="36" />
+        <omgdc:Bounds x="568" y="452" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Fl_Event_Progress" bpmnElement="Fl_Event_Progress">
-        <di:waypoint x="368" y="510" />
-        <di:waypoint x="730" y="510" />
+        <di:waypoint x="368" y="470" />
+        <di:waypoint x="568" y="470" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
         <omgdc:Bounds x="232" y="-34" width="135" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
         <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="80" />
         <di:waypoint x="300" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Work" bpmnElement="An_T_Work">
