@@ -99,11 +99,7 @@ If JSON arrives at the input and a class is needed further on, make a
 else: when it fails, you will look for the error in the wrong place.
 
 ```
-var prev = #Previous;                                  // a separate step
-ExternalConfig cfg = prev as ExternalConfig
-    ?? (prev is JSON json ? json.Cast<ExternalConfig>()
-        : Newtonsoft.Json.JsonConvert.DeserializeObject<ExternalConfig>(
-              Newtonsoft.Json.JsonConvert.SerializeObject(prev)));
+var cfg = new JSON(#Previous).Cast<ExternalConfig>();   // a separate step
 Parameters.config = cfg;
 return cfg;
 ```
@@ -136,24 +132,20 @@ fact this type". It is needed in exactly three situations.
 
 ### 4.1 The data arrived from a Call Activity or from outside
 
-What a Call Activity returns depends on the platform version: the called Flow's
-own object, or `JSON`. `#Previous` after a Call Activity is typed `object`, so
-the step has to accept both:
+A Call Activity returns the called Flow's own object (older platform versions
+returned `JSON`), and `#Previous` after it is typed `object`. Convert it through
+`new JSON(...)`:
 
 ```
-var prev = #Previous;
-ExternalConfig cfg = prev as ExternalConfig
-    ?? (prev is JSON json ? json.Cast<ExternalConfig>()
-        : Newtonsoft.Json.JsonConvert.DeserializeObject<ExternalConfig>(
-              Newtonsoft.Json.JsonConvert.SerializeObject(prev)));
+var cfg = new JSON(#Previous).Cast<ExternalConfig>();
 ```
 
-`as ExternalConfig` takes the object as it is. `.Cast<ExternalConfig>()` lays
-JSON out into the fields of this type, and the last line does the same for any
-other object through its JSON form. A plain `((JSON)#Previous)` fails with
-`Unable to cast object … to type 'Natec.Workflow.JSON'` when the platform returns
-the object. **If the structure does not match, the fields will be empty rather
-than an error.** So right after a cast it is worth logging a key field:
+`new JSON(...)` takes the object in its JSON form, and a `JSON` value as it is.
+`.Cast<ExternalConfig>()` lays it out into the fields of this type. A string
+needs no conversion at all. A plain cast `((JSON)#Previous)` fails with
+`Unable to cast object … to type 'Natec.Workflow.JSON'`, because the result is
+not a `JSON` object. **If the structure does not match, the fields will be empty
+rather than an error.** So right after a cast it is worth logging a key field:
 
 ```
 Logger.LogInformation($"connection str = '{cfg.db_connection_str}'");

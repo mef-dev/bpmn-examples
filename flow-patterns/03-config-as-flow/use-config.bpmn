@@ -34,7 +34,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </callActivity>
     <task id="T_ParseConfig" name="Parse Config">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Depending on the platform version a Call Activity returns the\n// called Flow's own object or JSON. Both are accepted.\nvar prev = #Previous;\nExternalConfig cfg = prev as ExternalConfig\n    ?? (prev is JSON json ? json.Cast&lt;ExternalConfig&gt;()\n        : Newtonsoft.Json.JsonConvert.DeserializeObject&lt;ExternalConfig&gt;(\n              Newtonsoft.Json.JsonConvert.SerializeObject(prev)))\n    ?? throw new Exception(\"bpmn-examples-config returned no settings\");\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from bpmn-examples-config\");\nreturn cfg;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// A Call Activity result is converted through JSON: new JSON(...)\n// takes the called Flow's object and JSON alike.\nExternalConfig cfg = new JSON(#Previous).Cast&lt;ExternalConfig&gt;()\n    ?? throw new Exception(\"bpmn-examples-config returned no settings\");\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from bpmn-examples-config\");\nreturn cfg;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <outgoing>Fl_003</outgoing>
