@@ -34,7 +34,7 @@ later step reads a typed object rather than loose JSON.
 
 | Type | Where | Kind | How it is used |
 |---|---|---|---|
-| `Config` | `service-config.bpmn` | inner, **native C#** | the settings themselves: `ratesUrl`, `listUrl`, `login`, `password`, `pageSize`. Declared here and nowhere else |
+| `Config` | `service-config.bpmn` | inner, **native C#** | the settings themselves: `ratesUrl`, `listUrl`, `login`, `password`, `pageSize`, `language` (the stand's language for error texts), `cacheSeconds` (how long an answer stays in the distributed cache). Declared here and nowhere else |
 | `ExternalConfig` | `use-config.bpmn` | external → `types://external/ConfigActivity/Config` | the same type, reached by reference. `ConfigActivity` is the alias bound in `UsedLibs` to the configuration Flow |
 | `LookupRequest` | `use-config.bpmn` | inner, JSON Schema | the process boundary of the consumer |
 | `ErrorResponse` | both | inner, JSON Schema | the shape of a failure |
@@ -53,7 +53,7 @@ The configuration Flow answers with the settings:
 {}   →   HTTP 200
 {"ratesUrl":"https://api.frankfurter.dev/v1",
  "listUrl":"https://jsonplaceholder.typicode.com/posts",
- "login":"","password":"","pageSize":10}
+ "login":"","password":"","pageSize":10,"language":"en","cacheSeconds":300}
 ```
 
 The consumer builds a call out of them:

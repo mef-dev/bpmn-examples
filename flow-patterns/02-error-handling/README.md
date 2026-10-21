@@ -1,7 +1,7 @@
 # 02 · Errors as a branch of the diagram
 
 An error is not an interruption here. It is a path on the diagram, with its own
-handler and its own typed answer.
+handler and its own typed answer — in the caller's language.
 
 ## What this example demonstrates
 
@@ -11,8 +11,8 @@ handler and its own typed answer.
 | One handler serving several tasks | two sequence flows arriving at `handle Exception` |
 | `#PreviousData` — the only carrier of the exception | the handler's `actionParam` |
 | A Code Action (`HandleException`) | declared in `CodeActions`, called by the handler |
-| `EndSignalRoute` on the failing end event | `Ev_Failed` |
-| Telling the runtime apart | `WorkflowEnvironment.RuntimeName` inside the handler |
+| HTTP 500 on the failure branch | `WorkflowEnvironment.Variables["StatusCode"]` in the handler |
+| The error text in the caller's language | `Messages` (inner type) and `Accept-Language` |
 
 ## The model
 
@@ -31,7 +31,8 @@ sequence flows into one node is how BPMN says "these failures are handled alike"
 |---|---|---|
 | `OrderRequest` | inner, JSON Schema | the process boundary; `Input.orderId` is its only field |
 | `ErrorResponse` | inner, JSON Schema | the shape of a failure: `levelMessage`, `statusCode`, `message`, `state`. The handler fills it and it becomes the process result |
-| `ExternalConfig` | external | the configuration type, owned by `service-config` |
+| `Messages` | inner, native C# | the texts of the errors this Flow raises, one per language |
+| `ExternalConfig` | external | the configuration type, owned by `service-config`; its `language` is the stand's language |
 | `PassingResult` | reserved | not declared by you — it is the type of `#PreviousData`, the wrapper that carries `Exception` |
 
 The pairing to remember is `ErrorResponse` + `PassingResult`. One is what you
@@ -42,27 +43,24 @@ give the caller, the other is what the engine gives you.
 A valid order goes down the happy path:
 
 ```
-{ "orderId": "A-1001" }   →   HTTP 200   {"orderId":"A-1001"}
+{ "orderId": "ORD-1001" }   →   HTTP 200   {"orderId":"ORD-1001"}
 ```
 
-An empty one takes the error branch:
+An empty one takes the error branch, and the text follows `Accept-Language`:
+
+| `Accept-Language` | HTTP | `message` |
+|---|---|---|
+| `uk-UA,uk;q=0.9,en;q=0.8` | 500 | `Потрібно вказати orderId` |
+| `ja,fr;q=0.7` | 500 | `orderId est obligatoire` |
+| `de-DE` | 500 | `orderId ist erforderlich` |
+| `ar` | 500 | `الحقل orderId مطلوب` |
+| `ja` | 500 | `orderId is required` — no Japanese text, so the stand's language |
+| none | 500 | `orderId is required` |
 
 ```
-{ "orderId": "" }
+HTTP 500
+{"levelMessage":"11","statusCode":500,"message":"Потрібно вказати orderId","state":"1"}
 ```
-```
-HTTP 200
-{"levelMessage":"11","statusCode":500,
- "message":"Error while try to call action 'T_Validate/validate the order'",
- "state":"1"}
-```
-
-Read that second reply carefully. **The transport status is 200 while the body
-says 500.** `EndSignalRoute` and `WorkflowEnvironment.Variables["StatusCode"]`
-set the code the platform reports when the Flow is published behind an HTTP
-route; a direct `Start` call still answers 200 and puts your `ErrorResponse` in
-the body. If a caller of yours branches on the HTTP code alone, it will read a
-failure as success — branch on the body.
 
 ## Why it is built this way
 
@@ -73,9 +71,26 @@ it, and the only place carrying the `Exception`. Feed the handler `#Previous` an
 the compiler answers `Cannot implicitly convert 'System.Exception' to
 'WorkflowPassingNodeResult'`, which does not obviously mean "wrong placeholder".
 
-**The handler sets `WorkflowEnvironment.Variables["StatusCode"]` as well.** The
-same Flow can run inside the platform or inside a plugin, and the two report
-status differently. `WorkflowEnvironment.RuntimeName` tells them apart.
+**The handler sets the HTTP status itself.** `WorkflowEnvironment.Variables["StatusCode"] = 500`
+is what the platform answers with when the Flow is started through the API; a
+published plugin gets the status on its HTTP response as well. A business error
+is a 500 with the reason in `message`.
+
+**The language comes from the request.** The order is:
+
+1. `Accept-Language` of the request, highest `q` first, by its primary subtag
+   (`uk-UA` → `uk`);
+2. the stand's language — `language` in the configuration Flow;
+3. English.
+
+The languages are the ones `Messages` has a text for: adding a language is
+adding a text, not changing code. A published plugin also answers with
+`Content-Language`.
+
+**The text to translate is the one the step threw.** The engine wraps the
+exception of a step (`Error while try to call action …`); the handler looks up
+the innermost exception's message. An exception without a text in `Messages` —
+a technical failure — keeps the engine's message as it is.
 
 ## Where newcomers stumble
 
@@ -84,16 +99,16 @@ status differently. `WorkflowEnvironment.RuntimeName` tells them apart.
   path with a half-built result. Let it throw and draw the branch.
 - **One handler per task.** Tempting, and it doubles the diagram. Attach several
   boundary events to one handler until the responses genuinely differ.
-- **Returning the exception text to the caller.** Note what the reply above does
-  *not* contain: the message from `throw`. The handler decides once what the
-  outside world is allowed to see.
+- **Translating in the step.** The step throws one stable text; the handler
+  chooses the language. A translated `throw` would make every language a
+  different error.
 
 ## Run it
 
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
 into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file, compile it, and start it twice — with and without an
-`orderId`.
+import this file, compile it, and start it with and without an `orderId`, and
+with different `Accept-Language` headers.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
