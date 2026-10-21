@@ -3,7 +3,7 @@
   <extensionElements>
     <gp:globalParameter name="InnerTypes">[{"name": "ArchiveResult", "isNativeDefinition": true, "definition": "public class ArchiveResult\n{\n    /* What the caller gets back: where the archive came from and how to fetch it. */\n\n    /* The folder that was packed, exactly as it was asked for. */\n    public string folder { get; set; }\n\n    /* A link the platform issues for the archive. It carries its own\n       authorisation, so it works without the caller's session. */\n    public string url { get; set; }\n}", "dataObjectRefName": "ArchiveResult"}, {"name": "ArchiveRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ArchiveRequest\", \"definitions\": {\"ArchiveRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"note\": {\"type\": \"string\"}}, \"title\": \"ArchiveRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
     <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}]</gp:globalParameter>
-    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object rawResponse)\n        &amp;&amp; rawResponse is Microsoft.AspNetCore.Http.HttpResponse httpResponse)\n        httpResponse.StatusCode = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[{"name": "IO/Local/File", "initCode": "functions://default//IO/Local/File", "initParameters": [{"name": "storeType", "type": "String", "required": true, "nullable": false}, {"name": "fileName", "type": "String", "required": true, "nullable": false}, {"name": "fileContent", "type": "String", "required": true, "nullable": false}]}]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
@@ -308,9 +308,9 @@ compiler references.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Dia_DS_Folder" bpmnElement="Dia_DS_Folder">
-        <di:waypoint x="143" y="520" />
-        <di:waypoint x="143" y="510" />
-        <di:waypoint x="250" y="510" />
+        <di:waypoint x="160" y="553" />
+        <di:waypoint x="283" y="553" />
+        <di:waypoint x="283" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DS_File" bpmnElement="DS_File">
         <omgdc:Bounds x="110" y="780" width="50" height="50" />
@@ -324,20 +324,20 @@ compiler references.</text>
         <di:waypoint x="250" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
-        <omgdc:Bounds x="198" y="-34" width="205" height="74" />
+        <omgdc:Bounds x="37" y="-29" width="205" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
-        <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="80" />
+        <di:waypoint x="242" y="20" />
+        <di:waypoint x="294" y="20" />
+        <di:waypoint x="294" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Folder" bpmnElement="An_T_Folder">
-        <omgdc:Bounds x="-312" y="466" width="387" height="88" />
+        <omgdc:Bounds x="-177" y="421" width="387" height="88" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Folder" bpmnElement="As_An_T_Folder">
-        <di:waypoint x="75" y="495" />
-        <di:waypoint x="95" y="495" />
-        <di:waypoint x="95" y="497" />
-        <di:waypoint x="250" y="497" />
+        <di:waypoint x="210" y="465" />
+        <di:waypoint x="283" y="465" />
+        <di:waypoint x="283" y="470" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Write" bpmnElement="An_T_Write">
         <omgdc:Bounds x="-177" y="596" width="387" height="88" />

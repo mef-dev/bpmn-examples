@@ -82,6 +82,23 @@ one place decides it, and every Flow that pages agrees.
 compiler stops with `WorkflowNodeSubProcessGenerator::Generate: input or output
 type is empty`. A Sub Process is a process: it has a boundary like any other.
 
+## The same pages on an API
+
+A paged API of the platform speaks in `offset` and `limit`, and says where a
+page sits in the answer's headers:
+
+| In the plan | On the API |
+|---|---|
+| `startIndex` | `offset` (default 0) |
+| `size` | `limit` (default 50) |
+| `total` | `X-Total-Count` |
+| pages | `X-Page-Count` |
+| one page of the set | `Content-Range: items 1-10/25`, HTTP 206 |
+
+A Flow that serves such an API plans the same way and returns 206 with these
+headers for a partial answer; a Flow that reads one fills `offset` and `limit`
+from the plan of each instance.
+
 ## Where newcomers stumble
 
 - **`Input` inside the Sub Process is one element, not the set.** Cast it to the
