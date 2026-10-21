@@ -7,8 +7,8 @@ handler and its own typed answer — in the caller's language.
 
 | Capability | Where to look |
 |---|---|
-| Boundary error event on a task | `Ev_Err_T_Validate`, attached to the validating step |
-| One handler serving several tasks | two sequence flows arriving at `handle Exception` |
+| Boundary error event on a task | `Ev_Err_CA_Config`, `Ev_Err_T_ParseConfig`, `Ev_Err_T_Validate` |
+| One handler serving several tasks | three sequence flows arriving at `handle Exception` |
 | `#PreviousData` — the only carrier of the exception | the handler's `actionParam` |
 | A Code Action (`HandleException`) | declared in `CodeActions`, called by the handler |
 | HTTP 500 on the failure branch | `WorkflowEnvironment.Variables["StatusCode"]` in the handler |
@@ -18,11 +18,11 @@ handler and its own typed answer — in the caller's language.
 
 ```
 start → Get Config → Parse Config → validate the order → end
-                          ↓                   ↓
-                          └───────────→ handle Exception → end (error)
+            ↓             ↓                 ↓
+            └─────────────┴─────────────────┴──→ handle Exception → end (error)
 ```
 
-Both risky steps lead into the **same** handler. That is normal: several incoming
+All three risky steps lead into the **same** handler. That is normal: several incoming
 sequence flows into one node is how BPMN says "these failures are handled alike".
 
 ## Types it declares

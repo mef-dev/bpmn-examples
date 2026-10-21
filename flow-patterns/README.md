@@ -71,7 +71,7 @@ below are the ones the platform returned.
 | `error-as-branch` | `{"orderId":""}`, `Accept-Language: uk` | HTTP 500, `ErrorResponse` with `"message":"Потрібно вказати orderId"` |
 | `service-config` | `{}` | the settings object |
 | `use-config` | `{"key":"EUR"}` | `{"key":"https://api.frankfurter.dev/v1/latest?base=EUR"}` |
-| `paged-fetch` | `{"total":25}` | three `PageInfo` entries, the last one short — one Sub Process instance each, two at a time |
+| `paged-fetch` | `{"total":25}` | three `PageInfo` entries, the third for rows 21–25 — one Sub Process instance each, two at a time |
 | `http-start` | `{"event":"order.created",…}` | the request echoed back |
 | `structured-prompt` | `{"question":…,"tone":"plain"}` | two typed chat messages |
 | `raise-event` | `{"jobId":"JOB-7"}` | `{"jobId":"JOB-7"}`, with a progress event per part |
