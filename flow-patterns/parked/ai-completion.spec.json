@@ -1,9 +1,9 @@
 {
   "name": "ai-completion",
   "config": {
-    "flow": "flow-patterns-config",
+    "flow": "bpmn-examples-config",
     "libType": "tenant",
-    "library": "tenant_shared",
+    "library": "bpmn_examples",
     "alias": "ConfigActivity",
     "type": "Config",
     "typeAlias": "ExternalConfig",

@@ -87,7 +87,7 @@ editing one class, not hunting for every Flow that reads settings.
 
 - **The companion must exist before the consumer compiles.** Import
   `service-config.bpmn` first, into a **tenant** library, under the name
-  `flow-patterns-config`. Otherwise the consumer fails with `cant resolve class
+  `bpmn-examples-config`. Otherwise the consumer fails with `cant resolve class
   name for uri 'activities://bpmn-mnemo/…'`.
 - **The alias name must match.** `UsedLibs` binds the alias `ConfigActivity`;
   `types://external/ConfigActivity/Config` uses that exact word. Rename one and
@@ -98,7 +98,7 @@ editing one class, not hunting for every Flow that reads settings.
 
 ## Run it
 
-Import `service-config.bpmn` into a tenant library as `flow-patterns-config` and
+Import `service-config.bpmn` into a tenant library as `bpmn-examples-config` and
 compile it. Then import `use-config.bpmn` and compile that.
 
 ---

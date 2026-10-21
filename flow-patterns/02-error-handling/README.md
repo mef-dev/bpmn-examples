@@ -91,7 +91,7 @@ status differently. `WorkflowEnvironment.RuntimeName` tells them apart.
 ## Run it
 
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `flow-patterns-config`. Then
+into a **tenant** library first, under the name `bpmn-examples-config`. Then
 import this file, compile it, and start it twice — with and without an
 `orderId`.
 
