@@ -71,26 +71,31 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
       </extensionElements>
       <incoming>Fl_006</incoming>
       <incoming>Fl_007</incoming>
-      <outgoing>Fl_008</outgoing>
+      <incoming>Fl_008</incoming>
+      <outgoing>Fl_009</outgoing>
     </task>
     <endEvent id="Ev_Failed" name="stream-response">
       <documentation>Failure, HTTP 500, STREAM_FAILED: returns ErrorResponse built by the error branch from the exception of the step that failed.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "STREAM_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Call/open the stream'\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
-      <incoming>Fl_008</incoming>
+      <incoming>Fl_009</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
         <sourceRef>DO_Output_1</sourceRef>
         <targetRef>Prop_Ev_Failed</targetRef>
       </dataInputAssociation>
     </endEvent>
-    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+    <boundaryEvent id="Ev_Err_CA_Config" name="" attachedToRef="CA_Config">
       <outgoing>Fl_006</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_CA_Config" />
+    </boundaryEvent>
+    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+      <outgoing>Fl_007</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_Call" name="" attachedToRef="T_Call">
-      <outgoing>Fl_007</outgoing>
+      <outgoing>Fl_008</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Call" />
     </boundaryEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
@@ -98,9 +103,10 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     <sequenceFlow id="Fl_003" sourceRef="T_ParseConfig" targetRef="T_Call" />
     <sequenceFlow id="Fl_004" sourceRef="T_Call" targetRef="T_Stream" />
     <sequenceFlow id="Fl_005" sourceRef="T_Stream" targetRef="Ev_End" />
-    <sequenceFlow id="Fl_006" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_007" sourceRef="Ev_Err_T_Call" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_008" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <sequenceFlow id="Fl_006" sourceRef="Ev_Err_CA_Config" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_007" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_008" sourceRef="Ev_Err_T_Call" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_009" sourceRef="T_HandleException" targetRef="Ev_Failed" />
     <boundaryEvent id="Event_Chunk" name="chunk" cancelActivity="false" attachedToRef="T_Stream">
       <outgoing>Fl_Event_Chunk</outgoing>
       <messageEventDefinition id="Med_Event_Chunk" />
@@ -176,13 +182,16 @@ this Flow.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="418" y="445" width="100" height="80" />
+        <omgdc:Bounds x="418" y="380" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="568" y="467" width="36" height="36" />
+        <omgdc:Bounds x="568" y="402" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="540" y="447" width="93" height="14" />
+          <omgdc:Bounds x="540" y="382" width="93" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_CA_Config" bpmnElement="Ev_Err_CA_Config">
+        <omgdc:Bounds x="332" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
@@ -211,23 +220,27 @@ this Flow.</text>
         <di:waypoint x="300" y="730" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
-        <di:waypoint x="368" y="420" />
-        <di:waypoint x="468" y="420" />
-        <di:waypoint x="468" y="445" />
+        <di:waypoint x="368" y="290" />
+        <di:waypoint x="468" y="290" />
+        <di:waypoint x="468" y="380" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_007" bpmnElement="Fl_007">
-        <di:waypoint x="368" y="550" />
-        <di:waypoint x="468" y="550" />
-        <di:waypoint x="468" y="525" />
+        <di:waypoint x="368" y="420" />
+        <di:waypoint x="418" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_008" bpmnElement="Fl_008">
-        <di:waypoint x="518" y="485" />
-        <di:waypoint x="568" y="485" />
+        <di:waypoint x="368" y="550" />
+        <di:waypoint x="468" y="550" />
+        <di:waypoint x="468" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_009" bpmnElement="Fl_009">
+        <di:waypoint x="518" y="420" />
+        <di:waypoint x="568" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
-        <omgdc:Bounds x="644" y="460" width="36" height="50" />
+        <omgdc:Bounds x="644" y="395" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="618" y="516" width="88" height="18" />
+          <omgdc:Bounds x="618" y="451" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Event_Chunk" bpmnElement="Event_Chunk">
@@ -274,8 +287,8 @@ this Flow.</text>
         <di:waypoint x="318" y="748" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="644" y="485" />
-        <di:waypoint x="604" y="485" />
+        <di:waypoint x="644" y="420" />
+        <di:waypoint x="604" y="420" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>

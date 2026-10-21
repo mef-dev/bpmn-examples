@@ -90,34 +90,39 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/09-fi
       <incoming>Fl_008</incoming>
       <incoming>Fl_009</incoming>
       <incoming>Fl_010</incoming>
-      <outgoing>Fl_011</outgoing>
+      <incoming>Fl_011</incoming>
+      <outgoing>Fl_012</outgoing>
     </task>
     <endEvent id="Ev_Failed" name="archive-and-link">
       <documentation>Failure, HTTP 500, ARCHIVE_FAILED: returns ErrorResponse built by the error branch from the exception of the step that failed.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "ARCHIVE_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the folder could not be packed\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
-      <incoming>Fl_011</incoming>
+      <incoming>Fl_012</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
         <sourceRef>DO_Output_1</sourceRef>
         <targetRef>Prop_Ev_Failed</targetRef>
       </dataInputAssociation>
     </endEvent>
-    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+    <boundaryEvent id="Ev_Err_CA_Config" name="" attachedToRef="CA_Config">
       <outgoing>Fl_007</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_CA_Config" />
+    </boundaryEvent>
+    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+      <outgoing>Fl_008</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_Folder" name="" attachedToRef="T_Folder">
-      <outgoing>Fl_008</outgoing>
+      <outgoing>Fl_009</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Folder" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_Write" name="" attachedToRef="T_Write">
-      <outgoing>Fl_009</outgoing>
+      <outgoing>Fl_010</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Write" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_Archive" name="" attachedToRef="T_Archive">
-      <outgoing>Fl_010</outgoing>
+      <outgoing>Fl_011</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Archive" />
     </boundaryEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
@@ -126,11 +131,12 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/09-fi
     <sequenceFlow id="Fl_004" sourceRef="T_Folder" targetRef="T_Write" />
     <sequenceFlow id="Fl_005" sourceRef="T_Write" targetRef="T_Archive" />
     <sequenceFlow id="Fl_006" sourceRef="T_Archive" targetRef="Ev_End" />
-    <sequenceFlow id="Fl_007" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_008" sourceRef="Ev_Err_T_Folder" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_009" sourceRef="Ev_Err_T_Write" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_010" sourceRef="Ev_Err_T_Archive" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_011" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <sequenceFlow id="Fl_007" sourceRef="Ev_Err_CA_Config" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_008" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_009" sourceRef="Ev_Err_T_Folder" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_010" sourceRef="Ev_Err_T_Write" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_011" sourceRef="Ev_Err_T_Archive" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_012" sourceRef="T_HandleException" targetRef="Ev_Failed" />
     <dataStoreReference id="DS_Folder" name="the folder">
       <extensionElements>
         <ep:elementParameter name="storeParameters">{
@@ -227,13 +233,16 @@ compiler references.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="418" y="575" width="100" height="80" />
+        <omgdc:Bounds x="418" y="510" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="568" y="597" width="36" height="36" />
+        <omgdc:Bounds x="568" y="532" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="536" y="577" width="99" height="14" />
+          <omgdc:Bounds x="536" y="512" width="99" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_CA_Config" bpmnElement="Ev_Err_CA_Config">
+        <omgdc:Bounds x="332" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
@@ -272,33 +281,37 @@ compiler references.</text>
         <di:waypoint x="300" y="860" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_007" bpmnElement="Fl_007">
-        <di:waypoint x="368" y="420" />
-        <di:waypoint x="485" y="420" />
-        <di:waypoint x="485" y="575" />
+        <di:waypoint x="368" y="290" />
+        <di:waypoint x="485" y="290" />
+        <di:waypoint x="485" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_008" bpmnElement="Fl_008">
-        <di:waypoint x="368" y="550" />
-        <di:waypoint x="452" y="550" />
-        <di:waypoint x="452" y="575" />
+        <di:waypoint x="368" y="420" />
+        <di:waypoint x="452" y="420" />
+        <di:waypoint x="452" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_009" bpmnElement="Fl_009">
-        <di:waypoint x="368" y="680" />
-        <di:waypoint x="452" y="680" />
-        <di:waypoint x="452" y="655" />
+        <di:waypoint x="368" y="550" />
+        <di:waypoint x="418" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_010" bpmnElement="Fl_010">
-        <di:waypoint x="368" y="810" />
-        <di:waypoint x="485" y="810" />
-        <di:waypoint x="485" y="655" />
+        <di:waypoint x="368" y="680" />
+        <di:waypoint x="452" y="680" />
+        <di:waypoint x="452" y="590" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_011" bpmnElement="Fl_011">
-        <di:waypoint x="518" y="615" />
-        <di:waypoint x="568" y="615" />
+        <di:waypoint x="368" y="810" />
+        <di:waypoint x="485" y="810" />
+        <di:waypoint x="485" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_012" bpmnElement="Fl_012">
+        <di:waypoint x="518" y="550" />
+        <di:waypoint x="568" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
-        <omgdc:Bounds x="644" y="590" width="36" height="50" />
+        <omgdc:Bounds x="644" y="525" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="618" y="646" width="88" height="18" />
+          <omgdc:Bounds x="618" y="581" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DS_Folder" bpmnElement="DS_Folder">
@@ -364,8 +377,8 @@ compiler references.</text>
         <di:waypoint x="318" y="878" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="644" y="615" />
-        <di:waypoint x="604" y="615" />
+        <di:waypoint x="644" y="550" />
+        <di:waypoint x="604" y="550" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>

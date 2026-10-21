@@ -108,8 +108,10 @@ return cfg;
 
 If Flow A calls Flow B and passes an object, the type has to be declared **in
 both** — in B as its own, in A as external
-(`types://external/<flowB>/<Type>`). Otherwise A gets an `object` back, and
-field access will fail at run time.
+(`types://external/<flowB>/<Type>`). A class A declares for itself is a different
+type for B, even with the same name and fields: B does not accept it as its
+input and the call fails at its start with a cast error. Pass B's own type —
+or its JSON.
 
 ### 3.6 Mark an optional field explicitly
 

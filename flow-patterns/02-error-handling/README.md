@@ -54,7 +54,7 @@ An empty one takes the error branch, and the text follows `Accept-Language`:
 | `ja,fr;q=0.7` | 500 | `orderId est obligatoire` |
 | `de-DE` | 500 | `orderId ist erforderlich` |
 | `ar` | 500 | `الحقل orderId مطلوب` |
-| `ja` | 500 | `orderId is required` — no Japanese text, so the stand's language |
+| `ja` | 500 | `orderId is required` — no Japanese text, so the stand's language (`en` in `service-config`) |
 | none | 500 | `orderId is required` |
 
 ```
@@ -73,8 +73,11 @@ the compiler answers `Cannot implicitly convert 'System.Exception' to
 
 **The handler sets the HTTP status itself.** `WorkflowEnvironment.Variables["StatusCode"] = 500`
 is what the platform answers with when the Flow is started through the API; a
-published plugin gets the status on its HTTP response as well. A business error
-is a 500 with the reason in `message`.
+published plugin gets the status on its HTTP response as well. The platform's
+API contract answers a business-rule error with 500 and the reason in
+`message`; a text in `Messages` can carry its own status when the request
+itself has to change (400) or the caller has to wait (409, 503) — see
+[10 · Idempotency](../10-idempotency/).
 
 **The language comes from the request.** The order is:
 
@@ -84,8 +87,9 @@ is a 500 with the reason in `message`.
 3. English.
 
 The languages are the ones `Messages` has a text for: adding a language is
-adding a text, not changing code. A published plugin also answers with
-`Content-Language`.
+adding a text, not changing code. The platform's domain APIs name `en` and
+`uk`; the example carries more texts, and the order stays the same. A
+published plugin also answers with `Content-Language`.
 
 **The text to translate is the one the step threw.** The engine wraps the
 exception of a step (`Error while try to call action …`); the handler looks up
