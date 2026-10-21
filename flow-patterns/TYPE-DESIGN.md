@@ -143,7 +143,7 @@ var cfg = new JSON(#Previous).Cast<ExternalConfig>();
 `new JSON(...)` takes the object in its JSON form, and a `JSON` value as it is.
 `.Cast<ExternalConfig>()` lays it out into the fields of this type. A string
 needs no conversion at all. A plain cast `((JSON)#Previous)` fails with
-`Unable to cast object … to type 'Natec.Workflow.JSON'`, because the result is
+`Unable to cast object … to type '…JSON'`, because the result is
 not a `JSON` object. **If the structure does not match, the fields will be empty
 rather than an error.** So right after a cast it is worth logging a key field:
 

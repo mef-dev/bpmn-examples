@@ -10,8 +10,7 @@ does not.
 | HTTP 500, the report | at least one check failed; each failed line says why |
 
 The report names the platform version that ran the test, taken from the process
-itself: the host's file version (the one on the API's Swagger page) and the
-engine's assembly version.
+itself: the product name and version, the same as on the API's Swagger page.
 
 ## What it checks
 
@@ -35,9 +34,9 @@ through a Call Activity to the Flow of the same name in the tenant library.
 
 `Parse Config` is in the report only when it fails; the other eleven checks are
 always there. A check fails when the example answers from its failure branch,
-answers nothing, or answers without the expected marker. When a call itself throws, its error
-boundary event records the exception and the test goes on, so one run reports
-every failure, not only the first.
+answers nothing, or answers without the expected marker. When a call itself
+throws, its error boundary event records the exception and the test goes on, so
+one run reports every failure, not only the first.
 
 ## How the model is built
 
@@ -47,8 +46,8 @@ every failure, not only the first.
 - **The report is a global parameter**, `Parameters.report` of type
   `SmokeReport`. Every step adds to it.
 - **The verdict sets the HTTP status** through
-  `WorkflowEnvironment.Variables["StatusCode"]`, as the built-in
-  `setResponseStatus` does. The body is the report in both cases.
+  `WorkflowEnvironment.Variables["StatusCode"]`. The body is the report in
+  both cases.
 
 ## Run it
 
