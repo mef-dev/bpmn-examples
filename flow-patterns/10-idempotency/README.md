@@ -12,7 +12,8 @@ the answer.
 | Reading a request header in a Flow | `read the request id` |
 | The platform's distributed cache (`IDistributedCache`) | `look for the stored answer`, `store the answer` |
 | An early answer through a decision | `answered before?` → `answer as before` → `answered from the cache` |
-| `cacheStatus`: `Added` or `IsCompleted` | the answer, and the response header in a published plugin |
+| `cacheStatus`: `Added` or `IsCompleted` | the response header in a published plugin, repeated in the answer |
+| HTTP 201, and an error status per message (400, 409, 503) | `answer 201`, `Messages` |
 | A setting from the configuration Flow | `cacheSeconds` — how long the answer is kept |
 | The error text in the caller's language | `Messages`, as in [02 · Errors](../02-error-handling/) |
 
@@ -20,11 +21,13 @@ the answer.
 
 ```
 start → Get Config → Parse Config → read the request id → look for the stored answer → answered before?
-                                                                                           │ no         │ yes
-                                                                                           ↓            ↓
-                                                                              accept the payment   answer as before → end (from the cache)
-                                                                                           ↓
-                                                                                 store the answer → end
+                                                                                    │ no            │ yes
+                                                                                    ↓               ↓
+                                                                       accept the payment     answer as before → end: answered from the cache
+                                                                                    ↓
+                                                                          store the answer → answer 201 → end: answered and stored
+
+every risky step ──→ handle Exception → end: request refused
 ```
 
 ## Types it declares
@@ -33,8 +36,9 @@ start → Get Config → Parse Config → read the request id → look for the s
 |---|---|---|
 | `PaymentRequest` | inner, JSON Schema | the process boundary: `orderId`, `amount` |
 | `PaymentAnswer` | inner, native C# | the answer: `orderId`, `amount`, `confirmation`, `acceptedAt`, `cacheStatus` |
-| `Messages` | inner, native C# | the error text for a request without an id, one per language |
-| `ExternalConfig` | external | the configuration type; `cacheSeconds` sets how long the answer is kept |
+| `ErrorResponse` | inner, JSON Schema | the refusal: `levelMessage`, `statusCode`, `message`, `state` |
+| `Messages` | inner, native C# | the refusal texts, one per language, and their HTTP status |
+| `ExternalConfig` | external | the configuration type; `cacheSeconds` (300 in `service-config`) sets how long the answer is kept |
 
 `Parameters.cacheKey` (a global parameter) carries the key from the step that
 reads the header to the step that stores the answer.
@@ -43,10 +47,12 @@ reads the header to the step that stores the answer.
 
 | Call | `x-ms-client-request-id` | HTTP | Answer |
 |---|---|---|---|
-| first | `r-1` | 200 | a new `confirmation`, `"cacheStatus":"Added"` |
-| again | `r-1` | 200 | the **same** `confirmation` and `acceptedAt`, `"cacheStatus":"IsCompleted"` |
-| another | `r-2` | 200 | a new `confirmation`, `"cacheStatus":"Added"` |
-| no header, `Accept-Language: uk` | — | 500 | `"message":"Потрібен заголовок x-ms-client-request-id"` |
+| first | `r-1` | 201 | a new `confirmation`, `"cacheStatus":"Added"` |
+| again | `r-1` | 201 | the **same** `confirmation` and `acceptedAt`, `"cacheStatus":"IsCompleted"` |
+| another | `r-2` | 201 | a new `confirmation`, `"cacheStatus":"Added"` |
+| again while `r-1` still runs | `r-1` | 409 | `The same request is still in progress; repeat it later` |
+| no header, `Accept-Language: uk` | — | 400 | `"message":"Потрібен заголовок x-ms-client-request-id"` |
+| the cache is not available | `r-3` | 503 | `The service is not available now; repeat the request later` |
 
 ```
 {"orderId":"ORD-1001","amount":25.5,"confirmation":"f5fd623e-ebe0-4f40-80f1-f64cfd590f10",
@@ -56,19 +62,30 @@ reads the header to the step that stores the answer.
 ## Why it is built this way
 
 **The id belongs to the request, not to the body.** The client generates it once
-per operation and repeats it on every retry. Two different operations with the
-same body are two requests; one operation retried is one.
+per operation and repeats it on every retry. A repeated id gets the first
+answer: the body of the retry is not compared.
+
+**The key starts with the Flow's name.** Every Flow on the stand shares the
+cache, so the key is `idempotent-request:` + the request id. A Flow that serves
+several clients adds whatever separates them.
 
 **The cache is the platform's, not the Flow's.** `ServiceProvider.GetService<IDistributedCache>()`
-returns the cache shared by every instance on the stand, so a retry finds the
-answer whichever instance served the first call. A `Parameters` field would live
-only as long as one instance.
+returns the cache shared by every server of the stand, so a retry finds the
+answer wherever the first call ran. A `Parameters` field lives only as long as
+one run of the Flow.
+
+**The request is marked while the work runs.** Before the work the key holds
+`pending` for 60 seconds; a retry that arrives meanwhile gets 409 and repeats
+later. The cache has no "add if absent": two calls at the same moment can both
+pass the check, so the mark narrows the window, it does not close it.
 
 **Store after the work, not before.** The answer is stored once it exists. A
-failure before that leaves nothing in the cache, and the retry does the work.
+failure before that leaves only the `pending` mark: retries get 409 until it
+expires, then do the work. A failure to store after the work is logged and the
+answer still goes back; a retry then does the work again.
 
-**How long is a setting.** `cacheSeconds` comes from the configuration Flow:
-after that time the same id is a new request.
+**The retention time is a setting.** `cacheSeconds` comes from the configuration
+Flow: after that time the same id is a new request.
 
 **The header is read where the request is.** Started through the API, the
 platform records the request headers (`HttpRequestService`); a published plugin
@@ -81,8 +98,9 @@ The step reads whichever is there.
   order. Key by the request id.
 - **Storing the answer before the work.** A failed call then answers its retry
   with an answer that was never true.
-- **Answering a retry with a new id.** `confirmation` is issued once; the retry
-  shows the same one. That is how a client sees that nothing was done twice.
+- **Issuing a new `confirmation` on a retry.** `confirmation` is issued once;
+  the retry shows the same one. That is how a client sees that nothing was done
+  twice.
 
 ## Run it
 

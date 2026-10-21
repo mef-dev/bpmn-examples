@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <extensionElements>
-    <gp:globalParameter name="InnerTypes">[{"name": "PaymentAnswer", "isNativeDefinition": true, "definition": "public class PaymentAnswer\n{\n    public string orderId { get; set; }\n    public double amount { get; set; }\n    /* Issued once per request id: a repeated call gets the same value. */\n    public string confirmation { get; set; }\n    public string acceptedAt { get; set; }\n    /* Added - answered now and stored; IsCompleted - answered from the cache. */\n    public string cacheStatus { get; set; }\n}", "dataObjectRefName": "PaymentAnswer"}, {"name": "PaymentRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/PaymentRequest\", \"definitions\": {\"PaymentRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"orderId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\"}}, \"title\": \"PaymentRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}, {"name": "Messages", "definition": "public class Messages\n{\n    /* The errors this Flow raises, one text per language. The languages are the\n       keys of each entry: adding a language is adding its text. */\n    static readonly System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.Dictionary&lt;string, string&gt;&gt; Texts =\n        new System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.Dictionary&lt;string, string&gt;&gt;\n        {\n            { \"x-ms-client-request-id is required\", new System.Collections.Generic.Dictionary&lt;string, string&gt; { { \"en\", \"x-ms-client-request-id is required\" }, { \"uk\", \"Потрібен заголовок x-ms-client-request-id\" }, { \"fr\", \"L'en-tête x-ms-client-request-id est obligatoire\" }, { \"pt\", \"O cabeçalho x-ms-client-request-id é obrigatório\" }, { \"es\", \"El encabezado x-ms-client-request-id es obligatorio\" }, { \"de\", \"Der Header x-ms-client-request-id ist erforderlich\" }, { \"ar\", \"الترويسة x-ms-client-request-id مطلوبة\" } } }\n        };\n\n    /* The language to answer in: the first language of Accept-Language (by q)\n       that has this text, then the stand's language, then English. */\n    public static string Language(string message, string acceptLanguage, string standLanguage)\n    {\n        // a message without texts (a technical exception) keeps its own words\n        if (message == null || !Texts.TryGetValue(message, out var byLanguage))\n            return null;\n        foreach (var language in Preferred(acceptLanguage))\n            if (byLanguage.ContainsKey(language))\n                return language;\n        if (!string.IsNullOrEmpty(standLanguage) &amp;&amp; byLanguage.ContainsKey(standLanguage))\n            return standLanguage;\n        return \"en\";\n    }\n\n    public static string Text(string message, string language)\n    {\n        if (message != null &amp;&amp; language != null &amp;&amp; Texts.TryGetValue(message, out var byLanguage)\n            &amp;&amp; byLanguage.TryGetValue(language, out var text))\n            return text;\n        return message;\n    }\n\n    /* \"uk-UA,uk;q=0.9,en;q=0.8\" -&gt; uk, en: primary subtags, highest q first. */\n    static System.Collections.Generic.List&lt;string&gt; Preferred(string header)\n    {\n        var weighted = new System.Collections.Generic.List&lt;System.Tuple&lt;string, double&gt;&gt;();\n        foreach (var part in (header ?? \"\").Split(','))\n        {\n            var pieces = part.Split(';');\n            var language = pieces[0].Trim().Split('-')[0].ToLowerInvariant();\n            double q = 1;\n            for (int i = 1; i &lt; pieces.Length; i++)\n            {\n                var p = pieces[i].Trim();\n                if (p.StartsWith(\"q=\"))\n                    double.TryParse(p.Substring(2), System.Globalization.NumberStyles.Float,\n                                    System.Globalization.CultureInfo.InvariantCulture, out q);\n            }\n            if (language.Length &gt; 0 &amp;&amp; language != \"*\" &amp;&amp; q &gt; 0)\n                weighted.Add(System.Tuple.Create(language, q));\n        }\n        weighted.Sort((a, b) =&gt; b.Item2.CompareTo(a.Item2));\n        var result = new System.Collections.Generic.List&lt;string&gt;();\n        foreach (var item in weighted)\n            if (!result.Contains(item.Item1))\n                result.Add(item.Item1);\n        return result;\n    }\n}", "isNativeDefinition": true}]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name": "PaymentAnswer", "isNativeDefinition": true, "definition": "public class PaymentAnswer\n{\n    public string orderId { get; set; }\n    public double amount { get; set; }\n    /* Issued once per request id: a repeated call gets the same value. */\n    public string confirmation { get; set; }\n    public string acceptedAt { get; set; }\n    /* The cacheStatus response header, repeated in the answer: Added or IsCompleted. */\n    public string cacheStatus { get; set; }\n}", "dataObjectRefName": "PaymentAnswer"}, {"name": "PaymentRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/PaymentRequest\", \"definitions\": {\"PaymentRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"orderId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\"}}, \"title\": \"PaymentRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}, {"name": "Messages", "definition": "public class Messages\n{\n    /* The errors this Flow raises, one text per language. The languages are the\n       keys of each entry: adding a language is adding its text. */\n    static readonly System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.Dictionary&lt;string, string&gt;&gt; Texts =\n        new System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.Dictionary&lt;string, string&gt;&gt;\n        {\n            { \"x-ms-client-request-id is required\", new System.Collections.Generic.Dictionary&lt;string, string&gt; { { \"en\", \"x-ms-client-request-id is required\" }, { \"uk\", \"Потрібен заголовок x-ms-client-request-id\" }, { \"fr\", \"L'en-tête x-ms-client-request-id est obligatoire\" }, { \"pt\", \"O cabeçalho x-ms-client-request-id é obrigatório\" }, { \"es\", \"El encabezado x-ms-client-request-id es obligatorio\" }, { \"de\", \"Der Header x-ms-client-request-id ist erforderlich\" }, { \"ar\", \"الترويسة x-ms-client-request-id مطلوبة\" } } },\n            { \"the same request is in progress\", new System.Collections.Generic.Dictionary&lt;string, string&gt; { { \"en\", \"The same request is still in progress; repeat it later\" }, { \"uk\", \"Той самий запит ще виконується; повторіть пізніше\" }, { \"fr\", \"La même requête est encore en cours ; réessayez plus tard\" }, { \"pt\", \"A mesma solicitação ainda está em andamento; repita mais tarde\" }, { \"es\", \"La misma solicitud todavía está en curso; repítala más tarde\" }, { \"de\", \"Dieselbe Anfrage wird noch bearbeitet; wiederholen Sie sie später\" }, { \"ar\", \"الطلب نفسه لا يزال قيد التنفيذ؛ أعد المحاولة لاحقًا\" } } },\n            { \"the distributed cache is not available\", new System.Collections.Generic.Dictionary&lt;string, string&gt; { { \"en\", \"The service is not available now; repeat the request later\" }, { \"uk\", \"Сервіс зараз недоступний; повторіть запит пізніше\" }, { \"fr\", \"Le service n'est pas disponible pour le moment ; réessayez plus tard\" }, { \"pt\", \"O serviço não está disponível agora; repita a solicitação mais tarde\" }, { \"es\", \"El servicio no está disponible ahora; repita la solicitud más tarde\" }, { \"de\", \"Der Dienst ist derzeit nicht verfügbar; wiederholen Sie die Anfrage später\" }, { \"ar\", \"الخدمة غير متاحة الآن؛ أعد الطلب لاحقًا\" } } }\n        };\n\n    /* The HTTP status of an error, when it is not 500: 400 - the request has to\n       change, 409 - repeat later, 503 - the service is not available now. */\n    static readonly System.Collections.Generic.Dictionary&lt;string, int&gt; Statuses =\n        new System.Collections.Generic.Dictionary&lt;string, int&gt;\n        {\n            { \"x-ms-client-request-id is required\", 400 },\n            { \"the same request is in progress\", 409 },\n            { \"the distributed cache is not available\", 503 }\n        };\n\n    public static int Status(string message)\n    {\n        return message != null &amp;&amp; Statuses.TryGetValue(message, out var status) ? status : 500;\n    }\n\n    /* The language to answer in: the first language of Accept-Language (by q)\n       that has this text, then the stand's language, then English. */\n    public static string Language(string message, string acceptLanguage, string standLanguage)\n    {\n        // a message without texts (a technical exception) keeps its own words\n        if (message == null || !Texts.TryGetValue(message, out var byLanguage))\n            return null;\n        foreach (var language in Preferred(acceptLanguage))\n            if (byLanguage.ContainsKey(language))\n                return language;\n        // the stand's language as configured: \"EN\" or \"uk-UA\" mean en and uk\n        var stand = (standLanguage ?? \"\").Trim().Split('-')[0].ToLowerInvariant();\n        if (stand.Length &gt; 0 &amp;&amp; byLanguage.ContainsKey(stand))\n            return stand;\n        return \"en\";\n    }\n\n    public static string Text(string message, string language)\n    {\n        if (message != null &amp;&amp; language != null &amp;&amp; Texts.TryGetValue(message, out var byLanguage)\n            &amp;&amp; byLanguage.TryGetValue(language, out var text))\n            return text;\n        return message;\n    }\n\n    /* \"uk-UA,uk;q=0.9,en;q=0.8\" -&gt; uk, en: primary subtags, highest q first. */\n    static System.Collections.Generic.List&lt;string&gt; Preferred(string header)\n    {\n        var weighted = new System.Collections.Generic.List&lt;System.Tuple&lt;string, double&gt;&gt;();\n        foreach (var part in (header ?? \"\").Split(','))\n        {\n            var pieces = part.Split(';');\n            var language = pieces[0].Trim().Split('-')[0].ToLowerInvariant();\n            double q = 1;\n            for (int i = 1; i &lt; pieces.Length; i++)\n            {\n                var p = pieces[i].Trim();\n                if (p.StartsWith(\"q=\", System.StringComparison.OrdinalIgnoreCase))\n                    double.TryParse(p.Substring(2), System.Globalization.NumberStyles.Float,\n                                    System.Globalization.CultureInfo.InvariantCulture, out q);\n            }\n            if (language.Length &gt; 0 &amp;&amp; language != \"*\" &amp;&amp; q &gt; 0)\n                weighted.Add(System.Tuple.Create(language, q));\n        }\n        // equal q keep the header's order: List.Sort is not stable, OrderByDescending is\n        weighted = System.Linq.Enumerable.ToList(\n            System.Linq.Enumerable.OrderByDescending(weighted, w =&gt; w.Item2));\n        var result = new System.Collections.Generic.List&lt;string&gt;();\n        foreach (var item in weighted)\n            if (!result.Contains(item.Item1))\n                result.Add(item.Item1);\n        return result;\n    }\n}", "isNativeDefinition": true}]</gp:globalParameter>
     <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}]</gp:globalParameter>
-    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    string acceptLanguage = null;\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object rawRequest)\n        &amp;&amp; rawRequest is Microsoft.AspNetCore.Http.HttpRequest httpRequest)\n        acceptLanguage = httpRequest.Headers[\"Accept-Language\"].ToString();\n    else\n        acceptLanguage = ServiceProvider.GetService&lt;HttpRequestService&gt;()?.Request?.Headers?\n            .FirstOrDefault(h =&gt; string.Equals(h.Key, \"Accept-Language\", StringComparison.OrdinalIgnoreCase)).Value;\n    // the engine wraps the step's exception: the text to translate is the one the step threw\n    var reason = prevData.Exception?.GetBaseException()?.Message;\n    var language = Messages.Language(reason, acceptLanguage, Parameters.config?.language);\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object rawResponse)\n        &amp;&amp; rawResponse is Microsoft.AspNetCore.Http.HttpResponse httpResponse)\n    {\n        httpResponse.StatusCode = 500;\n        if (language != null)\n            httpResponse.Headers[\"Content-Language\"] = language;\n    }\n    return new ErrorResponse()\n    {\n        Message = language != null ? Messages.Text(reason, language) : prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    string acceptLanguage = null;\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object rawRequest)\n        &amp;&amp; rawRequest is Microsoft.AspNetCore.Http.HttpRequest httpRequest)\n        acceptLanguage = httpRequest.Headers[\"Accept-Language\"].ToString();\n    else\n        acceptLanguage = ServiceProvider.GetService&lt;HttpRequestService&gt;()?.Request?.Headers?\n            .FirstOrDefault(h =&gt; string.Equals(h.Key, \"Accept-Language\", StringComparison.OrdinalIgnoreCase)).Value;\n    // the engine wraps the step's exception: the text to translate is the one the step threw\n    var reason = prevData.Exception?.GetBaseException()?.Message;\n    var language = Messages.Language(reason, acceptLanguage, Parameters.config?.language);\n    // a message may carry its own status: 400 for a request to fix, 503 for a service to wait for\n    var status = Messages.Status(reason);\n    WorkflowEnvironment.Variables[\"StatusCode\"] = status;\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object rawResponse)\n        &amp;&amp; rawResponse is Microsoft.AspNetCore.Http.HttpResponse httpResponse)\n    {\n        httpResponse.StatusCode = status;\n        if (language != null)\n            httpResponse.Headers[\"Content-Language\"] = language;\n    }\n    return new ErrorResponse()\n    {\n        Message = language != null ? Messages.Text(reason, language) : prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = status,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}, {"name": "cacheKey", "type": "string", "initialValue": ""}]</gp:globalParameter>
@@ -45,24 +45,22 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
     </task>
     <task id="T_RequestId" name="read the request id">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// A published plugin gets the HTTP request; a start through the API, its headers.\nstring requestId;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpRequest http)\n    requestId = http.Headers[\"x-ms-client-request-id\"].ToString();\nelse\n    requestId = ServiceProvider.GetService&lt;HttpRequestService&gt;()?.Request?.Headers?\n        .FirstOrDefault(h =&gt; string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"payment:{requestId}\";\nreturn requestId;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// A published plugin gets the HTTP request; a start through the API, its headers.\nstring requestId;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpRequest http)\n    requestId = http.Headers[\"x-ms-client-request-id\"].ToString();\nelse\n    requestId = ServiceProvider.GetService&lt;HttpRequestService&gt;()?.Request?.Headers?\n        .FirstOrDefault(h =&gt; string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"idempotent-request:{requestId}\";\nreturn requestId;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
     <task id="T_Lookup" name="look for the stored answer">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The platform's distributed cache: shared by every instance of every Flow\n// of the stand, so a retry finds the answer whichever instance served it.\nvar cache = ServiceProvider.GetService&lt;IDistributedCache&gt;();\nreturn cache?.GetString(Parameters.cacheKey);     // null: not answered yet"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "var cache = ServiceProvider.GetService&lt;IDistributedCache&gt;()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\nreturn stored;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
     </task>
     <exclusiveGateway id="G_Answered" name="answered before?" default="Fl_006">
-      <documentation>yes: the stored answer goes back unchanged, the work is
-not done again.</documentation>
       <incoming>Fl_005</incoming>
       <outgoing>Fl_006</outgoing>
-      <outgoing>Fl_009</outgoing>
+      <outgoing>Fl_010</outgoing>
     </exclusiveGateway>
     <task id="T_Work" name="accept the payment">
       <extensionElements>
@@ -76,17 +74,24 @@ not done again.</documentation>
     </task>
     <task id="T_Store" name="store the answer">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Stored for cacheSeconds from the configuration Flow; after that the same\n// request id is a new request.\nvar answer = (PaymentAnswer)#Previous;\nServiceProvider.GetService&lt;IDistributedCache&gt;()?.SetString(Parameters.cacheKey,\n    JsonConvert.SerializeObject(answer),\n    new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(Parameters.config.cacheSeconds) });\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// After the work: a failure to store is logged, the answer still goes back.\nvar answer = #Previous;      // stored as it is: the type is not needed here\nvar seconds = Parameters.config.cacheSeconds &gt; 0 ? Parameters.config.cacheSeconds : 300;\ntry\n{\n    ServiceProvider.GetService&lt;IDistributedCache&gt;().SetString(Parameters.cacheKey,\n        JsonConvert.SerializeObject(answer),\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(seconds) });\n}\ncatch (Exception e) { Logger.LogError($\"the answer was not stored: {e.Message}\"); }\nreturn answer;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_007</incoming>
       <outgoing>Fl_008</outgoing>
     </task>
-    <endEvent id="Ev_End" name="answered and stored">
-      <documentation>Success, HTTP 200: the work is done, the answer is stored; cacheStatus Added.</documentation>
+    <task id="T_Answer" name="answer 201">
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "ADDED", "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"Added\"\n}"}]}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// 201: the request created something. cacheStatus is a response header;\n// the answer repeats it so a start through the API shows it too.\nvar answer = (PaymentAnswer)#Previous;\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_008</incoming>
+      <outgoing>Fl_009</outgoing>
+    </task>
+    <endEvent id="Ev_End" name="answered and stored">
+      <documentation>Success, HTTP 201: the work is done and the answer stored; cacheStatus Added.</documentation>
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "201", "exampelsVariants": [{"title": "ADDED", "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"Added\"\n}"}]}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_009</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_End">
         <sourceRef>DO_Output</sourceRef>
@@ -95,17 +100,17 @@ not done again.</documentation>
     </endEvent>
     <task id="T_Replay" name="answer as before">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = JsonConvert.DeserializeObject&lt;PaymentAnswer&gt;((string)#Previous);\nanswer.cacheStatus = \"IsCompleted\";\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
-      </extensionElements>
-      <incoming>Fl_009</incoming>
-      <outgoing>Fl_010</outgoing>
-    </task>
-    <endEvent id="Ev_Replayed" name="answered from the cache">
-      <documentation>Success, HTTP 200: a repeated request id; the stored answer, cacheStatus IsCompleted.</documentation>
-      <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "IS_COMPLETED", "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"IsCompleted\"\n}"}]}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = JsonConvert.DeserializeObject&lt;PaymentAnswer&gt;((string)#Previous);\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_010</incoming>
+      <outgoing>Fl_011</outgoing>
+    </task>
+    <endEvent id="Ev_Replayed" name="answered from the cache">
+      <documentation>Success, HTTP 201: a repeated request id; the stored answer, cacheStatus IsCompleted.</documentation>
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "201", "exampelsVariants": [{"title": "IS_COMPLETED", "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"IsCompleted\"\n}"}]}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_011</incoming>
       <property id="Prop_Ev_Replayed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Replayed">
         <sourceRef>DO_Output_1</sourceRef>
@@ -116,39 +121,44 @@ not done again.</documentation>
       <extensionElements>
         <ep:elementParameter name="ElementImplementation">{"actionType": "Action", "action": "HandleException", "actionParam": {"prevData": "#PreviousData"}}</ep:elementParameter>
       </extensionElements>
-      <incoming>Fl_011</incoming>
       <incoming>Fl_012</incoming>
       <incoming>Fl_013</incoming>
       <incoming>Fl_014</incoming>
-      <outgoing>Fl_015</outgoing>
-    </task>
-    <endEvent id="Ev_Failed" name="idempotent-request">
-      <documentation>Failure, HTTP 500: no x-ms-client-request-id; the message is in the caller's language.</documentation>
-      <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "NO_REQUEST_ID", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"x-ms-client-request-id is required\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
-      </extensionElements>
       <incoming>Fl_015</incoming>
+      <incoming>Fl_016</incoming>
+      <outgoing>Fl_017</outgoing>
+    </task>
+    <endEvent id="Ev_Failed" name="request refused">
+      <documentation>Refusal: HTTP 400 without x-ms-client-request-id, 409 while the same request is in progress, 503 when the cache is not available; message in the caller's language.</documentation>
+      <extensionElements>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "NO_REQUEST_ID", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 400,\n  \"message\": \"x-ms-client-request-id is required\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
+      </extensionElements>
+      <incoming>Fl_017</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
         <sourceRef>DO_Output_2</sourceRef>
         <targetRef>Prop_Ev_Failed</targetRef>
       </dataInputAssociation>
     </endEvent>
+    <boundaryEvent id="Ev_Err_CA_Config" name="" attachedToRef="CA_Config">
+      <outgoing>Fl_012</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_CA_Config" />
+    </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
-      <outgoing>Fl_011</outgoing>
+      <outgoing>Fl_013</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_RequestId" name="" attachedToRef="T_RequestId">
-      <outgoing>Fl_012</outgoing>
+      <outgoing>Fl_014</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_RequestId" />
     </boundaryEvent>
     <boundaryEvent id="Ev_Err_T_Lookup" name="" attachedToRef="T_Lookup">
-      <outgoing>Fl_013</outgoing>
+      <outgoing>Fl_015</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Lookup" />
     </boundaryEvent>
-    <boundaryEvent id="Ev_Err_T_Store" name="" attachedToRef="T_Store">
-      <outgoing>Fl_014</outgoing>
-      <errorEventDefinition id="Eed_Ev_Err_T_Store" />
+    <boundaryEvent id="Ev_Err_T_Replay" name="" attachedToRef="T_Replay">
+      <outgoing>Fl_016</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_T_Replay" />
     </boundaryEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
     <sequenceFlow id="Fl_002" sourceRef="CA_Config" targetRef="T_ParseConfig" />
@@ -157,16 +167,18 @@ not done again.</documentation>
     <sequenceFlow id="Fl_005" sourceRef="T_Lookup" targetRef="G_Answered" />
     <sequenceFlow id="Fl_006" name="no" sourceRef="G_Answered" targetRef="T_Work" />
     <sequenceFlow id="Fl_007" sourceRef="T_Work" targetRef="T_Store" />
-    <sequenceFlow id="Fl_008" sourceRef="T_Store" targetRef="Ev_End" />
-    <sequenceFlow id="Fl_009" name="yes" sourceRef="G_Answered" targetRef="T_Replay">
+    <sequenceFlow id="Fl_008" sourceRef="T_Store" targetRef="T_Answer" />
+    <sequenceFlow id="Fl_009" sourceRef="T_Answer" targetRef="Ev_End" />
+    <sequenceFlow id="Fl_010" name="yes" sourceRef="G_Answered" targetRef="T_Replay">
       <conditionExpression xsi:type="tFormalExpression">#Previous != null</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="Fl_010" sourceRef="T_Replay" targetRef="Ev_Replayed" />
-    <sequenceFlow id="Fl_011" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_012" sourceRef="Ev_Err_T_RequestId" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_013" sourceRef="Ev_Err_T_Lookup" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_014" sourceRef="Ev_Err_T_Store" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_015" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <sequenceFlow id="Fl_011" sourceRef="T_Replay" targetRef="Ev_Replayed" />
+    <sequenceFlow id="Fl_012" sourceRef="Ev_Err_CA_Config" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_013" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_014" sourceRef="Ev_Err_T_RequestId" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_015" sourceRef="Ev_Err_T_Lookup" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_016" sourceRef="Ev_Err_T_Replay" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_017" sourceRef="T_HandleException" targetRef="Ev_Failed" />
     <textAnnotation id="An_Input">
       <text>Example input:
 {
@@ -177,19 +189,27 @@ not done again.</documentation>
     <association id="As_An_Input" sourceRef="An_Input" targetRef="Ev_Start" />
     <textAnnotation id="An_T_RequestId">
       <text>x-ms-client-request-id names the request: a retry after a
-lost response carries the same id. Without it the request
-is refused.</text>
+lost response carries the same id. Without it: 400. The
+key starts with the Flow's name, because every Flow on the
+stand shares the cache.</text>
     </textAnnotation>
     <association id="As_An_T_RequestId" sourceRef="An_T_RequestId" targetRef="T_RequestId" />
     <textAnnotation id="An_T_Lookup">
-      <text>The platform's distributed cache is shared by every
-instance on the stand: a retry finds the answer whichever
-instance served the first call.</text>
+      <text>Shared by every server of the stand: a retry finds the
+answer wherever the first call ran. While the work runs
+the key holds 'pending': a parallel retry gets 409. No
+cache: 503.</text>
     </textAnnotation>
     <association id="As_An_T_Lookup" sourceRef="An_T_Lookup" targetRef="T_Lookup" />
+    <textAnnotation id="An_G_Answered">
+      <text>yes: the stored answer goes back unchanged, the work is
+not done again.</text>
+    </textAnnotation>
+    <association id="As_An_G_Answered" sourceRef="An_G_Answered" targetRef="G_Answered" />
     <textAnnotation id="An_T_Store">
-      <text>Kept for cacheSeconds from the configuration Flow; after
-that the same id is a new request.</text>
+      <text>Kept for cacheSeconds from the configuration Flow. A
+failure to store is logged and the answer still goes back;
+the retry then does the work again.</text>
     </textAnnotation>
     <association id="As_An_T_Store" sourceRef="An_T_Store" targetRef="T_Store" />
 
@@ -203,9 +223,9 @@ that the same id is a new request.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
-        <omgdc:Bounds x="358" y="1113" width="36" height="50" />
+        <omgdc:Bounds x="358" y="1243" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="332" y="1169" width="88" height="18" />
+          <omgdc:Bounds x="332" y="1299" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_T_Work" bpmnElement="DO_T_Work">
@@ -235,7 +255,7 @@ that the same id is a new request.</text>
       <bpmndi:BPMNShape id="Sh_G_Answered" bpmnElement="G_Answered">
         <omgdc:Bounds x="275" y="730" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="337" y="734" width="109" height="20" />
+          <omgdc:Bounds x="337" y="698" width="109" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_Work" bpmnElement="T_Work">
@@ -244,10 +264,13 @@ that the same id is a new request.</text>
       <bpmndi:BPMNShape id="Sh_T_Store" bpmnElement="T_Store">
         <omgdc:Bounds x="250" y="990" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_T_Answer" bpmnElement="T_Answer">
+        <omgdc:Bounds x="250" y="1120" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_End" bpmnElement="Ev_End">
-        <omgdc:Bounds x="282" y="1120" width="36" height="36" />
+        <omgdc:Bounds x="282" y="1250" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="156" y="1131" width="118" height="14" />
+          <omgdc:Bounds x="156" y="1261" width="118" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_Replay" bpmnElement="T_Replay">
@@ -260,13 +283,16 @@ that the same id is a new request.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="418" y="640" width="100" height="80" />
+        <omgdc:Bounds x="468" y="380" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="568" y="662" width="36" height="36" />
+        <omgdc:Bounds x="618" y="402" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="616" y="636" width="112" height="14" />
+          <omgdc:Bounds x="590" y="382" width="93" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_CA_Config" bpmnElement="Ev_Err_CA_Config">
+        <omgdc:Bounds x="332" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
@@ -277,8 +303,8 @@ that the same id is a new request.</text>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_Lookup" bpmnElement="Ev_Err_T_Lookup">
         <omgdc:Bounds x="332" y="662" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_Ev_Err_T_Store" bpmnElement="Ev_Err_T_Store">
-        <omgdc:Bounds x="332" y="1052" width="36" height="36" />
+      <bpmndi:BPMNShape id="Sh_Ev_Err_T_Replay" bpmnElement="Ev_Err_T_Replay">
+        <omgdc:Bounds x="382" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
         <di:waypoint x="300" y="116" />
@@ -316,38 +342,47 @@ that the same id is a new request.</text>
         <di:waypoint x="300" y="1120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_009" bpmnElement="Fl_009">
+        <di:waypoint x="300" y="1200" />
+        <di:waypoint x="300" y="1250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_010" bpmnElement="Fl_010">
         <di:waypoint x="275" y="755" />
         <di:waypoint x="200" y="755" />
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="235" y="723" width="27" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Ed_Fl_010" bpmnElement="Fl_010">
+      <bpmndi:BPMNEdge id="Ed_Fl_011" bpmnElement="Fl_011">
         <di:waypoint x="100" y="755" />
         <di:waypoint x="50" y="755" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Ed_Fl_011" bpmnElement="Fl_011">
-        <di:waypoint x="368" y="420" />
-        <di:waypoint x="485" y="420" />
-        <di:waypoint x="485" y="640" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_012" bpmnElement="Fl_012">
-        <di:waypoint x="368" y="550" />
-        <di:waypoint x="452" y="550" />
-        <di:waypoint x="452" y="640" />
+        <di:waypoint x="368" y="290" />
+        <di:waypoint x="502" y="290" />
+        <di:waypoint x="502" y="380" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_013" bpmnElement="Fl_013">
-        <di:waypoint x="368" y="680" />
-        <di:waypoint x="418" y="680" />
+        <di:waypoint x="368" y="420" />
+        <di:waypoint x="468" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_014" bpmnElement="Fl_014">
-        <di:waypoint x="368" y="1070" />
-        <di:waypoint x="468" y="1070" />
-        <di:waypoint x="468" y="720" />
+        <di:waypoint x="368" y="550" />
+        <di:waypoint x="502" y="550" />
+        <di:waypoint x="502" y="460" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_015" bpmnElement="Fl_015">
-        <di:waypoint x="518" y="680" />
-        <di:waypoint x="568" y="680" />
+        <di:waypoint x="368" y="680" />
+        <di:waypoint x="535" y="680" />
+        <di:waypoint x="535" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_016" bpmnElement="Fl_016">
+        <di:waypoint x="418" y="160" />
+        <di:waypoint x="535" y="160" />
+        <di:waypoint x="535" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_017" bpmnElement="Fl_017">
+        <di:waypoint x="568" y="420" />
+        <di:waypoint x="618" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
         <omgdc:Bounds x="-62" y="730" width="36" height="50" />
@@ -356,9 +391,9 @@ that the same id is a new request.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output_2" bpmnElement="DO_Output_2">
-        <omgdc:Bounds x="644" y="655" width="36" height="50" />
+        <omgdc:Bounds x="694" y="395" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="618" y="711" width="88" height="18" />
+          <omgdc:Bounds x="668" y="451" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
@@ -370,21 +405,28 @@ that the same id is a new request.</text>
         <di:waypoint x="294" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_RequestId" bpmnElement="An_T_RequestId">
-        <omgdc:Bounds x="-171" y="480" width="381" height="60" />
+        <omgdc:Bounds x="-177" y="473" width="387" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_RequestId" bpmnElement="As_An_T_RequestId">
         <di:waypoint x="210" y="510" />
         <di:waypoint x="250" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Lookup" bpmnElement="An_T_Lookup">
-        <omgdc:Bounds x="-171" y="610" width="381" height="60" />
+        <omgdc:Bounds x="-158" y="603" width="368" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Lookup" bpmnElement="As_An_T_Lookup">
         <di:waypoint x="210" y="640" />
         <di:waypoint x="250" y="640" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Sh_An_G_Answered" bpmnElement="An_G_Answered">
+        <omgdc:Bounds x="365" y="732" width="368" height="46" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Ed_As_An_G_Answered" bpmnElement="As_An_G_Answered">
+        <di:waypoint x="365" y="747" />
+        <di:waypoint x="325" y="747" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Store" bpmnElement="An_T_Store">
-        <omgdc:Bounds x="-165" y="1007" width="375" height="46" />
+        <omgdc:Bounds x="-177" y="1000" width="387" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Store" bpmnElement="As_An_T_Store">
         <di:waypoint x="210" y="1030" />
@@ -399,16 +441,16 @@ that the same id is a new request.</text>
         <di:waypoint x="210" y="900" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_End" bpmnElement="Dia_Ev_End">
-        <di:waypoint x="358" y="1138" />
-        <di:waypoint x="318" y="1138" />
+        <di:waypoint x="358" y="1268" />
+        <di:waypoint x="318" y="1268" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Replayed" bpmnElement="Dia_Ev_Replayed">
         <di:waypoint x="-26" y="755" />
         <di:waypoint x="14" y="755" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="644" y="680" />
-        <di:waypoint x="604" y="680" />
+        <di:waypoint x="694" y="420" />
+        <di:waypoint x="654" y="420" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>

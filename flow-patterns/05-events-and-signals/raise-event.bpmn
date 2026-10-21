@@ -63,30 +63,36 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/05-ev
         <ep:elementParameter name="ElementImplementation">{"actionType": "Action", "action": "HandleException", "actionParam": {"prevData": "#PreviousData"}}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_005</incoming>
-      <outgoing>Fl_006</outgoing>
+      <incoming>Fl_006</incoming>
+      <outgoing>Fl_007</outgoing>
     </task>
     <endEvent id="Ev_Failed" name="raise-event">
       <documentation>Failure, HTTP 500, JOB_FAILED: returns ErrorResponse built by the error branch from the exception of the step that failed.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "JOB_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"the job could not be started\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
-      <incoming>Fl_006</incoming>
+      <incoming>Fl_007</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
         <sourceRef>DO_Output_1</sourceRef>
         <targetRef>Prop_Ev_Failed</targetRef>
       </dataInputAssociation>
     </endEvent>
-    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+    <boundaryEvent id="Ev_Err_CA_Config" name="" attachedToRef="CA_Config">
       <outgoing>Fl_005</outgoing>
+      <errorEventDefinition id="Eed_Ev_Err_CA_Config" />
+    </boundaryEvent>
+    <boundaryEvent id="Ev_Err_T_ParseConfig" name="" attachedToRef="T_ParseConfig">
+      <outgoing>Fl_006</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_ParseConfig" />
     </boundaryEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
     <sequenceFlow id="Fl_002" sourceRef="CA_Config" targetRef="T_ParseConfig" />
     <sequenceFlow id="Fl_003" sourceRef="T_ParseConfig" targetRef="T_Work" />
     <sequenceFlow id="Fl_004" sourceRef="T_Work" targetRef="Ev_End" />
-    <sequenceFlow id="Fl_005" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_006" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <sequenceFlow id="Fl_005" sourceRef="Ev_Err_CA_Config" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_006" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
+    <sequenceFlow id="Fl_007" sourceRef="T_HandleException" targetRef="Ev_Failed" />
     <boundaryEvent id="Event_Progress" name="progress" cancelActivity="false" attachedToRef="T_Work">
       <outgoing>Fl_Event_Progress</outgoing>
       <messageEventDefinition id="Med_Event_Progress" />
@@ -150,13 +156,16 @@ reports progress while this one keeps working.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="418" y="380" width="100" height="80" />
+        <omgdc:Bounds x="418" y="315" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="568" y="402" width="36" height="36" />
+        <omgdc:Bounds x="568" y="337" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="552" y="382" width="68" height="14" />
+          <omgdc:Bounds x="552" y="317" width="68" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Sh_Ev_Err_CA_Config" bpmnElement="Ev_Err_CA_Config">
+        <omgdc:Bounds x="332" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_ParseConfig" bpmnElement="Ev_Err_T_ParseConfig">
         <omgdc:Bounds x="332" y="402" width="36" height="36" />
@@ -178,31 +187,37 @@ reports progress while this one keeps working.</text>
         <di:waypoint x="300" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_005" bpmnElement="Fl_005">
-        <di:waypoint x="368" y="420" />
-        <di:waypoint x="418" y="420" />
+        <di:waypoint x="368" y="290" />
+        <di:waypoint x="468" y="290" />
+        <di:waypoint x="468" y="315" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_006" bpmnElement="Fl_006">
-        <di:waypoint x="518" y="420" />
-        <di:waypoint x="568" y="420" />
+        <di:waypoint x="368" y="420" />
+        <di:waypoint x="468" y="420" />
+        <di:waypoint x="468" y="395" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Ed_Fl_007" bpmnElement="Fl_007">
+        <di:waypoint x="518" y="355" />
+        <di:waypoint x="568" y="355" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
-        <omgdc:Bounds x="644" y="395" width="36" height="50" />
+        <omgdc:Bounds x="644" y="330" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="618" y="451" width="88" height="18" />
+          <omgdc:Bounds x="618" y="386" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Event_Progress" bpmnElement="Event_Progress">
         <omgdc:Bounds x="332" y="452" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="380" y="500" width="76" height="14" />
+          <omgdc:Bounds x="380" y="426" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Event_Notify" bpmnElement="Event_Notify">
-        <omgdc:Bounds x="568" y="452" width="36" height="36" />
+        <omgdc:Bounds x="418" y="452" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Fl_Event_Progress" bpmnElement="Fl_Event_Progress">
         <di:waypoint x="368" y="470" />
-        <di:waypoint x="568" y="470" />
+        <di:waypoint x="418" y="470" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
         <omgdc:Bounds x="107" y="-29" width="135" height="74" />
@@ -228,8 +243,8 @@ reports progress while this one keeps working.</text>
         <di:waypoint x="318" y="618" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="644" y="420" />
-        <di:waypoint x="604" y="420" />
+        <di:waypoint x="644" y="355" />
+        <di:waypoint x="604" y="355" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>

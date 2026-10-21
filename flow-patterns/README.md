@@ -1,11 +1,8 @@
 # Flow patterns
 
-Teaching examples for the MEF.DEV platform, one per problem. Each was written to
-be read: small enough to hold in your head, commented in the code itself, and
-compiled against the real platform before it was published here.
-
-Every example is under the licence of this repository. None of them is a
-production Flow with the names filed off — they were built for this folder.
+Teaching examples for the MEF.DEV platform, one per problem: small, commented in
+the code itself, compiled and started on the platform. Every example is under
+the licence of this repository.
 
 ## The groups
 
@@ -64,8 +61,8 @@ error branch, which is the correct behaviour and is shown in the group's README.
 
 ## What was actually verified
 
-Every model was compiled against the platform and then **started**, and the
-replies below are what came back — not what the code was expected to produce.
+Every model was compiled against the platform and then **started**; the replies
+below are the ones the platform returned.
 
 | Model | Input | Result |
 |---|---|---|
@@ -80,7 +77,7 @@ replies below are what came back — not what the code was expected to produce.
 | `raise-event` | `{"jobId":"JOB-7"}` | `{"jobId":"JOB-7"}`, with a progress event per part |
 | `stream-response` | `{"topic":"USD"}` | `{"topic":"USD"}`, every line passed on through `Event_Chunk` |
 | `archive-and-link` | `{"note":"quarterly summary"}` | the folder and a link to the archive |
-| `idempotent-request` | `{"orderId":"ORD-1001","amount":25.5}`, `x-ms-client-request-id` | first call: `cacheStatus` `Added`; the same id again: the same `confirmation`, `cacheStatus` `IsCompleted` |
+| `idempotent-request` | `{"orderId":"ORD-1001","amount":25.5}`, `x-ms-client-request-id` | first call: HTTP 201, `cacheStatus` `Added`; the same id again: HTTP 201, the same `confirmation`, `cacheStatus` `IsCompleted`; no header: HTTP 400 |
 
 Two limits still shape what these models can show, and both are outside the
 diagrams:
@@ -115,8 +112,3 @@ starts in the specification, and the model is regenerated, never edited by
 hand. Read the specification when you want the decisions without the diagram
 around them.
 
----
-
-Every model here compiles against the platform. The models are generated from
-the platform's own function catalogue, so their declarations cannot drift from
-the engine that runs them.

@@ -56,6 +56,11 @@ The configuration Flow answers with the settings:
  "login":"","password":"","pageSize":10,"language":"en","cacheSeconds":300}
 ```
 
+This Flow is meant to be called by other Flows (a Call Activity), not by
+outside callers: it returns every setting it holds. `login` and `password`
+are empty here; a real deployment keeps credentials out of any answer that
+leaves the platform.
+
 The consumer builds a call out of them:
 
 ```
