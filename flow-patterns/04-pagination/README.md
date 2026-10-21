@@ -40,13 +40,13 @@ start → read one page → end
 
 The data element carrying the pages is marked as a set twice, and the two marks
 do different jobs. `isCollection="true"` is what BPMN reads, and what makes a
-viewer draw the three-bar collection marker. The `[]` in the name is for the
-person reading the diagram, and for the repository's own linter.
+viewer draw the three-bar collection marker. The `[]` in the name is read by
+the engine: the name is the type, and `PageInfo[]` compiles to
+`List<PageInfo>` — on the end event it is the type of the answer.
 
-What actually drives the iteration is neither: the Sub Process carries
+What drives the iteration is neither: the Sub Process carries
 `multiInstanceLoopCharacteristics`, and the engine iterates over the result it
-receives: the marks document the intent, the loop characteristics are the
-mechanism.
+receives.
 
 ## What you should get back
 
@@ -60,8 +60,9 @@ HTTP 200
  {"number":3,"startIndex":20,"size":10}]
 ```
 
-Twenty-five rows at ten per page make three pages, the last one short. The
-order is not guaranteed: with `PackSize` 2 two instances run at once, and the
+Twenty-five rows at ten per page make three pages. `size` is the page size on
+every page; the third page holds rows 21–25, and the answer's range is cut at
+`total` (see `Content-Range` below). The order is not guaranteed: with `PackSize` 2 two instances run at once, and the
 result lists them as they finish — the run above returned page 2 first. Sort by
 `number` when the order matters. The run log carries one line per page, each
 naming the URL that page would read:
