@@ -3,7 +3,7 @@
   <extensionElements>
     <gp:globalParameter name="InnerTypes">[{"name": "LookupRequest", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/LookupRequest\", \"definitions\": {\"LookupRequest\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"key\": {\"type\": \"string\"}}, \"title\": \"LookupRequest\"}}}", "isNativeDefinition": false}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
     <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}]</gp:globalParameter>
-    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
+    <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    if (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object rawResponse)\n        &amp;&amp; rawResponse is Microsoft.AspNetCore.Http.HttpResponse httpResponse)\n        httpResponse.StatusCode = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
@@ -34,7 +34,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     </callActivity>
     <task id="T_ParseConfig" name="Parse Config">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Depending on the platform version a Call Activity returns the\n// called Flow's own object or JSON. Both are accepted.\nvar prev = #Previous;\nExternalConfig cfg = prev as ExternalConfig\n    ?? (prev is JSON json ? json.Cast&lt;ExternalConfig&gt;()\n        : Newtonsoft.Json.JsonConvert.DeserializeObject&lt;ExternalConfig&gt;(\n              Newtonsoft.Json.JsonConvert.SerializeObject(prev)))\n    ?? throw new Exception(\"bpmn-examples-config returned no settings\");\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from bpmn-examples-config\");\nreturn cfg;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// A Call Activity result is converted through JSON: new JSON(...)\n// takes the called Flow's object and JSON alike.\nExternalConfig cfg = new JSON(#Previous).Cast&lt;ExternalConfig&gt;()\n    ?? throw new Exception(\"bpmn-examples-config returned no settings\");\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from bpmn-examples-config\");\nreturn cfg;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <outgoing>Fl_003</outgoing>
@@ -181,11 +181,12 @@ indirection.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
-        <omgdc:Bounds x="229" y="-34" width="142" height="74" />
+        <omgdc:Bounds x="100" y="-29" width="142" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
-        <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="80" />
+        <di:waypoint x="242" y="20" />
+        <di:waypoint x="294" y="20" />
+        <di:waypoint x="294" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_UseConfig" bpmnElement="An_T_UseConfig">
         <omgdc:Bounds x="-152" y="473" width="362" height="74" />

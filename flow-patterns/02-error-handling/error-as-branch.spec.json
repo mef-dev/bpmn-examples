@@ -31,11 +31,23 @@
   "outcomes": {
     "success": {
       "title": "ACCEPTED",
-      "value": "{\n  \"orderId\": \"A-1001\"\n}"
+      "value": "{\n  \"orderId\": \"ORD-1001\"\n}"
     },
     "failure": {
       "title": "REJECTED",
-      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"Error while try to call action 'T_Validate/validate the order'\",\n  \"state\": \"1\"\n}"
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"orderId is required\",\n  \"state\": \"1\"\n}",
+      "documentation": "Failure, HTTP 500: the order has no orderId. message is in the caller's language (Accept-Language), else in the stand's language, else in English."
+    }
+  },
+  "messages": {
+    "orderId is required": {
+      "en": "orderId is required",
+      "uk": "Потрібно вказати orderId",
+      "fr": "orderId est obligatoire",
+      "pt": "orderId é obrigatório",
+      "es": "orderId es obligatorio",
+      "de": "orderId ist erforderlich",
+      "ar": "الحقل orderId مطلوب"
     }
   }
 }
