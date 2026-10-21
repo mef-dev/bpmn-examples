@@ -21,6 +21,10 @@ production Flow with the names filed off — they were built for this folder.
 | [08 · Agents](08-ai-agents/) | build a prompt as typed data, not as a string | `structured-prompt.bpmn` |
 | [09 · Files](09-files-and-archives/) | a file lives in a store, and what you hand back is a link | `archive-and-link.bpmn` |
 
+[smoke-test/](smoke-test/) calls every example above and answers with a report
+for the platform version that ran it: HTTP 200 when every check passed, HTTP 500
+with the failed checks and their errors otherwise.
+
 **Before your first Flow**, read [TYPE-DESIGN.md](TYPE-DESIGN.md). Most errors
 that look like a platform failure are a skipped type-design step.
 
@@ -33,12 +37,12 @@ the same model run in any environment without an edit.
 The consequence is a prerequisite. Before compiling anything else:
 
 1. Import `03-config-as-flow/service-config.bpmn` into a **tenant** library.
-2. Name it `flow-patterns-config`.
+2. Name it `bpmn-examples-config`.
 3. Compile it.
 
 Every other model then resolves
-`activities://bpmn-mnemo/tenant/<your library>/flow-patterns-config/#latest`. If
-your tenant library is named something other than `tenant_shared`, change that
+`activities://bpmn-mnemo/tenant/<your library>/bpmn-examples-config/#latest`. If
+your tenant library is named something other than `bpmn_examples`, change that
 one segment in each model, or rename the library.
 
 **A tenant library, not a personal one.** The platform resolves a personal

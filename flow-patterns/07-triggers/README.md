@@ -86,7 +86,7 @@ during development and by a route in production, with no edit in between.
 ## Run it
 
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `flow-patterns-config`. Then
+into a **tenant** library first, under the name `bpmn-examples-config`. Then
 import this file and compile it.
 
 ---

@@ -83,7 +83,7 @@ Without it a failure ends the process silently.
 ## Run it
 
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `flow-patterns-config`. Then
+into a **tenant** library first, under the name `bpmn-examples-config`. Then
 import this file and compile it.
 
 ---

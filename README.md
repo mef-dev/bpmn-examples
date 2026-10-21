@@ -18,7 +18,7 @@ comments, outcomes — and the model is generated from it.
 ## Run an example
 
 1. Import `flow-patterns/03-config-as-flow/service-config.bpmn` into a
-   **tenant** library under the name `flow-patterns-config`, and compile it.
+   **tenant** library under the name `bpmn-examples-config`, and compile it.
    The other `flow-patterns` models read their settings from this Flow.
 2. Import the model you want and compile it.
 3. Start it with the example input. You find it in a comment next to the start

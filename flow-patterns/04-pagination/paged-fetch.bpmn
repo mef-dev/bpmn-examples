@@ -5,7 +5,7 @@
     <gp:globalParameter name="ExternalTypes">[{"name": "ExternalConfig", "definition": "types://external/ConfigActivity/Config"}]</gp:globalParameter>
     <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
-    <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
+    <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
   </extensionElements>
   <process id="Process_paged_fetch" name="paged-fetch">
@@ -28,15 +28,15 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/04-pa
     </startEvent>
     <callActivity id="CA_Config" name="Get Config">
       <extensionElements>
-        <ep:elementParameter name="ElementExternalLibDef">{"libName": "tenant_shared", "libType": "tenant", "flowName": "flow-patterns-config", "version": "#latest", "packSize": 0}</ep:elementParameter>
-        <ep:elementParameter name="ExternalDefinitionLink">activities://bpmn-mnemo/tenant/tenant_shared/flow-patterns-config/#latest</ep:elementParameter>
+        <ep:elementParameter name="ElementExternalLibDef">{"libName": "bpmn_examples", "libType": "tenant", "flowName": "bpmn-examples-config", "version": "#latest", "packSize": 0}</ep:elementParameter>
+        <ep:elementParameter name="ExternalDefinitionLink">activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_001</incoming>
       <outgoing>Fl_002</outgoing>
     </callActivity>
     <task id="T_ParseConfig" name="Parse Config">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "ExternalConfig cfg = ((JSON)#Previous).Cast&lt;ExternalConfig&gt;();\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from flow-patterns-config\");\nreturn cfg;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// Depending on the platform version a Call Activity returns the\n// called Flow's own object or JSON. Both are accepted.\nvar prev = #Previous;\nExternalConfig cfg = prev as ExternalConfig\n    ?? (prev is JSON json ? json.Cast&lt;ExternalConfig&gt;()\n        : Newtonsoft.Json.JsonConvert.DeserializeObject&lt;ExternalConfig&gt;(\n              Newtonsoft.Json.JsonConvert.SerializeObject(prev)))\n    ?? throw new Exception(\"bpmn-examples-config returned no settings\");\nParameters.config = cfg;\nLogger.LogInformation($\"config loaded from bpmn-examples-config\");\nreturn cfg;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_002</incoming>
       <outgoing>Fl_003</outgoing>

@@ -100,7 +100,7 @@ collection would mean waiting for the last line before anything moves.
 ## Run it
 
 Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `flow-patterns-config`. Then
+into a **tenant** library first, under the name `bpmn-examples-config`. Then
 import this file and compile it. It compiles anywhere; whether it *runs* depends
 on your stand reaching `jsonplaceholder.typicode.com`.
 
