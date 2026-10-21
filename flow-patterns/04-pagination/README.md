@@ -45,9 +45,8 @@ person reading the diagram, and for the repository's own linter.
 
 What actually drives the iteration is neither: the Sub Process carries
 `multiInstanceLoopCharacteristics`, and the engine iterates over the result it
-receives. Both marks were removed in turn and the run still produced three
-pages — so treat them as documentation of intent, and the loop characteristics
-as the mechanism.
+receives: the marks document the intent, the loop characteristics are the
+mechanism.
 
 ## What you should get back
 
@@ -89,11 +88,12 @@ page sits in the answer's headers:
 
 | In the plan | On the API |
 |---|---|
-| `startIndex` | `offset` (default 0) |
-| `size` | `limit` (default 50) |
+| `startIndex` (from 0) | `offset` (from 0, default 0) |
+| `size` | `limit` (default 50; a `limit` in the request wins over the configured page size) |
 | `total` | `X-Total-Count` |
-| pages | `X-Page-Count` |
-| one page of the set | `Content-Range: items 1-10/25`, HTTP 206 |
+| number of pages (3 for 25 rows of 10) | `X-Page-Count` |
+| one page of the set | `Content-Range: items {startIndex+1}-{min(startIndex+size, total)}/{total}`, HTTP 206 — the last page of the example: `items 21-25/25` |
+| the whole set in one answer | HTTP 200 |
 
 A Flow that serves such an API plans the same way and returns 206 with these
 headers for a partial answer; a Flow that reads one fills `offset` and `limit`
