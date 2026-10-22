@@ -4,20 +4,23 @@ Teaching examples for the MEF.DEV platform, one per problem: small, commented in
 the code itself, compiled and started on the platform. Every example is under
 the licence of this repository.
 
+The concepts behind them are described in the
+[BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
+
 ## The groups
 
 | Group | The one thing it teaches | Model |
 |---|---|---|
 | [01 · Basics](01-basics/) | `Input` is the caller's payload, `#Previous` is the last step's result | `first-flow.bpmn` |
-| [02 · Errors](02-error-handling/) | a failure is a branch, and only `#PreviousData` carries the exception | `error-as-branch.bpmn` |
+| [02 · Errors](02-error-handling/) | a failure is a branch: HTTP 500, the text in the caller's language (`Accept-Language`, then the stand's language); only `#PreviousData` carries the exception | `error-as-branch.bpmn` |
 | [03 · Configuration](03-config-as-flow/) | settings live in their own Flow, so a model never learns its environment | `service-config.bpmn`, `use-config.bpmn` |
-| [04 · Pagination](04-pagination/) | plan the pages first, then walk them with Multi Instance | `paged-fetch.bpmn` |
+| [04 · Pagination](04-pagination/) | plan the pages first, then walk them with Multi Instance; on an API, `offset`/`limit` and `Content-Range` | `paged-fetch.bpmn` |
 | [05 · Events](05-events-and-signals/) | a step can raise an event and keep working | `raise-event.bpmn` |
 | [06 · Streaming](06-streaming-sse/) | read a response as it arrives, pass each chunk on | `stream-response.bpmn` |
 | [07 · Triggers](07-triggers/) | the start event decides how a Flow is reached | `http-start.bpmn` |
 | [08 · Agents](08-ai-agents/) | build a prompt as typed data, not as a string | `structured-prompt.bpmn` |
 | [09 · Files](09-files-and-archives/) | a file lives in a store, and what you hand back is a link | `archive-and-link.bpmn` |
-| [10 · Idempotency](10-idempotency/) | a repeated request gets the stored answer from the distributed cache | `idempotent-request.bpmn` |
+| [10 · Idempotency](10-idempotency/) | a repeated `x-ms-client-request-id` gets the stored answer from the distributed cache; HTTP 201, 400, 409, 503 | `idempotent-request.bpmn` |
 
 **Before your first Flow**, read [TYPE-DESIGN.md](TYPE-DESIGN.md). Most errors
 that look like a platform failure are a skipped type-design step.

@@ -3,11 +3,14 @@
 BPMN models (Flows) that run on the MEF.DEV platform. Each `.bpmn` file can be
 imported into the MEF.DEV BPMN designer, compiled and started.
 
+How BPMN Low-Code works on the platform:
+[BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
+
 ## What is in this repository
 
 | Folder | Contents |
 |---|---|
-| [flow-patterns](flow-patterns/) | Ten teaching models, one per problem: typed input and output, errors as a branch, configuration in a separate Flow, paging with Multi Instance, events, streaming, triggers, AI requests, files. **Start here.** |
+| [flow-patterns](flow-patterns/) | Ten teaching models, one per problem: typed input and output, errors as a branch with HTTP status and text in the caller's language, configuration in a separate Flow, paging with Multi Instance and `Content-Range`, events, streaming, triggers, AI requests, files, idempotent requests with the distributed cache. **Start here.** |
 | [tmforum-apis](tmforum-apis/) | 30 Flows that implement TM Forum Open API operations, one Flow per operation, with the OpenAPI specifications and Postman collections next to them. |
 | [3gpp-apis](3gpp-apis/) | The 3GPP Rf rating function: OpenAPI specification and Postman collections. |
 
@@ -47,6 +50,7 @@ comments, outcomes — and the model is generated from it.
 
 ## Links
 
+- [BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md)
 - [MEF.DEV platform documentation](https://platform.mef.dev/plugin_basics/introduction.md)
 - [Run the platform with Docker Compose](https://github.com/mef-dev/docker)
 - [Run the platform on Kubernetes](https://github.com/mef-dev/k8s)
