@@ -22,6 +22,8 @@ start → Get Config → Parse Config → compose the greeting → end
                     handle Exception → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 Five nodes, and three of them are there before your own work begins. That is the
 point of reading this one first.
 

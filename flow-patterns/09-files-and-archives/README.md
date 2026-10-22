@@ -23,6 +23,8 @@ start → Get Config → Parse Config → make sure the folder is there
                                           → pack it and issue a link → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 Two stores hang off the steps that use them: the folder off `T_Folder`, the
 file off `T_Archive`.
 

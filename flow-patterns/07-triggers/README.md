@@ -20,6 +20,8 @@ start (POST /webhook) → Get Config → Parse Config → accept the call → en
                                     handle Exception → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 The only difference from [01 · Basics](../01-basics/) is the parameter on the
 start event. Everything downstream is unchanged — which is the point: how a Flow
 is triggered is a property of its start, not of its body.
