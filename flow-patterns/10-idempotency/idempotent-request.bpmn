@@ -52,7 +52,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
     </task>
     <task id="T_Lookup" name="look for the stored answer">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "var cache = ServiceProvider.GetService&lt;IDistributedCache&gt;()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\nreturn stored;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "var cache = ServiceProvider.GetService&lt;IDistributedCache&gt;()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n{\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\n    return null;\n}\nreturn JsonConvert.DeserializeObject(stored);   // a damaged entry fails here"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <outgoing>Fl_005</outgoing>
@@ -100,7 +100,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
     </endEvent>
     <task id="T_Replay" name="answer as before">
       <extensionElements>
-        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = JsonConvert.DeserializeObject&lt;PaymentAnswer&gt;((string)#Previous);\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
+        <ep:elementParameter name="ElementImplementation">{"actionType": "Expression", "action": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = new JSON(#Previous).Cast&lt;PaymentAnswer&gt;();\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    &amp;&amp; raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_010</incoming>
       <outgoing>Fl_011</outgoing>
@@ -125,15 +125,14 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
       <incoming>Fl_013</incoming>
       <incoming>Fl_014</incoming>
       <incoming>Fl_015</incoming>
-      <incoming>Fl_016</incoming>
-      <outgoing>Fl_017</outgoing>
+      <outgoing>Fl_016</outgoing>
     </task>
     <endEvent id="Ev_Failed" name="request refused">
       <documentation>Refusal: HTTP 400 without x-ms-client-request-id, 409 while the same request is in progress, 503 when the cache is not available; message in the caller's language.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "500", "exampelsVariants": [{"title": "NO_REQUEST_ID", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 400,\n  \"message\": \"x-ms-client-request-id is required\",\n  \"state\": \"1\"\n}"}]}</ep:elementParameter>
       </extensionElements>
-      <incoming>Fl_017</incoming>
+      <incoming>Fl_016</incoming>
       <property id="Prop_Ev_Failed" name="__targetRef_placeholder" />
       <dataInputAssociation id="Dia_Ev_Failed">
         <sourceRef>DO_Output_2</sourceRef>
@@ -156,10 +155,6 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
       <outgoing>Fl_015</outgoing>
       <errorEventDefinition id="Eed_Ev_Err_T_Lookup" />
     </boundaryEvent>
-    <boundaryEvent id="Ev_Err_T_Replay" name="" attachedToRef="T_Replay">
-      <outgoing>Fl_016</outgoing>
-      <errorEventDefinition id="Eed_Ev_Err_T_Replay" />
-    </boundaryEvent>
     <sequenceFlow id="Fl_001" sourceRef="Ev_Start" targetRef="CA_Config" />
     <sequenceFlow id="Fl_002" sourceRef="CA_Config" targetRef="T_ParseConfig" />
     <sequenceFlow id="Fl_003" sourceRef="T_ParseConfig" targetRef="T_RequestId" />
@@ -177,8 +172,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
     <sequenceFlow id="Fl_013" sourceRef="Ev_Err_T_ParseConfig" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_014" sourceRef="Ev_Err_T_RequestId" targetRef="T_HandleException" />
     <sequenceFlow id="Fl_015" sourceRef="Ev_Err_T_Lookup" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_016" sourceRef="Ev_Err_T_Replay" targetRef="T_HandleException" />
-    <sequenceFlow id="Fl_017" sourceRef="T_HandleException" targetRef="Ev_Failed" />
+    <sequenceFlow id="Fl_016" sourceRef="T_HandleException" targetRef="Ev_Failed" />
     <textAnnotation id="An_Input">
       <text>Example input:
 {
@@ -198,7 +192,8 @@ stand shares the cache.</text>
       <text>Shared by every server of the stand: a retry finds the
 answer wherever the first call ran. While the work runs
 the key holds 'pending': a parallel retry gets 409. No
-cache: 503.</text>
+cache: 503. The stored answer is read back here, so a
+damaged entry takes the error branch.</text>
     </textAnnotation>
     <association id="As_An_T_Lookup" sourceRef="An_T_Lookup" targetRef="T_Lookup" />
     <textAnnotation id="An_G_Answered">
@@ -283,12 +278,12 @@ the retry then does the work again.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_T_HandleException" bpmnElement="T_HandleException">
-        <omgdc:Bounds x="468" y="380" width="100" height="80" />
+        <omgdc:Bounds x="418" y="445" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Failed" bpmnElement="Ev_Failed">
-        <omgdc:Bounds x="618" y="402" width="36" height="36" />
+        <omgdc:Bounds x="568" y="467" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="590" y="382" width="93" height="14" />
+          <omgdc:Bounds x="540" y="447" width="93" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_CA_Config" bpmnElement="Ev_Err_CA_Config">
@@ -302,9 +297,6 @@ the retry then does the work again.</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Err_T_Lookup" bpmnElement="Ev_Err_T_Lookup">
         <omgdc:Bounds x="332" y="662" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Sh_Ev_Err_T_Replay" bpmnElement="Ev_Err_T_Replay">
-        <omgdc:Bounds x="382" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_Fl_001" bpmnElement="Fl_001">
         <di:waypoint x="300" y="116" />
@@ -358,31 +350,27 @@ the retry then does the work again.</text>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_012" bpmnElement="Fl_012">
         <di:waypoint x="368" y="290" />
-        <di:waypoint x="502" y="290" />
-        <di:waypoint x="502" y="380" />
+        <di:waypoint x="485" y="290" />
+        <di:waypoint x="485" y="445" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_013" bpmnElement="Fl_013">
         <di:waypoint x="368" y="420" />
-        <di:waypoint x="468" y="420" />
+        <di:waypoint x="452" y="420" />
+        <di:waypoint x="452" y="445" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_014" bpmnElement="Fl_014">
         <di:waypoint x="368" y="550" />
-        <di:waypoint x="502" y="550" />
-        <di:waypoint x="502" y="460" />
+        <di:waypoint x="452" y="550" />
+        <di:waypoint x="452" y="525" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_015" bpmnElement="Fl_015">
         <di:waypoint x="368" y="680" />
-        <di:waypoint x="535" y="680" />
-        <di:waypoint x="535" y="460" />
+        <di:waypoint x="485" y="680" />
+        <di:waypoint x="485" y="525" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Fl_016" bpmnElement="Fl_016">
-        <di:waypoint x="418" y="160" />
-        <di:waypoint x="535" y="160" />
-        <di:waypoint x="535" y="380" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Ed_Fl_017" bpmnElement="Fl_017">
-        <di:waypoint x="568" y="420" />
-        <di:waypoint x="618" y="420" />
+        <di:waypoint x="518" y="485" />
+        <di:waypoint x="568" y="485" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_DO_Output_1" bpmnElement="DO_Output_1">
         <omgdc:Bounds x="-62" y="730" width="36" height="50" />
@@ -391,9 +379,9 @@ the retry then does the work again.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_DO_Output_2" bpmnElement="DO_Output_2">
-        <omgdc:Bounds x="694" y="395" width="36" height="50" />
+        <omgdc:Bounds x="644" y="460" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="668" y="451" width="88" height="18" />
+          <omgdc:Bounds x="618" y="516" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
@@ -412,7 +400,7 @@ the retry then does the work again.</text>
         <di:waypoint x="250" y="510" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Lookup" bpmnElement="An_T_Lookup">
-        <omgdc:Bounds x="-158" y="603" width="368" height="74" />
+        <omgdc:Bounds x="-158" y="596" width="368" height="88" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_T_Lookup" bpmnElement="As_An_T_Lookup">
         <di:waypoint x="210" y="640" />
@@ -449,8 +437,8 @@ the retry then does the work again.</text>
         <di:waypoint x="14" y="755" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Ed_Dia_Ev_Failed" bpmnElement="Dia_Ev_Failed">
-        <di:waypoint x="694" y="420" />
-        <di:waypoint x="654" y="420" />
+        <di:waypoint x="644" y="485" />
+        <di:waypoint x="604" y="485" />
       </bpmndi:BPMNEdge>
 
     </bpmndi:BPMNPlane>
