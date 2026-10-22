@@ -73,7 +73,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/09-fi
     <endEvent id="Ev_End" name="archive-and-link">
       <documentation>Success, HTTP 200, ARCHIVED: returns ArchiveResult.</documentation>
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "ARCHIVED", "value": "{\n  \"folder\": \"flow-patterns/archive-demo\",\n  \"url\": \"https://&lt;stand&gt;/api/v0/storage/link/…\"\n}"}]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "ARCHIVED", "value": "{\n  \"folder\": \"flow-patterns/archive-demo\",\n  \"url\": \"https://&lt;host&gt;/s/tenant/…\"\n}"}]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_006</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />

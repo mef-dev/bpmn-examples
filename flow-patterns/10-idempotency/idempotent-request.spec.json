@@ -36,14 +36,14 @@
       "name": "read the request id",
       "risky": true,
       "expression": "// A published plugin gets the HTTP request; a start through the API, its headers.\nstring requestId;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpRequest http)\n    requestId = http.Headers[\"x-ms-client-request-id\"].ToString();\nelse\n    requestId = ServiceProvider.GetService<HttpRequestService>()?.Request?.Headers?\n        .FirstOrDefault(h => string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"idempotent-request:{requestId}\";\nreturn requestId;",
-      "note": "x-ms-client-request-id names the request: a retry after a lost response carries the same id. Without it: 400. The key starts with the Flow's name, because every Flow on the stand shares the cache."
+      "note": "x-ms-client-request-id names the request: a retry after a lost response carries the same id. Without it: 400. The key starts with the Flow's name, because every Flow on the installation shares the cache."
     },
     {
       "id": "T_Lookup",
       "name": "look for the stored answer",
       "risky": true,
       "expression": "var cache = ServiceProvider.GetService<IDistributedCache>()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n{\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\n    return null;\n}\nreturn JsonConvert.DeserializeObject(stored);   // a damaged entry fails here",
-      "note": "Shared by every server of the stand: a retry finds the answer wherever the first call ran. While the work runs the key holds 'pending': a parallel retry gets 409. No cache: 503. The stored answer is read back here, so a damaged entry takes the error branch."
+      "note": "Shared by every server of the installation: a retry finds the answer wherever the first call ran. While the work runs the key holds 'pending': a parallel retry gets 409. No cache: 503. The stored answer is read back here, so a damaged entry takes the error branch."
     },
     {
       "id": "G_Answered",

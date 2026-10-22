@@ -96,7 +96,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
     <textAnnotation id="An_Input">
       <text>Example input:
 {
-  "key": "greeting"
+  "key": "EUR"
 }</text>
     </textAnnotation>
     <association id="As_An_Input" sourceRef="An_Input" targetRef="Ev_Start" />
@@ -196,7 +196,7 @@ indirection.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
-        <omgdc:Bounds x="100" y="-29" width="142" height="74" />
+        <omgdc:Bounds x="132" y="-29" width="110" height="74" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
         <di:waypoint x="242" y="20" />

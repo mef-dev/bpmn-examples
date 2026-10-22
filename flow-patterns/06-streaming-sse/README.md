@@ -7,24 +7,31 @@ on as it lands, keeps memory flat and lets the caller see progress.
 
 | Capability | Where to look |
 |---|---|
-| A built-in function as a step | `T_Call`, `actionType: Function`, `action: RestApi/GET` |
-| Every declared argument, `Timeout` included | the `actionParam` of `T_Call` |
+| A built-in function as a step | `open the stream` (`T_Call`): `actionType: Function`, `action: RestApi/GET` |
+| Every declared argument, `Timeout` included | the `actionParam` of `open the stream` |
 | Credentials taken from the configuration | `Login` and `Password`, read from `Parameters.config` |
-| `#Previous.Reader` — the open response body | `T_Stream`, the `while` loop |
+| `#Previous.Reader` — the open response body | `read the stream line by line` (`T_Stream`), the `while` loop |
 | Passing each chunk out through an event | `Action.BoundaryEvents["Event_Chunk"].Raise(line)` |
-| A non-interrupting boundary event | `Event_Chunk`, `cancelActivity="false"` |
+| A non-interrupting boundary event | `chunk` (`Event_Chunk`), `cancelActivity="false"` |
 
 ## The model
 
 ```
-start → Get Config → Parse Config → open the stream → read line by line → end
-                                                             │
-                                                     (chunk, non-interrupting)
-                                                             ↓
-                                              send the chunk on (to Server-side events)
+start → Get Config → Parse Config → open the stream → read the stream line by line → end
+            ↓             ↓               ↓                    │
+            │             │               │          (chunk, non-interrupting)
+            │             │               │                    ↓
+            │             │               │          send the chunk on
+            └─────────────┴───────────────┴──→ handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`send the chunk on` (`Event_Send`) passes each line to `Server-side events`, the
+platform's server-sent events channel: a client subscribed to it over HTTP
+receives the lines as they are read.
+
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
 ## Types it declares
 
@@ -51,9 +58,9 @@ branch behind it passes the line to `Server-side events`, where a subscriber
 receives it. Add `debug=true` to the start call and the trace shows one
 transition out of `Event_Chunk` per line, while `T_Stream` is still running.
 
-When the stand cannot reach the endpoint, the call fails and the error branch
-answers — the example working correctly, because an unreachable endpoint is a
-failure and the failure has a path:
+When the installation cannot reach the endpoint, the call fails and the error
+branch answers — the example working correctly, because an unreachable endpoint
+is a failure and the failure has a path:
 
 ```
 {"levelMessage":"11","statusCode":500,
@@ -66,15 +73,15 @@ resolved configuration is visible:
 ```json
 "config": { "ratesUrl": "https://api.frankfurter.dev/v1",
             "listUrl": "https://jsonplaceholder.typicode.com/posts",
-            "login": "", "password": "", "pageSize": 10 }
+            "login": "", "password": "", "pageSize": 10,
+            "language": "en", "cacheSeconds": 300 }
 ```
 
 Use that when a Flow behaves as if it had no settings: it tells you whether the
 configuration arrived or the call itself is at fault.
 
-**Each `Raise` starts its own branch of execution.** Measured on the stand: 50 raises
-in one run take 0.8 s in total. That is fine for lines of an answer; for a long
-token stream, send in batches.
+**Each `Raise` starts its own branch of execution.** That is fine for the lines
+of an answer; for a long token stream, send in batches.
 
 ## Why it is built this way
 
@@ -94,17 +101,17 @@ collection would mean waiting for the last line before anything moves.
 
 - **Reading the body twice.** `.Reader` is a stream: once consumed, it is gone.
   Keep what you need as you pass.
-- **Expecting a body from the process.** The result is the sequence of chunks. If
-  you also need a summary, join the branches before the end event.
+- **Expecting the lines in the reply.** The lines go to subscribers through
+  `Event_Chunk`; the reply is only the request handed back. If the caller also
+  needs a summary, build it in `read the stream line by line` and return it.
 - **Blank lines.** Streamed protocols use them as separators; the loop skips them
   rather than raising empty events.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it. It compiles anywhere; whether it *runs* depends
-on your stand reaching `jsonplaceholder.typicode.com`.
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library and compile it. It compiles anywhere; whether it *runs*
+depends on your installation reaching `jsonplaceholder.typicode.com`.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

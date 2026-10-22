@@ -7,26 +7,30 @@ on the diagram, and what you hand back is a link — not the bytes.
 
 | Capability | Where to look |
 |---|---|
-| A **Folder** data store | `DS_Folder`, `storeParameters` with `"type": "Folder"` |
-| A **File** data store | `DS_File`, `"type": "File"` |
-| Binding a store to the step that uses it | `dataInputAssociation` inside `T_Folder` and `T_Archive` |
-| Creating a folder before writing into it | `T_Folder`, `IsExists()` then `CreateFolder()` |
-| A built-in that writes a file | `T_Write`, `actionType: Function`, `action: IO/Local/File` |
-| Packing a file into a zip | `T_Archive`, `GetFile().AddToZip("archive.zip")` |
-| A download link the platform issues | `T_Archive`, `archive.CreateLink()` |
+| A **Folder** data store | `the folder` (`DS_Folder`), `storeParameters` with `"type": "Folder"` |
+| A **File** data store | `the file inside it` (`DS_File`), `"type": "File"` |
+| Binding a store to the step that uses it | `dataInputAssociation` inside `make sure the folder is there` and `pack it and issue a link` |
+| Creating a folder before writing into it | `make sure the folder is there` (`T_Folder`): `IsExists()` then `CreateFolder()` |
+| A built-in that writes a file | `write one file into it` (`T_Write`): `actionType: Function`, `action: IO/Local/File` |
+| Packing a file into a zip | `pack it and issue a link` (`T_Archive`): `GetFile().AddToZip("archive.zip")` |
+| A download link the platform issues | `pack it and issue a link`: `archive.CreateLink()` |
 
 ## The model
 
 ```
-start → Get Config → Parse Config → make sure the folder is there
-                                          → write one file into it
-                                          → pack it and issue a link → end
+start → Get Config → Parse Config → make sure the folder is there → write one file into it
+                                     → pack it and issue a link → end
+
+every step above, except start → handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
-Two stores hang off the steps that use them: the folder off `T_Folder`, the
-file off `T_Archive`.
+Two stores hang off the steps that use them: `the folder` off
+`make sure the folder is there`, `the file inside it` off
+`pack it and issue a link`.
 
 ## Types it declares
 
@@ -35,7 +39,7 @@ file off `T_Archive`.
 | `ArchiveRequest` | inner, JSON Schema | the process boundary; `Input.note` is the content to write |
 | `ArchiveResult` | inner, C# class | what comes back: the folder and the link |
 | `ErrorResponse` | inner, JSON Schema | the shape of a failure |
-| `ExternalConfig` | external | the configuration Flow, imported the same way as everywhere |
+| `ExternalConfig` | external | the configuration type |
 
 `LocalFolder` and `LocalFile` are not declared by you. They are what the store
 bindings answer with: `DataAssociations.DS_Folder.GetFolder()` and
@@ -47,18 +51,20 @@ bindings answer with: `DataAssociations.DS_Folder.GetFolder()` and
 { "note": "quarterly summary" }   →   HTTP 200
 
 {"folder":"flow-patterns/archive-demo",
- "url":"https://<stand>/s/tenant/21b744842fe98a2329ebd4cb422b21d8"}
+ "url":"https://<host>/s/tenant/21b744842fe98a2329ebd4cb422b21d8"}
 ```
 
 The link is live: it carries its own authorisation, so it can be handed to
-someone who has no session on the stand.
+someone who has no session on the installation.
 
 ## Why it is built this way
 
-**A folder is a path, not an object of its own.** There is no folder API in the
-engine's catalogue — `IO/Local/File` and `IO/Local/Archive` are the only file
-functions there is. `flow-patterns/archive-demo` is one string, two levels deep,
-and the store treats it as a folder because its `type` says `Folder`.
+**A folder is a path, not an object of its own.** There is no built-in
+function for folders; `IO/Local/File` and `IO/Local/Archive` are the file
+functions. Folders are created through the Folder store binding
+(`IsExists()`, `CreateFolder()`). `flow-patterns/archive-demo` is one string,
+two levels deep, and the store treats it as a folder because its `type` says
+`Folder`.
 
 **The folder is made before anything is written.** Writing does not bring a
 missing folder into being; the store answers
@@ -68,30 +74,21 @@ DirectoryNotFoundException: Could not find a part of the path
 '/storage/…/documents/tenant/flow-patterns/archive-demo/note.txt'
 ```
 
-That is why `T_Folder` comes first, and why it asks `IsExists()` before calling
-`CreateFolder()`.
+That is why `make sure the folder is there` comes first, and why it asks
+`IsExists()` before calling `CreateFolder()`.
 
-**A store's `object` is taken literally.** Substitution works in the arguments
-of a function — `fileContent` here is `{Input.note}` and arrives filled in — but
-not in a data store. Measured on a stand with three stores in one run:
-
-```
-braced={Input.folder}   bare=Input.folder   literal=reports/2026-09
-```
-
-Neither form is replaced. So the location lives in the model and only the
-content comes from the caller. Put a path in a store expecting `Input` to reach
-it and you will get a folder literally named `{Input.folder}`.
+**A store's path is taken literally.** Substitution works in the arguments of a
+function — `fileContent` here is `{Input.note}` and arrives filled in — but not
+in a data store: a store path `{Input.x}` creates a folder literally named
+`{Input.x}`. So the location lives in the model and only the content comes from
+the caller.
 
 **Every store is bound to a step.** The engine keeps only the stores that are
 connected to the step by an input association. A store that nobody is bound to
 compiles and then is not there — `DataAssociations` simply has no such member.
 
-**The archive is made from the file, not the folder.** `LocalFolder` does offer
-`AddFolderToZip`, and it would be the better call — but it takes a
-`CompressionLevel`, and `System.IO.Compression` is not among the assemblies the
-Flow compiler references. `LocalFile.AddToZip` is the reachable route: it
-takes only a name.
+**The archive is made from the file.** `LocalFile.AddToZip(name)` is the
+supported route: it takes only the archive name.
 
 ## Where newcomers stumble
 
@@ -104,10 +101,9 @@ takes only a name.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it. It needs no outbound access: everything it
-touches is the stand's own document store.
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library and compile it. It needs no outbound access: everything
+it touches is the installation's own document store.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

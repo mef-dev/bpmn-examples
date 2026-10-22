@@ -9,23 +9,28 @@ through one step, and returns typed output.
 |---|---|
 | A typed process boundary | the start and end events, each tied to a data element |
 | `Input` — what the caller sent | `T_Compose`, first line |
-| `#Previous` — the previous node's result | `T_ParseConfig`, which casts it |
-| Settings taken from a separate Flow | the `Get Config` Call Activity |
-| An error path drawn on the diagram | the boundary event on `T_ParseConfig` |
-| Writing to the run log | `Logger.LogInformation` |
+| `#Previous` — the previous step's result | `Parse Config` (`T_ParseConfig`), which casts it |
+| Settings taken from a separate Flow | `Get Config` (`CA_Config`): a Call Activity that runs the configuration Flow `bpmn-examples-config` ([03 · Configuration](../03-config-as-flow/)) |
+| An error path drawn on the diagram | the boundary error events on `Get Config` and `Parse Config`, both leading to `handle Exception` |
+| Writing to the run log | `Logger.LogInformation` in `compose the greeting` |
 
 ## The model
 
 ```
 start → Get Config → Parse Config → compose the greeting → end
-                          ↓ (on error)
-                    handle Exception → end
+            ↓             ↓ (on error)
+            └─────────────┴──→ handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
+`Parse Config` casts its answer into `Parameters.config`. Every model in this
+repository starts with these two steps; your own work begins after them.
 
-Five nodes, and three of them are there before your own work begins. That is the
-point of reading this one first.
+`handle Exception` (id `T_HandleException`) calls the Code Action
+`HandleException`, which builds the `ErrorResponse`; [02 · Errors](../02-error-handling/)
+explains it.
 
 ## Types it declares
 
@@ -33,7 +38,7 @@ point of reading this one first.
 |---|---|---|
 | `GreetingRequest` | inner, JSON Schema | the process boundary: the start event accepts it, the end event returns it. `Input.name` and `Input.language` are its fields |
 | `ErrorResponse` | inner, JSON Schema | what `HandleException` returns, so a failure has a shape too |
-| `ExternalConfig` | external → `types://external/ConfigActivity/Config` | the configuration type, declared **once** in `service-config` and only referenced here |
+| `ExternalConfig` | external → `types://external/ConfigActivity/Config` | the configuration type, declared **once** in `bpmn-examples-config` and only referenced here |
 
 `ExternalConfig` is the one worth pausing on. This file never repeats the fields
 of the configuration; it points at the Flow that owns them. Change the shape
@@ -42,7 +47,7 @@ there and every consumer sees the change, instead of each keeping a stale copy.
 ## What you should get back
 
 ```
-POST .../flowdefinitions/personal/<library>/first-flow/Start.json?run=auto
+POST https://<host>/api/v0/bpmn/flowdefinitions/tenant/bpmn_examples/first-flow/Start.json?run=auto
 { "name": "Ada", "language": "en" }
 ```
 
@@ -56,8 +61,8 @@ substitutes the default. The run log shows one line: `greeting Ada`.
 
 ## Why it is built this way
 
-**The settings come from another Flow, not from this file.** The first two nodes
-call `service-config` and cast its answer into `Parameters.config`. It looks like
+**The settings come from another Flow, not from this file.** The first two steps
+call `bpmn-examples-config` and cast its answer into `Parameters.config`. It looks like
 ceremony in an example this small, and it is the single most important habit in
 the group — see [03 · Configuration](../03-config-as-flow/) for what it buys you.
 
@@ -65,9 +70,10 @@ the group — see [03 · Configuration](../03-config-as-flow/) for what it buys 
 that `Input.nmae` does not exist, instead of the process returning null at run
 time and leaving you to guess.
 
-**The error path exists even though nothing here can fail.** A boundary error
-event sits on the parsing step, leading to a handler and its own end event.
-Without it a failure ends the process silently.
+**The error path exists even in the smallest Flow.** The configuration Flow can
+be missing or fail, and its answer can fail to cast. Boundary error events on
+both steps lead to a handler and its own end event. Without them a failure ends
+the process without an answer.
 
 ## Where newcomers stumble
 
@@ -84,9 +90,9 @@ Without it a failure ends the process silently.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it.
+Follow [Before you start](../README.md#before-you-start): the tenant library
+`bpmn_examples` with `bpmn-examples-config` in it. Then import this file into
+the same library, compile it and start it with the input above.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

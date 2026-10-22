@@ -9,18 +9,20 @@ start event turns the model into an HTTP endpoint.
 |---|---|
 | `StartSignalRoute` on the start event | the element parameter on `Ev_Start` |
 | Choosing method and path | `{"method": "POST", "route": "webhook"}` |
-| Escaping a C# keyword used as a field | `Input.@event` in `T_Accept` |
+| Escaping a C# keyword used as a field | `Input.@event` in `accept the call` (`T_Accept`) |
 | The same typed boundary as any other Flow | the data elements on start and end |
 
 ## The model
 
 ```
 start (POST /webhook) → Get Config → Parse Config → accept the call → end
-                                           ↓
-                                    handle Exception → end
+                            ↓             ↓ (on error)
+                            └─────────────┴──→ handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
 The only difference from [01 · Basics](../01-basics/) is the parameter on the
 start event. Everything downstream is unchanged — which is the point: how a Flow
@@ -50,8 +52,10 @@ Started directly, it echoes what it received:
 
 The run log carries `received 'order.created' on the declared route`.
 
-Once the Flow is published, the same process is also reachable at its declared
-route, and the caller does not need to know the Flow's name or version.
+Once the Flow is published as a plugin endpoint (designer: **Publish**), the
+same process is also reachable at its declared route, and the caller does not
+need to know the Flow's name or version. Publishing is described in the
+[platform documentation](https://platform.mef.dev/plugin_basics/introduction.md).
 
 ## Two ways to address a compiled Flow
 
@@ -87,9 +91,8 @@ during development and by a route in production, with no edit in between.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it.
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library and compile it.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

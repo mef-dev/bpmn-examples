@@ -5,7 +5,10 @@ process** so that the diagram stays readable and errors do not appear in the
 middle of a run.
 
 Read it before you draw the first element: the type chosen at the start
-determines how much code you will have to write later.
+determines how much code you will have to write later. Terms such as
+`Parameters`, `#Previous`, Call Activity and Multi Instance are explained in
+[README → Terms](README.md#terms); the **Types** editor is the designer panel
+where a model's types are declared.
 
 ---
 
@@ -77,8 +80,8 @@ of the required type and add to it, and send along the pipeline what the next
 step actually needs.
 
 ```
-Parameters.result.structuredPrompt = template;   // accumulate
-return Parameters.result;                        // and pass it on
+Parameters.result.summary = text;   // accumulate (Parameters.result: a declared type)
+return Parameters.result;           // and pass it on
 ```
 
 The same idea holds wherever several steps contribute to one answer: the shape
@@ -134,9 +137,9 @@ fact this type". It is needed in exactly three situations.
 
 ### 4.1 The data arrived from a Call Activity or from outside
 
-A Call Activity returns the called Flow's own object (older platform versions
-returned `JSON`), and `#Previous` after it is typed `object`. Convert it through
-`new JSON(...)`:
+A Call Activity returns the called Flow's own object, and `#Previous` after it
+is typed `object`. Convert it through `new JSON(...)` — `Parse Config` in every
+example does exactly this:
 
 ```
 var cfg = new JSON(#Previous).Cast<ExternalConfig>();
@@ -150,13 +153,13 @@ not a `JSON` object. **If the structure does not match, the fields will be empty
 rather than an error.** So right after a cast it is worth logging a key field:
 
 ```
-Logger.LogInformation($"connection str = '{cfg.db_connection_str}'");
+Logger.LogInformation($"rates url = '{cfg.ratesUrl}'");
 ```
 
 ### 4.2 The data arrived after a parallel gateway
 
-After a parallel gateway `#Previous` is a **dictionary**, not an object. Access
-it by node name:
+Not shown in the examples. After a parallel gateway `#Previous` is a
+**dictionary**, not an object. Access it by node name:
 
 ```
 var list = (List<string>)#Previous["Activity_Read_Response"];
@@ -167,11 +170,13 @@ field is missing".
 
 ### 4.3 Data from SQL
 
-`Collection` is a set of rows with dynamic fields. The fields are accessed by
-column name, and the compiler does not check them (it does not know them):
+Not shown in the examples. A SQL data store bound to a step answers with a
+`Collection`: a set of rows with dynamic fields. The fields are accessed by
+column name, and the compiler does not check them (it does not know them).
+With a store `p_get_grid` and a declared type `GridRow`:
 
 ```
-var rows = DataAssociations.p_get_grid.Query<TreeNodeGridData>();
+var rows = DataAssociations.p_get_grid.Query<GridRow>();
 ```
 
 By specifying the type in `Query<T>()` you get a typed set straight away — and
@@ -197,7 +202,7 @@ then work without casts. That is better than `Query()` without a type.
 | Question | Example |
 |---|---|
 | A minimal pipeline with types | `01-basics/first-flow.bpmn` |
-| A native C# class as a declared type | `03-config-as-flow/service-config.bpmn` |
+| A native C# class as a declared type | `03-config-as-flow/bpmn-examples-config.bpmn` |
 | External types between Flows | `03-config-as-flow/use-config.bpmn` |
 | A collection + Multi Instance | `04-pagination/paged-fetch.bpmn` |
 | A type owned by a platform library | `08-ai-agents/structured-prompt.bpmn` |

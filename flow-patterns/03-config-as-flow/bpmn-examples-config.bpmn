@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gp="http://some-company/schema/bpmn/qa" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ep="http://some-company/schema/bpmn/ep" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <extensionElements>
-    <gp:globalParameter name="InnerTypes">[{"name": "Config", "definition": "public class Config\n{\n    /* One declaration of the settings, shared by every Flow that calls this one.\n       Consumers reach these fields as ExternalConfig, never as a copy. */\n\n    /* Exchange rates published by the European Central Bank. Open, no key. */\n    public string ratesUrl { get; set; }\n\n    /* A list endpoint that understands _start and _limit, for the paging example. */\n    public string listUrl { get; set; }\n\n    /* Both sources are public, so these stay empty. Real deployments fill them\n       here, in one place, and no consuming Flow ever holds a credential. */\n    public string login { get; set; }\n    public string password { get; set; }\n\n    public int pageSize { get; set; }\n\n    /* The stand's language: errors answer in it when the request names none\n       (Accept-Language). One of the languages the messages carry. */\n    public string language { get; set; }\n\n    /* How long an answer stays in the platform's distributed cache. */\n    public int cacheSeconds { get; set; }\n}", "isNativeDefinition": true}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
+    <gp:globalParameter name="InnerTypes">[{"name": "Config", "definition": "public class Config\n{\n    /* One declaration of the settings, shared by every Flow that calls this one.\n       Consumers reach these fields as ExternalConfig, never as a copy. */\n\n    /* Exchange rates published by the European Central Bank. Open, no key. */\n    public string ratesUrl { get; set; }\n\n    /* A list endpoint that understands _start and _limit, for the paging example. */\n    public string listUrl { get; set; }\n\n    /* Both sources are public, so these stay empty. Real deployments fill them\n       here, in one place, and no consuming Flow ever holds a credential. */\n    public string login { get; set; }\n    public string password { get; set; }\n\n    public int pageSize { get; set; }\n\n    /* The installation's language: errors answer in it when the request names none\n       (Accept-Language). One of the languages the messages carry. */\n    public string language { get; set; }\n\n    /* How long an answer stays in the platform's distributed cache. */\n    public int cacheSeconds { get; set; }\n}", "isNativeDefinition": true}, {"name": "ErrorResponse", "definition": "{\"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/ErrorResponse\", \"definitions\": {\"ErrorResponse\": {\"type\": \"object\", \"additionalProperties\": true, \"properties\": {\"LevelMessage\": {\"type\": \"string\"}, \"statusCode\": {\"type\": \"integer\"}, \"Message\": {\"type\": \"string\"}, \"State\": {\"type\": \"string\"}}, \"title\": \"ErrorResponse\"}}}", "isNativeDefinition": false}]</gp:globalParameter>
     <gp:globalParameter name="ExternalTypes">[]</gp:globalParameter>
     <gp:globalParameter name="CodeActions">[{"name": "HandleException", "initCode": "ErrorResponse HandleException(PassingResult prevData)\n{\n    Logger.LogError($\"flow failed: {prevData.Exception?.Message}\");\n    if (WorkflowEnvironment.RuntimeName == \"UCP\")\n        WorkflowEnvironment.Variables[\"StatusCode\"] = 500;\n    return new ErrorResponse()\n    {\n        Message = prevData.Exception?.Message,\n        LevelMessage = \"11\",\n        statusCode = 500,\n        State = \"1\"\n    };\n}", "initParameters": [{"name": "Result", "type": "ErrorResponse"}, {"name": "prevData", "type": "PassingResult", "required": true}]}]</gp:globalParameter>
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[]</gp:globalParameter>
   </extensionElements>
-  <process id="Process_service_config" name="service-config">
+  <process id="Process_bpmn_examples_config" name="bpmn-examples-config">
     <documentation>Settings live here, so no consuming Flow knows its environment.
 Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-config-as-flow</documentation>
     <dataObjectReference id="DO_Output" name="Config" dataObjectRef="Do_Output" />
     <dataObject id="Do_Output" />
-    <startEvent id="Ev_Start" name="service-config">
-      <documentation>Starts service-config. No input type is declared: the Flow accepts any request (a Call Activity passes the caller's input) and ignores it; called directly, start it with {}.</documentation>
+    <startEvent id="Ev_Start" name="bpmn-examples-config">
+      <documentation>Starts bpmn-examples-config. No input type is declared: the Flow accepts any request (a Call Activity passes the caller's input) and ignores it; called directly, start it with {}.</documentation>
       <outgoing>Fl_001</outgoing>
     </startEvent>
     <task id="T_GetConfig" name="resolve the settings">
@@ -23,7 +23,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
       <incoming>Fl_001</incoming>
       <outgoing>Fl_002</outgoing>
     </task>
-    <endEvent id="Ev_End" name="service-config">
+    <endEvent id="Ev_End" name="bpmn-examples-config">
       <documentation>Success, HTTP 200: returns Config, the settings every example reads.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 200, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS", "value": "{\n  \"ratesUrl\": \"https://api.frankfurter.dev/v1\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10,\n  \"language\": \"en\",\n  \"cacheSeconds\": 300\n}"}], "producedTypeVariants": ["Config"]}</ep:elementParameter>
@@ -42,7 +42,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/03-co
       <incoming>Fl_003</incoming>
       <outgoing>Fl_004</outgoing>
     </task>
-    <endEvent id="Ev_Failed" name="service-config">
+    <endEvent id="Ev_Failed" name="bpmn-examples-config">
       <documentation>Success, HTTP 200: returns Config, the settings every example reads.</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": 500, "headers": "{\n  \"Accept\": \"application/json;charset=utf-8\",\n  \"Content-Type\": \"application/json;charset=utf-8\",\n  \"Accept-Language\": \"en\",\n  \"x-ms-client-request-id\": \"6a297fcb-956e-4228-8c11-017e9bacd629\"\n}", "exampelsVariants": [{"title": "SETTINGS_FAILED", "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"settings could not be resolved\",\n  \"state\": \"1\"\n}"}], "producedTypeVariants": ["ErrorResponse"]}</ep:elementParameter>
@@ -71,8 +71,8 @@ that reads it.</text>
     <association id="As_An_T_GetConfig" sourceRef="An_T_GetConfig" targetRef="T_GetConfig" />
 
   </process>
-  <bpmndi:BPMNDiagram id="Di_Process_service_config">
-    <bpmndi:BPMNPlane id="Dp_Process_service_config" bpmnElement="Process_service_config">
+  <bpmndi:BPMNDiagram id="Di_Process_bpmn_examples_config">
+    <bpmndi:BPMNPlane id="Dp_Process_bpmn_examples_config" bpmnElement="Process_bpmn_examples_config">
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
         <omgdc:Bounds x="358" y="333" width="36" height="50" />
         <bpmndi:BPMNLabel>
