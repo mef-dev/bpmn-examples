@@ -74,8 +74,10 @@ during development and by a route in production, with no edit in between.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library and compile it.
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run: the input comes back. After Publish
+as a plugin endpoint the same Flow answers on `POST …/webhook`.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

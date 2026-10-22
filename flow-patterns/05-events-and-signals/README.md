@@ -87,8 +87,10 @@ with; without it the branch knows only that *something* happened.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library and compile it. Watch the run log, not only the reply.
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Debug → **Example** → run with `{"jobId":"JOB-7"}`: the answer is
+`{"jobId":"JOB-7"}`. Watch the Stage strip and the run log, not only the reply.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

@@ -116,10 +116,11 @@ editing one class, not hunting for every Flow that reads settings.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start): import
-`bpmn-examples-config.bpmn` into the tenant library `bpmn_examples` and compile
-it. Then import `use-config.bpmn` into the same library, compile it and start
-it with `{"key":"EUR"}`.
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+`bpmn-examples-config` comes first (step 2 there); then `use-config`: Build →
+Execute → **Example** → Run with `{"key":"EUR"}` answers
+`{"key":"https://api.frankfurter.dev/v1/latest?base=EUR"}`.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

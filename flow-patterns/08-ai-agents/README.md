@@ -91,8 +91,10 @@ every line would bury the logic; the long name appears once.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library and compile it.
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run with
+`{"question":"What is BPMN?","tone":"plain"}`: two typed chat messages come back.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
