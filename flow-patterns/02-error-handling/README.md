@@ -119,9 +119,10 @@ a technical failure — keeps the engine's message as it is.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start) for this file. Then
-Build → Execute with `{ "orderId": "ORD-1001" }`, then with
-`{ "orderId": "", "Accept-Language": "uk" }`: the second answer is the
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run: `{"orderId":"ORD-1001"}` comes back. Replace
+the input with `{ "orderId": "", "Accept-Language": "uk" }`: the answer is the
 `ErrorResponse` above, in Ukrainian. Change `Accept-Language` to see the other
 rows of the table.
 

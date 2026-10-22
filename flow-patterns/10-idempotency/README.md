@@ -120,8 +120,9 @@ A start that sends only the header is read from the request
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start) for this file. Then
-Build → Execute twice with
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run twice with
 `{ "orderId": "ORD-1001", "amount": 25.5, "x-ms-client-request-id": "r-1" }`:
 the first answer has `"cacheStatus":"Added"`, the second the same
 `confirmation` and `"cacheStatus":"IsCompleted"`. Without

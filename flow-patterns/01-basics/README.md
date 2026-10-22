@@ -92,9 +92,10 @@ the process without an answer.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start): the tenant library
-`bpmn_examples` with `bpmn-examples-config` in it. Then import this file into
-the same library, compile it and start it with the input above.
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run: `{"name":"Ada","language":"en"}` comes back.
+The run log shows `greeting Ada`.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
