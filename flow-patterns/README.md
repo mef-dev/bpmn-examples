@@ -64,6 +64,13 @@ each example.
    Build → **Execute** → **Parameters** → **Run** gives the answer only. The
    answer is the one under *What you should get back* in that README.
 
+### Update an imported example
+
+When a file in this repository changes, open the Flow you imported from it
+(File → Open), then File → **Upload** → choose the new file. The Flow keeps its
+name and library. File → **Save**, then Build → **Compile**. Update
+`bpmn-examples-config` first.
+
 ### If it does not compile
 
 | Compile tab shows | Cause | Fix |
