@@ -80,9 +80,8 @@ the compiler answers `Cannot implicitly convert 'System.Exception' to
 'WorkflowPassingNodeResult'`, which does not obviously mean "wrong placeholder".
 
 **The handler sets the HTTP status itself.** `WorkflowEnvironment.Variables["StatusCode"] = 500`
-is what the platform answers with when the Flow is started through the API; a
-Flow published as a plugin endpoint gets the status on its HTTP response as
-well. A business-rule error answers 500 with the reason in `message`; a text in
+is the HTTP status of the answer; a Flow published as a plugin endpoint gets it
+on its HTTP response as well. A business-rule error answers 500 with the reason in `message`; a text in
 `Messages` can carry its own status when the request
 itself has to change (400) or the caller has to wait (409, 503) — see
 [10 · Idempotency](../10-idempotency/).

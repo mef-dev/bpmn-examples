@@ -57,22 +57,6 @@ same process is also reachable at its declared route, and the caller does not
 need to know the Flow's name or version. Publishing is described in the
 [platform documentation](https://platform.mef.dev/plugin_basics/introduction.md).
 
-## Two ways to address a compiled Flow
-
-```
-POST /api/v0/bpmn/flowdefinitions/{libraryType}/{libraryName}/{flowName}/Start.json?run=auto
-POST /api/v0/bpmn/flowdefinitions/{id}/Start/{version}
-```
-
-The first resolves by name and follows the latest compiled version. The second
-pins a numeric id and version that exist in one environment only. Prefer the
-first for anything you intend to share.
-
-Two things decide whether the call runs at all: `run=auto` — any other value
-registers the instance and returns its id **without** running it — and the last
-compilation having succeeded. A Flow whose latest compile failed answers
-`Last compilation of workflow '…' failed`.
-
 ## Why it is built this way
 
 **The route lives on the diagram, not in a gateway configuration.** Reading the
@@ -83,7 +67,6 @@ during development and by a route in production, with no edit in between.
 
 ## Where newcomers stumble
 
-- **`run=auto` is compared as an exact string.** `AUTO` does not run.
 - **The route is claimed at publication.** Two Flows declaring the same method
   and path collide; pick a path that names what it accepts.
 - **A body is required.** An empty request answers `428 A non-empty request body

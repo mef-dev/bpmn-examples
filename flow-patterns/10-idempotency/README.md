@@ -96,9 +96,9 @@ answer still goes back; a retry then does the work again.
 **The retention time is a setting.** `cacheSeconds` comes from the configuration
 Flow: after that time the same id is a new request.
 
-**The header is read where the request is.** Started through the API, the
-platform records the request headers (`HttpRequestService`); a published plugin
-has the HTTP request itself (`WorkflowEnvironment.Variables["HttpRequest"]`).
+**The header is read where the request is.** A Flow started on the platform
+finds the request headers in `HttpRequestService`; a Flow published as a plugin
+endpoint has the HTTP request itself (`WorkflowEnvironment.Variables["HttpRequest"]`).
 The step reads whichever is there.
 
 ## Where newcomers stumble
@@ -114,8 +114,11 @@ The step reads whichever is there.
 ## Run it
 
 Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library, compile it, and start it twice with the same
-`x-ms-client-request-id` header, then once without it.
+into the same library and compile it. Build → Execute sends no
+`x-ms-client-request-id`, so the answer there is the refusal: HTTP 400,
+`x-ms-client-request-id is required`. The stored answer appears when the Flow,
+published as a plugin endpoint (designer: **Publish**), is called twice with the
+same header.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

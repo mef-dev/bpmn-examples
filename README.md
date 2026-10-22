@@ -19,7 +19,8 @@ model's input and its example, steps and their comments, outcomes.
 
 ## Run an example
 
-1. Create a **tenant** library named `bpmn_examples`.
+1. In the BPMN designer: File → Open → **CREATE NEW LIBRARY**, name
+   `bpmn_examples`, type **Tenant Public**.
 2. Import `flow-patterns/03-config-as-flow/bpmn-examples-config.bpmn` into it
    and compile it. Every `flow-patterns` model reads its settings from this
    Flow through its first step, `Get Config`.
