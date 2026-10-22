@@ -43,7 +43,7 @@
   "outcomes": {
     "success": {
       "title": "PROGRESS",
-      "value": "{\n  \"jobId\": \"job-7\"\n}"
+      "value": "{\n  \"jobId\": \"JOB-7\"\n}"
     },
     "failure": {
       "title": "JOB_FAILED",

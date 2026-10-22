@@ -46,8 +46,8 @@ that touches it — one good reason to avoid such names when you can.
 Started directly, it echoes what it received:
 
 ```
-{ "event": "order.created", "payload": "{}" }   →   HTTP 200
-{"event":"order.created","payload":"{}"}
+{ "event": "order.created", "payload": "{\"orderId\":\"ORD-1001\"}" }   →   HTTP 200
+{"event":"order.created","payload":"{\"orderId\":\"ORD-1001\"}"}
 ```
 
 The run log carries `received 'order.created' on the declared route`.

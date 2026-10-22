@@ -16,11 +16,11 @@
       "tone": "string"
     },
     "example": {
-      "question": "What changed in the last release?",
+      "question": "What is BPMN?",
       "tone": "plain"
     }
   },
-  "output": "ChatMessage",
+  "output": "ChatMessage[]",
   "steps": [
     {
       "id": "T_Compose",
