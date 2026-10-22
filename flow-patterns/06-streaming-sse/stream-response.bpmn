@@ -19,6 +19,9 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/06-st
     <dataObject id="Do_Output" />
     <startEvent id="Ev_Start" name="stream-response">
       <documentation>Starts stream-response. Request: StreamRequest (topic: string).</documentation>
+      <extensionElements>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "examples": {"CHUNK": {"summary": "the example input", "description": "", "value": "{\n  \"topic\": \"USD\"\n}"}}}</ep:elementParameter>
+      </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>

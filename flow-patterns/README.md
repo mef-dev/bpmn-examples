@@ -65,11 +65,12 @@ Do step 1 once, step 2 once, and steps 3–5 for each example.
 4. **Compile and publish it.** Build → **Compile**: no errors. **Publish**:
    Library `bpmn_examples`, the same name.
 5. **Run it** — your copy in the Personal library. Build → **Debug** (Ctrl+D):
-   enter the example input from the group's README and run. The designer shows
-   the answer and the path the run took: one block per step on the Stage strip,
-   with its result and duration. Build → **Execute** → **Parameters** → **Run**
-   gives the answer only. The answer is the one under *What you should get
-   back* in that README.
+   **Example** puts the example input of the model into the input; run it.
+   The designer shows the answer and the path the run took: one block per step
+   on the Stage strip, with its result and duration. Build → **Execute** →
+   **Example** → **Run** gives the answer only. The answer is the one under
+   *What you should get back* in the group's README; other inputs from that
+   README go into the same field.
 
 A request header an example reads (`Accept-Language`, `x-ms-client-request-id`)
 is a field of its input: in Debug and Execute you put it into the input JSON,

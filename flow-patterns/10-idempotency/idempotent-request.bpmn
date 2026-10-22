@@ -23,6 +23,9 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/10-id
     <dataObject id="Do_T_Work" />
     <startEvent id="Ev_Start" name="idempotent-request">
       <documentation>Starts idempotent-request with a PaymentRequest. x-ms-client-request-id and Accept-Language are fields of the input: in the designer they go into the input JSON, a published plugin fills them from the request headers.</documentation>
+      <extensionElements>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "examples": {"ADDED": {"summary": "the example input", "description": "", "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"x-ms-client-request-id\": \"r-1\"\n}"}}}</ep:elementParameter>
+      </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>

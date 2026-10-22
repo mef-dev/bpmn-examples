@@ -20,6 +20,10 @@
       "payload": "{\"orderId\":\"ORD-1001\"}"
     }
   },
+  "route": {
+    "method": "POST",
+    "route": "webhook"
+  },
   "steps": [
     {
       "id": "T_Accept",

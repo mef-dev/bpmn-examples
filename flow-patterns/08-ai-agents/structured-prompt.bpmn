@@ -19,6 +19,9 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai
     <dataObject id="Do_Output" isCollection="true" />
     <startEvent id="Ev_Start" name="structured-prompt">
       <documentation>Starts structured-prompt. Request: PromptRequest (question: string, tone: string).</documentation>
+      <extensionElements>
+        <ep:elementParameter name="StartSignalRoute">{"status": "HttpRequestAttributes", "examples": {"PROMPT": {"summary": "the example input", "description": "", "value": "{\n  \"question\": \"What is BPMN?\",\n  \"tone\": \"plain\"\n}"}}}</ep:elementParameter>
+      </extensionElements>
       <outgoing>Fl_001</outgoing>
       <dataOutputAssociation id="Doa_Input">
         <targetRef>DO_Input</targetRef>
