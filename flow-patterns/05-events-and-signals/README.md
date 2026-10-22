@@ -85,6 +85,14 @@ with; without it the branch knows only that *something* happened.
   parameter object write over each other. Give a branch its own copy if it
   mutates state.
 
+## How the platform delivers the events
+
+The outgoing side — a message throw event sending to Server-Sent Events — and
+the incoming side — a Flow started or continued by an event from a queue or a
+timer, through ServiceHost and the message broker — are described in the BPMN
+Low-Code guide, sections *Message events* and *Event-based implementation:
+ServiceHost and the message broker* (part of durable execution). See [BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
+
 ## Run it
 
 Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →

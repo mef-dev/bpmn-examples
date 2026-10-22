@@ -72,6 +72,14 @@ during development and by a route in production, with no edit in between.
 - **A body is required.** An empty request answers `428 A non-empty request body
   is required` — send `{}` if there is nothing to say.
 
+## Other triggers
+
+This example starts on an HTTP route. A start by an event from a queue or by a
+timer goes through ServiceHost and the message broker: compiling the Flow
+registers its events, and ServiceHost calls the engine when one occurs. It is
+described in the BPMN Low-Code guide, section *Event-based implementation:
+ServiceHost and the message broker* (part of durable execution). See [BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
+
 ## Run it
 
 Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →

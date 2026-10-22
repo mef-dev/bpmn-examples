@@ -107,6 +107,14 @@ collection would mean waiting for the last line before anything moves.
 - **Blank lines.** Streamed protocols use them as separators; the loop skips them
   rather than raising empty events.
 
+## How the platform delivers the chunks
+
+`send the chunk on` is a message throw event to Server-Sent Events. The channel
+and how events reach the engine through ServiceHost and the message broker are
+described in the BPMN Low-Code guide, sections *Message events* and
+*Event-based implementation: ServiceHost and the message broker* (part of
+durable execution). See [BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
+
 ## Run it
 
 Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
