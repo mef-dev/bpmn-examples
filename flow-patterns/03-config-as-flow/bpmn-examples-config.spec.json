@@ -24,6 +24,11 @@
       "title": "SETTINGS",
       "value": "{\n  \"ratesUrl\": \"https://api.frankfurter.dev/v1\",\n  \"listUrl\": \"https://jsonplaceholder.typicode.com/posts\",\n  \"login\": \"\",\n  \"password\": \"\",\n  \"pageSize\": 10,\n  \"language\": \"en\",\n  \"cacheSeconds\": 300\n}",
       "documentation": "Success, HTTP 200: returns Config, the settings every example reads."
+    },
+    "failure": {
+      "title": "SETTINGS_FAILED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"settings could not be resolved\",\n  \"state\": \"1\"\n}",
+      "documentation": "Failure, HTTP 500, SETTINGS_FAILED: returns ErrorResponse built by the error branch."
     }
   }
 }

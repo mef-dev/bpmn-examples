@@ -13,10 +13,10 @@
 Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai-agents</documentation>
     <dataObjectReference id="DO_Input" name="PromptRequest" dataObjectRef="Do_Input" />
     <dataObject id="Do_Input" />
-    <dataObjectReference id="DO_Output" name="ChatMessage" dataObjectRef="Do_Output" />
+    <dataObjectReference id="DO_Output" name="ChatMessage[]" dataObjectRef="Do_Output" />
     <dataObjectReference id="DO_Output_1" name="ErrorResponse" dataObjectRef="Do_Output_1" />
     <dataObject id="Do_Output_1" />
-    <dataObject id="Do_Output" />
+    <dataObject id="Do_Output" isCollection="true" />
     <startEvent id="Ev_Start" name="structured-prompt">
       <documentation>Starts structured-prompt. Request: PromptRequest (question: string, tone: string).</documentation>
       <outgoing>Fl_001</outgoing>
@@ -47,7 +47,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai
       <outgoing>Fl_004</outgoing>
     </task>
     <endEvent id="Ev_End" name="structured-prompt">
-      <documentation>Success, HTTP 200, PROMPT: returns ChatMessage.</documentation>
+      <documentation>Success, HTTP 200, PROMPT: returns ChatMessage[].</documentation>
       <extensionElements>
         <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "PROMPT", "value": "[\n  {\n    \"role\": \"system\",\n    \"content\": \"Answer in a plain tone.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"What is BPMN?\"\n  }\n]"}]}</ep:elementParameter>
       </extensionElements>
@@ -96,7 +96,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/08-ai
     <textAnnotation id="An_Input">
       <text>Example input:
 {
-  "question": "What changed in the last release?",
+  "question": "What is BPMN?",
   "tone": "plain"
 }</text>
     </textAnnotation>
@@ -120,7 +120,7 @@ One declaration, one shape, everywhere.</text>
       <bpmndi:BPMNShape id="Sh_DO_Output" bpmnElement="DO_Output">
         <omgdc:Bounds x="358" y="593" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="338" y="649" width="76" height="18" />
+          <omgdc:Bounds x="332" y="649" width="88" height="18" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_Ev_Start" bpmnElement="Ev_Start">
@@ -196,11 +196,12 @@ One declaration, one shape, everywhere.</text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Sh_An_Input" bpmnElement="An_Input">
-        <omgdc:Bounds x="132" y="-48" width="337" height="88" />
+        <omgdc:Bounds x="31" y="-36" width="211" height="88" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Ed_As_An_Input" bpmnElement="As_An_Input">
-        <di:waypoint x="300" y="40" />
-        <di:waypoint x="300" y="80" />
+        <di:waypoint x="242" y="23" />
+        <di:waypoint x="294" y="23" />
+        <di:waypoint x="294" y="80" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Sh_An_T_Compose" bpmnElement="An_T_Compose">
         <omgdc:Bounds x="-177" y="480" width="387" height="60" />

@@ -49,7 +49,7 @@ Source: https://github.com/mef-dev/bpmn-examples/tree/master/flow-patterns/05-ev
     <endEvent id="Ev_End" name="raise-event">
       <documentation>Success, HTTP 200, PROGRESS: returns JobRequest.</documentation>
       <extensionElements>
-        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "PROGRESS", "value": "{\n  \"jobId\": \"job-7\"\n}"}]}</ep:elementParameter>
+        <ep:elementParameter name="EndSignalRoute">{"status": "HttpRequestAttributes", "code": "200", "exampelsVariants": [{"title": "PROGRESS", "value": "{\n  \"jobId\": \"JOB-7\"\n}"}]}</ep:elementParameter>
       </extensionElements>
       <incoming>Fl_004</incoming>
       <property id="Prop_Ev_End" name="__targetRef_placeholder" />
