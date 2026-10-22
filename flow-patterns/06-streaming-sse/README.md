@@ -24,6 +24,8 @@ start → Get Config → Parse Config → open the stream → read line by line 
                                               send the chunk on (to Server-side events)
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 ## Types it declares
 
 | Type | Kind | How it is used |

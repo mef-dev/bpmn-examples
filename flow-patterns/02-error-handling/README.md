@@ -22,6 +22,8 @@ start → Get Config → Parse Config → validate the order → end
             └─────────────┴─────────────────┴──→ handle Exception → end (error)
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 All three risky steps lead into the **same** handler. That is normal: several incoming
 sequence flows into one node is how BPMN says "these failures are handled alike".
 

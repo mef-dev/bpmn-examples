@@ -27,7 +27,8 @@ that look like a platform failure are a skipped type-design step.
 
 ## Import the configuration Flow first
 
-Every example takes its settings from a separate Flow through a Call Activity.
+Every example takes its settings from a separate Flow through a Call Activity:
+the step `Get Config` calls `03-config-as-flow/service-config.bpmn`.
 That indirection is the habit the whole group is built around: it is what lets
 the same model run in any environment without an edit.
 
@@ -92,9 +93,7 @@ diagrams:
   model installed on the stand itself, not from the remote provider that
   `POST /api/v0/ai/chat/completions` uses.
   On a stand without a local chat model every call ends on the error branch.
-  [08 · Agents](08-ai-agents/) stops at building the request for that reason,
-  and the call itself is parked under `parked/ai-completion.spec.json` — it
-  builds, passes every check, and waits for a stand that has the model.
+  [08 · Agents](08-ai-agents/) stops at building the request for that reason.
 
 ## How to read a group
 

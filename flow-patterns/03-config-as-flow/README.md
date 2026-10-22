@@ -26,8 +26,9 @@ use-config.bpmn:       start → Get Config → Parse Config → build the call 
                                           handle Exception → end
 ```
 
-`Get Config` is a Call Activity: it runs the other Flow and hands back its
-answer. `Parse Config` casts that answer once, into `Parameters.config`, so every
+`Get Config` is a Call Activity: it runs the other Flow — `service-config.bpmn`
+from this folder, imported into the tenant library under the name
+`bpmn-examples-config` — and hands back its answer. `Parse Config` casts that answer once, into `Parameters.config`, so every
 later step reads a typed object rather than loose JSON.
 
 ## Types it declares

@@ -22,6 +22,8 @@ start → Get Config → Parse Config → compose the prompt → end
                    handle Exception → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 ## Types it declares
 
 | Type | Kind | How it is used |
@@ -59,8 +61,7 @@ more step; getting the array right is what this example is for.
 **It does not call the model.** The `AI/Completions` built-in compiles and can
 be called from a model, but it answers only from a model installed on the stand
 itself. Where no such model is installed, the call ends on the error branch.
-The example therefore stops at a correctly built, correctly typed request; the
-call itself is kept in `parked/ai-completion.spec.json`.
+The example therefore stops at a correctly built, correctly typed request.
 
 ## Why it is built this way
 

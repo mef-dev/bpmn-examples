@@ -24,6 +24,8 @@ start → Get Config → Parse Config → do the work in parts → end
                                     report the progress → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 The bar under the working step is the boundary event. Because it does **not**
 cancel the activity, the work continues while the lower branch runs.
 

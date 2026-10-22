@@ -30,6 +30,8 @@ start → Get Config → Parse Config → read the request id → look for the s
 every risky step ──→ handle Exception → end: request refused
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 ## Types it declares
 
 | Type | Kind | How it is used |

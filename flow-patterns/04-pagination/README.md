@@ -23,6 +23,8 @@ start → Get Config → Parse Config → plan the pages → [ handle one page ]
                    handle Exception → end
 ```
 
+`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+
 Inside the Sub Process:
 
 ```
