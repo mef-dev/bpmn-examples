@@ -117,8 +117,10 @@ a technical failure — keeps the engine's message as it is.
 ## Run it
 
 Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library, compile it, and start it with and without an `orderId`,
-and with different `Accept-Language` headers.
+into the same library and compile it. Build → Execute with
+`{ "orderId": "ORD-1001" }`, then with `{ "orderId": "" }`: the second answer is
+the `ErrorResponse` above, its text in the language the request's
+`Accept-Language` selects (table above).
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
