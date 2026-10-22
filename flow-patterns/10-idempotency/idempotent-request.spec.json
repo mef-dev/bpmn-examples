@@ -42,8 +42,8 @@
       "id": "T_Lookup",
       "name": "look for the stored answer",
       "risky": true,
-      "expression": "var cache = ServiceProvider.GetService<IDistributedCache>()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\nreturn stored;",
-      "note": "Shared by every server of the stand: a retry finds the answer wherever the first call ran. While the work runs the key holds 'pending': a parallel retry gets 409. No cache: 503."
+      "expression": "var cache = ServiceProvider.GetService<IDistributedCache>()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n{\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\n    return null;\n}\nreturn JsonConvert.DeserializeObject(stored);   // a damaged entry fails here",
+      "note": "Shared by every server of the stand: a retry finds the answer wherever the first call ran. While the work runs the key holds 'pending': a parallel retry gets 409. No cache: 503. The stored answer is read back here, so a damaged entry takes the error branch."
     },
     {
       "id": "G_Answered",
@@ -57,8 +57,7 @@
           {
             "id": "T_Replay",
             "name": "answer as before",
-            "risky": true,
-            "expression": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = JsonConvert.DeserializeObject<PaymentAnswer>((string)#Previous);\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"
+            "expression": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = new JSON(#Previous).Cast<PaymentAnswer>();\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"
           }
         ]
       }
