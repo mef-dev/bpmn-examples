@@ -10,23 +10,32 @@ How BPMN Low-Code works on the platform:
 
 | Folder | Contents |
 |---|---|
-| [flow-patterns](flow-patterns/) | Ten teaching models, one per problem: typed input and output, errors as a branch with HTTP status and text in the caller's language, configuration in a separate Flow, paging with Multi Instance and `Content-Range`, events, streaming, triggers, AI requests, files, idempotent requests with the distributed cache. **Start here.** |
-| [tmforum-apis](tmforum-apis/) | 30 Flows that implement TM Forum Open API operations, one Flow per operation, with the OpenAPI specifications and Postman collections next to them. |
-| [3gpp-apis](3gpp-apis/) | The 3GPP Rf rating function: OpenAPI specification and Postman collections. |
+| [flow-patterns](flow-patterns/) | Teaching models in ten groups, one problem per group: typed input and output, errors as a branch with HTTP status and text in the caller's language, configuration in a separate Flow, paging with Multi Instance and `Content-Range`, events, streaming, triggers, AI requests, files, idempotent requests with the distributed cache. **Start here.** |
+| [tmforum-apis](tmforum-apis/) | 30 Flows that implement TM Forum Open API operations, one Flow per operation, with the OpenAPI specifications and Postman collections next to them. They run against the database of the BSS behind the API. |
+| [3gpp-apis](3gpp-apis/) | The 3GPP Rf rating function: OpenAPI specification and a Postman collection. No Flows. |
 
-Every model in `flow-patterns` has a `<name>.spec.json` file next to it. The
-specification describes the model — input and its example, steps and their
-comments, outcomes — and the model is generated from it.
+Every model in `flow-patterns` has a `<name>.spec.json` file next to it: the
+model's input and its example, steps and their comments, outcomes.
 
 ## Run an example
 
-1. Import `flow-patterns/03-config-as-flow/service-config.bpmn` into a
-   **tenant** library under the name `bpmn-examples-config`, and compile it.
-   The other `flow-patterns` models read their settings from this Flow.
-2. Import the model you want and compile it.
-3. Start it with the example input. You find it in a comment next to the start
-   event and in the README of the group. The README also shows the response
-   you should get.
+1. Create a **tenant** library named `bpmn_examples`.
+2. Import `flow-patterns/03-config-as-flow/bpmn-examples-config.bpmn` into it
+   and compile it. Every `flow-patterns` model reads its settings from this
+   Flow through its first step, `Get Config`.
+3. Import the model you want into the same library and compile it. A model is
+   imported under its file name.
+4. Start it with the example input. You find it in a comment next to the start
+   event and in the README of the group, together with the response you should
+   get.
+
+```mermaid
+flowchart LR
+  models["any flow-patterns model<br/>(first-flow, error-as-branch, … idempotent-request)"] -->|"step Get Config"| cfg["bpmn-examples-config<br/>flow-patterns/03-config-as-flow/bpmn-examples-config.bpmn"]
+```
+
+Details: [flow-patterns → Before you start](flow-patterns/README.md#before-you-start)
+and the full diagram, [which model depends on which](flow-patterns/README.md#which-model-depends-on-which).
 
 ## TM Forum Open APIs
 

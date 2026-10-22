@@ -27,10 +27,13 @@ start → Get Config → Parse Config → read the request id → look for the s
                                                                                     ↓
                                                                           store the answer → answer 201 → end: answered and stored
 
-every risky step ──→ handle Exception → end: request refused
+Get Config, Parse Config, read the request id, look for the stored answer
+  ──(on error)──→ handle Exception → end: request refused
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
 ## Types it declares
 
@@ -40,7 +43,7 @@ every risky step ──→ handle Exception → end: request refused
 | `PaymentAnswer` | inner, native C# | the answer: `orderId`, `amount`, `confirmation`, `acceptedAt`, `cacheStatus` |
 | `ErrorResponse` | inner, JSON Schema | the refusal: `levelMessage`, `statusCode`, `message`, `state` |
 | `Messages` | inner, native C# | the refusal texts, one per language, and their HTTP status |
-| `ExternalConfig` | external | the configuration type; `cacheSeconds` (300 in `service-config`) sets how long the answer is kept |
+| `ExternalConfig` | external | the configuration type; `cacheSeconds` (300 in `bpmn-examples-config`) sets how long the answer is kept |
 
 `Parameters.cacheKey` (a global parameter) carries the key from the step that
 reads the header to the step that stores the answer.
@@ -56,6 +59,10 @@ reads the header to the step that stores the answer.
 | no header, `Accept-Language: uk` | — | 400 | `"message":"Потрібен заголовок x-ms-client-request-id"` |
 | the cache is not available | `r-3` | 503 | `The service is not available now; repeat the request later` |
 
+409 appears only when a retry arrives within 60 seconds of a first call that
+has not finished; 503 only when the installation's distributed cache is
+unreachable.
+
 ```
 {"orderId":"ORD-1001","amount":25.5,"confirmation":"f5fd623e-ebe0-4f40-80f1-f64cfd590f10",
  "acceptedAt":"2026-10-21T14:47:11.9897513Z","cacheStatus":"IsCompleted"}
@@ -67,12 +74,12 @@ reads the header to the step that stores the answer.
 per operation and repeats it on every retry. A repeated id gets the first
 answer: the body of the retry is not compared.
 
-**The key starts with the Flow's name.** Every Flow on the stand shares the
+**The key starts with the Flow's name.** Every Flow on the installation shares the
 cache, so the key is `idempotent-request:` + the request id. A Flow that serves
 several clients adds whatever separates them.
 
 **The cache is the platform's, not the Flow's.** `ServiceProvider.GetService<IDistributedCache>()`
-returns the cache shared by every server of the stand, so a retry finds the
+returns the cache shared by every server of the installation, so a retry finds the
 answer wherever the first call ran. A `Parameters` field lives only as long as
 one run of the Flow.
 
@@ -106,9 +113,8 @@ The step reads whichever is there.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file, compile it, and start it twice with the same
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library, compile it, and start it twice with the same
 `x-ms-client-request-id` header, then once without it.
 
 ---

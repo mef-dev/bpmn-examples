@@ -19,17 +19,23 @@ them.
 
 ```
 start → Get Config → Parse Config → plan the pages → [ handle one page ] → end
-                          ↓                            (Multi Instance)
-                   handle Exception → end
+            ↓             ↓ (on error)                 (Multi Instance)
+            └─────────────┴──→ handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
 Inside the Sub Process:
 
 ```
 start → read one page → end
 ```
+
+`read one page` builds the URL a real read of that page would use and writes
+it to the run log; it makes no call. The example is about planning and walking
+the pages, not about the source.
 
 ## Types it declares
 
@@ -64,8 +70,9 @@ HTTP 200
 
 Twenty-five rows at ten per page make three pages. `size` is the page size on
 every page; the third page holds rows 21–25, and the answer's range is cut at
-`total` (see `Content-Range` below). The order is not guaranteed: with `PackSize` 2 two instances run at once, and the
-result lists them as they finish — the run above returned page 2 first. Sort by
+`total` (see `Content-Range` below). The order is not guaranteed: with
+`PackSize` 2 two instances run at once, and the result lists them as they
+finish — page 2 came first here. Sort by
 `number` when the order matters. The run log carries one line per page, each
 naming the URL that page would read:
 `page 2 would read https://jsonplaceholder.typicode.com/posts?_start=10&_limit=10, pass 2`.
@@ -86,7 +93,7 @@ type is empty`. A Sub Process is a process: it has a boundary like any other.
 
 ## The same pages on an API
 
-A paged API of the platform speaks in `offset` and `limit`, and says where a
+A paged API on the platform speaks in `offset` and `limit`, and says where a
 page sits in the answer's headers:
 
 | In the plan | On the API |
@@ -114,9 +121,8 @@ from the plan of each instance.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it.
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library and compile it.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

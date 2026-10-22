@@ -1,19 +1,19 @@
 # Flow patterns
 
-Teaching examples for the MEF.DEV platform, one per problem: small, commented in
-the code itself, compiled and started on the platform. Every example is under
-the licence of this repository.
-
-The concepts behind them are described in the
+Teaching examples for the MEF.DEV platform, one problem per group. Each model
+is small, commented on the diagram, and has been compiled and started on the
+platform. The concepts behind them are described in the
 [BPMN Low-Code overview](https://platform.mef.dev/bpmn_lowcode/bpmn_lowcode_overview.md).
 
 ## The groups
 
+Ten groups, eleven models: group 03 has two.
+
 | Group | The one thing it teaches | Model |
 |---|---|---|
 | [01 · Basics](01-basics/) | `Input` is the caller's payload, `#Previous` is the last step's result | `first-flow.bpmn` |
-| [02 · Errors](02-error-handling/) | a failure is a branch: HTTP 500, the text in the caller's language (`Accept-Language`, then the stand's language); only `#PreviousData` carries the exception | `error-as-branch.bpmn` |
-| [03 · Configuration](03-config-as-flow/) | settings live in their own Flow, so a model never learns its environment | `service-config.bpmn`, `use-config.bpmn` |
+| [02 · Errors](02-error-handling/) | a failure is a branch: HTTP 500 and the text in the caller's language (`Accept-Language`, then the installation's language) | `error-as-branch.bpmn` |
+| [03 · Configuration](03-config-as-flow/) | settings live in their own Flow, so a model never learns its environment | `bpmn-examples-config.bpmn` (required by every group), `use-config.bpmn` |
 | [04 · Pagination](04-pagination/) | plan the pages first, then walk them with Multi Instance; on an API, `offset`/`limit` and `Content-Range` | `paged-fetch.bpmn` |
 | [05 · Events](05-events-and-signals/) | a step can raise an event and keep working | `raise-event.bpmn` |
 | [06 · Streaming](06-streaming-sse/) | read a response as it arrives, pass each chunk on | `stream-response.bpmn` |
@@ -25,27 +25,106 @@ The concepts behind them are described in the
 **Before your first Flow**, read [TYPE-DESIGN.md](TYPE-DESIGN.md). Most errors
 that look like a platform failure are a skipped type-design step.
 
-## Import the configuration Flow first
+## Before you start
 
-Every example takes its settings from a separate Flow through a Call Activity:
-the step `Get Config` calls `03-config-as-flow/service-config.bpmn`.
-That indirection is the habit the whole group is built around: it is what lets
-the same model run in any environment without an edit.
+You need an account on a MEF.DEV installation with permission to create tenant
+libraries.
 
-The consequence is a prerequisite. Before compiling anything else:
+Every model is imported under its file name: `first-flow.bpmn` becomes the
+Flow `first-flow`.
 
-1. Import `03-config-as-flow/service-config.bpmn` into a **tenant** library.
-2. Name it `bpmn-examples-config`.
-3. Compile it.
+1. Create a **tenant** library named `bpmn_examples`.
+2. Import [`03-config-as-flow/bpmn-examples-config.bpmn`](03-config-as-flow/bpmn-examples-config.bpmn)
+   into it and compile it.
+3. Import the model you want into the same library and compile it.
+4. Start it from the designer, or through the API:
 
-Every other model then resolves
-`activities://bpmn-mnemo/tenant/<your library>/bpmn-examples-config/#latest`. If
-your tenant library is named something other than `bpmn_examples`, change that
-one segment in each model, or rename the library.
+   ```
+   POST https://<host>/api/v0/bpmn/flowdefinitions/tenant/bpmn_examples/<flow>/Start.json?run=auto
+   Content-Type: application/json
 
-**A tenant library, not a personal one.** The platform resolves a personal
-library only for the account that created it, so a `personal/…` reference works
-for its author and for nobody else.
+   <the example input from the group's README>
+   ```
+
+## Which model depends on which
+
+```mermaid
+flowchart LR
+  subgraph lib["tenant library bpmn_examples"]
+    direction LR
+    cfg["<b>bpmn-examples-config</b><br/>03-config-as-flow/bpmn-examples-config.bpmn"]
+    m01["first-flow<br/>01-basics"]
+    m02["error-as-branch<br/>02-error-handling"]
+    m03["use-config<br/>03-config-as-flow"]
+    m04["paged-fetch<br/>04-pagination"]
+    m05["raise-event<br/>05-events-and-signals"]
+    m06["stream-response<br/>06-streaming-sse"]
+    m07["http-start<br/>07-triggers"]
+    m08["structured-prompt<br/>08-ai-agents"]
+    m09["archive-and-link<br/>09-files-and-archives"]
+    m10["idempotent-request<br/>10-idempotency"]
+  end
+  subgraph platform["built into the platform"]
+    ai["library libs://common/ai"]
+    rest["function RestApi/GET"]
+    file["function IO/Local/File,<br/>Folder and File stores"]
+    sse["Server-side events"]
+    cache["distributed cache<br/>IDistributedCache"]
+  end
+  m01 & m02 & m03 & m04 & m05 --> cfg
+  m06 & m07 & m08 & m09 & m10 --> cfg
+  m08 -.-> ai
+  m06 -.-> rest
+  m06 -.-> sse
+  m05 -.-> sse
+  m09 -.-> file
+  m10 -.-> cache
+```
+
+A solid arrow: the model calls `bpmn-examples-config` in its step `Get Config`
+and takes the type `Config` from it, so `bpmn-examples-config` must be imported
+and compiled first. No other model depends on another one: import any of them
+alone after `bpmn-examples-config`. A dotted arrow: what the model uses from the
+platform itself; nothing to import.
+
+Why `bpmn-examples-config` comes first: every model begins with the step **`Get Config`**, a
+Call Activity that calls the Flow `bpmn-examples-config`. Each model holds the
+reference
+`activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest`; a
+model compiles only when that Flow exists under exactly that library and name.
+
+| You see | It is |
+|---|---|
+| `Get Config` | the step in every model that calls the configuration Flow |
+| `bpmn-examples-config` | the configuration Flow: file `03-config-as-flow/bpmn-examples-config.bpmn` |
+| `bpmn_examples` | the tenant library all models live in |
+| `ConfigActivity` | the alias under which each model refers to `bpmn-examples-config` (`UsedLibs`) |
+| `ExternalConfig` | in each model, the configuration type `Config` declared in `bpmn-examples-config` |
+
+To use another library name, edit the `ExternalDefinitionLink` parameter of
+`Get Config` in each model you import.
+
+**A tenant library, not a personal one.** A personal library is visible only to
+the account that created it, so a `personal/…` reference works for its author
+and for nobody else.
+
+## Terms
+
+| Term | Meaning |
+|---|---|
+| Flow | a BPMN model the platform compiles and runs |
+| installation | one deployment of the MEF.DEV platform |
+| tenant library | a library shared by every account of the tenant; Flows find each other there by name |
+| Call Activity | a step that runs another Flow and returns its answer |
+| `Input` | the request payload the Flow was started with |
+| `#Previous` | the result of the step just before |
+| `#PreviousData` | what the engine hands to an error handler: the failed step's exception |
+| `Parameters` | variables that live for one run of the Flow and are visible to every step |
+| boundary error event | the small circle on a step's edge; when the step fails, the run follows its arrow |
+| Code Action | a C# function declared once in the model and called from its steps |
+| Multi Instance | a Sub Process run once per element of a collection |
+| published plugin | a Flow published as an HTTP endpoint of a plugin |
+| `UsedLibs` | the model's list of other Flows and libraries it refers to, each under an alias |
 
 ## What the examples talk to
 
@@ -60,20 +139,19 @@ Two public sources, no key, no account, nothing to expire:
 needs them. A real deployment fills them in that one file.
 
 Compiling never touches the network. Running the examples that make an outbound
-call does — if your stand has no route to the internet, those runs end on the
-error branch, which is the correct behaviour and is shown in the group's README.
+call does: without a route to the internet those runs end on the error branch,
+which is the correct behaviour and is shown in the group's README.
 
-## What was actually verified
+## Expected results
 
-Every model was compiled against the platform and then **started**; the replies
-below are the ones the platform returned.
+Each model started with its example input answers:
 
 | Model | Input | Result |
 |---|---|---|
 | `first-flow` | `{"name":"Ada","language":"en"}` | `{"name":"Ada","language":"en"}` |
 | `error-as-branch` | `{"orderId":"ORD-1001"}` | `{"orderId":"ORD-1001"}` |
 | `error-as-branch` | `{"orderId":""}`, `Accept-Language: uk` | HTTP 500, `ErrorResponse` with `"message":"Потрібно вказати orderId"` |
-| `service-config` | `{}` | the settings object |
+| `bpmn-examples-config` | `{}` | the settings object (`Config`) |
 | `use-config` | `{"key":"EUR"}` | `{"key":"https://api.frankfurter.dev/v1/latest?base=EUR"}` |
 | `paged-fetch` | `{"total":25}` | three `PageInfo` entries, the third for rows 21–25 — one Sub Process instance each, two at a time |
 | `http-start` | `{"event":"order.created",…}` | the request echoed back |
@@ -83,17 +161,13 @@ below are the ones the platform returned.
 | `archive-and-link` | `{"note":"quarterly summary"}` | the folder and a link to the archive |
 | `idempotent-request` | `{"orderId":"ORD-1001","amount":25.5}`, `x-ms-client-request-id` | first call: HTTP 201, `cacheStatus` `Added`; the same id again: HTTP 201, the same `confirmation`, `cacheStatus` `IsCompleted`; no header: HTTP 400 |
 
-Two limits still shape what these models can show, and both are outside the
-diagrams:
+Two conditions are outside the diagrams:
 
-- **An outbound call needs a stand with a route to the internet.** Without one
-  the call fails and the error branch answers, which is the correct behaviour.
-- **The `AI/Completions` built-in runs only a model installed on the stand.**
-  It compiles and it is callable from a model, but it answers only from a
-  model installed on the stand itself, not from the remote provider that
-  `POST /api/v0/ai/chat/completions` uses.
-  On a stand without a local chat model every call ends on the error branch.
-  [08 · Agents](08-ai-agents/) stops at building the request for that reason.
+- **An outbound call needs a route to the internet.** Without one the call
+  fails and the error branch answers.
+- **`AI/Completions` needs a chat model installed on the installation itself.**
+  Without one, the call ends on the error branch.
+  [08 · Agents](08-ai-agents/) therefore stops at building the request.
 
 ## How to read a group
 
@@ -101,16 +175,13 @@ Each group's README says the same four things:
 
 - **what capabilities the example demonstrates**, and where in the file to look;
 - **which types it declares** and how each one is used;
-- **what you should get back** — the actual reply, taken from a real run;
+- **what you should get back** for the example input;
 - **why it is built that way**, and where newcomers usually trip.
 
 ## The file beside each model
 
-Next to every `<name>.bpmn` lies `<name>.spec.json`: the intent the model is
-built from — the input and its example, each step with the comment that
-explains it, the stores, the outcomes and their examples. The model is what a
-generator makes of it, layout included, so the two cannot drift apart: a change
-starts in the specification, and the model is regenerated, never edited by
-hand. Read the specification when you want the decisions without the diagram
-around them.
-
+Next to every `<name>.bpmn` lies `<name>.spec.json`: the model's intent — the
+input and its example, each step with the comment that explains it, the stores,
+the outcomes and their examples. The models were generated from these
+specifications; `bpmn-examples-config.bpmn` is kept by hand (`"generate": false`). Read the specification
+when you want the decisions without the diagram around them.

@@ -11,18 +11,20 @@ without rereading a wall of concatenation.
 | A platform type reached by reference | `types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel` |
 | Declaring a platform library | the `ai` entry in `UsedLibs` |
 | Giving an external type a short alias | `ChatMessage` in `ExternalTypes` |
-| Building a message list instead of a string | `T_Compose` |
-| Returning a collection as the process result | the `return messages;` at the end |
+| Building a message list instead of a string | `compose the prompt` (`T_Compose`) |
+| Returning a collection as the process result | the `return messages;` at the end of `compose the prompt` |
 
 ## The model
 
 ```
 start → Get Config → Parse Config → compose the prompt → end
-                          ↓
-                   handle Exception → end
+            ↓             ↓ (on error)
+            └─────────────┴──→ handle Exception → end
 ```
 
-`Get Config` calls the configuration Flow [`03-config-as-flow/service-config.bpmn`](../03-config-as-flow/service-config.bpmn), imported into the tenant library under the name `bpmn-examples-config`.
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
 
 ## Types it declares
 
@@ -34,10 +36,12 @@ start → Get Config → Parse Config → compose the prompt → end
 | `ExternalConfig` | external | the configuration type |
 
 Two different external types sit side by side here, and the difference matters.
-`ExternalConfig` reaches into **another Flow** (`types://external/<alias>/<Type>`
-where the alias is bound to a Call Activity). `ChatMessage` reaches into a
-**platform library** (`types://external/ai/<full .NET name>` where `ai` is bound
-to `libs://common/ai`). Same syntax, two sources.
+`ExternalConfig` reaches into **another Flow** (`types://external/ConfigActivity/Config`,
+where `UsedLibs` binds `ConfigActivity` to the Flow `bpmn-examples-config`).
+`ChatMessage` reaches into a **platform library**
+(`types://external/ai/<full .NET name>`, where `UsedLibs` binds `ai` to
+`libs://common/ai`). Same syntax, two sources; the platform library needs no
+import.
 
 ## What you should get back
 
@@ -59,8 +63,8 @@ more step; getting the array right is what this example is for.
 ## What this example does not do
 
 **It does not call the model.** The `AI/Completions` built-in compiles and can
-be called from a model, but it answers only from a model installed on the stand
-itself. Where no such model is installed, the call ends on the error branch.
+be called from a Flow, but it answers only from a chat model installed on the
+platform installation itself. Where no such model is installed, the call ends on the error branch.
 The example therefore stops at a correctly built, correctly typed request.
 
 ## Why it is built this way
@@ -87,9 +91,8 @@ every line would bury the logic; the long name appears once.
 
 ## Run it
 
-Import `service-config.bpmn` from [03 · Configuration](../03-config-as-flow/)
-into a **tenant** library first, under the name `bpmn-examples-config`. Then
-import this file and compile it.
+Follow [Before you start](../README.md#before-you-start). Then import this file
+into the same library and compile it.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

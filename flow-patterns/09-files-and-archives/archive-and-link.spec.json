@@ -71,7 +71,7 @@
   "outcomes": {
     "success": {
       "title": "ARCHIVED",
-      "value": "{\n  \"folder\": \"flow-patterns/archive-demo\",\n  \"url\": \"https://<stand>/api/v0/storage/link/…\"\n}"
+      "value": "{\n  \"folder\": \"flow-patterns/archive-demo\",\n  \"url\": \"https://<host>/s/tenant/…\"\n}"
     },
     "failure": {
       "title": "ARCHIVE_FAILED",
