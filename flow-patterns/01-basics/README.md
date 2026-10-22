@@ -46,13 +46,15 @@ there and every consumer sees the change, instead of each keeping a stale copy.
 
 ## What you should get back
 
+Build → Execute, **Parameters**:
+
 ```
-POST https://<host>/api/v0/bpmn/flowdefinitions/tenant/bpmn_examples/first-flow/Start.json?run=auto
 { "name": "Ada", "language": "en" }
 ```
 
+The answer:
+
 ```
-HTTP 200
 {"name":"Ada","language":"en"}
 ```
 

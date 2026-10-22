@@ -27,24 +27,73 @@ that look like a platform failure are a skipped type-design step.
 
 ## Before you start
 
-You need an account on a MEF.DEV installation with permission to create tenant
-libraries.
+### What you need
+
+- An account on a MEF.DEV installation and access to the **BPMN designer**
+  (`https://<host>/console/plugins/<plugin>/bpmn-designer/modeler`).
+- The `.bpmn` files of this repository on your computer (clone it or download
+  the files).
+- For 06 · Streaming: the installation can reach the internet. The other groups
+  need nothing outside the installation.
 
 Every model is imported under its file name: `first-flow.bpmn` becomes the
 Flow `first-flow`.
 
-1. Create a **tenant** library named `bpmn_examples`.
-2. Import [`03-config-as-flow/bpmn-examples-config.bpmn`](03-config-as-flow/bpmn-examples-config.bpmn)
-   into it and compile it.
-3. Import the model you want into the same library and compile it.
-4. Start it from the designer, or through the API:
+### Run an example, step by step
 
-   ```
-   POST https://<host>/api/v0/bpmn/flowdefinitions/tenant/bpmn_examples/<flow>/Start.json?run=auto
-   Content-Type: application/json
+The steps use the designer's menus. Do steps 1–2 once; repeat steps 3–5 for
+each example.
 
-   <the example input from the group's README>
-   ```
+1. **Create the library.** File → Open → **CREATE NEW LIBRARY**.
+   Library Name: `bpmn_examples`. Library Type: **Tenant Public** (not
+   Personal). Create. The type is set only here; it cannot be changed later.
+   Every model refers to `tenant/bpmn_examples`. In the Open window this
+   library is listed as *(Shared)*.
+2. **Import the configuration Flow first.** File → Open → **IMPORT BPMN** →
+   choose `03-config-as-flow/bpmn-examples-config.bpmn`. File → **Save as**:
+   Name `bpmn-examples-config`, Library `bpmn_examples`. Then Build →
+   **Compile**: the Compile tab shows no errors. Every other model needs it, so
+   it comes before them.
+3. **Import the example.** File → Open → **IMPORT BPMN** → choose the example's
+   `.bpmn` (for instance `01-basics/first-flow.bpmn`). File → **Save as**: Name
+   = the file name without `.bpmn` (`first-flow`), Library `bpmn_examples`.
+4. **Compile it.** Build → **Compile**: no errors. Save before you compile.
+5. **Run it.** Build → **Debug** (Ctrl+D): enter the example input from the
+   group's README and run. The designer shows the answer and the path the run
+   took: one block per step on the Stage strip, with its result and duration.
+   Build → **Execute** → **Parameters** → **Run** gives the answer only. The
+   answer is the one under *What you should get back* in that README.
+
+### If it does not compile
+
+| Compile tab shows | Cause | Fix |
+|---|---|---|
+| `cant resolve class name for uri 'activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest'` | `bpmn-examples-config` is not in a **Tenant Public** library named `bpmn_examples`, or it is not compiled | step 1 with type Tenant Public, then step 2 |
+| `Error while forming alias 'ExternalConfig' for type 'types://external/ConfigActivity/Config'` | the same, seen from **Used libraries** | as above |
+| `The type or namespace name 'OracleConfig' could not be found` | an older copy of `bpmn-examples-config.bpmn` | import the file from this repository again |
+
+**Save as reports that the name is already used.** Flow names in Tenant Public
+libraries are unique across the whole tenant: someone has already imported
+`bpmn-examples-config` (or the example) into another library of your tenant.
+Use that library, or the [other name](#a-library-with-another-name) steps below.
+
+### A library with another name
+
+Use a **Tenant Public** library. Each model refers to the configuration Flow in
+**two** places; change both in every model you import, after step 3:
+
+1. Workflow → **Used libraries** → row `ConfigActivity` → **Link**:
+   `activities://bpmn-mnemo/tenant/<library>/bpmn-examples-config/#latest` →
+   Save.
+2. Select the step **Get Config** → Prop → CallActivity: tick **Mnemonic
+   links**, then choose Library = your library, Flow = `bpmn-examples-config`,
+   Version = `#latest`. Without **Mnemonic links** the designer writes a link
+   with the numeric ids of one installation.
+
+Then File → Save and Build → Compile.
+
+A Personal library is not suitable for these examples: the platform resolves it
+only for the account that created it.
 
 ## Which model depends on which
 
@@ -101,12 +150,8 @@ model compiles only when that Flow exists under exactly that library and name.
 | `ConfigActivity` | the alias under which each model refers to `bpmn-examples-config` (`UsedLibs`) |
 | `ExternalConfig` | in each model, the configuration type `Config` declared in `bpmn-examples-config` |
 
-To use another library name, edit the `ExternalDefinitionLink` parameter of
-`Get Config` in each model you import.
-
-**A tenant library, not a personal one.** A personal library is visible only to
-the account that created it, so a `personal/…` reference works for its author
-and for nobody else.
+To use another library name, see
+[A library with another name](#a-library-with-another-name).
 
 ## Terms
 
