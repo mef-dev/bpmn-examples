@@ -41,48 +41,64 @@ Flow `first-flow`.
 
 ### Run an example, step by step
 
-The steps use the designer's menus. Do steps 1–2 once; repeat steps 3–5 for
-each example.
+You work on a copy in your **Personal** library and **Publish** it into the
+shared library `bpmn_examples`, where the other models find it. *Save as*
+offers only Default and Personal libraries; a Flow reaches a Tenant Public
+library through **Publish**, and opens there read-only.
 
-1. **Create the library.** File → Open → **CREATE NEW LIBRARY**.
-   Library Name: `bpmn_examples`. Library Type: **Tenant Public** (not
-   Personal). Create. The type is set only here; it cannot be changed later.
-   Every model refers to `tenant/bpmn_examples`. In the Open window this
-   library is listed as *(Shared)*.
-2. **Import the configuration Flow first.** File → Open → **IMPORT BPMN** →
-   choose `03-config-as-flow/bpmn-examples-config.bpmn`. File → **Save as**:
-   Name `bpmn-examples-config`, Library `bpmn_examples`. Then Build →
-   **Compile**: the Compile tab shows no errors. Every other model needs it, so
-   it comes before them.
-3. **Import the example.** File → Open → **IMPORT BPMN** → choose the example's
-   `.bpmn` (for instance `01-basics/first-flow.bpmn`). File → **Save as**: Name
-   = the file name without `.bpmn` (`first-flow`), Library `bpmn_examples`.
-4. **Compile it.** Build → **Compile**: no errors. Save before you compile.
-5. **Run it.** Build → **Debug** (Ctrl+D): enter the example input from the
-   group's README and run. The designer shows the answer and the path the run
-   took: one block per step on the Stage strip, with its result and duration.
-   Build → **Execute** → **Parameters** → **Run** gives the answer only. The
-   answer is the one under *What you should get back* in that README.
+Do step 1 once, step 2 once, and steps 3–5 for each example.
+
+1. **Create the libraries.** File → Open → **CREATE NEW LIBRARY**:
+   - Library Name `bpmn_examples`, Library Type **Tenant Public**. Every model
+     refers to `tenant/bpmn_examples`. The type is set only here; it cannot be
+     changed later. In the Open window this library is listed as *(Shared)*.
+   - If you have no Personal library yet, create one the same way with Library
+     Type **Personal** (any name).
+2. **The configuration Flow, first.** File → Open → **IMPORT BPMN** →
+   `03-config-as-flow/bpmn-examples-config.bpmn`. File → **Save as**: Name
+   `bpmn-examples-config`, Library = your Personal library. Build →
+   **Compile**: no errors. Then **Publish**: Library `bpmn_examples`, the same
+   name. Every other model needs the published one, so it comes before them.
+3. **The example.** File → Open → **IMPORT BPMN** → the example's `.bpmn` (for
+   instance `01-basics/first-flow.bpmn`). File → **Save as**: Name = the file
+   name without `.bpmn` (`first-flow`), Library = your Personal library.
+4. **Compile and publish it.** Build → **Compile**: no errors. **Publish**:
+   Library `bpmn_examples`, the same name.
+5. **Run it** — your copy in the Personal library. Build → **Debug** (Ctrl+D):
+   enter the example input from the group's README and run. The designer shows
+   the answer and the path the run took: one block per step on the Stage strip,
+   with its result and duration. Build → **Execute** → **Parameters** → **Run**
+   gives the answer only. The answer is the one under *What you should get
+   back* in that README.
+
+A request header an example reads (`Accept-Language`, `x-ms-client-request-id`)
+is a field of its input: in Debug and Execute you put it into the input JSON,
+`{ "orderId": "", "Accept-Language": "uk" }`; a published plugin fills it from
+the header of the request.
 
 ### Update an imported example
 
-When a file in this repository changes, open the Flow you imported from it
+When a file in this repository changes, open your copy in the Personal library
 (File → Open), then File → **Upload** → choose the new file. The Flow keeps its
-name and library. File → **Save**, then Build → **Compile**. Update
+name. File → **Save**, Build → **Compile**, then **Publish** into
+`bpmn_examples` again: publishing an existing name adds a new version. Update
 `bpmn-examples-config` first.
 
 ### If it does not compile
 
 | Compile tab shows | Cause | Fix |
 |---|---|---|
-| `cant resolve class name for uri 'activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest'` | `bpmn-examples-config` is not in a **Tenant Public** library named `bpmn_examples`, or it is not compiled | step 1 with type Tenant Public, then step 2 |
-| `Error while forming alias 'ExternalConfig' for type 'types://external/ConfigActivity/Config'` | the same, seen from **Used libraries** | as above |
+| `cant resolve class name for uri 'activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest'` | `bpmn-examples-config` is not published into a **Tenant Public** library named `bpmn_examples` | steps 1–2 |
+| `Error while forming alias 'ExternalConfig' for type 'types://external/ConfigActivity/Config'` | the same, seen from **Used libraries** | steps 1–2 |
+| `The type or namespace name 'Definition_<id>_<version>' does not exist` | the latest published version of `bpmn-examples-config` is not compiled | open `bpmn-examples-config` in `bpmn_examples`, Build → Compile; or publish it again from your copy |
 | `The type or namespace name 'OracleConfig' could not be found` | an older copy of `bpmn-examples-config.bpmn` | import the file from this repository again |
 
-**Save as reports that the name is already used.** Flow names in Tenant Public
-libraries are unique across the whole tenant: someone has already imported
-`bpmn-examples-config` (or the example) into another library of your tenant.
-Use that library, or the [other name](#a-library-with-another-name) steps below.
+**The name is already used.** Flow names are unique across all Tenant Public
+libraries of a tenant, and across all Personal libraries of one account.
+Publishing a name that exists in `bpmn_examples` is not an error: it adds a new
+version. A Flow with that name in *another* library of the tenant belongs to
+someone else: use that library, or the [other name](#a-library-with-another-name)
+steps below.
 
 ### A library with another name
 
@@ -97,10 +113,11 @@ Use a **Tenant Public** library. Each model refers to the configuration Flow in
    Version = `#latest`. Without **Mnemonic links** the designer writes a link
    with the numeric ids of one installation.
 
-Then File → Save and Build → Compile.
+Make both changes in your copy in the Personal library, then File → Save,
+Build → Compile and Publish into your Tenant Public library.
 
-A Personal library is not suitable for these examples: the platform resolves it
-only for the account that created it.
+The configuration Flow itself must be published into a Tenant Public library: a
+reference to a Personal library resolves only for the account that created it.
 
 ## Which model depends on which
 

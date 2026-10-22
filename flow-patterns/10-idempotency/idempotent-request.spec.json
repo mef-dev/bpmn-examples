@@ -16,11 +16,16 @@
       "orderId": "string",
       "amount": "number"
     },
+    "headers": {
+      "x-ms-client-request-id": "string",
+      "Accept-Language": "string"
+    },
     "example": {
       "orderId": "ORD-1001",
-      "amount": 25.5
+      "amount": 25.5,
+      "x-ms-client-request-id": "r-1"
     },
-    "documentation": "Starts idempotent-request with a PaymentRequest; the request carries the header x-ms-client-request-id."
+    "documentation": "Starts idempotent-request with a PaymentRequest. x-ms-client-request-id and Accept-Language are fields of the input: in the designer they go into the input JSON, a published plugin fills them from the request headers."
   },
   "output": "PaymentAnswer",
   "successCode": 201,
@@ -35,7 +40,7 @@
       "id": "T_RequestId",
       "name": "read the request id",
       "risky": true,
-      "expression": "// A published plugin gets the HTTP request; a start through the API, its headers.\nstring requestId;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpRequest\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpRequest http)\n    requestId = http.Headers[\"x-ms-client-request-id\"].ToString();\nelse\n    requestId = ServiceProvider.GetService<HttpRequestService>()?.Request?.Headers?\n        .FirstOrDefault(h => string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"idempotent-request:{requestId}\";\nreturn requestId;",
+      "expression": "// A field of the input: the designer sends it in the input JSON,\n// a published plugin fills it from the request header.\nstring requestId = Input.x_ms_client_request_id;\nif (string.IsNullOrEmpty(requestId))   // a start that sends only the header\n    requestId = ServiceProvider.GetService<HttpRequestService>()?.Request?.Headers?\n        .FirstOrDefault(h => string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"idempotent-request:{requestId}\";\nreturn requestId;",
       "note": "x-ms-client-request-id names the request: a retry after a lost response carries the same id. Without it: 400. The key starts with the Flow's name, because every Flow on the installation shares the cache."
     },
     {

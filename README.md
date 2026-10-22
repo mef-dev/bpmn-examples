@@ -20,15 +20,16 @@ model's input and its example, steps and their comments, outcomes.
 ## Run an example
 
 1. In the BPMN designer: File → Open → **CREATE NEW LIBRARY**, name
-   `bpmn_examples`, type **Tenant Public**.
-2. Import `flow-patterns/03-config-as-flow/bpmn-examples-config.bpmn` into it
-   and compile it. Every `flow-patterns` model reads its settings from this
+   `bpmn_examples`, type **Tenant Public**; and a Personal library, if you have
+   none.
+2. IMPORT BPMN `flow-patterns/03-config-as-flow/bpmn-examples-config.bpmn`,
+   Save as into your Personal library, Compile, **Publish** into
+   `bpmn_examples`. Every `flow-patterns` model reads its settings from this
    Flow through its first step, `Get Config`.
-3. Import the model you want into the same library and compile it. A model is
-   imported under its file name.
-4. Start it with the example input. You find it in a comment next to the start
-   event and in the README of the group, together with the response you should
-   get.
+3. The same for the model you want, under its file name.
+4. Run your copy: Build → Debug or Execute with the example input. You find it
+   in a comment next to the start event and in the README of the group,
+   together with the response you should get.
 
 ```mermaid
 flowchart LR

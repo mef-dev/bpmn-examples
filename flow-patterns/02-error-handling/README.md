@@ -12,7 +12,8 @@ handler and its own typed answer — in the caller's language.
 | `#PreviousData` — the only carrier of the exception | the step `handle Exception`: its implementation calls `HandleException` with `"prevData": "#PreviousData"` |
 | A Code Action (`HandleException`) | the model's `CodeActions` (designer: Code Actions; XML: global parameter `CodeActions`) |
 | HTTP 500 on the failure branch | `WorkflowEnvironment.Variables["StatusCode"]` in `HandleException` |
-| The error text in the caller's language | the type `Messages` and the request header `Accept-Language` |
+| The error text in the caller's language | the type `Messages` and the input field `Accept-Language` |
+| A request header as a field of the input | `Accept_Language` in `OrderRequest`: `[FromHeader(Name = "Accept-Language")]` |
 
 ## The model
 
@@ -34,7 +35,7 @@ alike".
 
 | Type | Kind | How it is used |
 |---|---|---|
-| `OrderRequest` | inner, JSON Schema | the process boundary; `Input.orderId` is its only field |
+| `OrderRequest` | inner, native C# | the process boundary: `orderId`, and `Accept_Language` — the request header `Accept-Language`. In the input JSON the field is called `Accept-Language`; a published plugin fills it from the header |
 | `ErrorResponse` | inner, JSON Schema | the shape of a failure: `levelMessage`, `statusCode`, `message`, `state`. The handler fills it and it becomes the process result |
 | `Messages` | inner, native C# | the texts of the errors this Flow raises, one per language |
 | `ExternalConfig` | external | the configuration type, owned by `bpmn-examples-config`; its `language` is the installation's language |
@@ -51,7 +52,8 @@ A valid order goes down the happy path:
 { "orderId": "ORD-1001" }   →   HTTP 200   {"orderId":"ORD-1001"}
 ```
 
-An empty one takes the error branch, and the text follows `Accept-Language`:
+An empty one takes the error branch, and the text follows `Accept-Language`,
+sent in the input — `{ "orderId": "", "Accept-Language": "uk-UA,uk;q=0.9,en;q=0.8" }`:
 
 | `Accept-Language` | HTTP | `message` |
 |---|---|---|
@@ -88,7 +90,8 @@ itself has to change (400) or the caller has to wait (409, 503) — see
 
 **The language comes from the request.** The order is:
 
-1. `Accept-Language` of the request, highest `q` first, by its primary subtag
+1. `Accept-Language` — the input field, or the request header when a start
+   sends only the header — highest `q` first, by its primary subtag
    (`uk-UA` → `uk`);
 2. the installation's language — `language` in the configuration Flow;
 3. English.
@@ -116,11 +119,11 @@ a technical failure — keeps the engine's message as it is.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library and compile it. Build → Execute with
-`{ "orderId": "ORD-1001" }`, then with `{ "orderId": "" }`: the second answer is
-the `ErrorResponse` above, its text in the language the request's
-`Accept-Language` selects (table above).
+Follow [Before you start](../README.md#before-you-start) for this file. Then
+Build → Execute with `{ "orderId": "ORD-1001" }`, then with
+`{ "orderId": "", "Accept-Language": "uk" }`: the second answer is the
+`ErrorResponse` above, in Ukrainian. Change `Accept-Language` to see the other
+rows of the table.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
