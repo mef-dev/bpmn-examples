@@ -1,0 +1,143 @@
+{
+  "name": "idempotent-request",
+  "documentation": "Answers a repeated request with the stored answer: the request id (x-ms-client-request-id) is the key in the platform's distributed cache.",
+  "config": {
+    "flow": "bpmn-examples-config",
+    "libType": "tenant",
+    "library": "bpmn_examples",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "PaymentRequest",
+    "properties": {
+      "orderId": "string",
+      "amount": "number"
+    },
+    "headers": {
+      "x-ms-client-request-id": "string",
+      "Accept-Language": "string"
+    },
+    "example": {
+      "orderId": "ORD-1001",
+      "amount": 25.5,
+      "x-ms-client-request-id": "r-1"
+    },
+    "documentation": "Starts idempotent-request with a PaymentRequest. x-ms-client-request-id and Accept-Language are fields of the input: in the designer they go into the input JSON, a published plugin fills them from the request headers."
+  },
+  "output": "PaymentAnswer",
+  "successCode": 201,
+  "parameters": [
+    {
+      "name": "cacheKey",
+      "type": "string"
+    }
+  ],
+  "steps": [
+    {
+      "id": "T_RequestId",
+      "name": "read the request id",
+      "risky": true,
+      "expression": "// A field of the input: the designer sends it in the input JSON,\n// a published plugin fills it from the request header.\nstring requestId = Input.x_ms_client_request_id;\nif (string.IsNullOrEmpty(requestId))   // a start that sends only the header\n    requestId = ServiceProvider.GetService<HttpRequestService>()?.Request?.Headers?\n        .FirstOrDefault(h => string.Equals(h.Key, \"x-ms-client-request-id\", StringComparison.OrdinalIgnoreCase)).Value;\nif (string.IsNullOrEmpty(requestId))\n    throw new Exception(\"x-ms-client-request-id is required\");\nParameters.cacheKey = $\"idempotent-request:{requestId}\";\nreturn requestId;",
+      "note": "x-ms-client-request-id names the request: a retry after a lost response carries the same id. Without it: 400. The key starts with the Flow's name, because every Flow on the installation shares the cache."
+    },
+    {
+      "id": "T_Lookup",
+      "name": "look for the stored answer",
+      "risky": true,
+      "expression": "var cache = ServiceProvider.GetService<IDistributedCache>()\n    ?? throw new Exception(\"the distributed cache is not available\");\nvar stored = cache.GetString(Parameters.cacheKey);\nif (stored == \"pending\")\n    throw new Exception(\"the same request is in progress\");\nif (stored == null)       // taken: a parallel retry gets 409 while the work runs\n{\n    cache.SetString(Parameters.cacheKey, \"pending\",\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) });\n    return null;\n}\nreturn JsonConvert.DeserializeObject(stored);   // a damaged entry fails here",
+      "note": "Shared by every server of the installation: a retry finds the answer wherever the first call ran. While the work runs the key holds 'pending': a parallel retry gets 409. No cache: 503. The stored answer is read back here, so a damaged entry takes the error branch."
+    },
+    {
+      "id": "G_Answered",
+      "name": "answered before?",
+      "note": "yes: the stored answer goes back unchanged, the work is not done again.",
+      "decision": {
+        "when": "#Previous != null",
+        "end": "Ev_Replayed",
+        "code": 201,
+        "steps": [
+          {
+            "id": "T_Replay",
+            "name": "answer as before",
+            "expression": "// The stored answer, unchanged: a client that lost the response can retry safely.\nvar answer = new JSON(#Previous).Cast<PaymentAnswer>();\nanswer.cacheStatus = \"IsCompleted\";\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"
+          }
+        ]
+      }
+    },
+    {
+      "id": "T_Work",
+      "name": "accept the payment",
+      "expression": "// The work itself, done once per request id: here it only issues a\n// confirmation, so a repeated call is easy to recognise.\nreturn new PaymentAnswer()\n{\n    orderId = Input.orderId,\n    amount = Input.amount,\n    confirmation = Guid.NewGuid().ToString(),\n    acceptedAt = DateTime.UtcNow.ToString(\"o\"),\n    cacheStatus = \"Added\"\n};",
+      "produces": "PaymentAnswer"
+    },
+    {
+      "id": "T_Store",
+      "name": "store the answer",
+      "expression": "// After the work: a failure to store is logged, the answer still goes back.\nvar answer = #Previous;      // stored as it is: the type is not needed here\nvar seconds = Parameters.config.cacheSeconds > 0 ? Parameters.config.cacheSeconds : 300;\ntry\n{\n    ServiceProvider.GetService<IDistributedCache>().SetString(Parameters.cacheKey,\n        JsonConvert.SerializeObject(answer),\n        new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(seconds) });\n}\ncatch (Exception e) { Logger.LogError($\"the answer was not stored: {e.Message}\"); }\nreturn answer;",
+      "note": "Kept for cacheSeconds from the configuration Flow. A failure to store is logged and the answer still goes back; the retry then does the work again."
+    },
+    {
+      "id": "T_Answer",
+      "name": "answer 201",
+      "expression": "// 201: the request created something. cacheStatus is a response header;\n// the answer repeats it so a start through the API shows it too.\nvar answer = (PaymentAnswer)#Previous;\nWorkflowEnvironment.Variables[\"StatusCode\"] = 201;\nif (WorkflowEnvironment.Variables.TryGetValue(\"HttpResponse\", out object raw)\n    && raw is Microsoft.AspNetCore.Http.HttpResponse response)\n    response.Headers[\"cacheStatus\"] = answer.cacheStatus;\nreturn answer;"
+    }
+  ],
+  "types": {
+    "PaymentAnswer": "public class PaymentAnswer\n{\n    public string orderId { get; set; }\n    public double amount { get; set; }\n    /* Issued once per request id: a repeated call gets the same value. */\n    public string confirmation { get; set; }\n    public string acceptedAt { get; set; }\n    /* The cacheStatus response header, repeated in the answer: Added or IsCompleted. */\n    public string cacheStatus { get; set; }\n}"
+  },
+  "messages": {
+    "x-ms-client-request-id is required": {
+      "status": 400,
+      "en": "x-ms-client-request-id is required",
+      "uk": "Потрібен заголовок x-ms-client-request-id",
+      "fr": "L'en-tête x-ms-client-request-id est obligatoire",
+      "pt": "O cabeçalho x-ms-client-request-id é obrigatório",
+      "es": "El encabezado x-ms-client-request-id es obligatorio",
+      "de": "Der Header x-ms-client-request-id ist erforderlich",
+      "ar": "الترويسة x-ms-client-request-id مطلوبة"
+    },
+    "the same request is in progress": {
+      "status": 409,
+      "en": "The same request is still in progress; repeat it later",
+      "uk": "Той самий запит ще виконується; повторіть пізніше",
+      "fr": "La même requête est encore en cours ; réessayez plus tard",
+      "pt": "A mesma solicitação ainda está em andamento; repita mais tarde",
+      "es": "La misma solicitud todavía está en curso; repítala más tarde",
+      "de": "Dieselbe Anfrage wird noch bearbeitet; wiederholen Sie sie später",
+      "ar": "الطلب نفسه لا يزال قيد التنفيذ؛ أعد المحاولة لاحقًا"
+    },
+    "the distributed cache is not available": {
+      "status": 503,
+      "en": "The service is not available now; repeat the request later",
+      "uk": "Сервіс зараз недоступний; повторіть запит пізніше",
+      "fr": "Le service n'est pas disponible pour le moment ; réessayez plus tard",
+      "pt": "O serviço não está disponível agora; repita a solicitação mais tarde",
+      "es": "El servicio no está disponible ahora; repita la solicitud más tarde",
+      "de": "Der Dienst ist derzeit nicht verfügbar; wiederholen Sie die Anfrage später",
+      "ar": "الخدمة غير متاحة الآن؛ أعد الطلب لاحقًا"
+    }
+  },
+  "outcomes": {
+    "Ev_End": {
+      "name": "answered and stored",
+      "title": "ADDED",
+      "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"Added\"\n}",
+      "documentation": "Success, HTTP 201: the work is done and the answer stored; cacheStatus Added."
+    },
+    "Ev_Replayed": {
+      "name": "answered from the cache",
+      "title": "IS_COMPLETED",
+      "value": "{\n  \"orderId\": \"ORD-1001\",\n  \"amount\": 25.5,\n  \"confirmation\": \"7c1d1f2e-3a4b-4c5d-9e8f-0a1b2c3d4e5f\",\n  \"acceptedAt\": \"2026-10-21T14:50:00.0000000Z\",\n  \"cacheStatus\": \"IsCompleted\"\n}",
+      "documentation": "Success, HTTP 201: a repeated request id; the stored answer, cacheStatus IsCompleted."
+    },
+    "failure": {
+      "name": "request refused",
+      "title": "NO_REQUEST_ID",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 400,\n  \"message\": \"x-ms-client-request-id is required\",\n  \"state\": \"1\"\n}",
+      "documentation": "Refusal: HTTP 400 without x-ms-client-request-id, 409 while the same request is in progress, 503 when the cache is not available; message in the caller's language."
+    }
+  }
+}
