@@ -14,6 +14,9 @@
     "properties": {
       "orderId": "string"
     },
+    "headers": {
+      "Accept-Language": "string"
+    },
     "example": {
       "orderId": "ORD-1001"
     }

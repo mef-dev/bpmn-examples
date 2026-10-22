@@ -9,7 +9,7 @@ the answer.
 
 | Capability | Where to look |
 |---|---|
-| Reading a request header in a Flow | `read the request id` |
+| A request header as a field of the input | `PaymentRequest`: `x_ms_client_request_id` and `Accept_Language` with `[FromHeader]`; read in `read the request id` |
 | The platform's distributed cache (`IDistributedCache`) | `look for the stored answer`, `store the answer` |
 | An early answer through a decision | `answered before?` → `answer as before` → `answered from the cache` |
 | `cacheStatus`: `Added` or `IsCompleted` | the response header in a published plugin, repeated in the answer |
@@ -39,7 +39,7 @@ imported into the tenant library `bpmn_examples`.
 
 | Type | Kind | How it is used |
 |---|---|---|
-| `PaymentRequest` | inner, JSON Schema | the process boundary: `orderId`, `amount` |
+| `PaymentRequest` | inner, native C# | the process boundary: `orderId`, `amount`, and the request headers `x-ms-client-request-id`, `Accept-Language` as fields. In the input JSON they keep the header names; a published plugin fills them from the headers |
 | `PaymentAnswer` | inner, native C# | the answer: `orderId`, `amount`, `confirmation`, `acceptedAt`, `cacheStatus` |
 | `ErrorResponse` | inner, JSON Schema | the refusal: `levelMessage`, `statusCode`, `message`, `state` |
 | `Messages` | inner, native C# | the refusal texts, one per language, and their HTTP status |
@@ -50,13 +50,19 @@ reads the header to the step that stores the answer.
 
 ## What you should get back
 
+The input of the first call:
+
+```
+{ "orderId": "ORD-1001", "amount": 25.5, "x-ms-client-request-id": "r-1" }
+```
+
 | Call | `x-ms-client-request-id` | HTTP | Answer |
 |---|---|---|---|
 | first | `r-1` | 201 | a new `confirmation`, `"cacheStatus":"Added"` |
 | again | `r-1` | 201 | the **same** `confirmation` and `acceptedAt`, `"cacheStatus":"IsCompleted"` |
 | another | `r-2` | 201 | a new `confirmation`, `"cacheStatus":"Added"` |
 | again while `r-1` still runs | `r-1` | 409 | `The same request is still in progress; repeat it later` |
-| no header, `Accept-Language: uk` | — | 400 | `"message":"Потрібен заголовок x-ms-client-request-id"` |
+| without it, `"Accept-Language": "uk"` | — | 400 | `"message":"Потрібен заголовок x-ms-client-request-id"` |
 | the cache is not available | `r-3` | 503 | `The service is not available now; repeat the request later` |
 
 409 appears only when a retry arrives within 60 seconds of a first call that
@@ -96,10 +102,11 @@ answer still goes back; a retry then does the work again.
 **The retention time is a setting.** `cacheSeconds` comes from the configuration
 Flow: after that time the same id is a new request.
 
-**The header is read where the request is.** A Flow started on the platform
-finds the request headers in `HttpRequestService`; a Flow published as a plugin
-endpoint has the HTTP request itself (`WorkflowEnvironment.Variables["HttpRequest"]`).
-The step reads whichever is there.
+**The header is a field of the input.** `x_ms_client_request_id` carries
+`[FromHeader(Name = "x-ms-client-request-id")]`: a published plugin fills it
+from the request header, and from the designer you send it in the input JSON.
+A start that sends only the header is read from the request
+(`HttpRequestService`).
 
 ## Where newcomers stumble
 
@@ -113,12 +120,12 @@ The step reads whichever is there.
 
 ## Run it
 
-Follow [Before you start](../README.md#before-you-start). Then import this file
-into the same library and compile it. Build → Execute sends no
-`x-ms-client-request-id`, so the answer there is the refusal: HTTP 400,
-`x-ms-client-request-id is required`. The stored answer appears when the Flow,
-published as a plugin endpoint (designer: **Publish**), is called twice with the
-same header.
+Follow [Before you start](../README.md#before-you-start) for this file. Then
+Build → Execute twice with
+`{ "orderId": "ORD-1001", "amount": 25.5, "x-ms-client-request-id": "r-1" }`:
+the first answer has `"cacheStatus":"Added"`, the second the same
+`confirmation` and `"cacheStatus":"IsCompleted"`. Without
+`x-ms-client-request-id` the answer is HTTP 400.
 
 ---
 For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).
