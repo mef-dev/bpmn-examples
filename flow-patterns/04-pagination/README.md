@@ -17,6 +17,8 @@ them.
 
 ## The model
 
+![paged-fetch](paged-fetch.svg)
+
 ```
 start → Get Config → Parse Config → plan the pages → [ handle one page ] → end
             ↓             ↓ (on error)                 (Multi Instance)

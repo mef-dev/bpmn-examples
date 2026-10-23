@@ -19,6 +19,8 @@ the answer.
 
 ## The model
 
+![idempotent-request](idempotent-request.svg)
+
 ```
 start → Get Config → Parse Config → read the request id → look for the stored answer → answered before?
                                                                                     │ no            │ yes

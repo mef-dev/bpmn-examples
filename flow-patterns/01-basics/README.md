@@ -16,6 +16,8 @@ through one step, and returns typed output.
 
 ## The model
 
+![first-flow](first-flow.svg)
+
 ```
 start → Get Config → Parse Config → compose the greeting → end
             ↓             ↓ (on error)

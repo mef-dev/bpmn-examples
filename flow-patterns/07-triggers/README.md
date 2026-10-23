@@ -14,6 +14,8 @@ start event turns the model into an HTTP endpoint.
 
 ## The model
 
+![http-start](http-start.svg)
+
 ```
 start (POST /webhook) → Get Config → Parse Config → accept the call → end
                             ↓             ↓ (on error)

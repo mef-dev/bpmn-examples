@@ -16,6 +16,8 @@ on as it lands, keeps memory flat and lets the caller see progress.
 
 ## The model
 
+![stream-response](stream-response.svg)
+
 ```
 start → Get Config → Parse Config → open the stream → read the stream line by line → end
             ↓             ↓               ↓                    │

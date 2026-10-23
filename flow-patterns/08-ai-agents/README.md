@@ -16,6 +16,8 @@ without rereading a wall of concatenation.
 
 ## The model
 
+![structured-prompt](structured-prompt.svg)
+
 ```
 start → Get Config → Parse Config → compose the prompt → end
             ↓             ↓ (on error)

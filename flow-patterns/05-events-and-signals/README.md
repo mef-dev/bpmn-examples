@@ -16,6 +16,8 @@ working.
 
 ## The model
 
+![raise-event](raise-event.svg)
+
 ```
 start → Get Config → Parse Config → do the work in parts → end
             ↓             ↓                 │

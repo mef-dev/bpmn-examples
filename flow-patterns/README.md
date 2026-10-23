@@ -248,7 +248,10 @@ Each group's README says the same four things:
 - **what you should get back** for the example input;
 - **why it is built that way**, and where newcomers usually trip.
 
-## The file beside each model
+## The files beside each model
+
+`<name>.svg` is the diagram of `<name>.bpmn`, drawn with bpmn.io: it shows the
+model without opening the designer.
 
 Next to every `<name>.bpmn` lies `<name>.spec.json`: the model's intent — the
 input and its example, each step with the comment that explains it, the stores,
