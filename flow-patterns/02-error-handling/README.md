@@ -17,6 +17,8 @@ handler and its own typed answer — in the caller's language.
 
 ## The model
 
+![error-as-branch](error-as-branch.svg)
+
 ```
 start → Get Config → Parse Config → validate the order → end
             ↓             ↓                 ↓

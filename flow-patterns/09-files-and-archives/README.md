@@ -17,6 +17,8 @@ on the diagram, and what you hand back is a link — not the bytes.
 
 ## The model
 
+![archive-and-link](archive-and-link.svg)
+
 ```
 start → Get Config → Parse Config → make sure the folder is there → write one file into it
                                      → pack it and issue a link → end

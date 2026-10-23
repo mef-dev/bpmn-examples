@@ -21,6 +21,10 @@ which environment it runs in.
 
 ## The two models
 
+![bpmn-examples-config](bpmn-examples-config.svg)
+
+![use-config](use-config.svg)
+
 ```
 bpmn-examples-config.bpmn:  start → resolve the settings → end
                                        ↓ (on error)
