@@ -1,0 +1,102 @@
+# 08 · A prompt is data, not a string
+
+The step that talks to a model is the easy half. The half worth learning is
+building the request as typed data, so it can be reviewed, tested and changed
+without rereading a wall of concatenation.
+
+## What this example demonstrates
+
+| Capability | Where to look |
+|---|---|
+| A platform type reached by reference | `types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel` |
+| Declaring a platform library | the `ai` entry in `UsedLibs` |
+| Giving an external type a short alias | `ChatMessage` in `ExternalTypes` |
+| Building a message list instead of a string | `compose the prompt` (`T_Compose`) |
+| Returning a collection as the process result | the `return messages;` at the end of `compose the prompt` |
+
+## The model
+
+![structured-prompt](structured-prompt.svg)
+
+```
+start → Get Config → Parse Config → compose the prompt → end
+            ↓             ↓ (on error)
+            └─────────────┴──→ handle Exception → end
+```
+
+`Get Config` calls the Flow `bpmn-examples-config`: the file
+[`03-config-as-flow/bpmn-examples-config.bpmn`](../03-config-as-flow/bpmn-examples-config.bpmn),
+imported into the tenant library `bpmn_examples`.
+
+## Types it declares
+
+| Type | Kind | How it is used |
+|---|---|---|
+| `ChatMessage` | external → `types://external/ai/UCP.Common.AI.ChatCompletionsRequestMessageViewModel` | the platform's own chat message. Aliased short so the code stays readable; the full name lives in one line of `ExternalTypes` |
+| `PromptRequest` | inner, JSON Schema | the process boundary; `question` and `tone` |
+| `ErrorResponse` | inner, JSON Schema | the shape of a failure |
+| `ExternalConfig` | external | the configuration type |
+
+Two different external types sit side by side here, and the difference matters.
+`ExternalConfig` reaches into **another Flow** (`types://external/ConfigActivity/Config`,
+where `UsedLibs` binds `ConfigActivity` to the Flow `bpmn-examples-config`).
+`ChatMessage` reaches into a **platform library**
+(`types://external/ai/<full .NET name>`, where `UsedLibs` binds `ai` to
+`libs://common/ai`). Same syntax, two sources; the platform library needs no
+import.
+
+## What you should get back
+
+```
+{ "question": "What is BPMN?", "tone": "plain" }
+```
+```
+HTTP 200
+[{"role":"system","content":"Answer in a plain tone.","tool_calls":null,
+  "tool_call_id":null,"name":null},
+ {"role":"user","content":"What is BPMN?","tool_calls":null,
+  "tool_call_id":null,"name":null}]
+```
+
+The fields you never set come back as `null` — that is the platform's own type
+answering, not a shape this file invented. Feeding that array to a model is one
+more step; getting the array right is what this example is for.
+
+## What this example does not do
+
+**It does not call the model.** The `AI/Completions` built-in compiles and can
+be called from a Flow, but it answers only from a chat model installed on the
+platform installation itself. Where no such model is installed, the call ends on the error branch.
+The example therefore stops at a correctly built, correctly typed request.
+
+## Why it is built this way
+
+**Messages are a list, not a concatenation.** The system message sets behaviour,
+the user message asks. Kept apart, either can be changed, reviewed or tested
+alone; glued into one string, neither can.
+
+**The type is referenced, not copied.** Declaring your own `ChatMessage` class
+would work until the platform's version gains a field. The reference cannot drift.
+
+**The alias is short on purpose.** `ChatCompletionsRequestMessageViewModel` in
+every line would bury the logic; the long name appears once.
+
+## Where newcomers stumble
+
+- **Forgetting the library.** `types://external/ai/…` resolves only if `ai` is in
+  `UsedLibs`. Without it the alias silently becomes `#error` and the failure
+  arrives later, as an unrelated-looking compile error.
+- **Building the prompt in the caller.** Then two callers drift apart. Let the
+  Flow own the shape.
+- **Expecting the platform type to be minimal.** It has fields you will not use;
+  they come back as `null` and that is correct.
+
+## Run it
+
+Follow [Before you start](../README.md#before-you-start) for this file: IMPORT BPMN →
+Save as into your Personal library → Compile → Publish into `bpmn_examples`.
+Then Build → Execute → **Example** → Run with
+`{"question":"What is BPMN?","tone":"plain"}`: two typed chat messages come back.
+
+---
+For how the types in this example are designed, see [TYPE-DESIGN.md](../TYPE-DESIGN.md).

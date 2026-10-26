@@ -1,0 +1,58 @@
+{
+  "name": "error-as-branch",
+  "config": {
+    "flow": "bpmn-examples-config",
+    "libType": "tenant",
+    "library": "bpmn_examples",
+    "alias": "ConfigActivity",
+    "type": "Config",
+    "typeAlias": "ExternalConfig",
+    "version": "#latest"
+  },
+  "input": {
+    "title": "OrderRequest",
+    "properties": {
+      "orderId": "string"
+    },
+    "headers": {
+      "Accept-Language": "string"
+    },
+    "example": {
+      "orderId": "ORD-1001"
+    }
+  },
+  "steps": [
+    {
+      "id": "T_Validate",
+      "name": "validate the order",
+      "risky": true,
+      "expression": "// Let it throw. Catching here would hide the failure from the diagram\n// and the process would carry on down the happy path with no order.\nif (string.IsNullOrEmpty(Input.orderId))\n    throw new Exception(\"orderId is required\");\n\nLogger.LogInformation($\"order {Input.orderId} accepted\");\nreturn new OrderRequest() { orderId = Input.orderId };",
+      "note": "The step throws instead of catching. Catching here would hide the failure from the diagram, and the process would carry on down the happy path with no order."
+    }
+  ],
+  "documentation": "An error is a branch of the diagram, with its own typed answer.",
+  "outcomes": {
+    "success": {
+      "title": "ACCEPTED",
+      "value": "{\n  \"orderId\": \"ORD-1001\"\n}",
+      "name": "order accepted"
+    },
+    "failure": {
+      "title": "REJECTED",
+      "value": "{\n  \"levelMessage\": \"11\",\n  \"statusCode\": 500,\n  \"message\": \"orderId is required\",\n  \"state\": \"1\"\n}",
+      "documentation": "Failure, HTTP 500: the order has no orderId. message is in the caller's language (Accept-Language), else in the installation's language, else in English.",
+      "name": "order rejected"
+    }
+  },
+  "messages": {
+    "orderId is required": {
+      "en": "orderId is required",
+      "uk": "Потрібно вказати orderId",
+      "fr": "orderId est obligatoire",
+      "pt": "orderId é obrigatório",
+      "es": "orderId es obligatorio",
+      "de": "orderId ist erforderlich",
+      "ar": "الحقل orderId مطلوب"
+    }
+  }
+}

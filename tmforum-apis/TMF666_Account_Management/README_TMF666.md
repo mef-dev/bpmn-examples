@@ -1,0 +1,13 @@
+# Account Management
+
+The Account REST Application Programming Interface (API) establishes a standardized mechanism for the administration of billing and settlement accounts, as well as financial accounting (account receivable), within the realms of Business-to-Business (B2B) or Business-to-Business-to-Consumer (B2B2C) contexts. This API facilitates the creation, modification, and retrieval of account information, operating within the scope of both Business-to-Consumer relationships (e.g., the establishment of mass market customer billing accounts) and Business-to-Business relationships (e.g., the establishment of billing accounts for Interconnect partners or B2B customers). It is imperative to note that while accounts pertain to customer parties, the administration of parties falls outside the purview of this particular API.
+
+In adherence to the TM Forum (TMF) design, diverse account entities such as FinancialAccount, PartyAccount, BillingAccount, and SettlementAccount exist. However, the implementation incorporated within the WideCoup Business Support System (BSS) exclusively encompasses the BillingAccount entity. Access to all accounts can be facilitated utilizing either the Account internal identifier or the Customer ID in cases involving external identifiers. It is important to highlight that, in the event of creating a BillingAccount from inception, the utilization of Customer entity creation is anticipated, accompanied by external identifiers for future synchronization purposes.
+
+## Native Implementation within the WideCoup BSS
+
+Over recent years, the WideCoup BSS API [BSS.Entities](https://github.com/mef-dev/bss-entities) has matured into an open API platform with multiple implementations by diverse external system consumers. The native implementation of TMF Account management relies on time-tested Entities and Actions, specifically `Accounts`, `Customers\Activate`, and `Customers\Deactivate`.
+
+## Account Management Functionality
+
+From a technical perspective, the Account Management functionality supports the *BillingAccount* methods based on [BPMN Workflows](https://github.com/mef-dev/bpmn-examples/tree/dev/tmforum-apis/TMF666_Account_Management), which serve to both create and update an Account, along with the associated Customer records, throughout the Account lifecycle. The 'state' attribute monitors the Billing Account lifecycle, encompassing typical values such as `Creating`, `Active`, `Temporarily closed`, `Closed`, `Migrated`, or `Synced`. It is pertinent to recognize that certain implementations may extend the list of states to accommodate specific requirements.
