@@ -7,6 +7,8 @@
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"key": "EUR"}</gp:globalParameter>
+    <gp:globalParameter name="ExecuteParamas">{"key": "EUR"}</gp:globalParameter>
   </extensionElements>
   <process id="Process_use_config" name="use-config">
       <documentation>Builds a call out of settings taken from the configuration Flow.

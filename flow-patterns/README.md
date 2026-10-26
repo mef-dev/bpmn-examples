@@ -65,12 +65,17 @@ Do step 1 once, step 2 once, and steps 3–5 for each example.
 4. **Compile and publish it.** Build → **Compile**: no errors. **Publish**:
    Library `bpmn_examples`, the same name.
 5. **Run it** — your copy in the Personal library. Build → **Debug** (Ctrl+D):
-   **Example** puts the example input of the model into the input; run it.
-   The designer shows the answer and the path the run took: one block per step
-   on the Stage strip, with its result and duration. Build → **Execute** →
-   **Example** → **Run** gives the answer only. The answer is the one under
-   *What you should get back* in the group's README; other inputs from that
-   README go into the same field.
+   **Parameters** already holds the example input of the model (**Example**
+   puts it back after an edit); **Run**. The designer shows the answer and the
+   path the run took: one block per step on the Stage strip, with its result and
+   duration. Build → **Execute** → **Run** gives the answer only. The answer is
+   the one under *What you should get back* in the group's README; other inputs
+   from that README go into the same field.
+
+   A run that answers `orderId is required` or `x-ms-client-request-id is
+   required` was started with an input that lacks that field — for instance a
+   copy imported before the example input was stored in the model. Press
+   **Example**, or import the file again.
 
 A request header an example reads (`Accept-Language`, `x-ms-client-request-id`)
 is a field of its input: in Debug and Execute you put it into the input JSON,

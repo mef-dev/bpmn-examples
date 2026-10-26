@@ -7,6 +7,8 @@
     <gp:globalParameter name="Functions">[]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}, {"name": "ai", "link": "libs://common/ai", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"question": "What is BPMN?", "tone": "plain"}</gp:globalParameter>
+    <gp:globalParameter name="ExecuteParamas">{"question": "What is BPMN?", "tone": "plain"}</gp:globalParameter>
   </extensionElements>
   <process id="Process_structured_prompt" name="structured-prompt">
       <documentation>Builds the model request as typed data instead of a glued string.

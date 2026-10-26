@@ -7,6 +7,8 @@
     <gp:globalParameter name="Functions">[{"name": "RestApi/GET", "initCode": "functions://default/RestApi/Get", "initParameters": [{"name": "Uri", "type": "Uri", "required": true, "nullable": false}, {"name": "Login", "type": "String", "required": false, "nullable": false}, {"name": "Password", "type": "String", "required": false, "nullable": false}, {"name": "Headers", "type": "StringDictionary", "required": false, "nullable": false}, {"name": "Encoding", "type": "String", "required": false, "nullable": false}, {"name": "Timeout", "type": "int", "required": false, "nullable": false}, {"name": "Result", "type": "HttpResponse", "required": false, "nullable": false}]}]</gp:globalParameter>
     <gp:globalParameter name="UsedLibs">[{"name": "ConfigActivity", "link": "activities://bpmn-mnemo/tenant/bpmn_examples/bpmn-examples-config/#latest", "version": "", "entities": []}]</gp:globalParameter>
     <gp:globalParameter name="Parameters">[{"name": "config", "type": "ExternalConfig", "initialValue": ""}]</gp:globalParameter>
+    <gp:globalParameter name="DebugParamas">{"topic": "USD"}</gp:globalParameter>
+    <gp:globalParameter name="ExecuteParamas">{"topic": "USD"}</gp:globalParameter>
   </extensionElements>
   <process id="Process_stream_response" name="stream-response">
       <documentation>Reads a response as it arrives and passes each chunk on.
